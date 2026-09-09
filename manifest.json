@@ -1,0 +1,32 @@
+﻿{
+  "name": "Dhikr Pro v2 - Adhkars & Tasbih",
+  "short_name": "Dhikr Pro",
+  "description": "Votre compagnon quotidien de Dhikr, Tasbih et invocations authentiques.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#020617",
+  "theme_color": "#10b981",
+  "categories": ["lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Matin & Soir",
+      "url": "./index.html?cat=morning_evening",
+      "description": "Adhkars du matin et du soir"
+    },
+    {
+      "name": "Après la Prière",
+      "url": "./index.html?cat=prayer",
+      "description": "Tasbih post-prière (33x)"
+    }
+  ]
+}

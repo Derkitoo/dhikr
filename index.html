@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dhikr Pro - Adhkars & Tasbih</title>
+    <title>Dhikr Pro v2 - Adhkars & Tasbih</title>
     
-    <!-- Confetti pour les célébrations -->
+    <!-- PWA & Métadonnées -->
+    <meta name="description" content="Application de Dhikr, Tasbih et invocations authentiques avec audio hors-ligne, modes personnalisés et statistiques.">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
+
+    <!-- Confetti pour les célébrations de boucle -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <!-- Polices -->
+    <!-- Polices Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- PWA Manifest & Icons (Injectés dynamiquement) -->
-    <link id="manifest-link" rel="manifest" href="">
-    <meta name="theme-color" content="#10b981">
-    <link rel="apple-touch-icon" id="apple-touch-icon" href="">
-
-    <!-- Icones Phosphor -->
+    <!-- Icônes Phosphor -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <!-- Tailwind CSS -->
@@ -28,16 +30,18 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                         arabic: ['Amiri', 'serif'],
                     },
                     colors: {
                         primary: {
+                            300: 'var(--color-primary-300)',
                             400: 'var(--color-primary-400)',
                             500: 'var(--color-primary-500)',
                             600: 'var(--color-primary-600)',
                         },
                         surface: 'var(--color-surface)',
+                        surfaceelevated: 'var(--color-surface-elevated)',
                         background: 'var(--color-background)',
                         card: 'var(--color-card)',
                         textmain: 'var(--color-text-main)',
@@ -45,8 +49,8 @@
                         bordercolor: 'var(--color-border)',
                     },
                     boxShadow: {
-                        'neon': '0 0 20px var(--color-primary-400)',
-                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.1)',
+                        'neon': '0 0 25px var(--color-primary-500-alpha)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.25)',
                     }
                 }
             }
@@ -57,41 +61,66 @@
         /* Moteur de Thèmes via Variables CSS */
         :root {
             /* Thème 1 : Midnight Emerald (Par défaut) */
-            --color-primary-400: #34d399; /* teal-400 */
-            --color-primary-500: #10b981; /* emerald-500 */
-            --color-primary-600: #047857; /* emerald-700 */
-            --color-surface: #0f172a;     /* slate-900 */
-            --color-background: #020617;  /* slate-950 */
-            --color-card: rgba(30, 41, 59, 0.7);
-            --color-text-main: #f1f5f9;
+            --color-primary-300: #6ee7b7;
+            --color-primary-400: #34d399;
+            --color-primary-500: #10b981;
+            --color-primary-600: #047857;
+            --color-primary-500-alpha: rgba(16, 185, 129, 0.25);
+            --color-surface: #0f172a;
+            --color-surface-elevated: #1e293b;
+            --color-background: #020617;
+            --color-card: rgba(15, 23, 42, 0.75);
+            --color-text-main: #f8fafc;
             --color-text-muted: #94a3b8;
             --color-border: rgba(255, 255, 255, 0.08);
         }
 
         [data-theme="kaaba"] {
-            /* Thème 2 : Kaaba Black (Noir & Or) */
-            --color-primary-400: #fbbf24; /* amber-400 */
-            --color-primary-500: #f59e0b; /* amber-500 */
-            --color-primary-600: #b45309; /* amber-700 */
-            --color-surface: #000000;
-            --color-background: #0a0a0a;  /* neutral-950 */
-            --color-card: rgba(23, 23, 23, 0.8);
+            /* Thème 2 : Kaaba Gold (Noir & Doré Ambré) */
+            --color-primary-300: #fde047;
+            --color-primary-400: #fbbf24;
+            --color-primary-500: #f59e0b;
+            --color-primary-600: #b45309;
+            --color-primary-500-alpha: rgba(245, 158, 11, 0.25);
+            --color-surface: #121212;
+            --color-surface-elevated: #1c1917;
+            --color-background: #050505;
+            --color-card: rgba(20, 20, 20, 0.85);
             --color-text-main: #ffffff;
-            --color-text-muted: #a3a3a3;
-            --color-border: rgba(245, 158, 11, 0.15); /* or transparent */
+            --color-text-muted: #a8a29e;
+            --color-border: rgba(245, 158, 11, 0.18);
         }
 
         [data-theme="medina"] {
-            /* Thème 3 : Medina Green (Clair & Vert) */
-            --color-primary-400: #4ade80; /* green-400 */
-            --color-primary-500: #22c55e; /* green-500 */
-            --color-primary-600: #15803d; /* green-700 */
+            /* Thème 3 : Medina Light (Clair, Pur & Sérénité) */
+            --color-primary-300: #86efac;
+            --color-primary-400: #4ade80;
+            --color-primary-500: #16a34a;
+            --color-primary-600: #15803d;
+            --color-primary-500-alpha: rgba(22, 163, 74, 0.2);
             --color-surface: #ffffff;
-            --color-background: #f0fdf4;  /* green-50 */
-            --color-card: rgba(255, 255, 255, 0.9);
-            --color-text-main: #1e293b;   /* slate-800 */
-            --color-text-muted: #64748b;  /* slate-500 */
-            --color-border: rgba(34, 197, 94, 0.2);
+            --color-surface-elevated: #f1f5f9;
+            --color-background: #f8fafc;
+            --color-card: rgba(255, 255, 255, 0.95);
+            --color-text-main: #0f172a;
+            --color-text-muted: #64748b;
+            --color-border: rgba(22, 163, 74, 0.15);
+        }
+
+        [data-theme="celestial"] {
+            /* Thème 4 : Celestial Blue (Bleu Nuit Profond & Cyan) */
+            --color-primary-300: #67e8f9;
+            --color-primary-400: #22d3ee;
+            --color-primary-500: #06b6d4;
+            --color-primary-600: #0e7490;
+            --color-primary-500-alpha: rgba(6, 182, 212, 0.25);
+            --color-surface: #0a192f;
+            --color-surface-elevated: #112240;
+            --color-background: #020c1b;
+            --color-card: rgba(10, 25, 47, 0.85);
+            --color-text-main: #e6f1ff;
+            --color-text-muted: #8892b0;
+            --color-border: rgba(34, 211, 238, 0.15);
         }
 
         body {
@@ -100,11 +129,11 @@
             -webkit-tap-highlight-color: transparent;
             background-color: var(--color-background);
             color: var(--color-text-main);
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
-        
+
         .tap-effect {
-            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.12s;
         }
         .tap-effect:active {
             transform: scale(0.94);
@@ -112,279 +141,772 @@
 
         .glass-card {
             background: var(--color-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--color-border);
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
-        
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
 
-        /* Animation Toast */
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px) translateX(-50%); }
-            to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+            width: 4px;
         }
-        .toast-enter { animation: slideUpFade 0.4s ease forwards; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 999px;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-12px) translateX(-50%) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) translateX(-50%) scale(1); }
+        }
+        .toast-show { animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center relative overflow-x-hidden" data-theme="emerald">
+<body class="min-h-screen flex flex-col items-center relative overflow-x-hidden font-sans" data-theme="emerald">
 
-    <!-- En-tête fixe -->
-    <header class="w-full max-w-md mx-auto sticky top-0 glass-card z-40 px-5 py-4 flex justify-between items-center border-b border-bordercolor shadow-glass">
-        <div class="flex flex-col">
-            <h1 class="text-2xl font-bold text-primary-500">Adhkars</h1>
-            <p class="text-[11px] text-textmuted font-medium tracking-widest uppercase mt-0.5">Quotidien</p>
+    <!-- En-tête supérieur fixe -->
+    <header class="w-full max-w-lg mx-auto sticky top-0 glass-card z-40 px-5 py-3.5 flex justify-between items-center border-b border-bordercolor shadow-glass">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 shadow-inner">
+                <i class="ph-fill ph-circle-notch text-2xl"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-1.5">
+                    <h1 class="text-xl font-extrabold tracking-tight text-textmain">Dhikr<span class="text-primary-500">Pro</span></h1>
+                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30">v2</span>
+                </div>
+                <p class="text-[11px] text-textmuted font-medium tracking-wide">Compagnon de Tasbih & Invocations</p>
+            </div>
         </div>
         
-        <div class="flex items-center gap-3">
-            <!-- Streak (Flamme) -->
-            <div class="flex flex-col items-center bg-surface/50 px-3 py-1.5 rounded-xl border border-bordercolor shadow-inner" onclick="openSettings()" style="cursor: pointer;">
-                <div class="flex items-center gap-1">
-                    <span class="text-orange-500 animate-pulse">🔥</span>
-                    <span id="streak-counter" class="text-lg font-bold text-textmain tabular-nums">0</span>
-                </div>
-                <span class="text-[8px] text-textmuted font-bold uppercase tracking-wider">Série</span>
-            </div>
+        <div class="flex items-center gap-2">
+            <!-- Série quotidienne (Streak) -->
+            <button onclick="openStatsModal()" class="flex items-center gap-1.5 bg-surface/70 hover:bg-surface px-3 py-1.5 rounded-2xl border border-bordercolor shadow-inner tap-effect" title="Voir ma série et mes statistiques">
+                <span class="text-orange-500 text-base animate-bounce">🔥</span>
+                <span id="streak-counter" class="text-sm font-bold text-textmain tabular-nums">0</span>
+                <span class="text-[9px] text-textmuted uppercase tracking-wider font-semibold">j</span>
+            </button>
             
-            <!-- Bouton Paramètres -->
-            <button onclick="openSettings()" class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-textmuted hover:text-primary-500 tap-effect border border-bordercolor">
-                <i class="ph ph-gear text-xl"></i>
+            <!-- Recherche rapide -->
+            <button onclick="toggleSearchBar()" class="w-10 h-10 rounded-2xl bg-surface/70 hover:bg-surface flex items-center justify-center text-textmuted hover:text-primary-500 tap-effect border border-bordercolor" title="Rechercher">
+                <i class="ph ph-magnifying-glass text-lg"></i>
+            </button>
+
+            <!-- Paramètres -->
+            <button onclick="openSettings()" class="w-10 h-10 rounded-2xl bg-surface/70 hover:bg-surface flex items-center justify-center text-textmuted hover:text-primary-500 tap-effect border border-bordercolor" title="Paramètres">
+                <i class="ph ph-sliders text-lg"></i>
             </button>
         </div>
     </header>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-primary-600 text-white px-6 py-3 rounded-full shadow-lg font-medium text-sm hidden flex items-center gap-2 border border-primary-400">
-        <i class="ph ph-info text-lg"></i>
-        <span id="toast-msg">Nouveau jour ! Compteurs réinitialisés.</span>
+    <!-- Barre de recherche dépliable -->
+    <div id="search-bar-container" class="w-full max-w-lg mx-auto px-4 pt-3 hidden transition-all">
+        <div class="relative flex items-center">
+            <i class="ph ph-magnifying-glass absolute left-4 text-textmuted text-lg"></i>
+            <input type="text" id="search-input" oninput="onSearchChange(this.value)" placeholder="Rechercher par mot-clé (arabe, français, phonétique)..." class="w-full bg-surface/80 border border-bordercolor rounded-2xl pl-11 pr-10 py-3 text-sm text-textmain outline-none focus:border-primary-500 transition-colors shadow-inner">
+            <button onclick="clearSearch()" class="absolute right-3 w-7 h-7 flex items-center justify-center text-textmuted hover:text-textmain">
+                <i class="ph ph-x text-sm"></i>
+            </button>
+        </div>
     </div>
 
-    <!-- Conteneur principal -->
-    <main id="app-container" class="w-full max-w-md mx-auto px-4 py-8 pb-32 flex flex-col gap-6">
-        <!-- Les cartes (Injectées par JS) -->
+    <!-- Barre de Filtres par Catégorie -->
+    <nav class="w-full max-w-lg mx-auto px-4 pt-4 overflow-x-auto custom-scrollbar">
+        <div class="flex items-center gap-2 pb-1 min-w-max">
+            <button onclick="setCategory('all')" data-cat="all" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon">
+                <i class="ph ph-squares-four"></i> Tous
+            </button>
+            <button onclick="setCategory('daily')" data-cat="daily" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
+                <i class="ph ph-sun"></i> Quotidien
+            </button>
+            <button onclick="setCategory('morning_evening')" data-cat="morning_evening" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
+                <i class="ph ph-cloud-sun"></i> Matin & Soir
+            </button>
+            <button onclick="setCategory('prayer')" data-cat="prayer" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
+                <i class="ph ph-hands-praying"></i> Post-Prière
+            </button>
+            <button onclick="setCategory('sleep')" data-cat="sleep" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
+                <i class="ph ph-moon-stars"></i> Sommeil
+            </button>
+            <button onclick="setCategory('favorites')" data-cat="favorites" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
+                <i class="ph ph-star"></i> Favoris
+            </button>
+            <button onclick="setCategory('custom')" data-cat="custom" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
+                <i class="ph ph-sparkle"></i> Mes Dhikrs
+            </button>
+        </div>
+    </nav>
+
+    <!-- Bannière récapitulative du jour -->
+    <div class="w-full max-w-lg mx-auto px-4 pt-3">
+        <div class="glass-card rounded-2xl p-3 px-4 flex justify-between items-center border border-bordercolor/60">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center font-bold text-sm">
+                    <i class="ph-fill ph-check-circle text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Complétés aujourd'hui</span>
+                    <span id="daily-total-counter" class="text-base font-extrabold text-textmain tabular-nums">0 invocations</span>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Grand Total</span>
+                <span id="lifetime-counter-banner" class="text-base font-extrabold text-primary-400 tabular-nums">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-surfaceelevated text-textmain px-5 py-3 rounded-2xl shadow-2xl font-medium text-xs hidden flex items-center gap-2.5 border border-primary-500/40 backdrop-blur-md">
+        <i id="toast-icon" class="ph-fill ph-check-circle text-primary-400 text-lg"></i>
+        <span id="toast-msg">Opération effectuée</span>
+    </div>
+
+    <!-- Conteneur principal des cartes -->
+    <main id="app-container" class="w-full max-w-lg mx-auto px-4 py-4 pb-32 flex flex-col gap-5">
+        <!-- Cartes injectées dynamiquement par JS -->
     </main>
 
-    <!-- Bouton pour ajouter un Dhikr personnalisé -->
-    <div class="w-full max-w-md mx-auto px-4 pb-32">
-        <button onclick="openAddModal()" class="w-full py-4 rounded-[24px] glass-card border-dashed border-2 border-bordercolor text-textmuted hover:text-primary-500 hover:border-primary-500/50 flex flex-col items-center justify-center gap-2 tap-effect transition-colors group">
-            <div class="w-10 h-10 rounded-full bg-surface group-hover:bg-primary-500/10 flex items-center justify-center transition-colors">
-                <i class="ph ph-plus text-xl"></i>
+    <!-- Bouton flottant / pied de page : Ajouter Dhikr -->
+    <div class="w-full max-w-lg mx-auto px-4 pb-28">
+        <button onclick="openAddModal()" class="w-full py-4 rounded-3xl glass-card border-dashed border-2 border-bordercolor hover:border-primary-500/50 text-textmuted hover:text-primary-500 flex items-center justify-center gap-3 tap-effect transition-all group">
+            <div class="w-9 h-9 rounded-2xl bg-surface group-hover:bg-primary-500/10 flex items-center justify-center text-primary-500 transition-colors border border-bordercolor">
+                <i class="ph ph-plus-bold text-lg"></i>
             </div>
-            <span class="text-sm font-semibold tracking-wide">Créer un Dhikr personnalisé</span>
+            <span class="text-sm font-bold tracking-wide">Créer une invocation personnalisée</span>
         </button>
     </div>
 
-    <!-- Modal : Paramètres & Statistiques -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="settings-box" class="glass-card w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-textmain">Profil & Paramètres</h3>
-                <button onclick="closeSettings()" class="w-10 h-10 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+    <!-- Modal : Statistiques & Progression -->
+    <div id="stats-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="stats-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[90vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-5">
+                <div class="flex items-center gap-2">
+                    <i class="ph-fill ph-chart-line-up text-xl text-primary-500"></i>
+                    <h3 class="text-lg font-bold text-textmain">Statistiques & Série</h3>
+                </div>
+                <button onclick="closeStatsModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
                     <i class="ph ph-x"></i>
                 </button>
             </div>
 
-            <!-- Stats -->
-            <div class="bg-surface/50 rounded-2xl p-4 mb-6 border border-bordercolor flex justify-between items-center">
-                <div>
-                    <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-1">Total Historique</span>
-                    <span id="lifetime-counter" class="text-2xl font-bold text-primary-500 tabular-nums">0</span>
+            <!-- Série & Activité -->
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-surface/70 rounded-2xl p-4 border border-bordercolor flex flex-col items-center text-center">
+                    <span class="text-3xl mb-1">🔥</span>
+                    <span id="stats-streak" class="text-2xl font-black text-textmain tabular-nums">0</span>
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider mt-0.5">Jours consécutifs</span>
                 </div>
-                <i class="ph-fill ph-trophy text-3xl text-primary-500/20"></i>
+                <div class="bg-surface/70 rounded-2xl p-4 border border-bordercolor flex flex-col items-center text-center">
+                    <span class="text-3xl mb-1">📿</span>
+                    <span id="stats-lifetime" class="text-2xl font-black text-primary-400 tabular-nums">0</span>
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider mt-0.5">Dhikrs au total</span>
+                </div>
             </div>
 
-            <!-- Toggle Son -->
-            <div class="flex justify-between items-center mb-6 px-2">
+            <!-- Graphique d'activité sur 7 jours -->
+            <div class="bg-surface/50 rounded-2xl p-4 mb-5 border border-bordercolor">
+                <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-3">Activité des 7 derniers jours</span>
+                <div id="activity-chart" class="flex items-end justify-between gap-2 h-28 pt-4 pb-1">
+                    <!-- Généré par JS -->
+                </div>
+            </div>
+
+            <!-- Conseils bienveillants -->
+            <div class="bg-primary-500/10 rounded-2xl p-4 border border-primary-500/20 text-xs text-textmain leading-relaxed">
+                <div class="font-bold text-primary-400 mb-1 flex items-center gap-1.5">
+                    <i class="ph-fill ph-lightbulb"></i> Le saviez-vous ?
+                </div>
+                La constance dans le rappel d'Allah, même en petite quantité, est l'acte le plus aimé d'Allah et de Son Messager ﷺ.
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal : Paramètres & Sauvegarde -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="settings-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[90vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold text-textmain flex items-center gap-2">
+                    <i class="ph ph-sliders text-xl text-primary-500"></i> Paramètres
+                </h3>
+                <button onclick="closeSettings()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <!-- Choix du son audio (Web Audio API) -->
+            <div class="mb-6">
+                <label class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Effet sonore du Tasbih</label>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button onclick="setSoundType('wood')" id="sound-btn-wood" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
+                        <i class="ph-fill ph-tree text-lg text-primary-500"></i>
+                        <div>
+                            <span class="text-xs font-bold text-textmain block">Perle en Bois</span>
+                            <span class="text-[10px] text-textmuted">Chapelet traditionnel</span>
+                        </div>
+                    </button>
+                    <button onclick="setSoundType('water')" id="sound-btn-water" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
+                        <i class="ph-fill ph-drop text-lg text-cyan-400"></i>
+                        <div>
+                            <span class="text-xs font-bold text-textmain block">Goutte d'Eau</span>
+                            <span class="text-[10px] text-textmuted">Doux & apaisant</span>
+                        </div>
+                    </button>
+                    <button onclick="setSoundType('click')" id="sound-btn-click" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
+                        <i class="ph-fill ph-hand-tap text-lg text-amber-400"></i>
+                        <div>
+                            <span class="text-xs font-bold text-textmain block">Clic Moderne</span>
+                            <span class="text-[10px] text-textmuted">Bouton discret</span>
+                        </div>
+                    </button>
+                    <button onclick="setSoundType('none')" id="sound-btn-none" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
+                        <i class="ph-fill ph-speaker-slash text-lg text-rose-400"></i>
+                        <div>
+                            <span class="text-xs font-bold text-textmain block">Silencieux</span>
+                            <span class="text-[10px] text-textmuted">Sans son</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Retour haptique (vibration) -->
+            <div class="flex justify-between items-center mb-6 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-primary-500/10 text-primary-500 flex items-center justify-center">
-                        <i class="ph-fill ph-speaker-high text-xl"></i>
+                    <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center">
+                        <i class="ph-fill ph-vibrate text-lg"></i>
                     </div>
                     <div>
-                        <span class="text-sm font-semibold text-textmain block">Son du Tasbih</span>
-                        <span class="text-xs text-textmuted">Effet sonore au clic</span>
+                        <span class="text-xs font-bold text-textmain block">Vibration tactile</span>
+                        <span class="text-[10px] text-textmuted">Vibration au clic & à l'objectif</span>
                     </div>
                 </div>
-                <!-- Switch -->
-                <button id="sound-toggle" onclick="toggleSound()" class="w-12 h-7 bg-primary-500 rounded-full relative transition-colors tap-effect">
-                    <div id="sound-knob" class="w-5 h-5 bg-white rounded-full absolute top-1 right-1 shadow-sm transition-all"></div>
+                <input type="checkbox" id="haptic-toggle" onchange="toggleHaptic(this.checked)" class="w-5 h-5 accent-primary-500 cursor-pointer">
+            </div>
+
+            <!-- Rappels quotidiens (Notifications) -->
+            <div class="flex justify-between items-center mb-6 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center">
+                        <i class="ph-fill ph-bell-simple-ringing text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-textmain block">Rappels quotidiens</span>
+                        <span class="text-[10px] text-textmuted">Notification Matin & Soir</span>
+                    </div>
+                </div>
+                <button onclick="toggleReminders()" id="reminder-btn" class="px-3 py-1.5 rounded-xl bg-surface border border-bordercolor text-xs font-semibold text-textmuted hover:text-textmain tap-effect">
+                    Activer
                 </button>
             </div>
 
             <!-- Choix du Thème -->
-            <div class="mb-2 px-2">
-                <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-3">Apparence</span>
-                <div class="grid grid-cols-3 gap-3">
-                    <button onclick="setTheme('emerald')" class="py-3 rounded-xl border border-bordercolor bg-[#0f172a] text-[#10b981] flex flex-col items-center gap-1 tap-effect hover:border-[#10b981]">
-                        <div class="w-4 h-4 rounded-full bg-[#10b981]"></div>
-                        <span class="text-[10px] font-bold">Emerald</span>
+            <div class="mb-6">
+                <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Apparence & Thème</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <button onclick="setTheme('emerald')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#020617] text-[#10b981] flex flex-col items-center gap-1.5 tap-effect hover:border-[#10b981]">
+                        <div class="w-4 h-4 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></div>
+                        <span class="text-[11px] font-bold">Emerald</span>
                     </button>
-                    <button onclick="setTheme('kaaba')" class="py-3 rounded-xl border border-bordercolor bg-black text-[#f59e0b] flex flex-col items-center gap-1 tap-effect hover:border-[#f59e0b]">
-                        <div class="w-4 h-4 rounded-full bg-[#f59e0b]"></div>
-                        <span class="text-[10px] font-bold">Kaaba</span>
+                    <button onclick="setTheme('kaaba')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#050505] text-[#f59e0b] flex flex-col items-center gap-1.5 tap-effect hover:border-[#f59e0b]">
+                        <div class="w-4 h-4 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></div>
+                        <span class="text-[11px] font-bold">Kaaba</span>
                     </button>
-                    <button onclick="setTheme('medina')" class="py-3 rounded-xl border border-bordercolor bg-[#f0fdf4] text-[#22c55e] flex flex-col items-center gap-1 tap-effect hover:border-[#22c55e] shadow-sm">
-                        <div class="w-4 h-4 rounded-full bg-[#22c55e]"></div>
-                        <span class="text-[10px] font-bold">Medina</span>
+                    <button onclick="setTheme('medina')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#f8fafc] text-[#16a34a] flex flex-col items-center gap-1.5 tap-effect hover:border-[#16a34a]">
+                        <div class="w-4 h-4 rounded-full bg-[#16a34a]"></div>
+                        <span class="text-[11px] font-bold">Medina</span>
+                    </button>
+                    <button onclick="setTheme('celestial')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#020c1b] text-[#22d3ee] flex flex-col items-center gap-1.5 tap-effect hover:border-[#22d3ee]">
+                        <div class="w-4 h-4 rounded-full bg-[#22d3ee] shadow-[0_0_8px_#22d3ee]"></div>
+                        <span class="text-[11px] font-bold">Celestial</span>
                     </button>
                 </div>
             </div>
-            
+
+            <!-- Sauvegarde & Restauration des données (Export/Import JSON) -->
+            <div class="mb-6">
+                <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Sauvegarde & Restauration</span>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button onclick="exportData()" class="py-3 px-3 rounded-2xl border border-bordercolor bg-surface/70 hover:bg-surface text-textmain flex items-center justify-center gap-2 tap-effect text-xs font-semibold">
+                        <i class="ph ph-export text-base text-primary-400"></i> Exporter (JSON)
+                    </button>
+                    <label class="py-3 px-3 rounded-2xl border border-bordercolor bg-surface/70 hover:bg-surface text-textmain flex items-center justify-center gap-2 tap-effect text-xs font-semibold cursor-pointer">
+                        <i class="ph ph-import text-base text-primary-400"></i> Importer (JSON)
+                        <input type="file" id="import-input" accept=".json" onchange="importData(event)" class="hidden">
+                    </label>
+                </div>
+            </div>
+
             <!-- Zone PWA (Installation) -->
-            <div id="pwa-install-container" class="mt-6 pt-6 border-t border-bordercolor hidden">
-                <div class="flex justify-between items-center bg-primary-500/10 p-4 rounded-2xl border border-primary-500/20">
+            <div id="pwa-install-container" class="mt-4 pt-4 border-t border-bordercolor hidden">
+                <div class="flex justify-between items-center bg-primary-500/10 p-3.5 rounded-2xl border border-primary-500/20">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center text-white shadow-lg">
-                            <i class="ph-fill ph-download-simple text-xl"></i>
+                        <div class="w-9 h-9 rounded-xl bg-primary-500 flex items-center justify-center text-white shadow-md">
+                            <i class="ph-fill ph-download-simple text-lg"></i>
                         </div>
                         <div>
-                            <span class="text-sm font-bold text-textmain block">Installer l'App</span>
-                            <span class="text-[10px] text-textmuted leading-tight block mt-0.5">Accès sans internet<br>& plein écran</span>
+                            <span class="text-xs font-bold text-textmain block">Installer l'application</span>
+                            <span class="text-[10px] text-textmuted">Accès plein écran & hors-ligne</span>
                         </div>
                     </div>
-                    <button onclick="installPWA()" class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white text-sm font-bold rounded-xl tap-effect transition-colors shadow-neon">
+                    <button onclick="installPWA()" class="px-3.5 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-xl tap-effect transition-colors shadow-neon">
                         Installer
                     </button>
                 </div>
             </div>
+
+            <!-- Réinitialisation complète -->
+            <div class="mt-5 pt-4 border-t border-bordercolor/60 flex justify-between items-center">
+                <span class="text-[11px] text-textmuted">Réinitialiser les compteurs du jour</span>
+                <button onclick="resetAllDaily()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold tap-effect px-2 py-1">
+                    Remettre à zéro
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Modal : Ajouter un Dhikr -->
-    <div id="add-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="add-box" class="glass-card w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-textmain">Nouveau Dhikr</h3>
-                <button onclick="closeAddModal()" class="w-10 h-10 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+    <!-- Modal : Carte de Partage (Générateur d'image HD) -->
+    <div id="share-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="share-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[92vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-share-network text-xl text-primary-500"></i>
+                    <h3 class="text-lg font-bold text-textmain">Partager l'invocation</h3>
+                </div>
+                <button onclick="closeShareModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <!-- Canvas de rendu de la carte d'image -->
+            <div class="rounded-2xl overflow-hidden border border-bordercolor mb-4 shadow-xl flex items-center justify-center bg-black/40">
+                <canvas id="share-canvas" width="1080" height="1080" class="w-full max-w-sm h-auto aspect-square"></canvas>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="downloadShareImage()" class="py-3 px-4 rounded-2xl bg-primary-500 text-white font-bold text-xs shadow-neon flex items-center justify-center gap-2 tap-effect hover:bg-primary-600 transition-colors">
+                    <i class="ph-bold ph-download-simple text-base"></i> Télécharger (PNG)
+                </button>
+                <button onclick="copyShareText()" class="py-3 px-4 rounded-2xl bg-surface border border-bordercolor text-textmain font-bold text-xs flex items-center justify-center gap-2 tap-effect hover:bg-surfaceelevated transition-colors">
+                    <i class="ph-bold ph-copy text-base text-primary-400"></i> Copier le texte
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal : Ajouter ou Modifier un Dhikr -->
+    <div id="add-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="add-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[92vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-5">
+                <h3 id="modal-title" class="text-lg font-bold text-textmain">Nouvelle invocation</h3>
+                <button onclick="closeAddModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
                     <i class="ph ph-x"></i>
                 </button>
             </div>
             
-            <div class="flex flex-col gap-4">
+            <input type="hidden" id="edit-id" value="">
+
+            <div class="flex flex-col gap-3.5">
                 <div>
-                    <label class="text-xs text-textmuted font-bold uppercase tracking-wider mb-1 block">Titre (Français) *</label>
-                    <input type="text" id="add-title" placeholder="Ex: Subhanallah" class="w-full bg-surface border border-bordercolor rounded-xl px-4 py-3 text-textmain outline-none focus:border-primary-500 transition-colors">
+                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Titre français *</label>
+                    <input type="text" id="add-title" placeholder="Ex: Subhanallah wa bihamdih" class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
                 </div>
                 <div>
-                    <label class="text-xs text-textmuted font-bold uppercase tracking-wider mb-1 block">Texte Arabe (Optionnel)</label>
-                    <input type="text" id="add-arabic" placeholder="سُبْحَانَ اللَّهِ" dir="rtl" class="w-full bg-surface border border-bordercolor rounded-xl px-4 py-3 text-textmain font-arabic text-lg outline-none focus:border-primary-500 transition-colors">
+                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Texte Arabe (Optionnel)</label>
+                    <textarea id="add-arabic" rows="2" placeholder="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ" dir="rtl" class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2 text-textmain font-arabic text-lg outline-none focus:border-primary-500 transition-colors"></textarea>
                 </div>
                 <div>
-                    <label class="text-xs text-textmuted font-bold uppercase tracking-wider mb-1 block">Objectif par boucle *</label>
-                    <select id="add-target" class="w-full bg-surface border border-bordercolor rounded-xl px-4 py-3 text-textmain outline-none focus:border-primary-500 transition-colors appearance-none">
-                        <option value="33">33 (Après la prière)</option>
-                        <option value="100" selected>100 (Quotidien)</option>
-                        <option value="10">10 (Matin et Soir)</option>
-                    </select>
+                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Translittération / Phonétique (Optionnel)</label>
+                    <input type="text" id="add-phonetic" placeholder="Ex: Subhanallahi wa bihamdih..." class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
+                </div>
+                <div>
+                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Traduction / Sens (Optionnel)</label>
+                    <input type="text" id="add-translation" placeholder="Ex: Gloire et louange à Allah..." class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Objectif par boucle *</label>
+                        <input type="number" id="add-target" min="1" max="10000" value="100" class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain font-bold outline-none focus:border-primary-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Catégorie</label>
+                        <select id="add-category" class="w-full bg-surface border border-bordercolor rounded-2xl px-3 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
+                            <option value="daily">Quotidien</option>
+                            <option value="morning_evening">Matin & Soir</option>
+                            <option value="prayer">Post-Prière</option>
+                            <option value="sleep">Sommeil</option>
+                            <option value="custom">Général</option>
+                        </select>
+                    </div>
                 </div>
                 
-                <button onclick="saveCustomDhikr()" class="w-full mt-4 py-4 rounded-xl bg-primary-500 text-white font-bold text-lg shadow-[0_0_15px_var(--color-primary-600)] tap-effect hover:bg-primary-600 transition-colors">
-                    Ajouter au chapelet
+                <button onclick="saveCustomDhikr()" class="w-full mt-2 py-3.5 rounded-2xl bg-primary-500 text-white font-bold text-base shadow-neon tap-effect hover:bg-primary-600 transition-colors flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-check"></i> <span id="save-btn-text">Enregistrer l'invocation</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Mode Focus (Plein Écran) -->
-    <div id="focus-mode" class="fixed inset-0 bg-background z-[60] hidden flex-col transition-transform duration-300 translate-y-full">
-        <div class="px-6 py-6 flex justify-between items-center relative z-10 pointer-events-auto">
-            <button onclick="closeFocusMode()" class="w-12 h-12 flex items-center justify-center rounded-full bg-card text-textmuted hover:text-textmain backdrop-blur-md tap-effect border border-bordercolor">
-                <i class="ph ph-x text-2xl"></i>
+    <!-- Mode Focus (Plein Écran & Tasbih Immersif avec Perles) -->
+    <div id="focus-mode" class="fixed inset-0 bg-background z-[60] hidden flex-col transition-transform duration-300 translate-y-full select-none">
+        
+        <!-- Barre supérieure du mode focus -->
+        <div class="px-5 py-4 flex justify-between items-center relative z-20 pointer-events-auto">
+            <button onclick="closeFocusMode()" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-textmain backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Quitter (Échap)">
+                <i class="ph ph-x text-xl"></i>
             </button>
-            <div class="flex flex-col items-end">
-                <span id="focus-target-label" class="text-xs text-textmuted font-bold uppercase tracking-widest">Objectif</span>
-                <span id="focus-progress-text" class="text-primary-500 font-semibold text-sm">0</span>
+            
+            <div class="flex items-center gap-2">
+                <!-- Bouton Écouter la prononciation arabe -->
+                <button onclick="speakFocusDhikr()" id="focus-speaker-btn" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-cyan-400 backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Écouter la prononciation">
+                    <i id="focus-speaker-icon" class="ph ph-speaker-high text-xl"></i>
+                </button>
+
+                <!-- Contrôles de taille de police arabe -->
+                <div class="flex items-center bg-card rounded-2xl p-1 border border-bordercolor">
+                    <button onclick="changeFontSize(-2)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-textmuted hover:text-textmain tap-effect">A-</button>
+                    <button onclick="changeFontSize(2)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-textmuted hover:text-textmain tap-effect">A+</button>
+                </div>
+                
+                <!-- Toggle Phonétique & Traduction -->
+                <button onclick="toggleFocusDetails()" id="focus-details-btn" class="px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-primary-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5" title="Afficher/Masquer traduction">
+                    <i class="ph ph-translate text-sm"></i>
+                    <span id="focus-details-label">Détails</span>
+                </button>
             </div>
         </div>
 
-        <div class="flex-1 flex flex-col items-center justify-start px-6 pt-4 relative z-10 pointer-events-none">
-            <h3 id="focus-french" class="text-primary-500 font-semibold text-sm uppercase tracking-widest mb-6 text-center">Titre</h3>
-            <p id="focus-arabic" class="font-arabic text-4xl md:text-5xl leading-relaxed text-textmain text-center drop-shadow-lg mb-6" dir="rtl" style="line-height: 1.6;"></p>
-        </div>
-
-        <button id="focus-tap-zone" class="absolute inset-0 w-full h-full flex flex-col justify-end items-center pb-24 outline-none tap-effect" onclick="incrementFocus()">
-            <div class="relative w-48 h-48 mb-8 flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="transparent" stroke="var(--color-border)" stroke-width="4"></circle>
-                    <circle id="focus-ring" cx="50" cy="50" r="45" fill="transparent" stroke="var(--color-primary-500)" stroke-width="4" stroke-dasharray="283" stroke-dashoffset="283" class="transition-all duration-300 ease-out drop-shadow-[0_0_8px_var(--color-primary-400)]"></circle>
-                </svg>
-                <div class="flex flex-col items-center">
-                    <span id="focus-counter" class="text-6xl font-bold text-textmain tabular-nums tracking-tighter drop-shadow-lg">0</span>
+        <!-- Zone de texte sacré et traduction -->
+        <div class="flex-1 flex flex-col items-center justify-start px-6 pt-2 pb-4 overflow-y-auto custom-scrollbar relative z-10 pointer-events-none">
+            <!-- Titre français -->
+            <h3 id="focus-french" class="text-primary-400 font-bold text-xs uppercase tracking-widest mb-3 text-center pointer-events-auto"></h3>
+            
+            <!-- Texte Arabe avec taille dynamique -->
+            <p id="focus-arabic" class="font-arabic leading-relaxed text-textmain text-center drop-shadow-md mb-3 pointer-events-auto px-2" dir="rtl" style="font-size: 32px; line-height: 1.8;"></p>
+            
+            <!-- Détails supplémentaires : Phonétique, Traduction & Mérite -->
+            <div id="focus-extra-content" class="w-full max-w-sm flex flex-col gap-2 mt-1 pointer-events-auto transition-all">
+                <div id="focus-phonetic-box" class="bg-surface/60 rounded-2xl p-3 border border-bordercolor/80 text-center">
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Phonétique</span>
+                    <p id="focus-phonetic" class="text-xs text-textmain italic leading-relaxed"></p>
+                </div>
+                <div id="focus-translation-box" class="bg-surface/60 rounded-2xl p-3 border border-bordercolor/80 text-center">
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Traduction</span>
+                    <p id="focus-translation" class="text-xs text-textmuted leading-relaxed"></p>
                 </div>
             </div>
-            <p class="text-textmuted text-xs font-medium uppercase tracking-widest animate-pulse">Appuyez n'importe où</p>
-        </button>
+        </div>
+
+        <!-- Zone tactile principale du Tasbih (clic n'importe où) -->
+        <div id="focus-tap-zone" class="relative w-full pb-10 pt-4 flex flex-col items-center justify-center outline-none tap-effect cursor-pointer" onclick="incrementFocus()">
+            
+            <!-- Cercle SVG de progression avec perles et compteurs -->
+            <div class="relative w-56 h-56 mb-4 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 100 100">
+                    <!-- Fond du cercle -->
+                    <circle cx="50" cy="50" r="44" fill="transparent" stroke="var(--color-border)" stroke-width="4"></circle>
+                    <!-- Anneau animé -->
+                    <circle id="focus-ring" cx="50" cy="50" r="44" fill="transparent" stroke="var(--color-primary-500)" stroke-width="4" stroke-dasharray="276" stroke-dashoffset="276" class="transition-all duration-200 ease-out drop-shadow-[0_0_12px_var(--color-primary-500-alpha)]" stroke-linecap="round"></circle>
+                    <!-- Groupe des 33 perles de chapelet interactives -->
+                    <g id="focus-beads-group"></g>
+                </svg>
+                
+                <!-- Compteur intérieur -->
+                <div class="flex flex-col items-center justify-center z-10">
+                    <span id="focus-round-badge" class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-primary-500/20 text-primary-400 mb-1 border border-primary-500/30">Tour 1</span>
+                    <span id="focus-counter" class="text-6xl font-black text-textmain tabular-nums tracking-tighter drop-shadow-lg">0</span>
+                    <span id="focus-progress-text" class="text-textmuted font-semibold text-xs mt-0.5">0 / 100</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 text-textmuted text-xs font-semibold uppercase tracking-widest">
+                <i class="ph ph-hand-tap text-base animate-pulse text-primary-400"></i>
+                <span>Touchez l'écran pour compter</span>
+            </div>
+        </div>
     </div>
 
+    <!-- Script Principal de l'Application -->
     <script>
-        // --- DONNÉES DE BASE (Les 6 Adhkars) ---
+        // --- BASE DE DONNÉES D'ADHKARS AUTHENTIQUES (v2 enrichie) ---
         const defaultAdhkars = [
-            { id: 'salawat', arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ وَزِدْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ", french: "Prière sur le Prophète", phonetic: "Allahumma salli...", target: 10, targetLabel: "Objectif : 10" },
-            { id: 'istighfar', arabic: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", french: "Demande de pardon", phonetic: "Astaghfirullah...", target: 100, targetLabel: "Objectif : 100" },
-            { id: 'jalal', arabic: "يَا ذَا الْجَلَالِ وَالْإِكْرَامِ", french: "Ô Détenteur de la Majesté...", phonetic: "Ya Dhal-Jalal...", target: 100, targetLabel: "Boucle de 100" },
-            { id: 'hawqala', arabic: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", french: "Il n'y a de force...", phonetic: "La hawla wa la...", target: 100, targetLabel: "Boucle de 100" },
-            { id: 'yunus', arabic: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ", french: "Invocation de Jonas", phonetic: "La ilaha illa anta...", target: 100, targetLabel: "Boucle de 100" },
-            { id: 'tasbih', arabic: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", french: "Glorification", phonetic: "Subhanallah...", target: 100, targetLabel: "Objectif : 100" }
+            {
+                id: 'salawat',
+                category: 'daily',
+                arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+                french: "Prière sur le Prophète",
+                phonetic: "Allahumma salli wa sallim wa barik 'ala nabiyyina Muhammad",
+                translation: "Ô Allah, répands Tes éloges, Ton salut et Tes bénédictions sur notre Prophète Muhammad.",
+                merit: "« Celui qui prie sur moi une fois, Allah priera sur lui dix fois. » (Muslim)",
+                target: 10,
+                targetLabel: "Boucle de 10"
+            },
+            {
+                id: 'istighfar',
+                category: 'daily',
+                arabic: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
+                french: "Demande de pardon (Istighfar)",
+                phonetic: "Astaghfiru-llaha wa atubu ilayh",
+                translation: "Je demande pardon à Allah et je me repens auprès de Lui.",
+                merit: "« Par Allah ! Je demande pardon à Allah et me repens plus de 70 fois par jour. » (Bukhari)",
+                target: 100,
+                targetLabel: "Boucle de 100"
+            },
+            {
+                id: 'tasbih_salat',
+                category: 'prayer',
+                arabic: "سُبْحَانَ اللَّهِ • الحَمْدُ لِلَّهِ • اللَّهُ أَكْبَرُ",
+                french: "Tasbih après la prière (33x)",
+                phonetic: "Subhanallah (33x) - Alhamdulillah (33x) - Allahu Akbar (33x)",
+                translation: "Gloire et pureté à Allah • Louange à Allah • Allah est le Plus Grand.",
+                merit: "Pardonne les péchés même s'ils égalaient l'écume de la mer. (Muslim)",
+                target: 33,
+                targetLabel: "33 après la prière"
+            },
+            {
+                id: 'tahlil',
+                category: 'daily',
+                arabic: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+                french: "L'Unicité Suprême (Tahlil)",
+                phonetic: "La ilaha illa-llahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa Huwa 'ala kulli shay'in qadir",
+                translation: "Il n'y a de divinité digne d'adoration qu'Allah, Seul, sans associé. À Lui la royauté et la louange, et Il est Omnipotent.",
+                merit: "Équivaut à affranchir 10 esclaves, accorde 100 bienfaits et protège contre le diable. (Bukhari)",
+                target: 100,
+                targetLabel: "Boucle de 100"
+            },
+            {
+                id: 'hawqala',
+                category: 'daily',
+                arabic: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+                french: "La Hawqala (Secours en Allah)",
+                phonetic: "La hawla wa la quwwata illa billahil-'Aliyyil-'Azim",
+                translation: "Il n'y a de force ni de puissance que par Allah, le Très-Haut, le Tout-Puissant.",
+                merit: "« L'un des trésors du Paradis. » (Bukhari & Muslim)",
+                target: 100,
+                targetLabel: "Boucle de 100"
+            },
+            {
+                id: 'yunus',
+                category: 'daily',
+                arabic: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+                french: "Invocation de Jonas (Dua Yunus)",
+                phonetic: "La ilaha illa Anta subhanaka inni kuntu minadh-dhalimin",
+                translation: "Il n'y a pas d'autre divinité que Toi ! Gloire et pureté à Toi ! J'ai vraiment été parmi les injustes.",
+                merit: "Aucun croyant n'invoque par ces mots sans qu'Allah ne dissipe sa détresse. (Tirmidhi)",
+                target: 100,
+                targetLabel: "Boucle de 100"
+            },
+            {
+                id: 'sayyid_istighfar',
+                category: 'morning_evening',
+                arabic: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
+                french: "Le Maître du Repentir",
+                phonetic: "Allahumma Anta Rabbi la ilaha illa Ant, khalaqtani wa ana 'abduk, wa ana 'ala 'ahdika wa wa'dika ma-stata't...",
+                translation: "Ô Allah, Tu es mon Seigneur, nul dieu digne d'adoration sauf Toi. Tu m'as créé et je suis Ton serviteur...",
+                merit: "Celui qui la récite le matin ou le soir avec conviction et meurt fera partie des gens du Paradis. (Bukhari)",
+                target: 1,
+                targetLabel: "1x Matin et Soir"
+            },
+            {
+                id: 'protection_matin_soir',
+                category: 'morning_evening',
+                arabic: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+                french: "Protection Matin & Soir (3x)",
+                phonetic: "Bismillahi-lladhi la yadurru ma'as-mihi shay'un fil-ardi wa la fis-sama'i wa Huwas-Sami'ul-'Alim",
+                translation: "Au nom d'Allah dont le Nom empêche toute chose de nuire sur terre et dans le ciel, et Il est l'Audient, l'Omniscient.",
+                merit: "Répétée 3 fois matin et soir : rien ne pourra nuire à celui qui la prononce. (Abu Dawud)",
+                target: 3,
+                targetLabel: "3x Matin et Soir"
+            },
+            {
+                id: 'ayat_kursi',
+                category: 'sleep',
+                arabic: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+                french: "Verset du Trône (Ayat Al-Kursi)",
+                phonetic: "Allahu la ilaha illa Huwal-Hayyul-Qayyum, la ta'khudhuhu sinatun wa la nawm...",
+                translation: "Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par Lui-même. Ni somnolence ni sommeil ne Le saisissent...",
+                merit: "Un gardien envoyé par Allah vous protège contre tout mal jusqu'au matin. (Bukhari)",
+                target: 1,
+                targetLabel: "1x Coucher & Prières"
+            }
         ];
 
-        // --- ÉTAT DE L'APPLICATION ---
+        // --- ÉTAT GLOBAL DE L'APPLICATION ---
         let adhkars = [];
         let dailyCounts = {};
         let lifetimeCounts = {};
+        let favorites = [];
+        let historyDays = {}; // format: { 'YYYY-MM-DD': count }
+        let currentCategory = 'all';
+        let searchQuery = '';
         let currentFocusId = null;
-        
+        let arabicFontSize = parseInt(localStorage.getItem('dhikrArabicSize') || '32');
+        let showFocusDetails = localStorage.getItem('dhikrFocusDetails') !== 'false';
+        let currentSharingDhikr = null;
+        let isSpeaking = false;
+
         // Paramètres
         let currentTheme = localStorage.getItem('dhikrTheme') || 'emerald';
-        let soundEnabled = localStorage.getItem('dhikrSound') !== 'false'; // true par défaut
-        
-        // Gamification
+        let soundType = localStorage.getItem('dhikrSoundType') || 'wood'; // wood, water, click, none
+        let hapticEnabled = localStorage.getItem('dhikrHaptic') !== 'false'; // true par défaut
         let streak = parseInt(localStorage.getItem('dhikrStreak') || '0');
         let lastActiveDate = localStorage.getItem('dhikrLastDate');
+        let remindersEnabled = localStorage.getItem('dhikrReminders') === 'true';
 
-        // --- MOTEUR AUDIO (Génération d'un clic type "bois/goutte") ---
+        // --- MOTEUR AUDIO AVANCÉ (Web Audio API) ---
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
-        function playTick() {
-            if (!soundEnabled) return;
-            // Initialisation au premier clic (contourne la sécurité des navigateurs)
+        function initAudio() {
             if (!audioCtx) audioCtx = new AudioContext();
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-            
-            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-            
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.05);
         }
 
-        // --- INITIALISATION ET LOGIQUE JOURNALIÈRE ---
+        function playSound() {
+            if (soundType === 'none') return;
+            initAudio();
+            const now = audioCtx.currentTime;
+
+            if (soundType === 'wood') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(280, now);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.04);
+
+                gain.gain.setValueAtTime(0.7, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.045);
+            } else if (soundType === 'water') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(440, now + 0.08);
+
+                gain.gain.setValueAtTime(0.5, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.085);
+            } else if (soundType === 'click') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1200, now);
+                osc.frequency.exponentialRampToValueAtTime(200, now + 0.02);
+
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.025);
+            }
+        }
+
+        function triggerVibration(isMilestone = false) {
+            if (!hapticEnabled || !window.navigator || !window.navigator.vibrate) return;
+            if (isMilestone) {
+                window.navigator.vibrate([40, 60, 80]);
+            } else {
+                window.navigator.vibrate(25);
+            }
+        }
+
+        // --- SYNTHÈSE VOCALE ARABE (RÉCITATION) ---
+        function speakArabic(text, onStateChange) {
+            if (!('speechSynthesis' in window)) {
+                showToast("Synthèse vocale non supportée sur ce navigateur");
+                return;
+            }
+
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                isSpeaking = false;
+                if (onStateChange) onStateChange(false);
+                return;
+            }
+
+            const cleanText = text.replace(/[•\d()]/g, ' ').trim();
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.85;
+
+            isSpeaking = true;
+            if (onStateChange) onStateChange(true);
+
+            utterance.onend = () => {
+                isSpeaking = false;
+                if (onStateChange) onStateChange(false);
+            };
+
+            utterance.onerror = () => {
+                isSpeaking = false;
+                if (onStateChange) onStateChange(false);
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        function speakDhikr(id, event) {
+            if (event) event.stopPropagation();
+            const dhikr = adhkars.find(d => d.id === id);
+            if (!dhikr || !dhikr.arabic) return;
+
+            const iconEl = document.getElementById(`speaker-${id}`);
+            speakArabic(dhikr.arabic, (speaking) => {
+                if (iconEl) {
+                    if (speaking) {
+                        iconEl.className = "ph-fill ph-speaker-high text-cyan-400 animate-pulse";
+                    } else {
+                        iconEl.className = "ph ph-speaker-high text-base";
+                    }
+                }
+            });
+        }
+
+        function speakFocusDhikr() {
+            if (!currentFocusId) return;
+            const dhikr = adhkars.find(d => d.id === currentFocusId);
+            if (!dhikr || !dhikr.arabic) return;
+
+            const iconEl = document.getElementById('focus-speaker-icon');
+            speakArabic(dhikr.arabic, (speaking) => {
+                if (iconEl) {
+                    if (speaking) {
+                        iconEl.className = "ph-fill ph-speaker-high text-cyan-400 animate-pulse text-xl";
+                    } else {
+                        iconEl.className = "ph ph-speaker-high text-xl";
+                    }
+                }
+            });
+        }
+
+        // --- INITIALISATION ---
         function initApp() {
             setTheme(currentTheme);
             updateSoundUI();
-            
-            // Chargement des Dhikrs personnalisés
+            document.getElementById('haptic-toggle').checked = hapticEnabled;
+            updateReminderUI();
+
             const customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
             adhkars = [...defaultAdhkars, ...customSaved];
 
-            // Chargement des compteurs
             dailyCounts = JSON.parse(localStorage.getItem('dhikrDaily') || '{}');
             lifetimeCounts = JSON.parse(localStorage.getItem('dhikrLifetime') || '{}');
+            favorites = JSON.parse(localStorage.getItem('dhikrFavorites') || '[]');
+            historyDays = JSON.parse(localStorage.getItem('dhikrHistoryDays') || '{}');
 
-            // Vérification du changement de jour (Streaks et Reset)
             checkDailyReset();
 
-            // S'assurer que chaque dhikr a une entrée
             adhkars.forEach(d => {
                 if (dailyCounts[d.id] === undefined) dailyCounts[d.id] = 0;
                 if (lifetimeCounts[d.id] === undefined) lifetimeCounts[d.id] = 0;
@@ -392,58 +914,107 @@
 
             updateGlobalStats();
             renderCards();
+            setupKeyboardShortcuts();
+            initFocusBeads();
         }
 
+        // --- GESTION DU RESET & SÉRIE ---
         function checkDailyReset() {
-            const today = new Date().toDateString();
+            const today = new Date().toISOString().slice(0, 10);
             
             if (lastActiveDate && lastActiveDate !== today) {
-                // Ce n'est pas le même jour
-                let yesterday = new Date();
+                const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
-                
-                if (lastActiveDate === yesterday.toDateString()) {
-                    // Venu hier = On augmente la série
+                const yDateStr = yesterday.toISOString().slice(0, 10);
+
+                const yesterdayTotal = Object.values(dailyCounts).reduce((a, b) => a + b, 0);
+                if (yesterdayTotal > 0) {
+                    historyDays[lastActiveDate] = yesterdayTotal;
+                }
+
+                if (lastActiveDate === yDateStr && yesterdayTotal > 0) {
                     streak++;
-                } else {
-                    // A raté un jour = Série brisée
+                } else if (lastActiveDate !== yDateStr) {
                     streak = 1;
                 }
-                
-                // Remise à zéro des compteurs journaliers
+
                 dailyCounts = {};
-                showToast("Un nouveau jour commence ! Compteurs quotidiens réinitialisés.");
+                showToast("Nouveau jour ! Vos invocations quotidiennes sont prêtes.");
             } else if (!lastActiveDate) {
-                // Première ouverture
                 streak = 1;
             }
 
             lastActiveDate = today;
             localStorage.setItem('dhikrLastDate', lastActiveDate);
             localStorage.setItem('dhikrStreak', streak);
+            localStorage.setItem('dhikrHistoryDays', JSON.stringify(historyDays));
             document.getElementById('streak-counter').innerText = streak;
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.remove('hidden');
-            toast.classList.add('toast-enter');
-            setTimeout(() => {
-                toast.classList.remove('toast-enter');
-                toast.classList.add('hidden');
-            }, 4000);
         }
 
         function saveData() {
             localStorage.setItem('dhikrDaily', JSON.stringify(dailyCounts));
             localStorage.setItem('dhikrLifetime', JSON.stringify(lifetimeCounts));
+            localStorage.setItem('dhikrFavorites', JSON.stringify(favorites));
+            localStorage.setItem('dhikrCustom', JSON.stringify(adhkars.filter(d => d.id.startsWith('custom_'))));
+            
+            const today = new Date().toISOString().slice(0, 10);
+            const todayTotal = Object.values(dailyCounts).reduce((a, b) => a + b, 0);
+            historyDays[today] = todayTotal;
+            localStorage.setItem('dhikrHistoryDays', JSON.stringify(historyDays));
         }
 
         function updateGlobalStats() {
-            const total = Object.values(lifetimeCounts).reduce((a, b) => a + b, 0);
-            document.getElementById('lifetime-counter').innerText = total.toLocaleString('fr-FR');
+            const todayTotal = Object.values(dailyCounts).reduce((a, b) => a + b, 0);
+            const lifeTotal = Object.values(lifetimeCounts).reduce((a, b) => a + b, 0);
+
+            document.getElementById('daily-total-counter').innerText = `${todayTotal.toLocaleString('fr-FR')} invocation${todayTotal > 1 ? 's' : ''}`;
+            document.getElementById('lifetime-counter-banner').innerText = lifeTotal.toLocaleString('fr-FR');
             document.getElementById('streak-counter').innerText = streak;
+        }
+
+        // --- FILTRAGE & RECHERCHE ---
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon";
+                } else {
+                    btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain";
+                }
+            });
+            renderCards();
+        }
+
+        function toggleSearchBar() {
+            const container = document.getElementById('search-bar-container');
+            container.classList.toggle('hidden');
+            if (!container.classList.contains('hidden')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function onSearchChange(val) {
+            searchQuery = val.trim().toLowerCase();
+            renderCards();
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            searchQuery = '';
+            renderCards();
+        }
+
+        function toggleFavorite(id, event) {
+            if (event) event.stopPropagation();
+            if (favorites.includes(id)) {
+                favorites = favorites.filter(f => f !== id);
+                showToast("Retiré des favoris");
+            } else {
+                favorites.push(id);
+                showToast("Ajouté aux favoris ⭐");
+            }
+            saveData();
+            renderCards();
         }
 
         // --- RENDU DES CARTES ---
@@ -451,58 +1022,138 @@
             const container = document.getElementById('app-container');
             container.innerHTML = '';
 
-            adhkars.forEach((dhikr, index) => {
-                const count = dailyCounts[dhikr.id];
-                const progress = (count % dhikr.target);
-                const progressPercent = count > 0 && progress === 0 ? 100 : (progress / dhikr.target) * 100;
+            let filtered = adhkars.filter(d => {
+                if (currentCategory === 'favorites') {
+                    if (!favorites.includes(d.id)) return false;
+                } else if (currentCategory === 'custom') {
+                    if (!d.id.startsWith('custom_')) return false;
+                } else if (currentCategory !== 'all') {
+                    if (d.category !== currentCategory) return false;
+                }
 
-                const isCustom = !defaultAdhkars.find(d => d.id === dhikr.id);
-                const deleteBtn = isCustom ? 
-                    `<button onclick="deleteCustom('${dhikr.id}')" class="text-red-400/50 hover:text-red-400"><i class="ph ph-trash text-lg"></i></button>` : '';
+                if (searchQuery) {
+                    const haystack = `${d.french} ${d.arabic || ''} ${d.phonetic || ''} ${d.translation || ''}`.toLowerCase();
+                    if (!haystack.includes(searchQuery)) return false;
+                }
+
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl p-8 text-center flex flex-col items-center justify-center my-6">
+                        <i class="ph ph-magnifying-glass text-4xl text-textmuted mb-2"></i>
+                        <h3 class="text-sm font-bold text-textmain mb-1">Aucune invocation trouvée</h3>
+                        <p class="text-xs text-textmuted">Essayez un autre mot-clé ou ajoutez un nouveau Dhikr.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((dhikr) => {
+                const count = dailyCounts[dhikr.id] || 0;
+                const target = dhikr.target || 100;
+                const completedRounds = Math.floor(count / target);
+                const currentRoundCount = count % target;
+                const progressPercent = count > 0 && currentRoundCount === 0 ? 100 : (currentRoundCount / target) * 100;
+                const isFav = favorites.includes(dhikr.id);
+                const isCustom = dhikr.id.startsWith('custom_');
 
                 const card = document.createElement('div');
-                card.className = "glass-card rounded-[32px] overflow-hidden flex flex-col relative group transition-all duration-300";
+                card.className = "glass-card rounded-[28px] overflow-hidden flex flex-col relative group transition-all duration-300 hover:border-primary-500/30";
                 
                 card.innerHTML = `
-                    <div class="p-6 pb-2 flex justify-between items-center z-10">
-                        <div class="flex items-center gap-3">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-500/10 text-primary-500 font-bold text-sm border border-primary-500/20">
-                                ${index + 1}
-                            </span>
-                            <h2 class="text-textmain font-semibold text-[13px] tracking-wide uppercase">${dhikr.french}</h2>
+                    <!-- En-tête de carte -->
+                    <div class="p-5 pb-2 flex justify-between items-start z-10 gap-3">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1 flex-wrap">
+                                <span class="px-2 py-0.5 rounded-full bg-surface text-[10px] font-bold text-primary-400 border border-bordercolor">
+                                    ${dhikr.targetLabel || `Objectif : ${target}`}
+                                </span>
+                                ${completedRounds > 0 ? `
+                                    <span class="px-2 py-0.5 rounded-full bg-primary-500/20 text-[10px] font-bold text-primary-300 border border-primary-500/30 flex items-center gap-1">
+                                        <i class="ph-bold ph-repeat"></i> ${completedRounds} tour${completedRounds > 1 ? 's' : ''}
+                                    </span>
+                                ` : ''}
+                            </div>
+                            <h2 class="text-textmain font-bold text-sm tracking-wide leading-snug">${dhikr.french}</h2>
                         </div>
-                        <div class="flex gap-2">
-                            ${deleteBtn}
-                            <button onclick="resetDhikr('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface/50 text-textmuted hover:text-primary-500 tap-effect">
-                                <i class="ph ph-arrow-counter-clockwise text-lg"></i>
+                        
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <!-- Écouter la prononciation -->
+                            ${dhikr.arabic ? `
+                            <button onclick="speakDhikr('${dhikr.id}', event)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-cyan-400 tap-effect" title="Écouter la prononciation">
+                                <i id="speaker-${dhikr.id}" class="ph ph-speaker-high text-base"></i>
+                            </button>
+                            ` : ''}
+
+                            <!-- Partager l'invocation -->
+                            <button onclick="openShareModal('${dhikr.id}', event)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-primary-400 tap-effect" title="Partager">
+                                <i class="ph ph-share-network text-base"></i>
+                            </button>
+
+                            <!-- Favori -->
+                            <button onclick="toggleFavorite('${dhikr.id}', event)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-amber-400 tap-effect" title="Favori">
+                                <i class="${isFav ? 'ph-fill ph-star text-amber-400' : 'ph ph-star'} text-base"></i>
+                            </button>
+
+                            <!-- Actions personnalisées (modifier / supprimer) -->
+                            ${isCustom ? `
+                                <button onclick="editCustom('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-primary-400 tap-effect" title="Modifier">
+                                    <i class="ph ph-pencil-simple text-base"></i>
+                                </button>
+                                <button onclick="deleteCustom('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-rose-400 tap-effect" title="Supprimer">
+                                    <i class="ph ph-trash text-base"></i>
+                                </button>
+                            ` : ''}
+
+                            <!-- Réinitialiser ce dhikr -->
+                            <button onclick="resetDhikr('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-primary-400 tap-effect" title="Remettre à zéro">
+                                <i class="ph ph-arrow-counter-clockwise text-base"></i>
                             </button>
                         </div>
                     </div>
                     
+                    <!-- Texte Arabe -->
                     ${dhikr.arabic ? `
-                    <div class="px-6 py-4 flex flex-col items-center justify-center z-10">
-                        <p class="font-arabic text-3xl md:text-4xl leading-loose text-textmain text-center mb-2" dir="rtl" style="line-height: 1.8;">
+                    <div class="px-5 py-3 flex flex-col items-center justify-center z-10">
+                        <p class="font-arabic text-2xl md:text-3xl leading-loose text-textmain text-center drop-shadow-sm select-text" dir="rtl" style="line-height: 1.8;">
                             ${dhikr.arabic}
                         </p>
-                    </div>` : '<div class="py-4"></div>'}
-                    
-                    <div class="p-4 bg-surface/30 mt-auto border-t border-bordercolor relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-1 w-full bg-surface">
-                            <div id="progress-${dhikr.id}" class="h-full bg-primary-500 transition-all duration-500 ease-out" style="width: ${progressPercent}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
+                    </div>` : '<div class="py-2"></div>'}
+
+                    <!-- Translittération phonétique & sens -->
+                    ${(dhikr.phonetic || dhikr.translation) ? `
+                    <div class="px-5 pb-3 flex flex-col gap-1 text-center">
+                        ${dhikr.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${dhikr.phonetic}</p>` : ''}
+                        ${dhikr.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${dhikr.translation}</p>` : ''}
+                    </div>` : ''}
+
+                    <!-- Mérite / Source -->
+                    ${dhikr.merit ? `
+                    <div class="mx-5 mb-3 p-2 rounded-xl bg-surface/40 border border-bordercolor/60 text-[10px] text-textmuted flex items-start gap-1.5 leading-normal">
+                        <i class="ph-fill ph-info text-primary-400 text-xs mt-0.5 shrink-0"></i>
+                        <span>${dhikr.merit}</span>
+                    </div>` : ''}
+
+                    <!-- Bas de carte : Barre de progression & Boutons de comptage -->
+                    <div class="p-4 bg-surface/40 mt-auto border-t border-bordercolor relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-1.5 w-full bg-surface">
+                            <div id="progress-${dhikr.id}" class="h-full bg-primary-500 transition-all duration-300 ease-out" style="width: ${progressPercent}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
                         </div>
 
-                        <div class="flex items-center justify-between gap-3 pt-2">
-                            <div class="flex-[1.5] bg-background/50 rounded-[20px] py-3 px-2 flex flex-col items-center justify-center border border-bordercolor">
-                                <span class="text-[9px] text-primary-500 font-bold uppercase tracking-wider mb-0.5 text-center">${dhikr.targetLabel}</span>
-                                <span class="text-2xl font-bold text-textmain tabular-nums" id="count-${dhikr.id}">${count}</span>
+                        <div class="flex items-center justify-between gap-2.5 pt-1.5">
+                            <div class="flex-[1.2] bg-background/70 rounded-2xl py-2.5 px-2 flex flex-col items-center justify-center border border-bordercolor">
+                                <span class="text-[9px] text-primary-400 font-bold uppercase tracking-wider mb-0.5">Aujourd'hui</span>
+                                <span class="text-xl font-black text-textmain tabular-nums" id="count-${dhikr.id}">${count}</span>
                             </div>
                             
-                            <button onclick="increment('${dhikr.id}')" class="flex-[2.5] h-[70px] rounded-[20px] bg-primary-500 text-white shadow-neon flex items-center justify-center tap-effect overflow-hidden relative active:bg-primary-600">
-                                <span class="font-bold text-lg uppercase tracking-wider">Compter</span>
+                            <button onclick="increment('${dhikr.id}')" class="flex-[2.5] h-[60px] rounded-2xl bg-primary-500 text-white shadow-neon flex items-center justify-center gap-2 tap-effect font-bold text-base uppercase tracking-wider active:bg-primary-600 transition-colors">
+                                <i class="ph-bold ph-plus"></i> Compter
                             </button>
 
-                            <button onclick="openFocusMode('${dhikr.id}')" class="w-[70px] h-[70px] rounded-[20px] bg-surface flex flex-col items-center justify-center text-primary-500 tap-effect border border-bordercolor">
-                                <i class="ph ph-corners-out text-2xl mb-1"></i>
+                            <button onclick="openFocusMode('${dhikr.id}')" class="w-[60px] h-[60px] rounded-2xl bg-surface flex flex-col items-center justify-center text-primary-400 hover:text-primary-300 tap-effect border border-bordercolor" title="Mode Plein Écran">
+                                <i class="ph ph-corners-out text-2xl"></i>
                             </button>
                         </div>
                     </div>
@@ -511,99 +1162,628 @@
             });
         }
 
-        // --- ACTIONS PRINCIPALES ---
-        function triggerHaptic() {
-            if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(40);
-        }
-
+        // --- ACTIONS DE COMPTAGE ---
         function increment(id) {
-            dailyCounts[id]++;
-            lifetimeCounts[id]++;
-            
-            document.getElementById(`count-${id}`).innerText = dailyCounts[id];
-            
+            dailyCounts[id] = (dailyCounts[id] || 0) + 1;
+            lifetimeCounts[id] = (lifetimeCounts[id] || 0) + 1;
+
             const dhikr = adhkars.find(d => d.id === id);
-            const progress = dailyCounts[id] % dhikr.target;
-            const progressPercent = dailyCounts[id] > 0 && progress === 0 ? 100 : (progress / dhikr.target) * 100;
-            document.getElementById(`progress-${id}`).style.width = `${progressPercent}%`;
+            const count = dailyCounts[id];
+            const target = dhikr.target || 100;
+            const currentRound = count % target;
+            const isMilestone = count > 0 && currentRound === 0;
+
+            const countEl = document.getElementById(`count-${id}`);
+            if (countEl) countEl.innerText = count;
+
+            const progressEl = document.getElementById(`progress-${id}`);
+            if (progressEl) {
+                const progressPercent = isMilestone ? 100 : (currentRound / target) * 100;
+                progressEl.style.width = `${progressPercent}%`;
+            }
 
             saveData();
             updateGlobalStats();
-            triggerHaptic();
-            playTick(); // Le fameux son ajouté !
+            triggerVibration(isMilestone);
+            playSound();
 
-            if (dailyCounts[id] > 0 && dailyCounts[id] % dhikr.target === 0) {
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#10b981', '#fbbf24', '#ffffff'] });
+            if (isMilestone) {
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.65 },
+                    colors: ['#10b981', '#fbbf24', '#34d399', '#ffffff']
+                });
+                showToast(`Objectif atteint pour "${dhikr.french}" ! 🎉`);
             }
         }
 
         function resetDhikr(id) {
-            dailyCounts[id] = 0; // Seul le compte du jour est réinitialisé, l'historique est gardé !
-            document.getElementById(`count-${id}`).innerText = '0';
-            document.getElementById(`progress-${id}`).style.width = '0%';
+            const dhikr = adhkars.find(d => d.id === id);
+            if (!confirm(`Remettre à zéro le compteur d'aujourd'hui pour "${dhikr.french}" ? L'historique global est conservé.`)) return;
+            dailyCounts[id] = 0;
             saveData();
+            updateGlobalStats();
+            renderCards();
+            showToast("Compteur réinitialisé");
         }
 
-        // --- MODE FOCUS ---
+        function resetAllDaily() {
+            if (!confirm("Voulez-vous réinitialiser tous les compteurs du jour à zéro ?")) return;
+            dailyCounts = {};
+            saveData();
+            updateGlobalStats();
+            renderCards();
+            closeSettings();
+            showToast("Tous les compteurs du jour ont été remis à zéro");
+        }
+
+        // --- VISUALISEUR DE PERLES DE MISBAHA DANS LE MODE FOCUS ---
+        function initFocusBeads() {
+            const group = document.getElementById('focus-beads-group');
+            if (!group) return;
+            group.innerHTML = '';
+
+            const totalBeads = 33;
+            const radius = 44;
+
+            for (let i = 0; i < totalBeads; i++) {
+                const angle = (i / totalBeads) * 2 * Math.PI;
+                const cx = 50 + radius * Math.cos(angle);
+                const cy = 50 + radius * Math.sin(angle);
+                const isSeparator = (i % 11 === 0);
+
+                const bead = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                bead.setAttribute('id', `focus-bead-${i}`);
+                bead.setAttribute('cx', cx.toFixed(2));
+                bead.setAttribute('cy', cy.toFixed(2));
+                bead.setAttribute('r', isSeparator ? '2.4' : '1.6');
+                bead.setAttribute('fill', 'var(--color-border)');
+                bead.setAttribute('opacity', '0.4');
+                bead.setAttribute('class', 'transition-all duration-200');
+                group.appendChild(bead);
+            }
+        }
+
+        function updateFocusBeads(progressPercent) {
+            const totalBeads = 33;
+            const activeBeadCount = Math.round((progressPercent / 100) * totalBeads);
+
+            for (let i = 0; i < totalBeads; i++) {
+                const bead = document.getElementById(`focus-bead-${i}`);
+                if (!bead) continue;
+                const isSeparator = (i % 11 === 0);
+
+                if (i < activeBeadCount) {
+                    bead.setAttribute('fill', isSeparator ? '#f59e0b' : 'var(--color-primary-400)');
+                    bead.setAttribute('opacity', '1');
+                    bead.setAttribute('filter', 'drop-shadow(0 0 3px var(--color-primary-500))');
+                } else {
+                    bead.setAttribute('fill', 'var(--color-border)');
+                    bead.setAttribute('opacity', '0.35');
+                    bead.removeAttribute('filter');
+                }
+            }
+        }
+
+        // --- MODE FOCUS IMMERSIF ---
         const focusMode = document.getElementById('focus-mode');
         const focusRing = document.getElementById('focus-ring');
-        
+
         function openFocusMode(id) {
             currentFocusId = id;
             const dhikr = adhkars.find(d => d.id === id);
-            
+
             document.getElementById('focus-french').innerText = dhikr.french;
-            document.getElementById('focus-arabic').innerText = dhikr.arabic || '';
-            document.getElementById('focus-target-label').innerText = dhikr.targetLabel;
             
+            const arabicEl = document.getElementById('focus-arabic');
+            arabicEl.innerText = dhikr.arabic || '';
+            arabicEl.style.fontSize = `${arabicFontSize}px`;
+
+            const phoneticEl = document.getElementById('focus-phonetic');
+            const pBox = document.getElementById('focus-phonetic-box');
+            if (dhikr.phonetic) {
+                phoneticEl.innerText = dhikr.phonetic;
+                pBox.classList.remove('hidden');
+            } else {
+                pBox.classList.add('hidden');
+            }
+
+            const transEl = document.getElementById('focus-translation');
+            const tBox = document.getElementById('focus-translation-box');
+            if (dhikr.translation) {
+                transEl.innerText = dhikr.translation;
+                tBox.classList.remove('hidden');
+            } else {
+                tBox.classList.add('hidden');
+            }
+
+            applyFocusDetailsVisibility();
             updateFocusUI();
+
             focusMode.classList.remove('hidden');
             setTimeout(() => focusMode.classList.remove('translate-y-full'), 10);
         }
 
         function closeFocusMode() {
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             focusMode.classList.add('translate-y-full');
             setTimeout(() => {
                 focusMode.classList.add('hidden');
                 currentFocusId = null;
-                renderCards(); 
-            }, 300);
+                renderCards();
+            }, 280);
         }
 
         function incrementFocus() {
-            if (currentFocusId) increment(currentFocusId);
+            if (!currentFocusId) return;
+            increment(currentFocusId);
             updateFocusUI();
         }
 
         function updateFocusUI() {
-            const count = dailyCounts[currentFocusId];
-            document.getElementById('focus-counter').innerText = count;
-            
+            if (!currentFocusId) return;
             const dhikr = adhkars.find(d => d.id === currentFocusId);
-            const progress = count % dhikr.target;
-            const displayProgress = count > 0 && progress === 0 ? dhikr.target : progress;
-            const progressPercent = (displayProgress / dhikr.target) * 100;
-            
-            document.getElementById('focus-progress-text').innerText = `${displayProgress}/${dhikr.target}`;
-            const offset = 283 - (283 * progressPercent) / 100;
+            const count = dailyCounts[currentFocusId] || 0;
+            const target = dhikr.target || 100;
+
+            const completedRounds = Math.floor(count / target);
+            const currentRound = count % target;
+            const displayProgress = count > 0 && currentRound === 0 ? target : currentRound;
+            const progressPercent = (displayProgress / target) * 100;
+
+            document.getElementById('focus-counter').innerText = count;
+            document.getElementById('focus-progress-text').innerText = `${displayProgress} / ${target}`;
+            document.getElementById('focus-round-badge').innerText = `Tour ${completedRounds + 1}`;
+
+            const offset = 276 - (276 * progressPercent) / 100;
             focusRing.style.strokeDashoffset = offset;
+            updateFocusBeads(progressPercent);
         }
 
-        // --- PARAMÈTRES ET THÈMES ---
-        function openSettings() {
-            document.getElementById('settings-modal').classList.remove('hidden');
+        function changeFontSize(delta) {
+            arabicFontSize = Math.max(22, Math.min(50, arabicFontSize + delta));
+            document.getElementById('focus-arabic').style.fontSize = `${arabicFontSize}px`;
+            localStorage.setItem('dhikrArabicSize', arabicFontSize);
+        }
+
+        function toggleFocusDetails() {
+            showFocusDetails = !showFocusDetails;
+            localStorage.setItem('dhikrFocusDetails', showFocusDetails);
+            applyFocusDetailsVisibility();
+        }
+
+        function applyFocusDetailsVisibility() {
+            const extra = document.getElementById('focus-extra-content');
+            const label = document.getElementById('focus-details-label');
+            if (showFocusDetails) {
+                extra.classList.remove('hidden');
+                label.innerText = 'Masquer';
+            } else {
+                extra.classList.add('hidden');
+                label.innerText = 'Détails';
+            }
+        }
+
+        // --- GÉNÉRATEUR DE CARTE DE PARTAGE (CANVAS 1080x1080) ---
+        function openShareModal(id, event) {
+            if (event) event.stopPropagation();
+            currentSharingDhikr = adhkars.find(d => d.id === id);
+            if (!currentSharingDhikr) return;
+
+            renderShareCard(currentSharingDhikr);
+
+            const modal = document.getElementById('share-modal');
+            const box = document.getElementById('share-box');
+            modal.classList.remove('hidden');
             setTimeout(() => {
-                document.getElementById('settings-modal').classList.remove('opacity-0');
-                if(window.innerWidth < 640) document.getElementById('settings-box').classList.remove('translate-y-full');
-                else document.getElementById('settings-box').classList.remove('scale-95');
+                modal.classList.remove('opacity-0');
+                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
+                else box.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeShareModal() {
+            const modal = document.getElementById('share-modal');
+            const box = document.getElementById('share-box');
+            modal.classList.add('opacity-0');
+            if (window.innerWidth < 640) box.classList.add('translate-y-full');
+            else box.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 280);
+        }
+
+        function renderShareCard(dhikr) {
+            const canvas = document.getElementById('share-canvas');
+            const ctx = canvas.getContext('2d');
+            const W = 1080;
+            const H = 1080;
+
+            // Fond dégradé sombre et luxueux
+            const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+            bgGrad.addColorStop(0, '#020e0b');
+            bgGrad.addColorStop(0.5, '#04221b');
+            bgGrad.addColorStop(1, '#010907');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, W, H);
+
+            // Cadre ornemental double bordure dorée
+            ctx.strokeStyle = 'rgba(234, 179, 8, 0.35)';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(50, 50, W - 100, H - 100);
+
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(65, 65, W - 130, H - 130);
+
+            // Coins décoratifs
+            const drawCorner = (x, y) => {
+                ctx.fillStyle = '#eab308';
+                ctx.beginPath();
+                ctx.arc(x, y, 6, 0, Math.PI * 2);
+                ctx.fill();
+            };
+            drawCorner(50, 50);
+            drawCorner(W - 50, 50);
+            drawCorner(50, H - 50);
+            drawCorner(W - 50, H - 50);
+
+            // En-tête : Titre App et Invocations
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#34d399';
+            ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText("DHIKR PRO • RAPPEL QUOTIDIEN", W / 2, 130);
+
+            ctx.fillStyle = '#f8fafc';
+            ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText(dhikr.french, W / 2, 190);
+
+            // Séparateur fin
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(W / 2 - 120, 225);
+            ctx.lineTo(W / 2 + 120, 225);
+            ctx.stroke();
+
+            // Texte Arabe calligraphié au centre
+            if (dhikr.arabic) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 54px "Amiri", serif';
+                wrapText(ctx, dhikr.arabic, W / 2, 380, 880, 85, true);
+            }
+
+            // Phonétique
+            let nextY = 620;
+            if (dhikr.phonetic) {
+                ctx.fillStyle = '#6ee7b7';
+                ctx.font = 'italic 28px "Plus Jakarta Sans", sans-serif';
+                nextY = wrapText(ctx, `"${dhikr.phonetic}"`, W / 2, nextY, 860, 42) + 40;
+            }
+
+            // Traduction française
+            if (dhikr.translation) {
+                ctx.fillStyle = '#cbd5e1';
+                ctx.font = '400 26px "Plus Jakarta Sans", sans-serif';
+                nextY = wrapText(ctx, dhikr.translation, W / 2, nextY, 860, 38) + 40;
+            }
+
+            // Mérite / Source en bas
+            if (dhikr.merit) {
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+                wrapText(ctx, `✨ ${dhikr.merit}`, W / 2, Math.max(nextY, 890), 840, 32);
+            }
+
+            // Signature en pied de page
+            ctx.fillStyle = '#eab308';
+            ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText("derkitoo.github.io/dhikr", W / 2, 990);
+        }
+
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight, isRTL = false) {
+            const words = text.split(' ');
+            let line = '';
+            let currentY = y;
+
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    ctx.fillText(line, x, currentY);
+                    line = words[n] + ' ';
+                    currentY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, x, currentY);
+            return currentY;
+        }
+
+        function downloadShareImage() {
+            const canvas = document.getElementById('share-canvas');
+            const link = document.createElement('a');
+            link.download = `dhikr_${currentSharingDhikr ? currentSharingDhikr.id : 'pro'}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast("Image téléchargée !");
+        }
+
+        function copyShareText() {
+            if (!currentSharingDhikr) return;
+            const text = `${currentSharingDhikr.french}\n\n${currentSharingDhikr.arabic || ''}\n\n${currentSharingDhikr.phonetic ? `Phonétique : ${currentSharingDhikr.phonetic}\n` : ''}${currentSharingDhikr.translation ? `Traduction : ${currentSharingDhikr.translation}\n` : ''}${currentSharingDhikr.merit ? `\nMérite : ${currentSharingDhikr.merit}\n` : ''}\nPartagé via Dhikr Pro`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast("Texte copié dans le presse-papier !");
+                });
+            } else {
+                showToast("Presse-papier indisponible");
+            }
+        }
+
+        // --- RAPPELS & NOTIFICATIONS ---
+        function toggleReminders() {
+            if (!('Notification' in window)) {
+                showToast("Notifications non supportées par ce navigateur");
+                return;
+            }
+
+            if (Notification.permission === 'granted') {
+                remindersEnabled = !remindersEnabled;
+                localStorage.setItem('dhikrReminders', remindersEnabled);
+                updateReminderUI();
+                showToast(remindersEnabled ? "Rappels activés !" : "Rappels désactivés");
+                if (remindersEnabled) scheduleNotificationDemo();
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        remindersEnabled = true;
+                        localStorage.setItem('dhikrReminders', true);
+                        updateReminderUI();
+                        showToast("Notifications autorisées !");
+                        scheduleNotificationDemo();
+                    }
+                });
+            } else {
+                alert("Les notifications sont bloquées dans votre navigateur. Veuillez les autoriser dans les paramètres du site.");
+            }
+        }
+
+        function updateReminderUI() {
+            const btn = document.getElementById('reminder-btn');
+            if (!btn) return;
+            if (remindersEnabled && Notification.permission === 'granted') {
+                btn.innerText = "Activé";
+                btn.className = "px-3 py-1.5 rounded-xl bg-primary-500 text-white font-bold text-xs shadow-neon tap-effect";
+            } else {
+                btn.innerText = "Activer";
+                btn.className = "px-3 py-1.5 rounded-xl bg-surface border border-bordercolor text-xs font-semibold text-textmuted hover:text-textmain tap-effect";
+            }
+        }
+
+        function scheduleNotificationDemo() {
+            setTimeout(() => {
+                new Notification("Dhikr Pro 📿", {
+                    body: "C'est l'heure des adhkars du jour. Prenez quelques instants pour vous reconnecter.",
+                    icon: "icon.svg"
+                });
+            }, 3000);
+        }
+
+        // --- RACCOURCIS CLAVIER ---
+        function setupKeyboardShortcuts() {
+            window.addEventListener('keydown', (e) => {
+                if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+                if (e.code === 'Space' || e.key === ' ' || e.code === 'ArrowUp' || e.code === 'Enter') {
+                    e.preventDefault();
+                    if (currentFocusId) {
+                        incrementFocus();
+                    } else if (adhkars.length > 0) {
+                        increment(adhkars[0].id);
+                    }
+                } else if (e.code === 'Escape') {
+                    if (currentFocusId) closeFocusMode();
+                    closeSettings();
+                    closeStatsModal();
+                    closeAddModal();
+                    closeShareModal();
+                } else if (e.key === 'm' || e.key === 'M') {
+                    soundType = soundType === 'none' ? 'wood' : 'none';
+                    localStorage.setItem('dhikrSoundType', soundType);
+                    updateSoundUI();
+                    showToast(soundType === 'none' ? 'Son coupé' : 'Son activé');
+                } else if (e.key === '+' || e.key === '=') {
+                    if (currentFocusId) changeFontSize(2);
+                } else if (e.key === '-') {
+                    if (currentFocusId) changeFontSize(-2);
+                }
+            });
+        }
+
+        // --- AJOUT / MODIFICATION DE DHIKR PERSONNALISÉ ---
+        function openAddModal(editId = null) {
+            const modal = document.getElementById('add-modal');
+            const box = document.getElementById('add-box');
+            
+            if (editId) {
+                const item = adhkars.find(d => d.id === editId);
+                document.getElementById('modal-title').innerText = "Modifier l'invocation";
+                document.getElementById('save-btn-text').innerText = "Mettre à jour";
+                document.getElementById('edit-id').value = editId;
+                document.getElementById('add-title').value = item.french;
+                document.getElementById('add-arabic').value = item.arabic || '';
+                document.getElementById('add-phonetic').value = item.phonetic || '';
+                document.getElementById('add-translation').value = item.translation || '';
+                document.getElementById('add-target').value = item.target || 100;
+                document.getElementById('add-category').value = item.category || 'custom';
+            } else {
+                document.getElementById('modal-title').innerText = "Nouvelle invocation";
+                document.getElementById('save-btn-text').innerText = "Enregistrer l'invocation";
+                document.getElementById('edit-id').value = '';
+                document.getElementById('add-title').value = '';
+                document.getElementById('add-arabic').value = '';
+                document.getElementById('add-phonetic').value = '';
+                document.getElementById('add-translation').value = '';
+                document.getElementById('add-target').value = 100;
+                document.getElementById('add-category').value = 'custom';
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
+                else box.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeAddModal() {
+            const modal = document.getElementById('add-modal');
+            const box = document.getElementById('add-box');
+            modal.classList.add('opacity-0');
+            if (window.innerWidth < 640) box.classList.add('translate-y-full');
+            else box.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 280);
+        }
+
+        function saveCustomDhikr() {
+            const title = document.getElementById('add-title').value.trim();
+            const arabic = document.getElementById('add-arabic').value.trim();
+            const phonetic = document.getElementById('add-phonetic').value.trim();
+            const translation = document.getElementById('add-translation').value.trim();
+            const target = parseInt(document.getElementById('add-target').value) || 100;
+            const category = document.getElementById('add-category').value;
+            const editId = document.getElementById('edit-id').value;
+
+            if (!title) {
+                alert("Le titre de l'invocation est obligatoire !");
+                return;
+            }
+
+            if (editId) {
+                const idx = adhkars.findIndex(d => d.id === editId);
+                if (idx !== -1) {
+                    adhkars[idx].french = title;
+                    adhkars[idx].arabic = arabic;
+                    adhkars[idx].phonetic = phonetic;
+                    adhkars[idx].translation = translation;
+                    adhkars[idx].target = target;
+                    adhkars[idx].targetLabel = `Boucle de ${target}`;
+                    adhkars[idx].category = category;
+                }
+                showToast("Invocation mise à jour !");
+            } else {
+                const newDhikr = {
+                    id: 'custom_' + Date.now(),
+                    french: title,
+                    arabic: arabic,
+                    phonetic: phonetic,
+                    translation: translation,
+                    target: target,
+                    targetLabel: `Boucle de ${target}`,
+                    category: category
+                };
+                adhkars.push(newDhikr);
+                dailyCounts[newDhikr.id] = 0;
+                lifetimeCounts[newDhikr.id] = 0;
+                showToast("Invocation personnalisée ajoutée !");
+            }
+
+            saveData();
+            closeAddModal();
+            renderCards();
+        }
+
+        function editCustom(id) {
+            openAddModal(id);
+        }
+
+        function deleteCustom(id) {
+            const item = adhkars.find(d => d.id === id);
+            if (!confirm(`Supprimer définitivement l'invocation "${item.french}" ?`)) return;
+            adhkars = adhkars.filter(d => d.id !== id);
+            favorites = favorites.filter(f => f !== id);
+            delete dailyCounts[id];
+            delete lifetimeCounts[id];
+            saveData();
+            renderCards();
+            showToast("Invocation supprimée");
+        }
+
+        // --- STATISTIQUES & GRAPHIQUE 7 JOURS ---
+        function openStatsModal() {
+            document.getElementById('stats-streak').innerText = streak;
+            const lifeTotal = Object.values(lifetimeCounts).reduce((a, b) => a + b, 0);
+            document.getElementById('stats-lifetime').innerText = lifeTotal.toLocaleString('fr-FR');
+
+            const chart = document.getElementById('activity-chart');
+            chart.innerHTML = '';
+
+            const days = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                days.push(d.toISOString().slice(0, 10));
+            }
+
+            const counts = days.map(day => historyDays[day] || 0);
+            const maxVal = Math.max(...counts, 10);
+
+            days.forEach((day, idx) => {
+                const val = counts[idx];
+                const pct = Math.min(100, Math.max(12, (val / maxVal) * 100));
+                const dayLabel = new Date(day).toLocaleDateString('fr-FR', { weekday: 'short' });
+
+                const col = document.createElement('div');
+                col.className = "flex-1 flex flex-col items-center gap-1.5 h-full justify-end";
+                col.innerHTML = `
+                    <span class="text-[9px] font-bold text-textmuted tabular-nums">${val > 0 ? val : ''}</span>
+                    <div class="w-full max-w-[28px] rounded-t-lg bg-primary-500/20 border-t-2 border-primary-500 transition-all duration-500" style="height: ${pct}%;"></div>
+                    <span class="text-[9px] font-semibold text-textmuted capitalize">${dayLabel.slice(0, 2)}</span>
+                `;
+                chart.appendChild(col);
+            });
+
+            const modal = document.getElementById('stats-modal');
+            const box = document.getElementById('stats-box');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
+                else box.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeStatsModal() {
+            const modal = document.getElementById('stats-modal');
+            const box = document.getElementById('stats-box');
+            modal.classList.add('opacity-0');
+            if (window.innerWidth < 640) box.classList.add('translate-y-full');
+            else box.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 280);
+        }
+
+        // --- PARAMÈTRES, THÈMES & SAUVEGARDE JSON ---
+        function openSettings() {
+            const modal = document.getElementById('settings-modal');
+            const box = document.getElementById('settings-box');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
+                else box.classList.remove('scale-95');
             }, 10);
         }
 
         function closeSettings() {
-            document.getElementById('settings-modal').classList.add('opacity-0');
-            if(window.innerWidth < 640) document.getElementById('settings-box').classList.add('translate-y-full');
-            else document.getElementById('settings-box').classList.add('scale-95');
-            setTimeout(() => document.getElementById('settings-modal').classList.add('hidden'), 300);
+            const modal = document.getElementById('settings-modal');
+            const box = document.getElementById('settings-box');
+            modal.classList.add('opacity-0');
+            if (window.innerWidth < 640) box.classList.add('translate-y-full');
+            else box.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 280);
         }
 
         function setTheme(theme) {
@@ -612,152 +1792,134 @@
             localStorage.setItem('dhikrTheme', theme);
         }
 
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            localStorage.setItem('dhikrSound', soundEnabled);
+        function setSoundType(type) {
+            soundType = type;
+            localStorage.setItem('dhikrSoundType', type);
             updateSoundUI();
-            if(soundEnabled) playTick();
+            playSound();
         }
 
         function updateSoundUI() {
-            const btn = document.getElementById('sound-toggle');
-            const knob = document.getElementById('sound-knob');
-            if(soundEnabled) {
-                btn.classList.replace('bg-surface', 'bg-primary-500');
-                knob.classList.remove('left-1');
-                knob.classList.add('right-1');
-            } else {
-                btn.classList.replace('bg-primary-500', 'bg-surface');
-                btn.classList.add('border', 'border-bordercolor');
-                knob.classList.remove('right-1');
-                knob.classList.add('left-1');
-            }
+            ['wood', 'water', 'click', 'none'].forEach(type => {
+                const btn = document.getElementById(`sound-btn-${type}`);
+                if (!btn) return;
+                if (soundType === type) {
+                    btn.classList.add('border-primary-500', 'bg-primary-500/15');
+                } else {
+                    btn.classList.remove('border-primary-500', 'bg-primary-500/15');
+                }
+            });
         }
 
-        // --- AJOUT DE DHIKR ---
-        function openAddModal() {
-            document.getElementById('add-title').value = '';
-            document.getElementById('add-arabic').value = '';
-            document.getElementById('add-modal').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('add-modal').classList.remove('opacity-0');
-                if(window.innerWidth < 640) document.getElementById('add-box').classList.remove('translate-y-full');
-                else document.getElementById('add-box').classList.remove('scale-95');
-            }, 10);
+        function toggleHaptic(enabled) {
+            hapticEnabled = enabled;
+            localStorage.setItem('dhikrHaptic', enabled);
+            if (enabled) triggerVibration();
         }
 
-        function closeAddModal() {
-            document.getElementById('add-modal').classList.add('opacity-0');
-            if(window.innerWidth < 640) document.getElementById('add-box').classList.add('translate-y-full');
-            else document.getElementById('add-box').classList.add('scale-95');
-            setTimeout(() => document.getElementById('add-modal').classList.add('hidden'), 300);
-        }
-
-        function saveCustomDhikr() {
-            const title = document.getElementById('add-title').value.trim();
-            const arabic = document.getElementById('add-arabic').value.trim();
-            const target = parseInt(document.getElementById('add-target').value);
-
-            if (!title) return alert("Le titre est obligatoire !");
-
-            const newDhikr = {
-                id: 'custom_' + Date.now(),
-                french: title,
-                arabic: arabic,
-                target: target,
-                targetLabel: `Objectif : ${target}`
+        // --- EXPORT & IMPORT JSON ---
+        function exportData() {
+            const exportObject = {
+                app: "Dhikr Pro v2",
+                version: "2.0",
+                exportDate: new Date().toISOString(),
+                streak: streak,
+                dailyCounts: dailyCounts,
+                lifetimeCounts: lifetimeCounts,
+                favorites: favorites,
+                customDhikrs: adhkars.filter(d => d.id.startsWith('custom_')),
+                historyDays: historyDays,
+                theme: currentTheme,
+                soundType: soundType,
+                remindersEnabled: remindersEnabled
             };
 
-            // Sauvegarde dans la liste des customs
-            const customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
-            customSaved.push(newDhikr);
-            localStorage.setItem('dhikrCustom', JSON.stringify(customSaved));
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObject, null, 2));
+            const downloadAnchor = document.createElement('a');
+            const dateStr = new Date().toISOString().slice(0, 10);
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `dhikr_pro_sauvegarde_${dateStr}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
 
-            // Ajout à l'état local
-            adhkars.push(newDhikr);
-            dailyCounts[newDhikr.id] = 0;
-            lifetimeCounts[newDhikr.id] = 0;
-            saveData();
-
-            closeAddModal();
-            renderCards();
-            showToast("Invocation personnalisée ajoutée !");
+            showToast("Sauvegarde exportée avec succès !");
         }
 
-        function deleteCustom(id) {
-            if(!confirm("Supprimer cette invocation ? L'historique sera perdu.")) return;
-            
-            // Retrait de la base custom
-            let customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
-            customSaved = customSaved.filter(d => d.id !== id);
-            localStorage.setItem('dhikrCustom', JSON.stringify(customSaved));
-            
-            // Nettoyage
-            adhkars = adhkars.filter(d => d.id !== id);
-            delete dailyCounts[id];
-            delete lifetimeCounts[id];
-            saveData();
-            
-            renderCards();
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.dailyCounts && !data.lifetimeCounts && !data.customDhikrs) {
+                        throw new Error("Format JSON non reconnu");
+                    }
+
+                    if (confirm("Importer cette sauvegarde ? Vos données actuelles seront mises à jour.")) {
+                        if (data.dailyCounts) dailyCounts = data.dailyCounts;
+                        if (data.lifetimeCounts) lifetimeCounts = data.lifetimeCounts;
+                        if (data.favorites) favorites = data.favorites;
+                        if (data.historyDays) historyDays = data.historyDays;
+                        if (data.streak) streak = data.streak;
+                        if (data.theme) setTheme(data.theme);
+
+                        if (Array.isArray(data.customDhikrs)) {
+                            const currentDefaults = defaultAdhkars.slice();
+                            adhkars = [...currentDefaults, ...data.customDhikrs];
+                        }
+
+                        saveData();
+                        updateGlobalStats();
+                        renderCards();
+                        closeSettings();
+                        showToast("Données restaurées avec succès !");
+                    }
+                } catch (err) {
+                    alert("Erreur lors de l'importation du fichier JSON : " + err.message);
+                }
+            };
+            reader.readAsText(file);
         }
 
-        // --- PWA (PROGRESSIVE WEB APP) ---
+        // --- TOAST NOTIFICATION ---
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('toast-show');
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+                toast.classList.add('hidden');
+            }, 3200);
+        }
+
+        // --- PWA (INSTALLATION & SERVICE WORKER) ---
         let deferredPrompt;
 
         function initPWA() {
-            // 1. Génération de l'icône de l'application (SVG encodé en Base64)
-            const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="120" fill="#10b981"/><path d="M256 120 A 136 136 0 1 0 392 256 A 136 136 0 0 0 256 120 Z" fill="none" stroke="#fff" stroke-width="32"/><circle cx="256" cy="256" r="60" fill="#fff"/></svg>`;
-            const base64Icon = 'data:image/svg+xml;base64,' + btoa(svgIcon);
-
-            // 2. Création et injection du fichier Manifest.json (dynamique)
-            const manifest = {
-                name: "Dhikr Pro",
-                short_name: "Dhikr Pro",
-                description: "Votre compagnon quotidien de Dhikr",
-                start_url: location.href,
-                display: "standalone",
-                background_color: "#0f172a",
-                theme_color: "#10b981",
-                icons: [
-                    { src: base64Icon, sizes: "192x192", type: "image/svg+xml" },
-                    { src: base64Icon, sizes: "512x512", type: "image/svg+xml" }
-                ]
-            };
-            const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'});
-            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
-            document.getElementById('apple-touch-icon').href = base64Icon;
-
-            // 3. Création du Service Worker (Requis par Android/Chrome pour installer)
             if ('serviceWorker' in navigator) {
-                const swCode = `
-                    self.addEventListener('install', (e) => self.skipWaiting());
-                    self.addEventListener('activate', (e) => self.clients.claim());
-                    self.addEventListener('fetch', (e) => {
-                        // Pass-through simple car tout est dans un seul fichier
-                    });
-                `;
-                const swBlob = new Blob([swCode], {type: 'application/javascript'});
-                navigator.serviceWorker.register(URL.createObjectURL(swBlob))
-                    .catch(err => console.log('Service Worker Erreur:', err));
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js')
+                        .then(reg => console.log('[PWA] Service Worker actif:', reg.scope))
+                        .catch(err => console.log('[PWA] Service Worker non disponible (normal en local/file://):', err));
+                });
             }
 
-            // 4. Interception de l'invitation à installer l'app (Android/Chrome)
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                // On affiche le bouton d'installation caché dans les paramètres
-                document.getElementById('pwa-install-container').classList.remove('hidden');
-                
-                // Animation discrète sur la roue crantée pour prévenir l'utilisateur
-                const gearIcon = document.querySelector('.ph-gear');
-                if(gearIcon) gearIcon.classList.add('text-primary-400', 'animate-pulse');
+                const pwaBox = document.getElementById('pwa-install-container');
+                if (pwaBox) pwaBox.classList.remove('hidden');
             });
-            
-            // Écouteur en cas d'installation réussie
+
             window.addEventListener('appinstalled', () => {
-                document.getElementById('pwa-install-container').classList.add('hidden');
+                const pwaBox = document.getElementById('pwa-install-container');
+                if (pwaBox) pwaBox.classList.add('hidden');
                 deferredPrompt = null;
-                showToast("Dhikr Pro est maintenant installé !");
+                showToast("Dhikr Pro v2 installé avec succès !");
             });
         }
 
@@ -767,16 +1929,14 @@
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
                         document.getElementById('pwa-install-container').classList.add('hidden');
-                        const gearIcon = document.querySelector('.ph-gear');
-                        if(gearIcon) gearIcon.classList.remove('text-primary-400', 'animate-pulse');
                     }
                     deferredPrompt = null;
                 });
             }
         }
 
-        // --- DÉMARRAGE ---
-        window.addEventListener('focus', checkDailyReset); // Vérifie si on a changé de jour en rouvrant l'app
+        // Démarrage de l'application
+        window.addEventListener('focus', checkDailyReset);
         initApp();
         initPWA();
     </script>
