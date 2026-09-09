@@ -1,10 +1,14 @@
-﻿// Service Worker pour Dhikr Pro v2
-const CACHE_NAME = 'dhikr-pro-v2-cache-v1';
+// Service Worker pour Dhikr Pro v2
+const CACHE_NAME = 'dhikr-pro-v2-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './icon.svg',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-maskable-512.png',
+  './apple-touch-icon.png',
   'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js',
   'https://unpkg.com/@phosphor-icons/web',
   'https://cdn.tailwindcss.com'
@@ -37,13 +41,11 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Ignorer les requêtes non-GET
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // En arrière-plan, tenter de mettre à jour le cache (stale-while-revalidate)
         fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
@@ -62,7 +64,6 @@ self.addEventListener('fetch', (event) => {
         });
         return networkResponse;
       }).catch(() => {
-        // En cas d'échec total de réseau pour une navigation, renvoyer index.html
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
