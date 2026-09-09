@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dhikr Pro - Adhkars & Tasbih</title>
+    
+    <!-- Confetti pour les célébrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest & Icons (Injectés dynamiquement) -->
+    <link id="manifest-link" rel="manifest" href="">
+    <meta name="theme-color" content="#10b981">
+    <link rel="apple-touch-icon" id="apple-touch-icon" href="">
+
+    <!-- Icones Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            400: 'var(--color-primary-400)',
+                            500: 'var(--color-primary-500)',
+                            600: 'var(--color-primary-600)',
+                        },
+                        surface: 'var(--color-surface)',
+                        background: 'var(--color-background)',
+                        card: 'var(--color-card)',
+                        textmain: 'var(--color-text-main)',
+                        textmuted: 'var(--color-text-muted)',
+                        bordercolor: 'var(--color-border)',
+                    },
+                    boxShadow: {
+                        'neon': '0 0 20px var(--color-primary-400)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Moteur de Thèmes via Variables CSS */
+        :root {
+            /* Thème 1 : Midnight Emerald (Par défaut) */
+            --color-primary-400: #34d399; /* teal-400 */
+            --color-primary-500: #10b981; /* emerald-500 */
+            --color-primary-600: #047857; /* emerald-700 */
+            --color-surface: #0f172a;     /* slate-900 */
+            --color-background: #020617;  /* slate-950 */
+            --color-card: rgba(30, 41, 59, 0.7);
+            --color-text-main: #f1f5f9;
+            --color-text-muted: #94a3b8;
+            --color-border: rgba(255, 255, 255, 0.08);
+        }
+
+        [data-theme="kaaba"] {
+            /* Thème 2 : Kaaba Black (Noir & Or) */
+            --color-primary-400: #fbbf24; /* amber-400 */
+            --color-primary-500: #f59e0b; /* amber-500 */
+            --color-primary-600: #b45309; /* amber-700 */
+            --color-surface: #000000;
+            --color-background: #0a0a0a;  /* neutral-950 */
+            --color-card: rgba(23, 23, 23, 0.8);
+            --color-text-main: #ffffff;
+            --color-text-muted: #a3a3a3;
+            --color-border: rgba(245, 158, 11, 0.15); /* or transparent */
+        }
+
+        [data-theme="medina"] {
+            /* Thème 3 : Medina Green (Clair & Vert) */
+            --color-primary-400: #4ade80; /* green-400 */
+            --color-primary-500: #22c55e; /* green-500 */
+            --color-primary-600: #15803d; /* green-700 */
+            --color-surface: #ffffff;
+            --color-background: #f0fdf4;  /* green-50 */
+            --color-card: rgba(255, 255, 255, 0.9);
+            --color-text-main: #1e293b;   /* slate-800 */
+            --color-text-muted: #64748b;  /* slate-500 */
+            --color-border: rgba(34, 197, 94, 0.2);
+        }
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            background-color: var(--color-background);
+            color: var(--color-text-main);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        .tap-effect {
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tap-effect:active {
+            transform: scale(0.94);
+        }
+
+        .glass-card {
+            background: var(--color-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+        
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+
+        /* Animation Toast */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px) translateX(-50%); }
+            to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+        .toast-enter { animation: slideUpFade 0.4s ease forwards; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center relative overflow-x-hidden" data-theme="emerald">
+
+    <!-- En-tête fixe -->
+    <header class="w-full max-w-md mx-auto sticky top-0 glass-card z-40 px-5 py-4 flex justify-between items-center border-b border-bordercolor shadow-glass">
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-bold text-primary-500">Adhkars</h1>
+            <p class="text-[11px] text-textmuted font-medium tracking-widest uppercase mt-0.5">Quotidien</p>
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <!-- Streak (Flamme) -->
+            <div class="flex flex-col items-center bg-surface/50 px-3 py-1.5 rounded-xl border border-bordercolor shadow-inner" onclick="openSettings()" style="cursor: pointer;">
+                <div class="flex items-center gap-1">
+                    <span class="text-orange-500 animate-pulse">🔥</span>
+                    <span id="streak-counter" class="text-lg font-bold text-textmain tabular-nums">0</span>
+                </div>
+                <span class="text-[8px] text-textmuted font-bold uppercase tracking-wider">Série</span>
+            </div>
+            
+            <!-- Bouton Paramètres -->
+            <button onclick="openSettings()" class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-textmuted hover:text-primary-500 tap-effect border border-bordercolor">
+                <i class="ph ph-gear text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-primary-600 text-white px-6 py-3 rounded-full shadow-lg font-medium text-sm hidden flex items-center gap-2 border border-primary-400">
+        <i class="ph ph-info text-lg"></i>
+        <span id="toast-msg">Nouveau jour ! Compteurs réinitialisés.</span>
+    </div>
+
+    <!-- Conteneur principal -->
+    <main id="app-container" class="w-full max-w-md mx-auto px-4 py-8 pb-32 flex flex-col gap-6">
+        <!-- Les cartes (Injectées par JS) -->
+    </main>
+
+    <!-- Bouton pour ajouter un Dhikr personnalisé -->
+    <div class="w-full max-w-md mx-auto px-4 pb-32">
+        <button onclick="openAddModal()" class="w-full py-4 rounded-[24px] glass-card border-dashed border-2 border-bordercolor text-textmuted hover:text-primary-500 hover:border-primary-500/50 flex flex-col items-center justify-center gap-2 tap-effect transition-colors group">
+            <div class="w-10 h-10 rounded-full bg-surface group-hover:bg-primary-500/10 flex items-center justify-center transition-colors">
+                <i class="ph ph-plus text-xl"></i>
+            </div>
+            <span class="text-sm font-semibold tracking-wide">Créer un Dhikr personnalisé</span>
+        </button>
+    </div>
+
+    <!-- Modal : Paramètres & Statistiques -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="settings-box" class="glass-card w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-textmain">Profil & Paramètres</h3>
+                <button onclick="closeSettings()" class="w-10 h-10 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="bg-surface/50 rounded-2xl p-4 mb-6 border border-bordercolor flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-1">Total Historique</span>
+                    <span id="lifetime-counter" class="text-2xl font-bold text-primary-500 tabular-nums">0</span>
+                </div>
+                <i class="ph-fill ph-trophy text-3xl text-primary-500/20"></i>
+            </div>
+
+            <!-- Toggle Son -->
+            <div class="flex justify-between items-center mb-6 px-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-primary-500/10 text-primary-500 flex items-center justify-center">
+                        <i class="ph-fill ph-speaker-high text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-sm font-semibold text-textmain block">Son du Tasbih</span>
+                        <span class="text-xs text-textmuted">Effet sonore au clic</span>
+                    </div>
+                </div>
+                <!-- Switch -->
+                <button id="sound-toggle" onclick="toggleSound()" class="w-12 h-7 bg-primary-500 rounded-full relative transition-colors tap-effect">
+                    <div id="sound-knob" class="w-5 h-5 bg-white rounded-full absolute top-1 right-1 shadow-sm transition-all"></div>
+                </button>
+            </div>
+
+            <!-- Choix du Thème -->
+            <div class="mb-2 px-2">
+                <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-3">Apparence</span>
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="setTheme('emerald')" class="py-3 rounded-xl border border-bordercolor bg-[#0f172a] text-[#10b981] flex flex-col items-center gap-1 tap-effect hover:border-[#10b981]">
+                        <div class="w-4 h-4 rounded-full bg-[#10b981]"></div>
+                        <span class="text-[10px] font-bold">Emerald</span>
+                    </button>
+                    <button onclick="setTheme('kaaba')" class="py-3 rounded-xl border border-bordercolor bg-black text-[#f59e0b] flex flex-col items-center gap-1 tap-effect hover:border-[#f59e0b]">
+                        <div class="w-4 h-4 rounded-full bg-[#f59e0b]"></div>
+                        <span class="text-[10px] font-bold">Kaaba</span>
+                    </button>
+                    <button onclick="setTheme('medina')" class="py-3 rounded-xl border border-bordercolor bg-[#f0fdf4] text-[#22c55e] flex flex-col items-center gap-1 tap-effect hover:border-[#22c55e] shadow-sm">
+                        <div class="w-4 h-4 rounded-full bg-[#22c55e]"></div>
+                        <span class="text-[10px] font-bold">Medina</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Zone PWA (Installation) -->
+            <div id="pwa-install-container" class="mt-6 pt-6 border-t border-bordercolor hidden">
+                <div class="flex justify-between items-center bg-primary-500/10 p-4 rounded-2xl border border-primary-500/20">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center text-white shadow-lg">
+                            <i class="ph-fill ph-download-simple text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-sm font-bold text-textmain block">Installer l'App</span>
+                            <span class="text-[10px] text-textmuted leading-tight block mt-0.5">Accès sans internet<br>& plein écran</span>
+                        </div>
+                    </div>
+                    <button onclick="installPWA()" class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white text-sm font-bold rounded-xl tap-effect transition-colors shadow-neon">
+                        Installer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal : Ajouter un Dhikr -->
+    <div id="add-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="add-box" class="glass-card w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-textmain">Nouveau Dhikr</h3>
+                <button onclick="closeAddModal()" class="w-10 h-10 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            
+            <div class="flex flex-col gap-4">
+                <div>
+                    <label class="text-xs text-textmuted font-bold uppercase tracking-wider mb-1 block">Titre (Français) *</label>
+                    <input type="text" id="add-title" placeholder="Ex: Subhanallah" class="w-full bg-surface border border-bordercolor rounded-xl px-4 py-3 text-textmain outline-none focus:border-primary-500 transition-colors">
+                </div>
+                <div>
+                    <label class="text-xs text-textmuted font-bold uppercase tracking-wider mb-1 block">Texte Arabe (Optionnel)</label>
+                    <input type="text" id="add-arabic" placeholder="سُبْحَانَ اللَّهِ" dir="rtl" class="w-full bg-surface border border-bordercolor rounded-xl px-4 py-3 text-textmain font-arabic text-lg outline-none focus:border-primary-500 transition-colors">
+                </div>
+                <div>
+                    <label class="text-xs text-textmuted font-bold uppercase tracking-wider mb-1 block">Objectif par boucle *</label>
+                    <select id="add-target" class="w-full bg-surface border border-bordercolor rounded-xl px-4 py-3 text-textmain outline-none focus:border-primary-500 transition-colors appearance-none">
+                        <option value="33">33 (Après la prière)</option>
+                        <option value="100" selected>100 (Quotidien)</option>
+                        <option value="10">10 (Matin et Soir)</option>
+                    </select>
+                </div>
+                
+                <button onclick="saveCustomDhikr()" class="w-full mt-4 py-4 rounded-xl bg-primary-500 text-white font-bold text-lg shadow-[0_0_15px_var(--color-primary-600)] tap-effect hover:bg-primary-600 transition-colors">
+                    Ajouter au chapelet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mode Focus (Plein Écran) -->
+    <div id="focus-mode" class="fixed inset-0 bg-background z-[60] hidden flex-col transition-transform duration-300 translate-y-full">
+        <div class="px-6 py-6 flex justify-between items-center relative z-10 pointer-events-auto">
+            <button onclick="closeFocusMode()" class="w-12 h-12 flex items-center justify-center rounded-full bg-card text-textmuted hover:text-textmain backdrop-blur-md tap-effect border border-bordercolor">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+            <div class="flex flex-col items-end">
+                <span id="focus-target-label" class="text-xs text-textmuted font-bold uppercase tracking-widest">Objectif</span>
+                <span id="focus-progress-text" class="text-primary-500 font-semibold text-sm">0</span>
+            </div>
+        </div>
+
+        <div class="flex-1 flex flex-col items-center justify-start px-6 pt-4 relative z-10 pointer-events-none">
+            <h3 id="focus-french" class="text-primary-500 font-semibold text-sm uppercase tracking-widest mb-6 text-center">Titre</h3>
+            <p id="focus-arabic" class="font-arabic text-4xl md:text-5xl leading-relaxed text-textmain text-center drop-shadow-lg mb-6" dir="rtl" style="line-height: 1.6;"></p>
+        </div>
+
+        <button id="focus-tap-zone" class="absolute inset-0 w-full h-full flex flex-col justify-end items-center pb-24 outline-none tap-effect" onclick="incrementFocus()">
+            <div class="relative w-48 h-48 mb-8 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="transparent" stroke="var(--color-border)" stroke-width="4"></circle>
+                    <circle id="focus-ring" cx="50" cy="50" r="45" fill="transparent" stroke="var(--color-primary-500)" stroke-width="4" stroke-dasharray="283" stroke-dashoffset="283" class="transition-all duration-300 ease-out drop-shadow-[0_0_8px_var(--color-primary-400)]"></circle>
+                </svg>
+                <div class="flex flex-col items-center">
+                    <span id="focus-counter" class="text-6xl font-bold text-textmain tabular-nums tracking-tighter drop-shadow-lg">0</span>
+                </div>
+            </div>
+            <p class="text-textmuted text-xs font-medium uppercase tracking-widest animate-pulse">Appuyez n'importe où</p>
+        </button>
+    </div>
+
+    <script>
+        // --- DONNÉES DE BASE (Les 6 Adhkars) ---
+        const defaultAdhkars = [
+            { id: 'salawat', arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ وَزِدْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ", french: "Prière sur le Prophète", phonetic: "Allahumma salli...", target: 10, targetLabel: "Objectif : 10" },
+            { id: 'istighfar', arabic: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", french: "Demande de pardon", phonetic: "Astaghfirullah...", target: 100, targetLabel: "Objectif : 100" },
+            { id: 'jalal', arabic: "يَا ذَا الْجَلَالِ وَالْإِكْرَامِ", french: "Ô Détenteur de la Majesté...", phonetic: "Ya Dhal-Jalal...", target: 100, targetLabel: "Boucle de 100" },
+            { id: 'hawqala', arabic: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", french: "Il n'y a de force...", phonetic: "La hawla wa la...", target: 100, targetLabel: "Boucle de 100" },
+            { id: 'yunus', arabic: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ", french: "Invocation de Jonas", phonetic: "La ilaha illa anta...", target: 100, targetLabel: "Boucle de 100" },
+            { id: 'tasbih', arabic: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", french: "Glorification", phonetic: "Subhanallah...", target: 100, targetLabel: "Objectif : 100" }
+        ];
+
+        // --- ÉTAT DE L'APPLICATION ---
+        let adhkars = [];
+        let dailyCounts = {};
+        let lifetimeCounts = {};
+        let currentFocusId = null;
+        
+        // Paramètres
+        let currentTheme = localStorage.getItem('dhikrTheme') || 'emerald';
+        let soundEnabled = localStorage.getItem('dhikrSound') !== 'false'; // true par défaut
+        
+        // Gamification
+        let streak = parseInt(localStorage.getItem('dhikrStreak') || '0');
+        let lastActiveDate = localStorage.getItem('dhikrLastDate');
+
+        // --- MOTEUR AUDIO (Génération d'un clic type "bois/goutte") ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function playTick() {
+            if (!soundEnabled) return;
+            // Initialisation au premier clic (contourne la sécurité des navigateurs)
+            if (!audioCtx) audioCtx = new AudioContext();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            
+            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        // --- INITIALISATION ET LOGIQUE JOURNALIÈRE ---
+        function initApp() {
+            setTheme(currentTheme);
+            updateSoundUI();
+            
+            // Chargement des Dhikrs personnalisés
+            const customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
+            adhkars = [...defaultAdhkars, ...customSaved];
+
+            // Chargement des compteurs
+            dailyCounts = JSON.parse(localStorage.getItem('dhikrDaily') || '{}');
+            lifetimeCounts = JSON.parse(localStorage.getItem('dhikrLifetime') || '{}');
+
+            // Vérification du changement de jour (Streaks et Reset)
+            checkDailyReset();
+
+            // S'assurer que chaque dhikr a une entrée
+            adhkars.forEach(d => {
+                if (dailyCounts[d.id] === undefined) dailyCounts[d.id] = 0;
+                if (lifetimeCounts[d.id] === undefined) lifetimeCounts[d.id] = 0;
+            });
+
+            updateGlobalStats();
+            renderCards();
+        }
+
+        function checkDailyReset() {
+            const today = new Date().toDateString();
+            
+            if (lastActiveDate && lastActiveDate !== today) {
+                // Ce n'est pas le même jour
+                let yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                if (lastActiveDate === yesterday.toDateString()) {
+                    // Venu hier = On augmente la série
+                    streak++;
+                } else {
+                    // A raté un jour = Série brisée
+                    streak = 1;
+                }
+                
+                // Remise à zéro des compteurs journaliers
+                dailyCounts = {};
+                showToast("Un nouveau jour commence ! Compteurs quotidiens réinitialisés.");
+            } else if (!lastActiveDate) {
+                // Première ouverture
+                streak = 1;
+            }
+
+            lastActiveDate = today;
+            localStorage.setItem('dhikrLastDate', lastActiveDate);
+            localStorage.setItem('dhikrStreak', streak);
+            document.getElementById('streak-counter').innerText = streak;
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('toast-enter');
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        function saveData() {
+            localStorage.setItem('dhikrDaily', JSON.stringify(dailyCounts));
+            localStorage.setItem('dhikrLifetime', JSON.stringify(lifetimeCounts));
+        }
+
+        function updateGlobalStats() {
+            const total = Object.values(lifetimeCounts).reduce((a, b) => a + b, 0);
+            document.getElementById('lifetime-counter').innerText = total.toLocaleString('fr-FR');
+            document.getElementById('streak-counter').innerText = streak;
+        }
+
+        // --- RENDU DES CARTES ---
+        function renderCards() {
+            const container = document.getElementById('app-container');
+            container.innerHTML = '';
+
+            adhkars.forEach((dhikr, index) => {
+                const count = dailyCounts[dhikr.id];
+                const progress = (count % dhikr.target);
+                const progressPercent = count > 0 && progress === 0 ? 100 : (progress / dhikr.target) * 100;
+
+                const isCustom = !defaultAdhkars.find(d => d.id === dhikr.id);
+                const deleteBtn = isCustom ? 
+                    `<button onclick="deleteCustom('${dhikr.id}')" class="text-red-400/50 hover:text-red-400"><i class="ph ph-trash text-lg"></i></button>` : '';
+
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-[32px] overflow-hidden flex flex-col relative group transition-all duration-300";
+                
+                card.innerHTML = `
+                    <div class="p-6 pb-2 flex justify-between items-center z-10">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-500/10 text-primary-500 font-bold text-sm border border-primary-500/20">
+                                ${index + 1}
+                            </span>
+                            <h2 class="text-textmain font-semibold text-[13px] tracking-wide uppercase">${dhikr.french}</h2>
+                        </div>
+                        <div class="flex gap-2">
+                            ${deleteBtn}
+                            <button onclick="resetDhikr('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface/50 text-textmuted hover:text-primary-500 tap-effect">
+                                <i class="ph ph-arrow-counter-clockwise text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    ${dhikr.arabic ? `
+                    <div class="px-6 py-4 flex flex-col items-center justify-center z-10">
+                        <p class="font-arabic text-3xl md:text-4xl leading-loose text-textmain text-center mb-2" dir="rtl" style="line-height: 1.8;">
+                            ${dhikr.arabic}
+                        </p>
+                    </div>` : '<div class="py-4"></div>'}
+                    
+                    <div class="p-4 bg-surface/30 mt-auto border-t border-bordercolor relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-1 w-full bg-surface">
+                            <div id="progress-${dhikr.id}" class="h-full bg-primary-500 transition-all duration-500 ease-out" style="width: ${progressPercent}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-3 pt-2">
+                            <div class="flex-[1.5] bg-background/50 rounded-[20px] py-3 px-2 flex flex-col items-center justify-center border border-bordercolor">
+                                <span class="text-[9px] text-primary-500 font-bold uppercase tracking-wider mb-0.5 text-center">${dhikr.targetLabel}</span>
+                                <span class="text-2xl font-bold text-textmain tabular-nums" id="count-${dhikr.id}">${count}</span>
+                            </div>
+                            
+                            <button onclick="increment('${dhikr.id}')" class="flex-[2.5] h-[70px] rounded-[20px] bg-primary-500 text-white shadow-neon flex items-center justify-center tap-effect overflow-hidden relative active:bg-primary-600">
+                                <span class="font-bold text-lg uppercase tracking-wider">Compter</span>
+                            </button>
+
+                            <button onclick="openFocusMode('${dhikr.id}')" class="w-[70px] h-[70px] rounded-[20px] bg-surface flex flex-col items-center justify-center text-primary-500 tap-effect border border-bordercolor">
+                                <i class="ph ph-corners-out text-2xl mb-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- ACTIONS PRINCIPALES ---
+        function triggerHaptic() {
+            if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(40);
+        }
+
+        function increment(id) {
+            dailyCounts[id]++;
+            lifetimeCounts[id]++;
+            
+            document.getElementById(`count-${id}`).innerText = dailyCounts[id];
+            
+            const dhikr = adhkars.find(d => d.id === id);
+            const progress = dailyCounts[id] % dhikr.target;
+            const progressPercent = dailyCounts[id] > 0 && progress === 0 ? 100 : (progress / dhikr.target) * 100;
+            document.getElementById(`progress-${id}`).style.width = `${progressPercent}%`;
+
+            saveData();
+            updateGlobalStats();
+            triggerHaptic();
+            playTick(); // Le fameux son ajouté !
+
+            if (dailyCounts[id] > 0 && dailyCounts[id] % dhikr.target === 0) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#10b981', '#fbbf24', '#ffffff'] });
+            }
+        }
+
+        function resetDhikr(id) {
+            dailyCounts[id] = 0; // Seul le compte du jour est réinitialisé, l'historique est gardé !
+            document.getElementById(`count-${id}`).innerText = '0';
+            document.getElementById(`progress-${id}`).style.width = '0%';
+            saveData();
+        }
+
+        // --- MODE FOCUS ---
+        const focusMode = document.getElementById('focus-mode');
+        const focusRing = document.getElementById('focus-ring');
+        
+        function openFocusMode(id) {
+            currentFocusId = id;
+            const dhikr = adhkars.find(d => d.id === id);
+            
+            document.getElementById('focus-french').innerText = dhikr.french;
+            document.getElementById('focus-arabic').innerText = dhikr.arabic || '';
+            document.getElementById('focus-target-label').innerText = dhikr.targetLabel;
+            
+            updateFocusUI();
+            focusMode.classList.remove('hidden');
+            setTimeout(() => focusMode.classList.remove('translate-y-full'), 10);
+        }
+
+        function closeFocusMode() {
+            focusMode.classList.add('translate-y-full');
+            setTimeout(() => {
+                focusMode.classList.add('hidden');
+                currentFocusId = null;
+                renderCards(); 
+            }, 300);
+        }
+
+        function incrementFocus() {
+            if (currentFocusId) increment(currentFocusId);
+            updateFocusUI();
+        }
+
+        function updateFocusUI() {
+            const count = dailyCounts[currentFocusId];
+            document.getElementById('focus-counter').innerText = count;
+            
+            const dhikr = adhkars.find(d => d.id === currentFocusId);
+            const progress = count % dhikr.target;
+            const displayProgress = count > 0 && progress === 0 ? dhikr.target : progress;
+            const progressPercent = (displayProgress / dhikr.target) * 100;
+            
+            document.getElementById('focus-progress-text').innerText = `${displayProgress}/${dhikr.target}`;
+            const offset = 283 - (283 * progressPercent) / 100;
+            focusRing.style.strokeDashoffset = offset;
+        }
+
+        // --- PARAMÈTRES ET THÈMES ---
+        function openSettings() {
+            document.getElementById('settings-modal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('settings-modal').classList.remove('opacity-0');
+                if(window.innerWidth < 640) document.getElementById('settings-box').classList.remove('translate-y-full');
+                else document.getElementById('settings-box').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.add('opacity-0');
+            if(window.innerWidth < 640) document.getElementById('settings-box').classList.add('translate-y-full');
+            else document.getElementById('settings-box').classList.add('scale-95');
+            setTimeout(() => document.getElementById('settings-modal').classList.add('hidden'), 300);
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('dhikrTheme', theme);
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem('dhikrSound', soundEnabled);
+            updateSoundUI();
+            if(soundEnabled) playTick();
+        }
+
+        function updateSoundUI() {
+            const btn = document.getElementById('sound-toggle');
+            const knob = document.getElementById('sound-knob');
+            if(soundEnabled) {
+                btn.classList.replace('bg-surface', 'bg-primary-500');
+                knob.classList.remove('left-1');
+                knob.classList.add('right-1');
+            } else {
+                btn.classList.replace('bg-primary-500', 'bg-surface');
+                btn.classList.add('border', 'border-bordercolor');
+                knob.classList.remove('right-1');
+                knob.classList.add('left-1');
+            }
+        }
+
+        // --- AJOUT DE DHIKR ---
+        function openAddModal() {
+            document.getElementById('add-title').value = '';
+            document.getElementById('add-arabic').value = '';
+            document.getElementById('add-modal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('add-modal').classList.remove('opacity-0');
+                if(window.innerWidth < 640) document.getElementById('add-box').classList.remove('translate-y-full');
+                else document.getElementById('add-box').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.add('opacity-0');
+            if(window.innerWidth < 640) document.getElementById('add-box').classList.add('translate-y-full');
+            else document.getElementById('add-box').classList.add('scale-95');
+            setTimeout(() => document.getElementById('add-modal').classList.add('hidden'), 300);
+        }
+
+        function saveCustomDhikr() {
+            const title = document.getElementById('add-title').value.trim();
+            const arabic = document.getElementById('add-arabic').value.trim();
+            const target = parseInt(document.getElementById('add-target').value);
+
+            if (!title) return alert("Le titre est obligatoire !");
+
+            const newDhikr = {
+                id: 'custom_' + Date.now(),
+                french: title,
+                arabic: arabic,
+                target: target,
+                targetLabel: `Objectif : ${target}`
+            };
+
+            // Sauvegarde dans la liste des customs
+            const customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
+            customSaved.push(newDhikr);
+            localStorage.setItem('dhikrCustom', JSON.stringify(customSaved));
+
+            // Ajout à l'état local
+            adhkars.push(newDhikr);
+            dailyCounts[newDhikr.id] = 0;
+            lifetimeCounts[newDhikr.id] = 0;
+            saveData();
+
+            closeAddModal();
+            renderCards();
+            showToast("Invocation personnalisée ajoutée !");
+        }
+
+        function deleteCustom(id) {
+            if(!confirm("Supprimer cette invocation ? L'historique sera perdu.")) return;
+            
+            // Retrait de la base custom
+            let customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
+            customSaved = customSaved.filter(d => d.id !== id);
+            localStorage.setItem('dhikrCustom', JSON.stringify(customSaved));
+            
+            // Nettoyage
+            adhkars = adhkars.filter(d => d.id !== id);
+            delete dailyCounts[id];
+            delete lifetimeCounts[id];
+            saveData();
+            
+            renderCards();
+        }
+
+        // --- PWA (PROGRESSIVE WEB APP) ---
+        let deferredPrompt;
+
+        function initPWA() {
+            // 1. Génération de l'icône de l'application (SVG encodé en Base64)
+            const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="120" fill="#10b981"/><path d="M256 120 A 136 136 0 1 0 392 256 A 136 136 0 0 0 256 120 Z" fill="none" stroke="#fff" stroke-width="32"/><circle cx="256" cy="256" r="60" fill="#fff"/></svg>`;
+            const base64Icon = 'data:image/svg+xml;base64,' + btoa(svgIcon);
+
+            // 2. Création et injection du fichier Manifest.json (dynamique)
+            const manifest = {
+                name: "Dhikr Pro",
+                short_name: "Dhikr Pro",
+                description: "Votre compagnon quotidien de Dhikr",
+                start_url: location.href,
+                display: "standalone",
+                background_color: "#0f172a",
+                theme_color: "#10b981",
+                icons: [
+                    { src: base64Icon, sizes: "192x192", type: "image/svg+xml" },
+                    { src: base64Icon, sizes: "512x512", type: "image/svg+xml" }
+                ]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'});
+            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+            document.getElementById('apple-touch-icon').href = base64Icon;
+
+            // 3. Création du Service Worker (Requis par Android/Chrome pour installer)
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => self.clients.claim());
+                    self.addEventListener('fetch', (e) => {
+                        // Pass-through simple car tout est dans un seul fichier
+                    });
+                `;
+                const swBlob = new Blob([swCode], {type: 'application/javascript'});
+                navigator.serviceWorker.register(URL.createObjectURL(swBlob))
+                    .catch(err => console.log('Service Worker Erreur:', err));
+            }
+
+            // 4. Interception de l'invitation à installer l'app (Android/Chrome)
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                // On affiche le bouton d'installation caché dans les paramètres
+                document.getElementById('pwa-install-container').classList.remove('hidden');
+                
+                // Animation discrète sur la roue crantée pour prévenir l'utilisateur
+                const gearIcon = document.querySelector('.ph-gear');
+                if(gearIcon) gearIcon.classList.add('text-primary-400', 'animate-pulse');
+            });
+            
+            // Écouteur en cas d'installation réussie
+            window.addEventListener('appinstalled', () => {
+                document.getElementById('pwa-install-container').classList.add('hidden');
+                deferredPrompt = null;
+                showToast("Dhikr Pro est maintenant installé !");
+            });
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('pwa-install-container').classList.add('hidden');
+                        const gearIcon = document.querySelector('.ph-gear');
+                        if(gearIcon) gearIcon.classList.remove('text-primary-400', 'animate-pulse');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        // --- DÉMARRAGE ---
+        window.addEventListener('focus', checkDailyReset); // Vérifie si on a changé de jour en rouvrant l'app
+        initApp();
+        initPWA();
+    </script>
+</body>
+</html>
