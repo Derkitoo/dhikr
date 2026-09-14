@@ -242,32 +242,70 @@
         </div>
     </div>
 
-    <!-- Barre de Filtres par Catégorie -->
-    <nav class="w-full max-w-lg mx-auto px-4 pt-4 overflow-x-auto custom-scrollbar">
-        <div class="flex items-center gap-2 pb-1 min-w-max">
-            <button onclick="openNamesModal()" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-amber-400 border-amber-500/30 hover:bg-amber-500/10 tap-effect">
-                <i class="ph-fill ph-sparkle text-amber-400"></i> 99 Noms
+    <!-- Accès Direct : Les 99 Noms d'Allah -->
+    <div class="w-full max-w-lg mx-auto px-4 pt-3.5">
+        <button onclick="openNamesModal()" class="w-full py-2.5 px-3.5 rounded-2xl glass-card border border-amber-500/30 hover:border-amber-400/60 bg-gradient-to-r from-amber-500/10 via-surface to-amber-500/5 flex items-center justify-between tap-effect transition-all group shadow-sm">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold text-sm border border-amber-500/30 group-hover:scale-105 transition-transform">
+                    <i class="ph-fill ph-sparkle text-amber-400"></i>
+                </div>
+                <div class="text-left">
+                    <span class="text-[10px] text-amber-400/90 font-bold uppercase tracking-wider block">Module Spécial</span>
+                    <span class="text-xs font-bold text-textmain flex items-center gap-1.5">
+                        Asma'ul Husna <span class="text-[11px] font-normal text-textmuted">· Les 99 Noms d'Allah</span>
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-1 text-xs font-semibold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
+                <span>Explorer</span>
+                <i class="ph ph-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </div>
+        </button>
+    </div>
+
+    <!-- Choix de Catégories (Affichage responsive complet, sans troncature) -->
+    <nav class="w-full max-w-lg mx-auto px-4 pt-3.5">
+        <div class="flex items-center justify-between mb-2 px-0.5">
+            <span class="text-[11px] font-bold text-textmuted uppercase tracking-wider flex items-center gap-1">
+                <i class="ph ph-funnel text-xs text-primary-400"></i> Catégories
+            </span>
+            <span class="text-[10px] text-textmuted font-medium" id="category-summary">Toutes les invocations</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <button onclick="setCategory('all')" data-cat="all" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect">
+                <i class="ph ph-squares-four text-sm"></i>
+                <span>Tous</span>
+                <span id="badge-cat-all" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('all')" data-cat="all" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon">
-                <i class="ph ph-squares-four"></i> Tous
+            <button onclick="setCategory('daily')" data-cat="daily" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+                <i class="ph ph-sun text-sm"></i>
+                <span>Quotidien</span>
+                <span id="badge-cat-daily" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('daily')" data-cat="daily" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
-                <i class="ph ph-sun"></i> Quotidien
+            <button onclick="setCategory('morning_evening')" data-cat="morning_evening" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+                <i class="ph ph-cloud-sun text-sm"></i>
+                <span>Matin & Soir</span>
+                <span id="badge-cat-morning_evening" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('morning_evening')" data-cat="morning_evening" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
-                <i class="ph ph-cloud-sun"></i> Matin & Soir
+            <button onclick="setCategory('prayer')" data-cat="prayer" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+                <i class="ph ph-hands-praying text-sm"></i>
+                <span>Post-Prière</span>
+                <span id="badge-cat-prayer" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('prayer')" data-cat="prayer" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
-                <i class="ph ph-hands-praying"></i> Post-Prière
+            <button onclick="setCategory('sleep')" data-cat="sleep" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+                <i class="ph ph-moon-stars text-sm"></i>
+                <span>Sommeil</span>
+                <span id="badge-cat-sleep" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('sleep')" data-cat="sleep" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
-                <i class="ph ph-moon-stars"></i> Sommeil
+            <button onclick="setCategory('favorites')" data-cat="favorites" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+                <i class="ph ph-star text-sm text-amber-400"></i>
+                <span>Favoris</span>
+                <span id="badge-cat-favorites" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('favorites')" data-cat="favorites" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
-                <i class="ph ph-star"></i> Favoris
-            </button>
-            <button onclick="setCategory('custom')" data-cat="custom" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain">
-                <i class="ph ph-sparkle"></i> Mes Dhikrs
+            <button onclick="setCategory('custom')" data-cat="custom" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+                <i class="ph ph-sparkle text-sm text-primary-400"></i>
+                <span>Mes Dhikrs</span>
+                <span id="badge-cat-custom" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
         </div>
     </nav>
@@ -1161,6 +1199,7 @@
 
             updateGlobalStats();
             renderCards();
+            updateCategoryBadges();
             setupKeyboardShortcuts();
             initFocusBeads();
         }
@@ -1220,13 +1259,51 @@
         }
 
         // --- FILTRAGE & RECHERCHE ---
+        const categorySummaries = {
+            'all': "Toutes les invocations",
+            'daily': "Invocations quotidiennes",
+            'morning_evening': "Adhkars du matin et du soir",
+            'prayer': "Invocations après la prière",
+            'sleep': "Invocations avant de dormir",
+            'favorites': "Vos invocations favorites",
+            'custom': "Vos dhikrs personnalisés"
+        };
+
+        function updateCategoryBadges() {
+            const counts = {
+                all: adhkars.length,
+                daily: adhkars.filter(d => d.category === 'daily').length,
+                morning_evening: adhkars.filter(d => d.category === 'morning_evening').length,
+                prayer: adhkars.filter(d => d.category === 'prayer').length,
+                sleep: adhkars.filter(d => d.category === 'sleep').length,
+                favorites: favorites.length,
+                custom: adhkars.filter(d => d.id.startsWith('custom_')).length
+            };
+
+            for (const [cat, count] of Object.entries(counts)) {
+                const el = document.getElementById(`badge-cat-${cat}`);
+                if (el) el.textContent = count;
+            }
+        }
+
         function setCategory(cat) {
             currentCategory = cat;
+            const summaryEl = document.getElementById('category-summary');
+            if (summaryEl) summaryEl.textContent = categorySummaries[cat] || "Invocations";
+
             document.querySelectorAll('.cat-pill').forEach(btn => {
-                if (btn.getAttribute('data-cat') === cat) {
-                    btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon";
+                const isSelected = btn.getAttribute('data-cat') === cat;
+                const badge = btn.querySelector('.cat-badge');
+                if (isSelected) {
+                    btn.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect";
+                    if (badge) {
+                        badge.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums";
+                    }
                 } else {
-                    btn.className = "cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-textmuted border-bordercolor hover:text-textmain";
+                    btn.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect";
+                    if (badge) {
+                        badge.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums";
+                    }
                 }
             });
             renderCards();
@@ -1261,6 +1338,7 @@
                 showToast("Ajouté aux favoris ⭐");
             }
             saveData();
+            updateCategoryBadges();
             renderCards();
         }
 
@@ -1940,6 +2018,7 @@
 
             saveData();
             closeAddModal();
+            updateCategoryBadges();
             renderCards();
         }
 
@@ -1955,6 +2034,7 @@
             delete dailyCounts[id];
             delete lifetimeCounts[id];
             saveData();
+            updateCategoryBadges();
             renderCards();
             showToast("Invocation supprimée");
         }
@@ -2289,6 +2369,7 @@
                 lifetimeCounts[nameId] = 0;
                 saveData();
                 renderCards();
+                updateCategoryBadges();
             }
 
             openFocusMode(dhikr.id);
