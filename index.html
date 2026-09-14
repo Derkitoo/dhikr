@@ -116,6 +116,23 @@
             --color-border: rgba(22, 163, 74, 0.15);
         }
 
+        
+        [data-theme="oled"] {
+            /* Thème 5 : OLED Pure Black (Noir Absolu pour écran AMOLED) */
+            --color-primary-300: #6ee7b7;
+            --color-primary-400: #34d399;
+            --color-primary-500: #10b981;
+            --color-primary-600: #047857;
+            --color-primary-500-alpha: rgba(16, 185, 129, 0.2);
+            --color-surface: #0a0a0a;
+            --color-surface-elevated: #141414;
+            --color-background: #000000;
+            --color-card: rgba(10, 10, 10, 0.95);
+            --color-text-main: #ffffff;
+            --color-text-muted: #737373;
+            --color-border: #222222;
+        }
+
         [data-theme="celestial"] {
             /* Thème 4 : Celestial Blue (Bleu Nuit Profond & Cyan) */
             --color-primary-300: #67e8f9;
@@ -185,7 +202,12 @@
                     <h1 class="text-xl font-extrabold tracking-tight text-textmain">Dhikr<span class="text-primary-500">Pro</span></h1>
                     <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30">v2</span>
                 </div>
-                <p class="text-[11px] text-textmuted font-medium tracking-wide">Compagnon de Tasbih & Invocations</p>
+                <div class="flex items-center gap-2 mt-0.5">
+                    <span id="hijri-date-badge" class="text-[11px] text-textmuted font-medium tracking-wide flex items-center gap-1">
+                        <span class="text-amber-400">🌙</span> <span id="hijri-date">Chargement date...</span>
+                    </span>
+                    <span id="fasting-badge" class="hidden text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30"></span>
+                </div>
             </div>
         </div>
         
@@ -223,6 +245,9 @@
     <!-- Barre de Filtres par Catégorie -->
     <nav class="w-full max-w-lg mx-auto px-4 pt-4 overflow-x-auto custom-scrollbar">
         <div class="flex items-center gap-2 pb-1 min-w-max">
+            <button onclick="openNamesModal()" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-surface text-amber-400 border-amber-500/30 hover:bg-amber-500/10 tap-effect">
+                <i class="ph-fill ph-sparkle text-amber-400"></i> 99 Noms
+            </button>
             <button onclick="setCategory('all')" data-cat="all" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon">
                 <i class="ph ph-squares-four"></i> Tous
             </button>
@@ -409,6 +434,25 @@
                 </button>
             </div>
 
+            <!-- Délai du mode Mains-Libres -->
+            <div class="flex justify-between items-center mb-6 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                        <i class="ph-fill ph-timer text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-textmain block">Délai Mains-Libres</span>
+                        <span class="text-[10px] text-textmuted">Pause entre chaque répétition</span>
+                    </div>
+                </div>
+                <select id="auto-delay-select" onchange="changeAutoDelay(this.value)" class="bg-surface text-textmain border border-bordercolor text-xs rounded-xl px-2.5 py-1.5 outline-none focus:border-amber-400">
+                    <option value="1500">1.5 sec (Rapide)</option>
+                    <option value="2000" selected>2.0 sec (Idéal)</option>
+                    <option value="3000">3.0 sec (Posé)</option>
+                    <option value="4000">4.0 sec (Méditatif)</option>
+                </select>
+            </div>
+
             <!-- Choix du Thème -->
             <div class="mb-6">
                 <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Apparence & Thème</span>
@@ -424,6 +468,10 @@
                     <button onclick="setTheme('medina')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#f8fafc] text-[#16a34a] flex flex-col items-center gap-1.5 tap-effect hover:border-[#16a34a]">
                         <div class="w-4 h-4 rounded-full bg-[#16a34a]"></div>
                         <span class="text-[11px] font-bold">Medina</span>
+                    </button>
+                    <button onclick="setTheme('oled')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#000000] text-[#10b981] flex flex-col items-center gap-1.5 tap-effect hover:border-[#10b981]">
+                        <div class="w-4 h-4 rounded-full bg-[#000000] border border-[#10b981] shadow-[0_0_8px_#10b981]"></div>
+                        <span class="text-[11px] font-bold">OLED</span>
                     </button>
                     <button onclick="setTheme('celestial')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#020c1b] text-[#22d3ee] flex flex-col items-center gap-1.5 tap-effect hover:border-[#22d3ee]">
                         <div class="w-4 h-4 rounded-full bg-[#22d3ee] shadow-[0_0_8px_#22d3ee]"></div>
@@ -470,6 +518,38 @@
                 <button onclick="resetAllDaily()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold tap-effect px-2 py-1">
                     Remettre à zéro
                 </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Modal : Les 99 Noms d'Allah -->
+    <div id="names-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="names-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[92vh] flex flex-col transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
+            <div class="flex justify-between items-center mb-4 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                        <i class="ph-fill ph-sparkle text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-extrabold text-textmain">Les 99 Noms d'Allah</h3>
+                        <p class="text-[11px] text-textmuted">Asma' Allah Al-Husna (أسماء الله الحسنى)</p>
+                    </div>
+                </div>
+                <button onclick="closeNamesModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <!-- Barre de recherche interne -->
+            <div class="relative mb-3.5 shrink-0">
+                <i class="ph ph-magnifying-glass absolute left-3.5 top-3 text-textmuted text-sm"></i>
+                <input type="text" id="names-search-input" oninput="filterNames(this.value)" placeholder="Rechercher par nom, arabe ou signification..." class="w-full bg-surface border border-bordercolor rounded-2xl pl-10 pr-4 py-2.5 text-xs text-textmain outline-none focus:border-amber-400 transition-colors">
+            </div>
+
+            <!-- Liste dynamique des 99 Noms -->
+            <div id="names-list" class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-2.5 pr-1">
+                <!-- Injecté par JS -->
             </div>
         </div>
     </div>
@@ -566,6 +646,12 @@
             </button>
             
             <div class="flex items-center gap-2">
+                <!-- Bouton Mode Mains-Libres (Auto-Loop) -->
+                <button onclick="toggleAutoPlay()" id="focus-autoplay-btn" class="px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-amber-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5" title="Répétition automatique mains-libres">
+                    <i id="focus-autoplay-icon" class="ph-bold ph-play text-sm"></i>
+                    <span id="focus-autoplay-label">Auto</span>
+                </button>
+
                 <!-- Bouton Écouter la prononciation arabe -->
                 <button onclick="speakFocusDhikr()" id="focus-speaker-btn" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-cyan-400 backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Écouter la prononciation">
                     <i id="focus-speaker-icon" class="ph ph-speaker-high text-xl"></i>
@@ -2096,9 +2182,257 @@
             }
         }
 
+        
+        // --- LES 99 NOMS D'ALLAH (ASMA' ALLAH AL-HUSNA) ---
+        const ALLAH_NAMES = [{"n": 1, "a": "الرَّحْمَنُ", "p": "Ar-Rahman", "f": "Le Tout-Miséricordieux", "m": "Celui dont la miséricorde infinie englobe toute la création."}, {"n": 2, "a": "الرَّحِيمُ", "p": "Ar-Rahim", "f": "Le Très-Miséricordieux", "m": "Celui qui accorde Sa miséricorde spéciale aux croyants."}, {"n": 3, "a": "الْمَلِكُ", "p": "Al-Malik", "f": "Le Souverain Suprême", "m": "Le Roi absolu de l'univers, sans associé ni égal."}, {"n": 4, "a": "الْقُدُّوسُ", "p": "Al-Quddus", "f": "Le Pur et Sanctifié", "m": "Le Purifié de tout défaut, faiblesse ou imperfection."}, {"n": 5, "a": "السَّلَامُ", "p": "As-Salam", "f": "La Paix", "m": "La Source de la paix et Celui qui préserve de tout mal."}, {"n": 6, "a": "الْمُؤْمِنُ", "p": "Al-Mu'min", "f": "Le Rassurant / Le Fidèle", "m": "Celui qui accorde la foi, la sérénité et la sécurité."}, {"n": 7, "a": "الْمُهَيْمِنُ", "p": "Al-Muhaymin", "f": "Le Protecteur / Surveillant", "m": "Celui qui veille sur toute Sa création et la protège."}, {"n": 8, "a": "الْعَزِيزُ", "p": "Al-'Aziz", "f": "Le Tout-Puissant", "m": "L'Invincible que rien ne peut vaincre ni surpasser."}, {"n": 9, "a": "الْجَبَّارُ", "p": "Al-Jabbar", "f": "L'Imposant / Le Réparateur", "m": "Celui qui contraint toute chose et panse les cœurs brisés."}, {"n": 10, "a": "الْمُتَكَبِّرُ", "p": "Al-Mutakabbir", "f": "Le Majestueux", "m": "Celui à qui appartient la grandeur suprême et exclusive."}, {"n": 11, "a": "الْخَالِقُ", "p": "Al-Khaliq", "f": "Le Créateur", "m": "Celui qui donne l'existence à partir du néant."}, {"n": 12, "a": "الْبَارِئُ", "p": "Al-Bari'", "f": "Le Novateur", "m": "Celui qui façonne la création avec harmonie et perfection."}, {"n": 13, "a": "الْمُصَوِّرُ", "p": "Al-Musawwir", "f": "Le Façonneur", "m": "Celui qui donne à chaque être sa forme et ses caractéristiques uniques."}, {"n": 14, "a": "الْغَفَّارُ", "p": "Al-Ghaffar", "f": "Le Pardonneur", "m": "Celui qui pardonne inlassablement les fautes de Ses serviteurs."}, {"n": 15, "a": "الْقَهَّارُ", "p": "Al-Qahhar", "f": "Le Dominateur Suprême", "m": "Celui devant la majesté de qui tout être est soumis."}, {"n": 16, "a": "الْوَهَّابُ", "p": "Al-Wahhab", "f": "Le Grand Donateur", "m": "Celui qui comble de bienfaits sans rien attendre en retour."}, {"n": 17, "a": "الرَّزَّاقُ", "p": "Ar-Razzaq", "f": "Le Pourvoyeur", "m": "Celui qui assure la subsistance de chaque être vivant."}, {"n": 18, "a": "الْفَتَّاحُ", "p": "Al-Fattah", "f": "Celui qui ouvre les portes", "m": "Celui qui accorde la victoire et ouvre les trésors de Sa grâce."}, {"n": 19, "a": "الْعَلِيمُ", "p": "Al-'Alim", "f": "L'Omniscient", "m": "Celui dont la science parfaite cerne toute chose passée, présente et future."}, {"n": 20, "a": "الْقَابِضُ", "p": "Al-Qabid", "f": "Celui qui retient", "m": "Celui qui restreint la subsistance ou les âmes selon Sa sagesse."}, {"n": 21, "a": "الْبَاسِطُ", "p": "Al-Basit", "f": "Celui qui dilate", "m": "Celui qui répand Ses bienfaits avec abondance et soulage les cœurs."}, {"n": 22, "a": "الْخَافِضُ", "p": "Al-Khafid", "f": "Celui qui abaisse", "m": "Celui qui abaisse les oppresseurs et les orgueilleux."}, {"n": 23, "a": "الرَّافِعُ", "p": "Ar-Rafi'", "f": "Celui qui élève", "m": "Celui qui élève en degrés les croyants et les humbles."}, {"n": 24, "a": "الْمُعِزُّ", "p": "Al-Mu'izz", "f": "Celui qui donne la puissance", "m": "Celui qui accorde honneur, noblesse et victoire."}, {"n": 25, "a": "الْمُذِلُّ", "p": "Al-Mudhill", "f": "Celui qui humilie", "m": "Celui qui prive d'honneur ceux qui se rebellent contre la vérité."}, {"n": 26, "a": "السَّمِيعُ", "p": "As-Sami'", "f": "L'Audient", "m": "Celui qui entend toute parole, soupir et prière secrète."}, {"n": 27, "a": "الْبَصِيرُ", "p": "Al-Basir", "f": "Le Clairvoyant", "m": "Celui qui voit toute chose, même la fourmi noire sur une pierre noire la nuit."}, {"n": 28, "a": "الْحَكَمُ", "p": "Al-Hakam", "f": "Le Juge Suprême", "m": "L'Arbitre ultime dont les décrets sont pure justice."}, {"n": 29, "a": "الْعَدْلُ", "p": "Al-'Adl", "f": "Le Juste Absolu", "m": "L'Équité absolue, exempt de toute injustice."}, {"n": 30, "a": "اللَّطِيفُ", "p": "Al-Latif", "f": "Le Subtil / Le Bienveillant", "m": "Celui qui dispense Sa grâce par des voies secrètes et imperceptibles."}, {"n": 31, "a": "الْخَبِيرُ", "p": "Al-Khabir", "f": "Le Parfaitement Informé", "m": "Celui qui connaît les secrets intimes de toute chose."}, {"n": 32, "a": "الْحَلِيمُ", "p": "Al-Halim", "f": "Le Très-Clément", "m": "Celui qui ne se hâte pas de châtier et accorde le temps du repentir."}, {"n": 33, "a": "الْعَظِيمُ", "p": "Al-'Azim", "f": "L'Incommensurable", "m": "Celui dont la grandeur dépasse toute compréhension."}, {"n": 34, "a": "الْغَفُورُ", "p": "Al-Ghafur", "f": "Le Tout-Pardonnant", "m": "Celui qui efface abondamment les péchés et protège de leurs conséquences."}, {"n": 35, "a": "الشَّكُورُ", "p": "Ash-Shakur", "f": "Le Reconnaissant", "m": "Celui qui récompense généreusement la moindre bonne action."}, {"n": 36, "a": "الْعَلِيُّ", "p": "Al-'Aliyy", "f": "Le Très-Haut", "m": "L'Élevé au-dessus de tout, sans équivalent."}, {"n": 37, "a": "الْكَبِيرُ", "p": "Al-Kabir", "f": "L'Infiniment Grand", "m": "Le Plus Grand que tout ce que l'on peut imaginer."}, {"n": 38, "a": "الْحَفِيظُ", "p": "Al-Hafiz", "f": "Le Préservateur", "m": "Le Protecteur qui sauvegarde l'univers et les œuvres de Ses créatures."}, {"n": 39, "a": "الْمُقِيتُ", "p": "Al-Muqit", "f": "Le Nourricier", "m": "Celui qui dispense à chaque corps et âme sa nourriture."}, {"n": 40, "a": "الْحَسِيبُ", "p": "Al-Hasib", "f": "Le Comptable", "m": "Celui qui suffit à Ses serviteurs et tient compte de chaque acte."}, {"n": 41, "a": "الْجَلِيلُ", "p": "Al-Jalil", "f": "Le Majestueux", "m": "Celui qui possède la beauté, la splendeur et la magnificence."}, {"n": 42, "a": "الْكَرِيمُ", "p": "Al-Karim", "f": "Le Noble Généreux", "m": "Celui qui donne sans compter et pardonne avec bienveillance."}, {"n": 43, "a": "الرَّقِيبُ", "p": "Ar-Raqib", "f": "Le Vigilant", "m": "Celui à qui aucun regard ni aucune pensée n'échappe."}, {"n": 44, "a": "الْمُجِيبُ", "p": "Al-Mujib", "f": "Celui qui exauce", "m": "Celui qui répond avec amour à l'appel de celui qui L'invoque."}, {"n": 45, "a": "الْوَاسِعُ", "p": "Al-Wasi'", "f": "L'Immense", "m": "Celui dont la miséricorde, la science et les bienfaits englobent tout."}, {"n": 46, "a": "الْحَكِيمُ", "p": "Al-Hakim", "f": "Le Sage", "m": "Celui qui dispose toute chose avec une sagesse absolue."}, {"n": 47, "a": "الْوَدُودُ", "p": "Al-Wadud", "f": "Le Tout-Aimant", "m": "Celui qui aime Ses pieux serviteurs et Se fait aimer d'eux."}, {"n": 48, "a": "الْمَجِيدُ", "p": "Al-Majid", "f": "Le Glorieux", "m": "Le Très-Haut en gloire, en dignité et en générosité."}, {"n": 49, "a": "الْبَاعِثُ", "p": "Al-Ba'ith", "f": "Le Résurrecteur", "m": "Celui qui ressuscitera les morts pour le Jugement dernier."}, {"n": 50, "a": "الشَّهِيدُ", "p": "Ash-Shahid", "f": "Le Témoin", "m": "Celui qui est présent et témoin de toute parole et action."}, {"n": 51, "a": "الْحَقُّ", "p": "Al-Haqq", "f": "La Vérité Absolue", "m": "L'Éternel dont l'existence et la parole sont la vérité immuable."}, {"n": 52, "a": "الْوَكِيلُ", "p": "Al-Wakil", "f": "Le Digne de confiance", "m": "Le Garant suprême sur qui repose toute confiance sincère."}, {"n": 53, "a": "الْقَوِيُّ", "p": "Al-Qawiyy", "f": "Le Tout-Fort", "m": "Celui dont la force est sans limite ni épuisement."}, {"n": 54, "a": "الْمَتِينُ", "p": "Al-Matin", "f": "L'Inébranlable", "m": "L'Inaltérable qui n'éprouve aucune fatigue ni difficulté."}, {"n": 55, "a": "الْوَلِيُّ", "p": "Al-Waliyy", "f": "Le Protecteur Allié", "m": "L'Ami intime et le Secoureur des croyants."}, {"n": 56, "a": "الْحَمِيدُ", "p": "Al-Hamid", "f": "Le Digne de louanges", "m": "Celui qui est loué pour Son essence, Ses noms et Ses actes parfaits."}, {"n": 57, "a": "الْمُحْصِي", "p": "Al-Muhsi", "f": "Celui qui dénombre tout", "m": "Celui dont la science compte précisément chaque souffle et poussière."}, {"n": 58, "a": "الْمُبْدِئُ", "p": "Al-Mubdi'", "f": "L'Auteur de la création", "m": "Celui qui crée le premier sans modèle préexistant."}, {"n": 59, "a": "الْمُعِيدُ", "p": "Al-Mu'id", "f": "Celui qui réintègre", "m": "Celui qui redonnera vie à la création après son anéantissement."}, {"n": 60, "a": "الْمُحْيِي", "p": "Al-Muhyi", "f": "Celui qui fait vivre", "m": "Celui qui insuffle la vie dans les corps et vivifie les cœurs."}, {"n": 61, "a": "الْمُمِيتُ", "p": "Al-Mumit", "f": "Celui qui donne la mort", "m": "Celui qui décrète le terme de chaque être vivant."}, {"n": 62, "a": "الْحَيُّ", "p": "Al-Hayy", "f": "Le Vivant Éternel", "m": "Celui qui possède une vie parfaite sans commencement ni fin."}, {"n": 63, "a": "الْقَيُّومُ", "p": "Al-Qayyum", "f": "L'Immuable / L'Autonome", "m": "Celui qui subsiste par Lui-même et par qui subsiste toute la création."}, {"n": 64, "a": "الْوَاجِدُ", "p": "Al-Wajid", "f": "L'Opulent", "m": "Celui qui ne manque de rien et trouve tout ce qu'Il veut."}, {"n": 65, "a": "الْمَاجِدُ", "p": "Al-Majid", "f": "Le Noble", "m": "Le Magnifique en bienfaits et en générosité."}, {"n": 66, "a": "الْوَاحِدُ", "p": "Al-Wahid", "f": "L'Unique", "m": "L'Un sans second, sans égal et sans associé."}, {"n": 67, "a": "الْأَحَدُ", "p": "Al-Ahad", "f": "L'Un Absolu", "m": "L'Unique dans Son essence et Ses attributs, indivisible."}, {"n": 68, "a": "الصَّمَدُ", "p": "As-Samad", "f": "Le Soutien Universel", "m": "Celui dont toute la création a besoin et qui n'a besoin de rien."}, {"n": 69, "a": "الْقَادِرُ", "p": "Al-Qadir", "f": "Le Puissant", "m": "Celui qui accomplit tout ce qu'Il décrète avec détermination."}, {"n": 70, "a": "الْمُقْتَدِرُ", "p": "Al-Muqtadir", "f": "L'Omnipotent", "m": "Le Dominateur absolu dont la puissance prévaut sur tout."}, {"n": 71, "a": "الْمُقَدِّمُ", "p": "Al-Muqaddim", "f": "Celui qui avance", "m": "Celui qui accorde priorité et avance les rangs selon Sa justice."}, {"n": 72, "a": "الْمُؤَخِّرُ", "p": "Al-Mu'akhkhir", "f": "Celui qui retarde", "m": "Celui qui repousse et retarde les choses en leur temps fixé."}, {"n": 73, "a": "الْأَوَّلُ", "p": "Al-Awwal", "f": "Le Premier", "m": "Celui avant qui rien n'existait, sans commencement."}, {"n": 74, "a": "الْآخِرُ", "p": "Al-Akhir", "f": "Le Dernier", "m": "Celui après qui rien ne subsistera, l'Éternel."}, {"n": 75, "a": "الظَّاهِرُ", "p": "Az-Zahir", "f": "Le Manifeste", "m": "Celui dont l'existence éclate à travers les signes de l'univers."}, {"n": 76, "a": "الْبَاطِنُ", "p": "Al-Batin", "f": "Le Caché", "m": "L'Invisible aux yeux des mortels et le Connaisseur des secrets cachés."}, {"n": 77, "a": "الْوَالِي", "p": "Al-Wali", "f": "Le Gouverneur de l'Univers", "m": "Le Maître qui gère et administre toute chose avec autorité."}, {"n": 78, "a": "الْمُتَعَالِي", "p": "Al-Muta'ali", "f": "Le Sublime", "m": "L'Élevé au-dessus de toute ressemblance avec Sa création."}, {"n": 79, "a": "الْبَرُّ", "p": "Al-Barr", "f": "Le Bienfaisant", "m": "La Source de toute bonté, douce compassion et piété."}, {"n": 80, "a": "التَّوَّابُ", "p": "At-Tawwab", "f": "L'Accueillant au repentir", "m": "Celui qui agrée avec clémence le retour sincère du pécheur."}, {"n": 81, "a": "الْمُنْتَقِمُ", "p": "Al-Muntaqim", "f": "Le Justicier", "m": "Celui qui brise les tyrans et châtie avec justice les rebelles."}, {"n": 82, "a": "الْعَفُوُّ", "p": "Al-'Afuww", "f": "L'Indulgent", "m": "Celui qui efface totalement les fautes sans laisser de trace."}, {"n": 83, "a": "الرَّؤُوفُ", "p": "Ar-Ra'uf", "f": "Le Très-Bienveillant", "m": "Celui dont la tendresse et la compassion sont extrêmes."}, {"n": 84, "a": "مَالِكُ الْمُلْكِ", "p": "Malik-ul-Mulk", "f": "Le Maître de la Royauté", "m": "Le Détenteur souverain de tout le royaume des cieux et de la terre."}, {"n": 85, "a": "ذُو الْجَلَالِ وَالْإِكْرَامِ", "p": "Dhul-Jalali wal-Ikram", "f": "Détenteur de Majesté et Générosité", "m": "Celui qui mérite d'être craint, glorifié et aimé par excellence."}, {"n": 86, "a": "الْمُقْسِطُ", "p": "Al-Muqsit", "f": "L'Équitable", "m": "Celui qui rend justice aux opprimés et juge avec droiture."}, {"n": 87, "a": "الْجَامِعُ", "p": "Al-Jami'", "f": "Le Rassembleur", "m": "Celui qui réunira l'humanité entière le Jour du Jugement."}, {"n": 88, "a": "الْغَنِيُّ", "p": "Al-Ghaniyy", "f": "Le Suffisant à Soi-même", "m": "Le Riche absolu qui ne dépend de rien ni de personne."}, {"n": 89, "a": "الْمُغْنِي", "p": "Al-Mughni", "f": "Celui qui enrichit", "m": "Celui qui accorde la richesse matérielle et la plénitude du cœur."}, {"n": 90, "a": "الْمَانِعُ", "p": "Al-Mani'", "f": "Le Défenseur", "m": "Celui qui protège et empêche ce qui pourrait nuire selon Sa sagesse."}, {"n": 91, "a": "الضَّارُّ", "p": "Ad-Darr", "f": "Celui qui éprouve", "m": "Le Maître de toute épreuve destinée à purifier et éveiller l'âme."}, {"n": 92, "a": "النَّافِعُ", "p": "An-Nafi'", "f": "La Source du bien", "m": "Celui qui procure tout profit, guérison et bénéfice."}, {"n": 93, "a": "النُّورُ", "p": "An-Nur", "f": "La Lumière", "m": "La Lumière des cieux et de la terre qui guide les égarés."}, {"n": 94, "a": "الْهَادِي", "p": "Al-Hadi", "f": "Le Guide Suprême", "m": "Celui qui oriente les cœurs vers le chemin droit de la vérité."}, {"n": 95, "a": "الْبَدِيعُ", "p": "Al-Badi'", "f": "L'Incomparable Créateur", "m": "Celui qui crée avec une beauté incomparable sans précédent."}, {"n": 96, "a": "الْبَاقِي", "p": "Al-Baqi", "f": "L'Éternel", "m": "Celui qui subsistera pour toujours lorsque tout disparaîtra."}, {"n": 97, "a": "الْوَارِثُ", "p": "Al-Warith", "f": "L'Héritier Suprême", "m": "Celui à qui reviendra toute la royauté à la fin des temps."}, {"n": 98, "a": "الرَّشِيدُ", "p": "Ar-Rashid", "f": "Le Guide Parfait", "m": "Celui dont tous les desseins mènent à la rectitude absolue."}, {"n": 99, "a": "الصَّبُورُ", "p": "As-Sabur", "f": "Le Très-Patient", "m": "Celui qui ne précipite rien et agit avec une infinie patience."}];
+
+        function openNamesModal() {
+            renderNamesList(ALLAH_NAMES);
+            document.getElementById('names-search-input').value = '';
+            const modal = document.getElementById('names-modal');
+            const box = document.getElementById('names-box');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
+                else box.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeNamesModal() {
+            const modal = document.getElementById('names-modal');
+            const box = document.getElementById('names-box');
+            modal.classList.add('opacity-0');
+            if (window.innerWidth < 640) box.classList.add('translate-y-full');
+            else box.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 280);
+        }
+
+        function renderNamesList(list) {
+            const container = document.getElementById('names-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-xs text-textmuted">
+                        Aucun Nom d'Allah ne correspond à votre recherche.
+                    </div>
+                `;
+                return;
+            }
+
+            list.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "p-3 rounded-2xl bg-surface/60 border border-bordercolor/80 flex items-center justify-between gap-3 hover:border-amber-400/40 transition-all";
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center font-bold text-xs text-amber-400 shrink-0">
+                            ${item.n}
+                        </span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-sm text-textmain">${item.p}</span>
+                                <span class="text-xs text-textmuted">(${item.f})</span>
+                            </div>
+                            <p class="text-[11px] text-textmuted leading-relaxed mt-0.5">${item.m}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-1.5 shrink-0">
+                        <span class="font-arabic text-xl text-amber-300 drop-shadow-sm select-text" dir="rtl">${item.a}</span>
+                        <button onclick="meditateName(${item.n})" class="px-2.5 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-black font-bold text-[10px] border border-amber-500/30 tap-effect transition-all flex items-center gap-1">
+                            <i class="ph-bold ph-hand-tap"></i> Tasbih
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function filterNames(query) {
+            const q = query.trim().toLowerCase();
+            if (!q) {
+                renderNamesList(ALLAH_NAMES);
+                return;
+            }
+            const filtered = ALLAH_NAMES.filter(item => {
+                return item.p.toLowerCase().includes(q) ||
+                       item.f.toLowerCase().includes(q) ||
+                       item.m.toLowerCase().includes(q) ||
+                       item.a.includes(q) ||
+                       item.n.toString() === q;
+            });
+            renderNamesList(filtered);
+        }
+
+        function meditateName(num) {
+            const name = ALLAH_NAMES.find(n => n.n === num);
+            if (!name) return;
+            closeNamesModal();
+
+            const nameId = `name_${name.n}`;
+            let dhikr = adhkars.find(d => d.id === nameId);
+            if (!dhikr) {
+                dhikr = {
+                    id: nameId,
+                    category: 'daily',
+                    arabic: `يَا ${name.a.replace(/^ال/, '')}`,
+                    french: `Nom d'Allah : ${name.p}`,
+                    phonetic: `Yā ${name.p}`,
+                    translation: `${name.f} - ${name.m}`,
+                    merit: `« C'est à Allah qu'appartiennent les plus beaux Noms. Invoquez-Le par ces Noms. » (Sourate Al-A'raf, 180)`,
+                    target: 33,
+                    targetLabel: "Boucle de 33"
+                };
+                adhkars.unshift(dhikr);
+                dailyCounts[nameId] = 0;
+                lifetimeCounts[nameId] = 0;
+                saveData();
+                renderCards();
+            }
+
+            openFocusMode(dhikr.id);
+        }
+
+        // --- MODE MAINS-LIBRES (AUTO-PLAY TASBIH) ---
+        let isAutoPlaying = false;
+        let autoPlayTimer = null;
+        let autoPlayDelayMs = parseInt(localStorage.getItem('dhikrAutoDelay') || '2000');
+
+        function changeAutoDelay(val) {
+            autoPlayDelayMs = parseInt(val);
+            localStorage.setItem('dhikrAutoDelay', autoPlayDelayMs);
+            showToast(`Délai réglé à ${autoPlayDelayMs / 1000}s`);
+        }
+
+        function toggleAutoPlay() {
+            if (isAutoPlaying) {
+                stopAutoPlay();
+            } else {
+                startAutoPlay();
+            }
+        }
+
+        function startAutoPlay() {
+            if (!currentFocusId) return;
+            isAutoPlaying = true;
+            updateAutoPlayUI(true);
+            showToast("Mode Mains-Libres activé ▶️");
+            runAutoPlayStep();
+        }
+
+        function stopAutoPlay() {
+            isAutoPlaying = false;
+            if (autoPlayTimer) clearTimeout(autoPlayTimer);
+            if ('speechSynthesis' in window && speechSynthesis.speaking) speechSynthesis.cancel();
+            updateAutoPlayUI(false);
+        }
+
+        function updateAutoPlayUI(active) {
+            const btn = document.getElementById('focus-autoplay-btn');
+            const icon = document.getElementById('focus-autoplay-icon');
+            const label = document.getElementById('focus-autoplay-label');
+            if (!btn) return;
+            if (active) {
+                btn.className = "px-3 py-2 rounded-2xl bg-amber-500 text-black text-xs font-bold border border-amber-400 tap-effect flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.5)] animate-pulse";
+                icon.className = "ph-bold ph-pause text-sm";
+                label.innerText = "Pause";
+            } else {
+                btn.className = "px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-amber-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5";
+                icon.className = "ph-bold ph-play text-sm";
+                label.innerText = "Auto";
+            }
+        }
+
+        function runAutoPlayStep() {
+            if (!isAutoPlaying || !currentFocusId) return;
+            const dhikr = adhkars.find(d => d.id === currentFocusId);
+            if (!dhikr) return stopAutoPlay();
+
+            if (dhikr.arabic && 'speechSynthesis' in window) {
+                speakArabic(dhikr.arabic, (speaking) => {
+                    if (!speaking && isAutoPlaying) {
+                        incrementFocus();
+                        const count = dailyCounts[currentFocusId] || 0;
+                        const target = dhikr.target || 100;
+                        if (count > 0 && count % target === 0) {
+                            showToast(`Objectif atteint pour ${dhikr.french} ! 🎉`);
+                            stopAutoPlay();
+                            return;
+                        }
+                        autoPlayTimer = setTimeout(() => {
+                            runAutoPlayStep();
+                        }, autoPlayDelayMs);
+                    }
+                });
+            } else {
+                incrementFocus();
+                const count = dailyCounts[currentFocusId] || 0;
+                const target = dhikr.target || 100;
+                if (count > 0 && count % target === 0) {
+                    showToast(`Objectif atteint pour ${dhikr.french} ! 🎉`);
+                    stopAutoPlay();
+                    return;
+                }
+                autoPlayTimer = setTimeout(() => {
+                    runAutoPlayStep();
+                }, autoPlayDelayMs);
+            }
+        }
+
+        // Arrêter auto-play lors de la fermeture du mode focus
+        const originalCloseFocusMode = closeFocusMode;
+        closeFocusMode = function() {
+            stopAutoPlay();
+            originalCloseFocusMode();
+        };
+
+        // --- DATE HÉGIRIENNE & JOURS BLANCS ---
+        function updateHijriDate() {
+            try {
+                const today = new Date();
+                const hijriFormatter = new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                const parts = hijriFormatter.formatToParts(today);
+                const dayPart = parts.find(p => p.type === 'day');
+                const monthPart = parts.find(p => p.type === 'month');
+                const yearPart = parts.find(p => p.type === 'year');
+
+                const hijriDay = dayPart ? parseInt(dayPart.value) : 1;
+                const hijriMonth = monthPart ? monthPart.value : '';
+                const hijriYear = yearPart ? yearPart.value : '';
+
+                const dateEl = document.getElementById('hijri-date');
+                if (dateEl) dateEl.innerText = `${hijriDay} ${hijriMonth} ${hijriYear}`;
+
+                const dayOfWeek = today.getDay(); // 1 = Lundi, 4 = Jeudi
+                const badgeEl = document.getElementById('fasting-badge');
+                if (badgeEl) {
+                    if ([13, 14, 15].includes(hijriDay)) {
+                        badgeEl.innerText = "🌕 Jours Blancs";
+                        badgeEl.classList.remove('hidden');
+                    } else if (dayOfWeek === 1) {
+                        badgeEl.innerText = "🌿 Jeûne Lundi";
+                        badgeEl.classList.remove('hidden');
+                    } else if (dayOfWeek === 4) {
+                        badgeEl.innerText = "🌿 Jeûne Jeudi";
+                        badgeEl.classList.remove('hidden');
+                    } else {
+                        badgeEl.classList.add('hidden');
+                    }
+                }
+            } catch (e) {
+                console.warn("Date hégirienne non calculée :", e);
+            }
+        }
+
         // Démarrage de l'application
         window.addEventListener('focus', checkDailyReset);
         initApp();
+        updateHijriDate();
         initPWA();
     </script>
 </body>
