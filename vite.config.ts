@@ -1,14 +1,20 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: './',
   build: {
-    outDir: 'dist',
-    sourcemap: true,
+    outDir: 'assets',
+    emptyOutDir: false,
+    lib: {
+      entry: 'src/main.ts',
+      name: 'DhikrApp',
+      formats: ['es'],
+      fileName: () => 'app.js'
+    },
+    rollupOptions: {
+      output: {
+        entryFileNames: 'app.js'
+      }
+    },
     target: 'es2022'
-  },
-  server: {
-    port: 3000,
-    open: true
   }
 });
