@@ -97,23 +97,37 @@ export class DhikrCard {
       }
 
       <!-- Bas de carte : Progression & Actions -->
-      <div class="p-4 bg-surface/40 mt-auto border-t border-bordercolor relative overflow-hidden">
+      <div class="p-3.5 bg-surface/40 mt-auto border-t border-bordercolor relative overflow-hidden">
         <div class="absolute top-0 left-0 h-1.5 w-full bg-surface">
           <div class="h-full bg-primary-500 transition-all duration-300 ease-out" style="width: ${progressPercent}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
         </div>
 
-        <div class="flex items-center justify-between gap-2.5 pt-1.5">
-          <div class="flex-[1.2] bg-background/70 rounded-2xl py-2.5 px-2 flex flex-col items-center justify-center border border-bordercolor">
-            <span class="text-[9px] text-primary-400 font-bold uppercase tracking-wider mb-0.5">Aujourd'hui</span>
-            <span class="text-xl font-black text-textmain tabular-nums">${count}</span>
+        <div class="flex items-center gap-2.5 pt-1.5">
+          <!-- Compteur & Ratio journalier compact et moderne -->
+          <div class="flex flex-col justify-center px-3 py-1.5 rounded-2xl bg-surface/80 border border-bordercolor/80 min-w-[74px] shrink-0">
+            <span class="text-[9px] text-textmuted font-extrabold uppercase tracking-wider flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full ${count >= target ? 'bg-amber-400 shadow-[0_0_6px_#f59e0b]' : 'bg-primary-400 shadow-[0_0_6px_var(--color-primary-400)]'}"></span>
+              Auj.
+            </span>
+            <div class="flex items-baseline gap-1 mt-0.5">
+              <span class="text-xl font-black text-textmain tabular-nums tracking-tight count-num-val transition-all duration-150">${count}</span>
+              <span class="text-[10px] text-textmuted font-bold opacity-70">/${target}</span>
+            </div>
           </div>
 
-          <button class="btn-increment flex-[2.5] h-[60px] rounded-2xl bg-primary-500 text-white shadow-neon flex items-center justify-center gap-2 tap-effect font-bold text-base uppercase tracking-wider active:bg-primary-600 transition-colors">
-            <i class="ph-bold ph-plus"></i> Compter
+          <!-- Bouton Tactile d'Égrenage Moderne (Remplaçant l'ancien + COMPTER lourd) -->
+          <button class="btn-increment group relative overflow-hidden flex-1 h-[52px] rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-emerald-500 hover:from-primary-500 hover:to-emerald-400 active:scale-[0.96] text-white shadow-[0_4px_20px_-2px_var(--color-primary-500-alpha)] flex items-center justify-center gap-2 px-3 tap-effect transition-all select-none border border-white/10 cursor-pointer" title="Égrener (+1)">
+            <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div class="w-7 h-7 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner group-active:scale-115 transition-transform">
+              <i class="ph-bold ph-plus text-sm text-white"></i>
+            </div>
+            <span class="font-bold text-sm tracking-wide">Égrener</span>
+            <span class="text-[10px] font-extrabold bg-black/20 text-white/95 px-2 py-0.5 rounded-full border border-white/15 font-mono shadow-sm">+1</span>
           </button>
 
-          <button class="btn-focus w-[60px] h-[60px] rounded-2xl bg-surface flex flex-col items-center justify-center text-primary-400 hover:text-primary-300 tap-effect border border-bordercolor" title="Mode Plein Écran">
-            <i class="ph ph-corners-out text-2xl"></i>
+          <!-- Bouton Mode Focus Plein Écran -->
+          <button class="btn-focus w-[52px] h-[52px] rounded-2xl bg-surface/80 hover:bg-surface active:scale-95 text-primary-400 hover:text-primary-300 border border-bordercolor flex items-center justify-center tap-effect transition-all shrink-0 shadow-sm cursor-pointer" title="Mode Plein Écran (Tasbih Immersif)">
+            <i class="ph ph-corners-out text-xl"></i>
           </button>
         </div>
       </div>
@@ -123,6 +137,16 @@ export class DhikrCard {
     const btnIncrement = card.querySelector<HTMLButtonElement>('.btn-increment');
     btnIncrement?.addEventListener('click', () => {
       const res = store.increment(dhikr.id);
+
+      // Micro-animation haptique visuelle sur le compteur
+      const numVal = card.querySelector<HTMLElement>('.count-num-val');
+      if (numVal) {
+        numVal.classList.add('scale-125', 'text-primary-400');
+        setTimeout(() => {
+          numVal.classList.remove('scale-125', 'text-primary-400');
+        }, 150);
+      }
+
       if (res.isMilestone) {
         Toast.show(`Objectif atteint pour "${dhikr.french}" ! 🎉`);
       }

@@ -356,7 +356,7 @@
                     <h2 class="text-base font-extrabold text-textmain flex items-center gap-1.5">
                         <i class="ph-fill ph-sparkle text-amber-400"></i> Les 99 Noms d'Allah
                     </h2>
-                    <span class="text-[11px] text-textmuted font-normal block mt-0.5">Touchez un Nom pour méditer en chapelet</span>
+                    <span class="text-[11px] text-textmuted font-normal block mt-0.5">Touchez un Nom pour explorer son sens, ses versets & sa Sunnah</span>
                 </div>
                 <button id="names-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor">
                     <i class="ph ph-x text-sm"></i>
@@ -374,6 +374,83 @@
             <!-- Liste avec défilement -->
             <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-2 py-1 pr-1" id="names-list-container">
                 <!-- Rendu dynamique via NamesModal -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal : Fiche Détaillée d'un Nom d'Allah (Coran, Sunnah & Méditation) -->
+    <div id="name-detail-modal" class="fixed inset-0 z-[55] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-md opacity-0 hidden transition-opacity duration-200">
+        <div id="name-detail-box" class="glass-card w-full sm:max-w-lg max-h-[90vh] sm:rounded-3xl rounded-t-3xl flex flex-col p-5 sm:p-6 overflow-hidden translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300">
+            <!-- En-tête avec bouton retour et fermeture -->
+            <div class="flex justify-between items-center pb-3 border-b border-bordercolor shrink-0">
+                <button id="name-detail-back-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface text-amber-400 hover:text-amber-300 border border-amber-500/20 text-xs font-bold tap-effect transition-colors cursor-pointer">
+                    <i class="ph ph-arrow-left text-sm"></i>
+                    <span>Liste des Noms</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <span id="name-detail-badge" class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-400 font-bold text-[11px] border border-amber-500/25">Nom 1 / 99</span>
+                    <button id="name-detail-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor cursor-pointer">
+                        <i class="ph ph-x text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenu défilant -->
+            <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4 py-4 pr-1">
+                <!-- En-tête Calligraphique Majestueux -->
+                <div class="text-center bg-gradient-to-b from-amber-500/10 via-surface/40 to-transparent p-5 rounded-3xl border border-amber-500/20 shadow-inner relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                    <span id="name-detail-arabic" class="font-arabic text-4xl sm:text-5xl text-amber-400 font-bold leading-relaxed select-none block drop-shadow-[0_2px_10px_rgba(245,158,11,0.3)] my-1" dir="rtl"></span>
+                    <h3 id="name-detail-phonetic" class="text-lg font-extrabold text-textmain mt-1 tracking-tight"></h3>
+                    <p id="name-detail-french" class="text-xs text-textmuted font-semibold mt-0.5"></p>
+                </div>
+
+                <!-- Section 1 : Signification Théologique Approfondie -->
+                <div class="bg-surface/50 rounded-2xl p-4 border border-bordercolor">
+                    <div class="flex items-center gap-2 mb-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                        <i class="ph-fill ph-sparkle text-sm"></i>
+                        <span>Sens linguistique & Théologique</span>
+                    </div>
+                    <p id="name-detail-meaning" class="text-xs text-textmain leading-relaxed"></p>
+                </div>
+
+                <!-- Section 2 : Preuve dans le Noble Coran -->
+                <div class="bg-amber-500/5 rounded-2xl p-4 border border-amber-500/25">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                            <i class="ph-fill ph-book-open-text text-sm"></i>
+                            <span>Passage dans le Noble Coran</span>
+                        </div>
+                        <span id="name-detail-quran-surah" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30"></span>
+                    </div>
+                    <div class="py-2.5 px-3 bg-surface/70 rounded-xl border border-amber-500/20 my-1 text-center">
+                        <p id="name-detail-quran-arabic" class="font-arabic text-xl sm:text-2xl text-amber-300 leading-loose" dir="rtl"></p>
+                    </div>
+                    <p id="name-detail-quran-translation" class="text-xs text-textmuted italic leading-relaxed mt-2"></p>
+                </div>
+
+                <!-- Section 3 : Mention dans la Sunnah Authentique -->
+                <div class="bg-surface/50 rounded-2xl p-4 border border-bordercolor">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2 text-primary-400 font-bold text-xs uppercase tracking-wider">
+                            <i class="ph-fill ph-scroll text-sm"></i>
+                            <span>Preuve dans la Sunnah Prophétique</span>
+                        </div>
+                    </div>
+                    <p id="name-detail-hadith-text" class="text-xs text-textmain leading-relaxed italic"></p>
+                    <div class="mt-2.5 pt-2 border-t border-bordercolor/60 flex items-center gap-1.5 text-[10px] text-textmuted">
+                        <i class="ph-bold ph-certificate text-primary-400 text-xs shrink-0"></i>
+                        <span id="name-detail-hadith-source" class="font-semibold text-textmuted/90"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pied de page : Action Méditation Tasbih -->
+            <div class="pt-3 border-t border-bordercolor shrink-0 flex gap-2.5">
+                <button id="name-detail-tasbih-btn" class="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-extrabold text-sm shadow-[0_4px_20px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2 tap-effect active:scale-[0.98] transition-all cursor-pointer">
+                    <i class="ph-bold ph-play-circle text-lg"></i>
+                    <span>Égrener ce Nom en Tasbih (33x)</span>
+                </button>
             </div>
         </div>
     </div>

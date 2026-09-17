@@ -246,55 +246,55 @@ const nt = [
     target: 1,
     targetLabel: "1x au réveil"
   }
-], Jt = {
+], Gt = {
   storagePrefix: "dhikr_"
 };
 var I;
-(function(s) {
-  s.assertEqual = (r) => {
+(function(i) {
+  i.assertEqual = (r) => {
   };
   function e(r) {
   }
-  s.assertIs = e;
+  i.assertIs = e;
   function t(r) {
     throw new Error();
   }
-  s.assertNever = t, s.arrayToEnum = (r) => {
-    const i = {};
-    for (const o of r)
-      i[o] = o;
-    return i;
-  }, s.getValidEnumValues = (r) => {
-    const i = s.objectKeys(r).filter((l) => typeof r[r[l]] != "number"), o = {};
-    for (const l of i)
-      o[l] = r[l];
-    return s.objectValues(o);
-  }, s.objectValues = (r) => s.objectKeys(r).map(function(i) {
-    return r[i];
-  }), s.objectKeys = typeof Object.keys == "function" ? (r) => Object.keys(r) : (r) => {
-    const i = [];
-    for (const o in r)
-      Object.prototype.hasOwnProperty.call(r, o) && i.push(o);
-    return i;
-  }, s.find = (r, i) => {
-    for (const o of r)
-      if (i(o))
-        return o;
-  }, s.isInteger = typeof Number.isInteger == "function" ? (r) => Number.isInteger(r) : (r) => typeof r == "number" && Number.isFinite(r) && Math.floor(r) === r;
-  function a(r, i = " | ") {
-    return r.map((o) => typeof o == "string" ? `'${o}'` : o).join(i);
+  i.assertNever = t, i.arrayToEnum = (r) => {
+    const s = {};
+    for (const l of r)
+      s[l] = l;
+    return s;
+  }, i.getValidEnumValues = (r) => {
+    const s = i.objectKeys(r).filter((o) => typeof r[r[o]] != "number"), l = {};
+    for (const o of s)
+      l[o] = r[o];
+    return i.objectValues(l);
+  }, i.objectValues = (r) => i.objectKeys(r).map(function(s) {
+    return r[s];
+  }), i.objectKeys = typeof Object.keys == "function" ? (r) => Object.keys(r) : (r) => {
+    const s = [];
+    for (const l in r)
+      Object.prototype.hasOwnProperty.call(r, l) && s.push(l);
+    return s;
+  }, i.find = (r, s) => {
+    for (const l of r)
+      if (s(l))
+        return l;
+  }, i.isInteger = typeof Number.isInteger == "function" ? (r) => Number.isInteger(r) : (r) => typeof r == "number" && Number.isFinite(r) && Math.floor(r) === r;
+  function a(r, s = " | ") {
+    return r.map((l) => typeof l == "string" ? `'${l}'` : l).join(s);
   }
-  s.joinValues = a, s.jsonStringifyReplacer = (r, i) => typeof i == "bigint" ? i.toString() : i;
+  i.joinValues = a, i.jsonStringifyReplacer = (r, s) => typeof s == "bigint" ? s.toString() : s;
 })(I || (I = {}));
-var ot;
-(function(s) {
-  s.mergeShapes = (e, t) => ({
+var lt;
+(function(i) {
+  i.mergeShapes = (e, t) => ({
     ...e,
     ...t
     // second overwrites first
   });
-})(ot || (ot = {}));
-const p = I.arrayToEnum([
+})(lt || (lt = {}));
+const f = I.arrayToEnum([
   "string",
   "nan",
   "number",
@@ -315,26 +315,26 @@ const p = I.arrayToEnum([
   "never",
   "map",
   "set"
-]), oe = (s) => {
-  switch (typeof s) {
+]), le = (i) => {
+  switch (typeof i) {
     case "undefined":
-      return p.undefined;
+      return f.undefined;
     case "string":
-      return p.string;
+      return f.string;
     case "number":
-      return Number.isNaN(s) ? p.nan : p.number;
+      return Number.isNaN(i) ? f.nan : f.number;
     case "boolean":
-      return p.boolean;
+      return f.boolean;
     case "function":
-      return p.function;
+      return f.function;
     case "bigint":
-      return p.bigint;
+      return f.bigint;
     case "symbol":
-      return p.symbol;
+      return f.symbol;
     case "object":
-      return Array.isArray(s) ? p.array : s === null ? p.null : s.then && typeof s.then == "function" && s.catch && typeof s.catch == "function" ? p.promise : typeof Map < "u" && s instanceof Map ? p.map : typeof Set < "u" && s instanceof Set ? p.set : typeof Date < "u" && s instanceof Date ? p.date : p.object;
+      return Array.isArray(i) ? f.array : i === null ? f.null : i.then && typeof i.then == "function" && i.catch && typeof i.catch == "function" ? f.promise : typeof Map < "u" && i instanceof Map ? f.map : typeof Set < "u" && i instanceof Set ? f.set : typeof Date < "u" && i instanceof Date ? f.date : f.object;
     default:
-      return p.unknown;
+      return f.unknown;
   }
 }, h = I.arrayToEnum([
   "invalid_type",
@@ -354,7 +354,7 @@ const p = I.arrayToEnum([
   "not_multiple_of",
   "not_finite"
 ]);
-class ie extends Error {
+class ne extends Error {
   get errors() {
     return this.issues;
   }
@@ -368,30 +368,30 @@ class ie extends Error {
     Object.setPrototypeOf ? Object.setPrototypeOf(this, t) : this.__proto__ = t, this.name = "ZodError", this.issues = e;
   }
   format(e) {
-    const t = e || function(i) {
-      return i.message;
-    }, a = { _errors: [] }, r = (i) => {
-      for (const o of i.issues)
-        if (o.code === "invalid_union")
-          o.unionErrors.map(r);
-        else if (o.code === "invalid_return_type")
-          r(o.returnTypeError);
-        else if (o.code === "invalid_arguments")
-          r(o.argumentsError);
-        else if (o.path.length === 0)
-          a._errors.push(t(o));
+    const t = e || function(s) {
+      return s.message;
+    }, a = { _errors: [] }, r = (s) => {
+      for (const l of s.issues)
+        if (l.code === "invalid_union")
+          l.unionErrors.map(r);
+        else if (l.code === "invalid_return_type")
+          r(l.returnTypeError);
+        else if (l.code === "invalid_arguments")
+          r(l.argumentsError);
+        else if (l.path.length === 0)
+          a._errors.push(t(l));
         else {
-          let l = a, u = 0;
-          for (; u < o.path.length; ) {
-            const d = o.path[u];
-            u === o.path.length - 1 ? (l[d] = l[d] || { _errors: [] }, l[d]._errors.push(t(o))) : l[d] = l[d] || { _errors: [] }, l = l[d], u++;
+          let o = a, d = 0;
+          for (; d < l.path.length; ) {
+            const c = l.path[d];
+            d === l.path.length - 1 ? (o[c] = o[c] || { _errors: [] }, o[c]._errors.push(t(l))) : o[c] = o[c] || { _errors: [] }, o = o[c], d++;
           }
         }
     };
     return r(this), a;
   }
   static assert(e) {
-    if (!(e instanceof ie))
+    if (!(e instanceof ne))
       throw new Error(`Not a ZodError: ${e}`);
   }
   toString() {
@@ -407,8 +407,8 @@ class ie extends Error {
     const t = {}, a = [];
     for (const r of this.issues)
       if (r.path.length > 0) {
-        const i = r.path[0];
-        t[i] = t[i] || [], t[i].push(e(r));
+        const s = r.path[0];
+        t[s] = t[s] || [], t[s].push(e(r));
       } else
         a.push(e(r));
     return { formErrors: a, fieldErrors: t };
@@ -417,27 +417,27 @@ class ie extends Error {
     return this.flatten();
   }
 }
-ie.create = (s) => new ie(s);
-const Ze = (s, e) => {
+ne.create = (i) => new ne(i);
+const ze = (i, e) => {
   let t;
-  switch (s.code) {
+  switch (i.code) {
     case h.invalid_type:
-      s.received === p.undefined ? t = "Required" : t = `Expected ${s.expected}, received ${s.received}`;
+      i.received === f.undefined ? t = "Required" : t = `Expected ${i.expected}, received ${i.received}`;
       break;
     case h.invalid_literal:
-      t = `Invalid literal value, expected ${JSON.stringify(s.expected, I.jsonStringifyReplacer)}`;
+      t = `Invalid literal value, expected ${JSON.stringify(i.expected, I.jsonStringifyReplacer)}`;
       break;
     case h.unrecognized_keys:
-      t = `Unrecognized key(s) in object: ${I.joinValues(s.keys, ", ")}`;
+      t = `Unrecognized key(s) in object: ${I.joinValues(i.keys, ", ")}`;
       break;
     case h.invalid_union:
       t = "Invalid input";
       break;
     case h.invalid_union_discriminator:
-      t = `Invalid discriminator value. Expected ${I.joinValues(s.options)}`;
+      t = `Invalid discriminator value. Expected ${I.joinValues(i.options)}`;
       break;
     case h.invalid_enum_value:
-      t = `Invalid enum value. Expected ${I.joinValues(s.options)}, received '${s.received}'`;
+      t = `Invalid enum value. Expected ${I.joinValues(i.options)}, received '${i.received}'`;
       break;
     case h.invalid_arguments:
       t = "Invalid function arguments";
@@ -449,13 +449,13 @@ const Ze = (s, e) => {
       t = "Invalid date";
       break;
     case h.invalid_string:
-      typeof s.validation == "object" ? "includes" in s.validation ? (t = `Invalid input: must include "${s.validation.includes}"`, typeof s.validation.position == "number" && (t = `${t} at one or more positions greater than or equal to ${s.validation.position}`)) : "startsWith" in s.validation ? t = `Invalid input: must start with "${s.validation.startsWith}"` : "endsWith" in s.validation ? t = `Invalid input: must end with "${s.validation.endsWith}"` : I.assertNever(s.validation) : s.validation !== "regex" ? t = `Invalid ${s.validation}` : t = "Invalid";
+      typeof i.validation == "object" ? "includes" in i.validation ? (t = `Invalid input: must include "${i.validation.includes}"`, typeof i.validation.position == "number" && (t = `${t} at one or more positions greater than or equal to ${i.validation.position}`)) : "startsWith" in i.validation ? t = `Invalid input: must start with "${i.validation.startsWith}"` : "endsWith" in i.validation ? t = `Invalid input: must end with "${i.validation.endsWith}"` : I.assertNever(i.validation) : i.validation !== "regex" ? t = `Invalid ${i.validation}` : t = "Invalid";
       break;
     case h.too_small:
-      s.type === "array" ? t = `Array must contain ${s.exact ? "exactly" : s.inclusive ? "at least" : "more than"} ${s.minimum} element(s)` : s.type === "string" ? t = `String must contain ${s.exact ? "exactly" : s.inclusive ? "at least" : "over"} ${s.minimum} character(s)` : s.type === "number" ? t = `Number must be ${s.exact ? "exactly equal to " : s.inclusive ? "greater than or equal to " : "greater than "}${s.minimum}` : s.type === "bigint" ? t = `Number must be ${s.exact ? "exactly equal to " : s.inclusive ? "greater than or equal to " : "greater than "}${s.minimum}` : s.type === "date" ? t = `Date must be ${s.exact ? "exactly equal to " : s.inclusive ? "greater than or equal to " : "greater than "}${new Date(Number(s.minimum))}` : t = "Invalid input";
+      i.type === "array" ? t = `Array must contain ${i.exact ? "exactly" : i.inclusive ? "at least" : "more than"} ${i.minimum} element(s)` : i.type === "string" ? t = `String must contain ${i.exact ? "exactly" : i.inclusive ? "at least" : "over"} ${i.minimum} character(s)` : i.type === "number" ? t = `Number must be ${i.exact ? "exactly equal to " : i.inclusive ? "greater than or equal to " : "greater than "}${i.minimum}` : i.type === "bigint" ? t = `Number must be ${i.exact ? "exactly equal to " : i.inclusive ? "greater than or equal to " : "greater than "}${i.minimum}` : i.type === "date" ? t = `Date must be ${i.exact ? "exactly equal to " : i.inclusive ? "greater than or equal to " : "greater than "}${new Date(Number(i.minimum))}` : t = "Invalid input";
       break;
     case h.too_big:
-      s.type === "array" ? t = `Array must contain ${s.exact ? "exactly" : s.inclusive ? "at most" : "less than"} ${s.maximum} element(s)` : s.type === "string" ? t = `String must contain ${s.exact ? "exactly" : s.inclusive ? "at most" : "under"} ${s.maximum} character(s)` : s.type === "number" ? t = `Number must be ${s.exact ? "exactly" : s.inclusive ? "less than or equal to" : "less than"} ${s.maximum}` : s.type === "bigint" ? t = `BigInt must be ${s.exact ? "exactly" : s.inclusive ? "less than or equal to" : "less than"} ${s.maximum}` : s.type === "date" ? t = `Date must be ${s.exact ? "exactly" : s.inclusive ? "smaller than or equal to" : "smaller than"} ${new Date(Number(s.maximum))}` : t = "Invalid input";
+      i.type === "array" ? t = `Array must contain ${i.exact ? "exactly" : i.inclusive ? "at most" : "less than"} ${i.maximum} element(s)` : i.type === "string" ? t = `String must contain ${i.exact ? "exactly" : i.inclusive ? "at most" : "under"} ${i.maximum} character(s)` : i.type === "number" ? t = `Number must be ${i.exact ? "exactly" : i.inclusive ? "less than or equal to" : "less than"} ${i.maximum}` : i.type === "bigint" ? t = `BigInt must be ${i.exact ? "exactly" : i.inclusive ? "less than or equal to" : "less than"} ${i.maximum}` : i.type === "date" ? t = `Date must be ${i.exact ? "exactly" : i.inclusive ? "smaller than or equal to" : "smaller than"} ${new Date(Number(i.maximum))}` : t = "Invalid input";
       break;
     case h.custom:
       t = "Invalid input";
@@ -464,60 +464,60 @@ const Ze = (s, e) => {
       t = "Intersection results could not be merged";
       break;
     case h.not_multiple_of:
-      t = `Number must be a multiple of ${s.multipleOf}`;
+      t = `Number must be a multiple of ${i.multipleOf}`;
       break;
     case h.not_finite:
       t = "Number must be finite";
       break;
     default:
-      t = e.defaultError, I.assertNever(s);
+      t = e.defaultError, I.assertNever(i);
   }
   return { message: t };
 };
-let Kt = Ze;
-function Gt() {
-  return Kt;
+let Ut = ze;
+function Qt() {
+  return Ut;
 }
-const Qt = (s) => {
-  const { data: e, path: t, errorMaps: a, issueData: r } = s, i = [...t, ...r.path || []], o = {
+const Kt = (i) => {
+  const { data: e, path: t, errorMaps: a, issueData: r } = i, s = [...t, ...r.path || []], l = {
     ...r,
-    path: i
+    path: s
   };
   if (r.message !== void 0)
     return {
       ...r,
-      path: i,
+      path: s,
       message: r.message
     };
-  let l = "";
-  const u = a.filter((d) => !!d).slice().reverse();
-  for (const d of u)
-    l = d(o, { data: e, defaultError: l }).message;
+  let o = "";
+  const d = a.filter((c) => !!c).slice().reverse();
+  for (const c of d)
+    o = c(l, { data: e, defaultError: o }).message;
   return {
     ...r,
-    path: i,
-    message: l
+    path: s,
+    message: o
   };
 };
-function m(s, e) {
-  const t = Gt(), a = Qt({
+function p(i, e) {
+  const t = Qt(), a = Kt({
     issueData: e,
-    data: s.data,
-    path: s.path,
+    data: i.data,
+    path: i.path,
     errorMaps: [
-      s.common.contextualErrorMap,
+      i.common.contextualErrorMap,
       // contextual error map is first priority
-      s.schemaErrorMap,
+      i.schemaErrorMap,
       // then schema-bound map if available
       t,
       // then global override map
-      t === Ze ? void 0 : Ze
+      t === ze ? void 0 : ze
       // then global default map
     ].filter((r) => !!r)
   });
-  s.common.issues.push(a);
+  i.common.issues.push(a);
 }
-class z {
+class H {
   constructor() {
     this.value = "valid";
   }
@@ -531,7 +531,7 @@ class z {
     const a = [];
     for (const r of t) {
       if (r.status === "aborted")
-        return k;
+        return S;
       r.status === "dirty" && e.dirty(), a.push(r.value);
     }
     return { status: e.value, value: a };
@@ -539,33 +539,33 @@ class z {
   static async mergeObjectAsync(e, t) {
     const a = [];
     for (const r of t) {
-      const i = await r.key, o = await r.value;
+      const s = await r.key, l = await r.value;
       a.push({
-        key: i,
-        value: o
+        key: s,
+        value: l
       });
     }
-    return z.mergeObjectSync(e, a);
+    return H.mergeObjectSync(e, a);
   }
   static mergeObjectSync(e, t) {
     const a = {};
     for (const r of t) {
-      const { key: i, value: o } = r;
-      if (i.status === "aborted" || o.status === "aborted")
-        return k;
-      i.status === "dirty" && e.dirty(), o.status === "dirty" && e.dirty(), i.value !== "__proto__" && (typeof o.value < "u" || r.alwaysSet) && (a[i.value] = o.value);
+      const { key: s, value: l } = r;
+      if (s.status === "aborted" || l.status === "aborted")
+        return S;
+      s.status === "dirty" && e.dirty(), l.status === "dirty" && e.dirty(), s.value !== "__proto__" && (typeof l.value < "u" || r.alwaysSet) && (a[s.value] = l.value);
     }
     return { status: e.value, value: a };
   }
 }
-const k = Object.freeze({
+const S = Object.freeze({
   status: "aborted"
-}), xe = (s) => ({ status: "dirty", value: s }), K = (s) => ({ status: "valid", value: s }), lt = (s) => s.status === "aborted", ct = (s) => s.status === "dirty", pe = (s) => s.status === "valid", Le = (s) => typeof Promise < "u" && s instanceof Promise;
+}), Se = (i) => ({ status: "dirty", value: i }), Q = (i) => ({ status: "valid", value: i }), ot = (i) => i.status === "aborted", ut = (i) => i.status === "dirty", fe = (i) => i.status === "valid", Ce = (i) => typeof Promise < "u" && i instanceof Promise;
 var g;
-(function(s) {
-  s.errToObj = (e) => typeof e == "string" ? { message: e } : e || {}, s.toString = (e) => typeof e == "string" ? e : e?.message;
+(function(i) {
+  i.errToObj = (e) => typeof e == "string" ? { message: e } : e || {}, i.toString = (e) => typeof e == "string" ? e : e?.message;
 })(g || (g = {}));
-class ae {
+class re {
   constructor(e, t, a, r) {
     this._cachedPath = [], this.parent = e, this.data = t, this._path = a, this._key = r;
   }
@@ -573,44 +573,44 @@ class ae {
     return this._cachedPath.length || (Array.isArray(this._key) ? this._cachedPath.push(...this._path, ...this._key) : this._cachedPath.push(...this._path, this._key)), this._cachedPath;
   }
 }
-const ut = (s, e) => {
-  if (pe(e))
+const dt = (i, e) => {
+  if (fe(e))
     return { success: !0, data: e.value };
-  if (!s.common.issues.length)
+  if (!i.common.issues.length)
     throw new Error("Validation failed but no issues detected.");
   return {
     success: !1,
     get error() {
       if (this._error)
         return this._error;
-      const t = new ie(s.common.issues);
+      const t = new ne(i.common.issues);
       return this._error = t, this._error;
     }
   };
 };
-function w(s) {
-  if (!s)
+function q(i) {
+  if (!i)
     return {};
-  const { errorMap: e, invalid_type_error: t, required_error: a, description: r } = s;
+  const { errorMap: e, invalid_type_error: t, required_error: a, description: r } = i;
   if (e && (t || a))
     throw new Error(`Can't use "invalid_type_error" or "required_error" in conjunction with custom error map.`);
-  return e ? { errorMap: e, description: r } : { errorMap: (o, l) => {
-    const { message: u } = s;
-    return o.code === "invalid_enum_value" ? { message: u ?? l.defaultError } : typeof l.data > "u" ? { message: u ?? a ?? l.defaultError } : o.code !== "invalid_type" ? { message: l.defaultError } : { message: u ?? t ?? l.defaultError };
+  return e ? { errorMap: e, description: r } : { errorMap: (l, o) => {
+    const { message: d } = i;
+    return l.code === "invalid_enum_value" ? { message: d ?? o.defaultError } : typeof o.data > "u" ? { message: d ?? a ?? o.defaultError } : l.code !== "invalid_type" ? { message: o.defaultError } : { message: d ?? t ?? o.defaultError };
   }, description: r };
 }
-class M {
+class w {
   get description() {
     return this._def.description;
   }
   _getType(e) {
-    return oe(e.data);
+    return le(e.data);
   }
   _getOrReturnCtx(e, t) {
     return t || {
       common: e.parent.common,
       data: e.data,
-      parsedType: oe(e.data),
+      parsedType: le(e.data),
       schemaErrorMap: this._def.errorMap,
       path: e.path,
       parent: e.parent
@@ -618,11 +618,11 @@ class M {
   }
   _processInputParams(e) {
     return {
-      status: new z(),
+      status: new H(),
       ctx: {
         common: e.parent.common,
         data: e.data,
-        parsedType: oe(e.data),
+        parsedType: le(e.data),
         schemaErrorMap: this._def.errorMap,
         path: e.path,
         parent: e.parent
@@ -631,7 +631,7 @@ class M {
   }
   _parseSync(e) {
     const t = this._parse(e);
-    if (Le(t))
+    if (Ce(t))
       throw new Error("Synchronous parse encountered promise.");
     return t;
   }
@@ -656,9 +656,9 @@ class M {
       schemaErrorMap: this._def.errorMap,
       parent: null,
       data: e,
-      parsedType: oe(e)
+      parsedType: le(e)
     }, r = this._parseSync({ data: e, path: a.path, parent: a });
-    return ut(a, r);
+    return dt(a, r);
   }
   "~validate"(e) {
     const t = {
@@ -670,12 +670,12 @@ class M {
       schemaErrorMap: this._def.errorMap,
       parent: null,
       data: e,
-      parsedType: oe(e)
+      parsedType: le(e)
     };
     if (!this["~standard"].async)
       try {
         const a = this._parseSync({ data: e, path: [], parent: t });
-        return pe(a) ? {
+        return fe(a) ? {
           value: a.value
         } : {
           issues: t.common.issues
@@ -686,7 +686,7 @@ class M {
           async: !0
         };
       }
-    return this._parseAsync({ data: e, path: [], parent: t }).then((a) => pe(a) ? {
+    return this._parseAsync({ data: e, path: [], parent: t }).then((a) => fe(a) ? {
       value: a.value
     } : {
       issues: t.common.issues
@@ -709,25 +709,25 @@ class M {
       schemaErrorMap: this._def.errorMap,
       parent: null,
       data: e,
-      parsedType: oe(e)
-    }, r = this._parse({ data: e, path: a.path, parent: a }), i = await (Le(r) ? r : Promise.resolve(r));
-    return ut(a, i);
+      parsedType: le(e)
+    }, r = this._parse({ data: e, path: a.path, parent: a }), s = await (Ce(r) ? r : Promise.resolve(r));
+    return dt(a, s);
   }
   refine(e, t) {
     const a = (r) => typeof t == "string" || typeof t > "u" ? { message: t } : typeof t == "function" ? t(r) : t;
-    return this._refinement((r, i) => {
-      const o = e(r), l = () => i.addIssue({
+    return this._refinement((r, s) => {
+      const l = e(r), o = () => s.addIssue({
         code: h.custom,
         ...a(r)
       });
-      return typeof Promise < "u" && o instanceof Promise ? o.then((u) => u ? !0 : (l(), !1)) : o ? !0 : (l(), !1);
+      return typeof Promise < "u" && l instanceof Promise ? l.then((d) => d ? !0 : (o(), !1)) : l ? !0 : (o(), !1);
     });
   }
   refinement(e, t) {
     return this._refinement((a, r) => e(a) ? !0 : (r.addIssue(typeof t == "function" ? t(a, r) : t), !1));
   }
   _refinement(e) {
-    return new ye({
+    return new be({
       schema: this,
       typeName: x.ZodEffects,
       effect: { type: "refinement", refinement: e }
@@ -744,29 +744,29 @@ class M {
     };
   }
   optional() {
-    return le.create(this, this._def);
+    return oe.create(this, this._def);
   }
   nullable() {
-    return be.create(this, this._def);
+    return ye.create(this, this._def);
   }
   nullish() {
     return this.nullable().optional();
   }
   array() {
-    return te.create(this);
+    return ae.create(this);
   }
   promise() {
-    return qe.create(this, this._def);
+    return Ee.create(this, this._def);
   }
   or(e) {
     return Me.create([this, e], this._def);
   }
   and(e) {
-    return Ee.create(this, e, this._def);
+    return Te.create(this, e, this._def);
   }
   transform(e) {
-    return new ye({
-      ...w(this._def),
+    return new be({
+      ...q(this._def),
       schema: this,
       typeName: x.ZodEffects,
       effect: { type: "transform", transform: e }
@@ -774,8 +774,8 @@ class M {
   }
   default(e) {
     const t = typeof e == "function" ? e : () => e;
-    return new Ve({
-      ...w(this._def),
+    return new Ze({
+      ...q(this._def),
       innerType: this,
       defaultValue: t,
       typeName: x.ZodDefault
@@ -785,13 +785,13 @@ class M {
     return new xa({
       typeName: x.ZodBranded,
       type: this,
-      ...w(this._def)
+      ...q(this._def)
     });
   }
   catch(e) {
     const t = typeof e == "function" ? e : () => e;
-    return new He({
-      ...w(this._def),
+    return new Je({
+      ...q(this._def),
       innerType: this,
       catchValue: t,
       typeName: x.ZodCatch
@@ -805,10 +805,10 @@ class M {
     });
   }
   pipe(e) {
-    return Ge.create(this, e);
+    return Qe.create(this, e);
   }
   readonly() {
-    return Ue.create(this);
+    return Ve.create(this);
   }
   isOptional() {
     return this.safeParse(void 0).success;
@@ -817,31 +817,31 @@ class M {
     return this.safeParse(null).success;
   }
 }
-const Yt = /^c[^\s-]{8,}$/i, Xt = /^[0-9a-z]+$/, ea = /^[0-9A-HJKMNP-TV-Z]{26}$/i, ta = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i, aa = /^[a-z0-9_-]{21}$/i, ra = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$/, sa = /^[-+]?P(?!$)(?:(?:[-+]?\d+Y)|(?:[-+]?\d+[.,]\d+Y$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:(?:[-+]?\d+W)|(?:[-+]?\d+[.,]\d+W$))?(?:(?:[-+]?\d+D)|(?:[-+]?\d+[.,]\d+D$))?(?:T(?=[\d+-])(?:(?:[-+]?\d+H)|(?:[-+]?\d+[.,]\d+H$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:[-+]?\d+(?:[.,]\d+)?S)?)??$/, ia = /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i, na = "^(\\p{Extended_Pictographic}|\\p{Emoji_Component})+$";
-let Pe;
-const oa = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/, la = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\/(3[0-2]|[12]?[0-9])$/, ca = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/, ua = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\/(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/, da = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/, ha = /^([0-9a-zA-Z-_]{4})*(([0-9a-zA-Z-_]{2}(==)?)|([0-9a-zA-Z-_]{3}(=)?))?$/, Ct = "((\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-((0[13578]|1[02])-(0[1-9]|[12]\\d|3[01])|(0[469]|11)-(0[1-9]|[12]\\d|30)|(02)-(0[1-9]|1\\d|2[0-8])))", fa = new RegExp(`^${Ct}$`);
-function At(s) {
+const Yt = /^c[^\s-]{8,}$/i, Xt = /^[0-9a-z]+$/, ea = /^[0-9A-HJKMNP-TV-Z]{26}$/i, ta = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i, aa = /^[a-z0-9_-]{21}$/i, ra = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$/, ia = /^[-+]?P(?!$)(?:(?:[-+]?\d+Y)|(?:[-+]?\d+[.,]\d+Y$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:(?:[-+]?\d+W)|(?:[-+]?\d+[.,]\d+W$))?(?:(?:[-+]?\d+D)|(?:[-+]?\d+[.,]\d+D$))?(?:T(?=[\d+-])(?:(?:[-+]?\d+H)|(?:[-+]?\d+[.,]\d+H$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:[-+]?\d+(?:[.,]\d+)?S)?)??$/, sa = /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i, na = "^(\\p{Extended_Pictographic}|\\p{Emoji_Component})+$";
+let Re;
+const la = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/, oa = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\/(3[0-2]|[12]?[0-9])$/, ua = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/, da = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\/(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/, ca = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/, ha = /^([0-9a-zA-Z-_]{4})*(([0-9a-zA-Z-_]{2}(==)?)|([0-9a-zA-Z-_]{3}(=)?))?$/, _t = "((\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-((0[13578]|1[02])-(0[1-9]|[12]\\d|3[01])|(0[469]|11)-(0[1-9]|[12]\\d|30)|(02)-(0[1-9]|1\\d|2[0-8])))", ma = new RegExp(`^${_t}$`);
+function Lt(i) {
   let e = "[0-5]\\d";
-  s.precision ? e = `${e}\\.\\d{${s.precision}}` : s.precision == null && (e = `${e}(\\.\\d+)?`);
-  const t = s.precision ? "+" : "?";
+  i.precision ? e = `${e}\\.\\d{${i.precision}}` : i.precision == null && (e = `${e}(\\.\\d+)?`);
+  const t = i.precision ? "+" : "?";
   return `([01]\\d|2[0-3]):[0-5]\\d(:${e})${t}`;
 }
-function ma(s) {
-  return new RegExp(`^${At(s)}$`);
+function pa(i) {
+  return new RegExp(`^${Lt(i)}$`);
 }
-function pa(s) {
-  let e = `${Ct}T${At(s)}`;
+function fa(i) {
+  let e = `${_t}T${Lt(i)}`;
   const t = [];
-  return t.push(s.local ? "Z?" : "Z"), s.offset && t.push("([+-]\\d{2}:?\\d{2})"), e = `${e}(${t.join("|")})`, new RegExp(`^${e}$`);
+  return t.push(i.local ? "Z?" : "Z"), i.offset && t.push("([+-]\\d{2}:?\\d{2})"), e = `${e}(${t.join("|")})`, new RegExp(`^${e}$`);
 }
-function ga(s, e) {
-  return !!((e === "v4" || !e) && oa.test(s) || (e === "v6" || !e) && ca.test(s));
+function ga(i, e) {
+  return !!((e === "v4" || !e) && la.test(i) || (e === "v6" || !e) && ua.test(i));
 }
-function va(s, e) {
-  if (!ra.test(s))
+function va(i, e) {
+  if (!ra.test(i))
     return !1;
   try {
-    const [t] = s.split(".");
+    const [t] = i.split(".");
     if (!t)
       return !1;
     const a = t.replace(/-/g, "+").replace(/_/g, "/").padEnd(t.length + (4 - t.length % 4) % 4, "="), r = JSON.parse(atob(a));
@@ -850,162 +850,162 @@ function va(s, e) {
     return !1;
   }
 }
-function ya(s, e) {
-  return !!((e === "v4" || !e) && la.test(s) || (e === "v6" || !e) && ua.test(s));
+function ba(i, e) {
+  return !!((e === "v4" || !e) && oa.test(i) || (e === "v6" || !e) && da.test(i));
 }
-class se extends M {
+class se extends w {
   _parse(e) {
-    if (this._def.coerce && (e.data = String(e.data)), this._getType(e) !== p.string) {
-      const i = this._getOrReturnCtx(e);
-      return m(i, {
+    if (this._def.coerce && (e.data = String(e.data)), this._getType(e) !== f.string) {
+      const s = this._getOrReturnCtx(e);
+      return p(s, {
         code: h.invalid_type,
-        expected: p.string,
-        received: i.parsedType
-      }), k;
+        expected: f.string,
+        received: s.parsedType
+      }), S;
     }
-    const a = new z();
+    const a = new H();
     let r;
-    for (const i of this._def.checks)
-      if (i.kind === "min")
-        e.data.length < i.value && (r = this._getOrReturnCtx(e, r), m(r, {
+    for (const s of this._def.checks)
+      if (s.kind === "min")
+        e.data.length < s.value && (r = this._getOrReturnCtx(e, r), p(r, {
           code: h.too_small,
-          minimum: i.value,
+          minimum: s.value,
           type: "string",
           inclusive: !0,
           exact: !1,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "max")
-        e.data.length > i.value && (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "max")
+        e.data.length > s.value && (r = this._getOrReturnCtx(e, r), p(r, {
           code: h.too_big,
-          maximum: i.value,
+          maximum: s.value,
           type: "string",
           inclusive: !0,
           exact: !1,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "length") {
-        const o = e.data.length > i.value, l = e.data.length < i.value;
-        (o || l) && (r = this._getOrReturnCtx(e, r), o ? m(r, {
+      else if (s.kind === "length") {
+        const l = e.data.length > s.value, o = e.data.length < s.value;
+        (l || o) && (r = this._getOrReturnCtx(e, r), l ? p(r, {
           code: h.too_big,
-          maximum: i.value,
+          maximum: s.value,
           type: "string",
           inclusive: !0,
           exact: !0,
-          message: i.message
-        }) : l && m(r, {
+          message: s.message
+        }) : o && p(r, {
           code: h.too_small,
-          minimum: i.value,
+          minimum: s.value,
           type: "string",
           inclusive: !0,
           exact: !0,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      } else if (i.kind === "email")
-        ia.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      } else if (s.kind === "email")
+        sa.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "email",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "emoji")
-        Pe || (Pe = new RegExp(na, "u")), Pe.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "emoji")
+        Re || (Re = new RegExp(na, "u")), Re.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "emoji",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "uuid")
-        ta.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "uuid")
+        ta.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "uuid",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "nanoid")
-        aa.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "nanoid")
+        aa.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "nanoid",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "cuid")
-        Yt.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "cuid")
+        Yt.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "cuid",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "cuid2")
-        Xt.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "cuid2")
+        Xt.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "cuid2",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "ulid")
-        ea.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else if (s.kind === "ulid")
+        ea.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
           validation: "ulid",
           code: h.invalid_string,
-          message: i.message
+          message: s.message
         }), a.dirty());
-      else if (i.kind === "url")
+      else if (s.kind === "url")
         try {
           new URL(e.data);
         } catch {
-          r = this._getOrReturnCtx(e, r), m(r, {
+          r = this._getOrReturnCtx(e, r), p(r, {
             validation: "url",
             code: h.invalid_string,
-            message: i.message
+            message: s.message
           }), a.dirty();
         }
-      else i.kind === "regex" ? (i.regex.lastIndex = 0, i.regex.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+      else s.kind === "regex" ? (s.regex.lastIndex = 0, s.regex.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "regex",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty())) : i.kind === "trim" ? e.data = e.data.trim() : i.kind === "includes" ? e.data.includes(i.value, i.position) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty())) : s.kind === "trim" ? e.data = e.data.trim() : s.kind === "includes" ? e.data.includes(s.value, s.position) || (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.invalid_string,
-        validation: { includes: i.value, position: i.position },
-        message: i.message
-      }), a.dirty()) : i.kind === "toLowerCase" ? e.data = e.data.toLowerCase() : i.kind === "toUpperCase" ? e.data = e.data.toUpperCase() : i.kind === "startsWith" ? e.data.startsWith(i.value) || (r = this._getOrReturnCtx(e, r), m(r, {
+        validation: { includes: s.value, position: s.position },
+        message: s.message
+      }), a.dirty()) : s.kind === "toLowerCase" ? e.data = e.data.toLowerCase() : s.kind === "toUpperCase" ? e.data = e.data.toUpperCase() : s.kind === "startsWith" ? e.data.startsWith(s.value) || (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.invalid_string,
-        validation: { startsWith: i.value },
-        message: i.message
-      }), a.dirty()) : i.kind === "endsWith" ? e.data.endsWith(i.value) || (r = this._getOrReturnCtx(e, r), m(r, {
+        validation: { startsWith: s.value },
+        message: s.message
+      }), a.dirty()) : s.kind === "endsWith" ? e.data.endsWith(s.value) || (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.invalid_string,
-        validation: { endsWith: i.value },
-        message: i.message
-      }), a.dirty()) : i.kind === "datetime" ? pa(i).test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        validation: { endsWith: s.value },
+        message: s.message
+      }), a.dirty()) : s.kind === "datetime" ? fa(s).test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.invalid_string,
         validation: "datetime",
-        message: i.message
-      }), a.dirty()) : i.kind === "date" ? fa.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "date" ? ma.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.invalid_string,
         validation: "date",
-        message: i.message
-      }), a.dirty()) : i.kind === "time" ? ma(i).test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "time" ? pa(s).test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.invalid_string,
         validation: "time",
-        message: i.message
-      }), a.dirty()) : i.kind === "duration" ? sa.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "duration" ? ia.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "duration",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty()) : i.kind === "ip" ? ga(e.data, i.version) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "ip" ? ga(e.data, s.version) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "ip",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty()) : i.kind === "jwt" ? va(e.data, i.alg) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "jwt" ? va(e.data, s.alg) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "jwt",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty()) : i.kind === "cidr" ? ya(e.data, i.version) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "cidr" ? ba(e.data, s.version) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "cidr",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty()) : i.kind === "base64" ? da.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "base64" ? ca.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "base64",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty()) : i.kind === "base64url" ? ha.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        message: s.message
+      }), a.dirty()) : s.kind === "base64url" ? ha.test(e.data) || (r = this._getOrReturnCtx(e, r), p(r, {
         validation: "base64url",
         code: h.invalid_string,
-        message: i.message
-      }), a.dirty()) : I.assertNever(i);
+        message: s.message
+      }), a.dirty()) : I.assertNever(s);
     return { status: a.value, value: e.data };
   }
   _regex(e, t, a) {
@@ -1230,59 +1230,59 @@ class se extends M {
     return e;
   }
 }
-se.create = (s) => new se({
+se.create = (i) => new se({
   checks: [],
   typeName: x.ZodString,
-  coerce: s?.coerce ?? !1,
-  ...w(s)
+  coerce: i?.coerce ?? !1,
+  ...q(i)
 });
-function ba(s, e) {
-  const t = (s.toString().split(".")[1] || "").length, a = (e.toString().split(".")[1] || "").length, r = t > a ? t : a, i = Number.parseInt(s.toFixed(r).replace(".", "")), o = Number.parseInt(e.toFixed(r).replace(".", ""));
-  return i % o / 10 ** r;
+function ya(i, e) {
+  const t = (i.toString().split(".")[1] || "").length, a = (e.toString().split(".")[1] || "").length, r = t > a ? t : a, s = Number.parseInt(i.toFixed(r).replace(".", "")), l = Number.parseInt(e.toFixed(r).replace(".", ""));
+  return s % l / 10 ** r;
 }
-class ge extends M {
+class ge extends w {
   constructor() {
     super(...arguments), this.min = this.gte, this.max = this.lte, this.step = this.multipleOf;
   }
   _parse(e) {
-    if (this._def.coerce && (e.data = Number(e.data)), this._getType(e) !== p.number) {
-      const i = this._getOrReturnCtx(e);
-      return m(i, {
+    if (this._def.coerce && (e.data = Number(e.data)), this._getType(e) !== f.number) {
+      const s = this._getOrReturnCtx(e);
+      return p(s, {
         code: h.invalid_type,
-        expected: p.number,
-        received: i.parsedType
-      }), k;
+        expected: f.number,
+        received: s.parsedType
+      }), S;
     }
     let a;
-    const r = new z();
-    for (const i of this._def.checks)
-      i.kind === "int" ? I.isInteger(e.data) || (a = this._getOrReturnCtx(e, a), m(a, {
+    const r = new H();
+    for (const s of this._def.checks)
+      s.kind === "int" ? I.isInteger(e.data) || (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.invalid_type,
         expected: "integer",
         received: "float",
-        message: i.message
-      }), r.dirty()) : i.kind === "min" ? (i.inclusive ? e.data < i.value : e.data <= i.value) && (a = this._getOrReturnCtx(e, a), m(a, {
+        message: s.message
+      }), r.dirty()) : s.kind === "min" ? (s.inclusive ? e.data < s.value : e.data <= s.value) && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.too_small,
-        minimum: i.value,
+        minimum: s.value,
         type: "number",
-        inclusive: i.inclusive,
+        inclusive: s.inclusive,
         exact: !1,
-        message: i.message
-      }), r.dirty()) : i.kind === "max" ? (i.inclusive ? e.data > i.value : e.data >= i.value) && (a = this._getOrReturnCtx(e, a), m(a, {
+        message: s.message
+      }), r.dirty()) : s.kind === "max" ? (s.inclusive ? e.data > s.value : e.data >= s.value) && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.too_big,
-        maximum: i.value,
+        maximum: s.value,
         type: "number",
-        inclusive: i.inclusive,
+        inclusive: s.inclusive,
         exact: !1,
-        message: i.message
-      }), r.dirty()) : i.kind === "multipleOf" ? ba(e.data, i.value) !== 0 && (a = this._getOrReturnCtx(e, a), m(a, {
+        message: s.message
+      }), r.dirty()) : s.kind === "multipleOf" ? ya(e.data, s.value) !== 0 && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.not_multiple_of,
-        multipleOf: i.value,
-        message: i.message
-      }), r.dirty()) : i.kind === "finite" ? Number.isFinite(e.data) || (a = this._getOrReturnCtx(e, a), m(a, {
+        multipleOf: s.value,
+        message: s.message
+      }), r.dirty()) : s.kind === "finite" ? Number.isFinite(e.data) || (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.not_finite,
-        message: i.message
-      }), r.dirty()) : I.assertNever(i);
+        message: s.message
+      }), r.dirty()) : I.assertNever(s);
     return { status: r.value, value: e.data };
   }
   gte(e, t) {
@@ -1406,13 +1406,13 @@ class ge extends M {
     return Number.isFinite(t) && Number.isFinite(e);
   }
 }
-ge.create = (s) => new ge({
+ge.create = (i) => new ge({
   checks: [],
   typeName: x.ZodNumber,
-  coerce: s?.coerce || !1,
-  ...w(s)
+  coerce: i?.coerce || !1,
+  ...q(i)
 });
-class ke extends M {
+class ke extends w {
   constructor() {
     super(...arguments), this.min = this.gte, this.max = this.lte;
   }
@@ -1423,37 +1423,37 @@ class ke extends M {
       } catch {
         return this._getInvalidInput(e);
       }
-    if (this._getType(e) !== p.bigint)
+    if (this._getType(e) !== f.bigint)
       return this._getInvalidInput(e);
     let a;
-    const r = new z();
-    for (const i of this._def.checks)
-      i.kind === "min" ? (i.inclusive ? e.data < i.value : e.data <= i.value) && (a = this._getOrReturnCtx(e, a), m(a, {
+    const r = new H();
+    for (const s of this._def.checks)
+      s.kind === "min" ? (s.inclusive ? e.data < s.value : e.data <= s.value) && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.too_small,
         type: "bigint",
-        minimum: i.value,
-        inclusive: i.inclusive,
-        message: i.message
-      }), r.dirty()) : i.kind === "max" ? (i.inclusive ? e.data > i.value : e.data >= i.value) && (a = this._getOrReturnCtx(e, a), m(a, {
+        minimum: s.value,
+        inclusive: s.inclusive,
+        message: s.message
+      }), r.dirty()) : s.kind === "max" ? (s.inclusive ? e.data > s.value : e.data >= s.value) && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.too_big,
         type: "bigint",
-        maximum: i.value,
-        inclusive: i.inclusive,
-        message: i.message
-      }), r.dirty()) : i.kind === "multipleOf" ? e.data % i.value !== BigInt(0) && (a = this._getOrReturnCtx(e, a), m(a, {
+        maximum: s.value,
+        inclusive: s.inclusive,
+        message: s.message
+      }), r.dirty()) : s.kind === "multipleOf" ? e.data % s.value !== BigInt(0) && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.not_multiple_of,
-        multipleOf: i.value,
-        message: i.message
-      }), r.dirty()) : I.assertNever(i);
+        multipleOf: s.value,
+        message: s.message
+      }), r.dirty()) : I.assertNever(s);
     return { status: r.value, value: e.data };
   }
   _getInvalidInput(e) {
     const t = this._getOrReturnCtx(e);
-    return m(t, {
+    return p(t, {
       code: h.invalid_type,
-      expected: p.bigint,
+      expected: f.bigint,
       received: t.parsedType
-    }), k;
+    }), S;
   }
   gte(e, t) {
     return this.setLimit("min", e, !0, g.toString(t));
@@ -1539,71 +1539,71 @@ class ke extends M {
     return e;
   }
 }
-ke.create = (s) => new ke({
+ke.create = (i) => new ke({
   checks: [],
   typeName: x.ZodBigInt,
-  coerce: s?.coerce ?? !1,
-  ...w(s)
+  coerce: i?.coerce ?? !1,
+  ...q(i)
 });
-class dt extends M {
+class ct extends w {
   _parse(e) {
-    if (this._def.coerce && (e.data = !!e.data), this._getType(e) !== p.boolean) {
+    if (this._def.coerce && (e.data = !!e.data), this._getType(e) !== f.boolean) {
       const a = this._getOrReturnCtx(e);
-      return m(a, {
+      return p(a, {
         code: h.invalid_type,
-        expected: p.boolean,
+        expected: f.boolean,
         received: a.parsedType
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
 }
-dt.create = (s) => new dt({
+ct.create = (i) => new ct({
   typeName: x.ZodBoolean,
-  coerce: s?.coerce || !1,
-  ...w(s)
+  coerce: i?.coerce || !1,
+  ...q(i)
 });
-class Te extends M {
+class we extends w {
   _parse(e) {
-    if (this._def.coerce && (e.data = new Date(e.data)), this._getType(e) !== p.date) {
-      const i = this._getOrReturnCtx(e);
-      return m(i, {
+    if (this._def.coerce && (e.data = new Date(e.data)), this._getType(e) !== f.date) {
+      const s = this._getOrReturnCtx(e);
+      return p(s, {
         code: h.invalid_type,
-        expected: p.date,
-        received: i.parsedType
-      }), k;
+        expected: f.date,
+        received: s.parsedType
+      }), S;
     }
     if (Number.isNaN(e.data.getTime())) {
-      const i = this._getOrReturnCtx(e);
-      return m(i, {
+      const s = this._getOrReturnCtx(e);
+      return p(s, {
         code: h.invalid_date
-      }), k;
+      }), S;
     }
-    const a = new z();
+    const a = new H();
     let r;
-    for (const i of this._def.checks)
-      i.kind === "min" ? e.data.getTime() < i.value && (r = this._getOrReturnCtx(e, r), m(r, {
+    for (const s of this._def.checks)
+      s.kind === "min" ? e.data.getTime() < s.value && (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.too_small,
-        message: i.message,
+        message: s.message,
         inclusive: !0,
         exact: !1,
-        minimum: i.value,
+        minimum: s.value,
         type: "date"
-      }), a.dirty()) : i.kind === "max" ? e.data.getTime() > i.value && (r = this._getOrReturnCtx(e, r), m(r, {
+      }), a.dirty()) : s.kind === "max" ? e.data.getTime() > s.value && (r = this._getOrReturnCtx(e, r), p(r, {
         code: h.too_big,
-        message: i.message,
+        message: s.message,
         inclusive: !0,
         exact: !1,
-        maximum: i.value,
+        maximum: s.value,
         type: "date"
-      }), a.dirty()) : I.assertNever(i);
+      }), a.dirty()) : I.assertNever(s);
     return {
       status: a.value,
       value: new Date(e.data.getTime())
     };
   }
   _addCheck(e) {
-    return new Te({
+    return new we({
       ...this._def,
       checks: [...this._def.checks, e]
     });
@@ -1635,147 +1635,147 @@ class Te extends M {
     return e != null ? new Date(e) : null;
   }
 }
-Te.create = (s) => new Te({
+we.create = (i) => new we({
   checks: [],
-  coerce: s?.coerce || !1,
+  coerce: i?.coerce || !1,
   typeName: x.ZodDate,
-  ...w(s)
+  ...q(i)
 });
-class ht extends M {
+class ht extends w {
   _parse(e) {
-    if (this._getType(e) !== p.symbol) {
+    if (this._getType(e) !== f.symbol) {
       const a = this._getOrReturnCtx(e);
-      return m(a, {
+      return p(a, {
         code: h.invalid_type,
-        expected: p.symbol,
+        expected: f.symbol,
         received: a.parsedType
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
 }
-ht.create = (s) => new ht({
+ht.create = (i) => new ht({
   typeName: x.ZodSymbol,
-  ...w(s)
+  ...q(i)
 });
-class ft extends M {
+class mt extends w {
   _parse(e) {
-    if (this._getType(e) !== p.undefined) {
+    if (this._getType(e) !== f.undefined) {
       const a = this._getOrReturnCtx(e);
-      return m(a, {
+      return p(a, {
         code: h.invalid_type,
-        expected: p.undefined,
+        expected: f.undefined,
         received: a.parsedType
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
 }
-ft.create = (s) => new ft({
+mt.create = (i) => new mt({
   typeName: x.ZodUndefined,
-  ...w(s)
+  ...q(i)
 });
-class mt extends M {
+class pt extends w {
   _parse(e) {
-    if (this._getType(e) !== p.null) {
+    if (this._getType(e) !== f.null) {
       const a = this._getOrReturnCtx(e);
-      return m(a, {
+      return p(a, {
         code: h.invalid_type,
-        expected: p.null,
+        expected: f.null,
         received: a.parsedType
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
 }
-mt.create = (s) => new mt({
+pt.create = (i) => new pt({
   typeName: x.ZodNull,
-  ...w(s)
+  ...q(i)
 });
-class pt extends M {
+class ft extends w {
   constructor() {
     super(...arguments), this._any = !0;
   }
   _parse(e) {
-    return K(e.data);
+    return Q(e.data);
   }
 }
-pt.create = (s) => new pt({
+ft.create = (i) => new ft({
   typeName: x.ZodAny,
-  ...w(s)
+  ...q(i)
 });
-class gt extends M {
+class gt extends w {
   constructor() {
     super(...arguments), this._unknown = !0;
   }
   _parse(e) {
-    return K(e.data);
+    return Q(e.data);
   }
 }
-gt.create = (s) => new gt({
+gt.create = (i) => new gt({
   typeName: x.ZodUnknown,
-  ...w(s)
+  ...q(i)
 });
-class ce extends M {
+class ue extends w {
   _parse(e) {
     const t = this._getOrReturnCtx(e);
-    return m(t, {
+    return p(t, {
       code: h.invalid_type,
-      expected: p.never,
+      expected: f.never,
       received: t.parsedType
-    }), k;
+    }), S;
   }
 }
-ce.create = (s) => new ce({
+ue.create = (i) => new ue({
   typeName: x.ZodNever,
-  ...w(s)
+  ...q(i)
 });
-class vt extends M {
+class vt extends w {
   _parse(e) {
-    if (this._getType(e) !== p.undefined) {
+    if (this._getType(e) !== f.undefined) {
       const a = this._getOrReturnCtx(e);
-      return m(a, {
+      return p(a, {
         code: h.invalid_type,
-        expected: p.void,
+        expected: f.void,
         received: a.parsedType
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
 }
-vt.create = (s) => new vt({
+vt.create = (i) => new vt({
   typeName: x.ZodVoid,
-  ...w(s)
+  ...q(i)
 });
-class te extends M {
+class ae extends w {
   _parse(e) {
     const { ctx: t, status: a } = this._processInputParams(e), r = this._def;
-    if (t.parsedType !== p.array)
-      return m(t, {
+    if (t.parsedType !== f.array)
+      return p(t, {
         code: h.invalid_type,
-        expected: p.array,
+        expected: f.array,
         received: t.parsedType
-      }), k;
+      }), S;
     if (r.exactLength !== null) {
-      const o = t.data.length > r.exactLength.value, l = t.data.length < r.exactLength.value;
-      (o || l) && (m(t, {
-        code: o ? h.too_big : h.too_small,
-        minimum: l ? r.exactLength.value : void 0,
-        maximum: o ? r.exactLength.value : void 0,
+      const l = t.data.length > r.exactLength.value, o = t.data.length < r.exactLength.value;
+      (l || o) && (p(t, {
+        code: l ? h.too_big : h.too_small,
+        minimum: o ? r.exactLength.value : void 0,
+        maximum: l ? r.exactLength.value : void 0,
         type: "array",
         inclusive: !0,
         exact: !0,
         message: r.exactLength.message
       }), a.dirty());
     }
-    if (r.minLength !== null && t.data.length < r.minLength.value && (m(t, {
+    if (r.minLength !== null && t.data.length < r.minLength.value && (p(t, {
       code: h.too_small,
       minimum: r.minLength.value,
       type: "array",
       inclusive: !0,
       exact: !1,
       message: r.minLength.message
-    }), a.dirty()), r.maxLength !== null && t.data.length > r.maxLength.value && (m(t, {
+    }), a.dirty()), r.maxLength !== null && t.data.length > r.maxLength.value && (p(t, {
       code: h.too_big,
       maximum: r.maxLength.value,
       type: "array",
@@ -1783,27 +1783,27 @@ class te extends M {
       exact: !1,
       message: r.maxLength.message
     }), a.dirty()), t.common.async)
-      return Promise.all([...t.data].map((o, l) => r.type._parseAsync(new ae(t, o, t.path, l)))).then((o) => z.mergeArray(a, o));
-    const i = [...t.data].map((o, l) => r.type._parseSync(new ae(t, o, t.path, l)));
-    return z.mergeArray(a, i);
+      return Promise.all([...t.data].map((l, o) => r.type._parseAsync(new re(t, l, t.path, o)))).then((l) => H.mergeArray(a, l));
+    const s = [...t.data].map((l, o) => r.type._parseSync(new re(t, l, t.path, o)));
+    return H.mergeArray(a, s);
   }
   get element() {
     return this._def.type;
   }
   min(e, t) {
-    return new te({
+    return new ae({
       ...this._def,
       minLength: { value: e, message: g.toString(t) }
     });
   }
   max(e, t) {
-    return new te({
+    return new ae({
       ...this._def,
       maxLength: { value: e, message: g.toString(t) }
     });
   }
   length(e, t) {
-    return new te({
+    return new ae({
       ...this._def,
       exactLength: { value: e, message: g.toString(t) }
     });
@@ -1812,31 +1812,31 @@ class te extends M {
     return this.min(1, e);
   }
 }
-te.create = (s, e) => new te({
-  type: s,
+ae.create = (i, e) => new ae({
+  type: i,
   minLength: null,
   maxLength: null,
   exactLength: null,
   typeName: x.ZodArray,
-  ...w(e)
+  ...q(e)
 });
-function he(s) {
-  if (s instanceof $) {
+function he(i) {
+  if (i instanceof B) {
     const e = {};
-    for (const t in s.shape) {
-      const a = s.shape[t];
-      e[t] = le.create(he(a));
+    for (const t in i.shape) {
+      const a = i.shape[t];
+      e[t] = oe.create(he(a));
     }
-    return new $({
-      ...s._def,
+    return new B({
+      ...i._def,
       shape: () => e
     });
-  } else return s instanceof te ? new te({
-    ...s._def,
-    type: he(s.element)
-  }) : s instanceof le ? le.create(he(s.unwrap())) : s instanceof be ? be.create(he(s.unwrap())) : s instanceof de ? de.create(s.items.map((e) => he(e))) : s;
+  } else return i instanceof ae ? new ae({
+    ...i._def,
+    type: he(i.element)
+  }) : i instanceof oe ? oe.create(he(i.unwrap())) : i instanceof ye ? ye.create(he(i.unwrap())) : i instanceof ce ? ce.create(i.items.map((e) => he(e))) : i;
 }
-class $ extends M {
+class B extends w {
   constructor() {
     super(...arguments), this._cached = null, this.nonstrict = this.passthrough, this.augment = this.extend;
   }
@@ -1847,49 +1847,49 @@ class $ extends M {
     return this._cached = { shape: e, keys: t }, this._cached;
   }
   _parse(e) {
-    if (this._getType(e) !== p.object) {
-      const d = this._getOrReturnCtx(e);
-      return m(d, {
+    if (this._getType(e) !== f.object) {
+      const c = this._getOrReturnCtx(e);
+      return p(c, {
         code: h.invalid_type,
-        expected: p.object,
-        received: d.parsedType
-      }), k;
+        expected: f.object,
+        received: c.parsedType
+      }), S;
     }
-    const { status: a, ctx: r } = this._processInputParams(e), { shape: i, keys: o } = this._getCached(), l = [];
-    if (!(this._def.catchall instanceof ce && this._def.unknownKeys === "strip"))
-      for (const d in r.data)
-        o.includes(d) || l.push(d);
-    const u = [];
-    for (const d of o) {
-      const v = i[d], T = r.data[d];
-      u.push({
-        key: { status: "valid", value: d },
-        value: v._parse(new ae(r, T, r.path, d)),
-        alwaysSet: d in r.data
+    const { status: a, ctx: r } = this._processInputParams(e), { shape: s, keys: l } = this._getCached(), o = [];
+    if (!(this._def.catchall instanceof ue && this._def.unknownKeys === "strip"))
+      for (const c in r.data)
+        l.includes(c) || o.push(c);
+    const d = [];
+    for (const c of l) {
+      const v = s[c], M = r.data[c];
+      d.push({
+        key: { status: "valid", value: c },
+        value: v._parse(new re(r, M, r.path, c)),
+        alwaysSet: c in r.data
       });
     }
-    if (this._def.catchall instanceof ce) {
-      const d = this._def.unknownKeys;
-      if (d === "passthrough")
-        for (const v of l)
-          u.push({
+    if (this._def.catchall instanceof ue) {
+      const c = this._def.unknownKeys;
+      if (c === "passthrough")
+        for (const v of o)
+          d.push({
             key: { status: "valid", value: v },
             value: { status: "valid", value: r.data[v] }
           });
-      else if (d === "strict")
-        l.length > 0 && (m(r, {
+      else if (c === "strict")
+        o.length > 0 && (p(r, {
           code: h.unrecognized_keys,
-          keys: l
+          keys: o
         }), a.dirty());
-      else if (d !== "strip") throw new Error("Internal ZodObject error: invalid unknownKeys value.");
+      else if (c !== "strip") throw new Error("Internal ZodObject error: invalid unknownKeys value.");
     } else {
-      const d = this._def.catchall;
-      for (const v of l) {
-        const T = r.data[v];
-        u.push({
+      const c = this._def.catchall;
+      for (const v of o) {
+        const M = r.data[v];
+        d.push({
           key: { status: "valid", value: v },
-          value: d._parse(
-            new ae(r, T, r.path, v)
+          value: c._parse(
+            new re(r, M, r.path, v)
             //, ctx.child(key), value, getParsedType(value)
           ),
           alwaysSet: v in r.data
@@ -1897,23 +1897,23 @@ class $ extends M {
       }
     }
     return r.common.async ? Promise.resolve().then(async () => {
-      const d = [];
-      for (const v of u) {
-        const T = await v.key, N = await v.value;
-        d.push({
-          key: T,
-          value: N,
+      const c = [];
+      for (const v of d) {
+        const M = await v.key, E = await v.value;
+        c.push({
+          key: M,
+          value: E,
           alwaysSet: v.alwaysSet
         });
       }
-      return d;
-    }).then((d) => z.mergeObjectSync(a, d)) : z.mergeObjectSync(a, u);
+      return c;
+    }).then((c) => H.mergeObjectSync(a, c)) : H.mergeObjectSync(a, d);
   }
   get shape() {
     return this._def.shape();
   }
   strict(e) {
-    return g.errToObj, new $({
+    return g.errToObj, new B({
       ...this._def,
       unknownKeys: "strict",
       ...e !== void 0 ? {
@@ -1929,13 +1929,13 @@ class $ extends M {
     });
   }
   strip() {
-    return new $({
+    return new B({
       ...this._def,
       unknownKeys: "strip"
     });
   }
   passthrough() {
-    return new $({
+    return new B({
       ...this._def,
       unknownKeys: "passthrough"
     });
@@ -1958,7 +1958,7 @@ class $ extends M {
   //     }) as any;
   //   };
   extend(e) {
-    return new $({
+    return new B({
       ...this._def,
       shape: () => ({
         ...this._def.shape(),
@@ -1972,7 +1972,7 @@ class $ extends M {
    * upgrade if you are experiencing issues.
    */
   merge(e) {
-    return new $({
+    return new B({
       unknownKeys: e._def.unknownKeys,
       catchall: e._def.catchall,
       shape: () => ({
@@ -2042,7 +2042,7 @@ class $ extends M {
   //   return merged;
   // }
   catchall(e) {
-    return new $({
+    return new B({
       ...this._def,
       catchall: e
     });
@@ -2051,7 +2051,7 @@ class $ extends M {
     const t = {};
     for (const a of I.objectKeys(e))
       e[a] && this.shape[a] && (t[a] = this.shape[a]);
-    return new $({
+    return new B({
       ...this._def,
       shape: () => t
     });
@@ -2060,7 +2060,7 @@ class $ extends M {
     const t = {};
     for (const a of I.objectKeys(this.shape))
       e[a] || (t[a] = this.shape[a]);
-    return new $({
+    return new B({
       ...this._def,
       shape: () => t
     });
@@ -2077,7 +2077,7 @@ class $ extends M {
       const r = this.shape[a];
       e && !e[a] ? t[a] = r : t[a] = r.optional();
     }
-    return new $({
+    return new B({
       ...this._def,
       shape: () => t
     });
@@ -2088,60 +2088,60 @@ class $ extends M {
       if (e && !e[a])
         t[a] = this.shape[a];
       else {
-        let i = this.shape[a];
-        for (; i instanceof le; )
-          i = i._def.innerType;
-        t[a] = i;
+        let s = this.shape[a];
+        for (; s instanceof oe; )
+          s = s._def.innerType;
+        t[a] = s;
       }
-    return new $({
+    return new B({
       ...this._def,
       shape: () => t
     });
   }
   keyof() {
-    return Lt(I.objectKeys(this.shape));
+    return Ct(I.objectKeys(this.shape));
   }
 }
-$.create = (s, e) => new $({
-  shape: () => s,
+B.create = (i, e) => new B({
+  shape: () => i,
   unknownKeys: "strip",
-  catchall: ce.create(),
+  catchall: ue.create(),
   typeName: x.ZodObject,
-  ...w(e)
+  ...q(e)
 });
-$.strictCreate = (s, e) => new $({
-  shape: () => s,
+B.strictCreate = (i, e) => new B({
+  shape: () => i,
   unknownKeys: "strict",
-  catchall: ce.create(),
+  catchall: ue.create(),
   typeName: x.ZodObject,
-  ...w(e)
+  ...q(e)
 });
-$.lazycreate = (s, e) => new $({
-  shape: s,
+B.lazycreate = (i, e) => new B({
+  shape: i,
   unknownKeys: "strip",
-  catchall: ce.create(),
+  catchall: ue.create(),
   typeName: x.ZodObject,
-  ...w(e)
+  ...q(e)
 });
-class Me extends M {
+class Me extends w {
   _parse(e) {
     const { ctx: t } = this._processInputParams(e), a = this._def.options;
-    function r(i) {
-      for (const l of i)
-        if (l.result.status === "valid")
-          return l.result;
-      for (const l of i)
-        if (l.result.status === "dirty")
-          return t.common.issues.push(...l.ctx.common.issues), l.result;
-      const o = i.map((l) => new ie(l.ctx.common.issues));
-      return m(t, {
+    function r(s) {
+      for (const o of s)
+        if (o.result.status === "valid")
+          return o.result;
+      for (const o of s)
+        if (o.result.status === "dirty")
+          return t.common.issues.push(...o.ctx.common.issues), o.result;
+      const l = s.map((o) => new ne(o.ctx.common.issues));
+      return p(t, {
         code: h.invalid_union,
-        unionErrors: o
-      }), k;
+        unionErrors: l
+      }), S;
     }
     if (t.common.async)
-      return Promise.all(a.map(async (i) => {
-        const o = {
+      return Promise.all(a.map(async (s) => {
+        const l = {
           ...t,
           common: {
             ...t.common,
@@ -2150,87 +2150,87 @@ class Me extends M {
           parent: null
         };
         return {
-          result: await i._parseAsync({
+          result: await s._parseAsync({
             data: t.data,
             path: t.path,
-            parent: o
+            parent: l
           }),
-          ctx: o
+          ctx: l
         };
       })).then(r);
     {
-      let i;
-      const o = [];
-      for (const u of a) {
-        const d = {
+      let s;
+      const l = [];
+      for (const d of a) {
+        const c = {
           ...t,
           common: {
             ...t.common,
             issues: []
           },
           parent: null
-        }, v = u._parseSync({
+        }, v = d._parseSync({
           data: t.data,
           path: t.path,
-          parent: d
+          parent: c
         });
         if (v.status === "valid")
           return v;
-        v.status === "dirty" && !i && (i = { result: v, ctx: d }), d.common.issues.length && o.push(d.common.issues);
+        v.status === "dirty" && !s && (s = { result: v, ctx: c }), c.common.issues.length && l.push(c.common.issues);
       }
-      if (i)
-        return t.common.issues.push(...i.ctx.common.issues), i.result;
-      const l = o.map((u) => new ie(u));
-      return m(t, {
+      if (s)
+        return t.common.issues.push(...s.ctx.common.issues), s.result;
+      const o = l.map((d) => new ne(d));
+      return p(t, {
         code: h.invalid_union,
-        unionErrors: l
-      }), k;
+        unionErrors: o
+      }), S;
     }
   }
   get options() {
     return this._def.options;
   }
 }
-Me.create = (s, e) => new Me({
-  options: s,
+Me.create = (i, e) => new Me({
+  options: i,
   typeName: x.ZodUnion,
-  ...w(e)
+  ...q(e)
 });
-function Fe(s, e) {
-  const t = oe(s), a = oe(e);
-  if (s === e)
-    return { valid: !0, data: s };
-  if (t === p.object && a === p.object) {
-    const r = I.objectKeys(e), i = I.objectKeys(s).filter((l) => r.indexOf(l) !== -1), o = { ...s, ...e };
-    for (const l of i) {
-      const u = Fe(s[l], e[l]);
-      if (!u.valid)
+function Fe(i, e) {
+  const t = le(i), a = le(e);
+  if (i === e)
+    return { valid: !0, data: i };
+  if (t === f.object && a === f.object) {
+    const r = I.objectKeys(e), s = I.objectKeys(i).filter((o) => r.indexOf(o) !== -1), l = { ...i, ...e };
+    for (const o of s) {
+      const d = Fe(i[o], e[o]);
+      if (!d.valid)
         return { valid: !1 };
-      o[l] = u.data;
+      l[o] = d.data;
     }
-    return { valid: !0, data: o };
-  } else if (t === p.array && a === p.array) {
-    if (s.length !== e.length)
+    return { valid: !0, data: l };
+  } else if (t === f.array && a === f.array) {
+    if (i.length !== e.length)
       return { valid: !1 };
     const r = [];
-    for (let i = 0; i < s.length; i++) {
-      const o = s[i], l = e[i], u = Fe(o, l);
-      if (!u.valid)
+    for (let s = 0; s < i.length; s++) {
+      const l = i[s], o = e[s], d = Fe(l, o);
+      if (!d.valid)
         return { valid: !1 };
-      r.push(u.data);
+      r.push(d.data);
     }
     return { valid: !0, data: r };
-  } else return t === p.date && a === p.date && +s == +e ? { valid: !0, data: s } : { valid: !1 };
+  } else return t === f.date && a === f.date && +i == +e ? { valid: !0, data: i } : { valid: !1 };
 }
-class Ee extends M {
+class Te extends w {
   _parse(e) {
-    const { status: t, ctx: a } = this._processInputParams(e), r = (i, o) => {
-      if (lt(i) || lt(o))
-        return k;
-      const l = Fe(i.value, o.value);
-      return l.valid ? ((ct(i) || ct(o)) && t.dirty(), { status: t.value, value: l.data }) : (m(a, {
+    const { status: t, ctx: a } = this._processInputParams(e), r = (s, l) => {
+      if (ot(s) || ot(l))
+        return S;
+      const o = Fe(s.value, l.value);
+      return o.valid ? ((ut(s) || ut(l)) && t.dirty(), { status: t.value, value: o.data }) : (p(a, {
         code: h.invalid_intersection_types
-      }), k);
+      }), S);
     };
     return a.common.async ? Promise.all([
       this._def.left._parseAsync({
@@ -2243,7 +2243,7 @@ class Ee extends M {
         path: a.path,
         parent: a
       })
-    ]).then(([i, o]) => r(i, o)) : r(this._def.left._parseSync({
+    ]).then(([s, l]) => r(s, l)) : r(this._def.left._parseSync({
       data: a.data,
       path: a.path,
       parent: a
@@ -2254,63 +2254,63 @@ class Ee extends M {
     }));
   }
 }
-Ee.create = (s, e, t) => new Ee({
-  left: s,
+Te.create = (i, e, t) => new Te({
+  left: i,
   right: e,
   typeName: x.ZodIntersection,
-  ...w(t)
+  ...q(t)
 });
-class de extends M {
+class ce extends w {
   _parse(e) {
     const { status: t, ctx: a } = this._processInputParams(e);
-    if (a.parsedType !== p.array)
-      return m(a, {
+    if (a.parsedType !== f.array)
+      return p(a, {
         code: h.invalid_type,
-        expected: p.array,
+        expected: f.array,
         received: a.parsedType
-      }), k;
+      }), S;
     if (a.data.length < this._def.items.length)
-      return m(a, {
+      return p(a, {
         code: h.too_small,
         minimum: this._def.items.length,
         inclusive: !0,
         exact: !1,
         type: "array"
-      }), k;
-    !this._def.rest && a.data.length > this._def.items.length && (m(a, {
+      }), S;
+    !this._def.rest && a.data.length > this._def.items.length && (p(a, {
       code: h.too_big,
       maximum: this._def.items.length,
       inclusive: !0,
       exact: !1,
       type: "array"
     }), t.dirty());
-    const i = [...a.data].map((o, l) => {
-      const u = this._def.items[l] || this._def.rest;
-      return u ? u._parse(new ae(a, o, a.path, l)) : null;
-    }).filter((o) => !!o);
-    return a.common.async ? Promise.all(i).then((o) => z.mergeArray(t, o)) : z.mergeArray(t, i);
+    const s = [...a.data].map((l, o) => {
+      const d = this._def.items[o] || this._def.rest;
+      return d ? d._parse(new re(a, l, a.path, o)) : null;
+    }).filter((l) => !!l);
+    return a.common.async ? Promise.all(s).then((l) => H.mergeArray(t, l)) : H.mergeArray(t, s);
   }
   get items() {
     return this._def.items;
   }
   rest(e) {
-    return new de({
+    return new ce({
       ...this._def,
       rest: e
     });
   }
 }
-de.create = (s, e) => {
-  if (!Array.isArray(s))
+ce.create = (i, e) => {
+  if (!Array.isArray(i))
     throw new Error("You must pass an array of schemas to z.tuple([ ... ])");
-  return new de({
-    items: s,
+  return new ce({
+    items: i,
     typeName: x.ZodTuple,
     rest: null,
-    ...w(e)
+    ...q(e)
   });
 };
-class Ie extends M {
+class Ie extends w {
   get keySchema() {
     return this._def.keyType;
   }
@@ -2319,39 +2319,39 @@ class Ie extends M {
   }
   _parse(e) {
     const { status: t, ctx: a } = this._processInputParams(e);
-    if (a.parsedType !== p.object)
-      return m(a, {
+    if (a.parsedType !== f.object)
+      return p(a, {
         code: h.invalid_type,
-        expected: p.object,
+        expected: f.object,
         received: a.parsedType
-      }), k;
-    const r = [], i = this._def.keyType, o = this._def.valueType;
-    for (const l in a.data)
+      }), S;
+    const r = [], s = this._def.keyType, l = this._def.valueType;
+    for (const o in a.data)
       r.push({
-        key: i._parse(new ae(a, l, a.path, l)),
-        value: o._parse(new ae(a, a.data[l], a.path, l)),
-        alwaysSet: l in a.data
+        key: s._parse(new re(a, o, a.path, o)),
+        value: l._parse(new re(a, a.data[o], a.path, o)),
+        alwaysSet: o in a.data
       });
-    return a.common.async ? z.mergeObjectAsync(t, r) : z.mergeObjectSync(t, r);
+    return a.common.async ? H.mergeObjectAsync(t, r) : H.mergeObjectSync(t, r);
   }
   get element() {
     return this._def.valueType;
   }
   static create(e, t, a) {
-    return t instanceof M ? new Ie({
+    return t instanceof w ? new Ie({
       keyType: e,
       valueType: t,
       typeName: x.ZodRecord,
-      ...w(a)
+      ...q(a)
     }) : new Ie({
       keyType: se.create(),
       valueType: e,
       typeName: x.ZodRecord,
-      ...w(t)
+      ...q(t)
     });
   }
 }
-class yt extends M {
+class bt extends w {
   get keySchema() {
     return this._def.keyType;
   }
@@ -2360,63 +2360,63 @@ class yt extends M {
   }
   _parse(e) {
     const { status: t, ctx: a } = this._processInputParams(e);
-    if (a.parsedType !== p.map)
-      return m(a, {
+    if (a.parsedType !== f.map)
+      return p(a, {
         code: h.invalid_type,
-        expected: p.map,
+        expected: f.map,
         received: a.parsedType
-      }), k;
-    const r = this._def.keyType, i = this._def.valueType, o = [...a.data.entries()].map(([l, u], d) => ({
-      key: r._parse(new ae(a, l, a.path, [d, "key"])),
-      value: i._parse(new ae(a, u, a.path, [d, "value"]))
+      }), S;
+    const r = this._def.keyType, s = this._def.valueType, l = [...a.data.entries()].map(([o, d], c) => ({
+      key: r._parse(new re(a, o, a.path, [c, "key"])),
+      value: s._parse(new re(a, d, a.path, [c, "value"]))
     }));
     if (a.common.async) {
-      const l = /* @__PURE__ */ new Map();
+      const o = /* @__PURE__ */ new Map();
       return Promise.resolve().then(async () => {
-        for (const u of o) {
-          const d = await u.key, v = await u.value;
-          if (d.status === "aborted" || v.status === "aborted")
-            return k;
-          (d.status === "dirty" || v.status === "dirty") && t.dirty(), l.set(d.value, v.value);
+        for (const d of l) {
+          const c = await d.key, v = await d.value;
+          if (c.status === "aborted" || v.status === "aborted")
+            return S;
+          (c.status === "dirty" || v.status === "dirty") && t.dirty(), o.set(c.value, v.value);
         }
-        return { status: t.value, value: l };
+        return { status: t.value, value: o };
       });
     } else {
-      const l = /* @__PURE__ */ new Map();
-      for (const u of o) {
-        const d = u.key, v = u.value;
-        if (d.status === "aborted" || v.status === "aborted")
-          return k;
-        (d.status === "dirty" || v.status === "dirty") && t.dirty(), l.set(d.value, v.value);
+      const o = /* @__PURE__ */ new Map();
+      for (const d of l) {
+        const c = d.key, v = d.value;
+        if (c.status === "aborted" || v.status === "aborted")
+          return S;
+        (c.status === "dirty" || v.status === "dirty") && t.dirty(), o.set(c.value, v.value);
       }
-      return { status: t.value, value: l };
+      return { status: t.value, value: o };
     }
   }
 }
-yt.create = (s, e, t) => new yt({
+bt.create = (i, e, t) => new bt({
   valueType: e,
-  keyType: s,
+  keyType: i,
   typeName: x.ZodMap,
-  ...w(t)
+  ...q(t)
 });
-class we extends M {
+class _e extends w {
   _parse(e) {
     const { status: t, ctx: a } = this._processInputParams(e);
-    if (a.parsedType !== p.set)
-      return m(a, {
+    if (a.parsedType !== f.set)
+      return p(a, {
         code: h.invalid_type,
-        expected: p.set,
+        expected: f.set,
         received: a.parsedType
-      }), k;
+      }), S;
     const r = this._def;
-    r.minSize !== null && a.data.size < r.minSize.value && (m(a, {
+    r.minSize !== null && a.data.size < r.minSize.value && (p(a, {
       code: h.too_small,
       minimum: r.minSize.value,
       type: "set",
       inclusive: !0,
       exact: !1,
       message: r.minSize.message
-    }), t.dirty()), r.maxSize !== null && a.data.size > r.maxSize.value && (m(a, {
+    }), t.dirty()), r.maxSize !== null && a.data.size > r.maxSize.value && (p(a, {
       code: h.too_big,
       maximum: r.maxSize.value,
       type: "set",
@@ -2424,27 +2424,27 @@ class we extends M {
       exact: !1,
       message: r.maxSize.message
     }), t.dirty());
-    const i = this._def.valueType;
-    function o(u) {
-      const d = /* @__PURE__ */ new Set();
-      for (const v of u) {
+    const s = this._def.valueType;
+    function l(d) {
+      const c = /* @__PURE__ */ new Set();
+      for (const v of d) {
         if (v.status === "aborted")
-          return k;
-        v.status === "dirty" && t.dirty(), d.add(v.value);
+          return S;
+        v.status === "dirty" && t.dirty(), c.add(v.value);
       }
-      return { status: t.value, value: d };
+      return { status: t.value, value: c };
     }
-    const l = [...a.data.values()].map((u, d) => i._parse(new ae(a, u, a.path, d)));
-    return a.common.async ? Promise.all(l).then((u) => o(u)) : o(l);
+    const o = [...a.data.values()].map((d, c) => s._parse(new re(a, d, a.path, c)));
+    return a.common.async ? Promise.all(o).then((d) => l(d)) : l(o);
   }
   min(e, t) {
-    return new we({
+    return new _e({
       ...this._def,
       minSize: { value: e, message: g.toString(t) }
     });
   }
   max(e, t) {
-    return new we({
+    return new _e({
       ...this._def,
       maxSize: { value: e, message: g.toString(t) }
     });
@@ -2456,14 +2456,14 @@ class we extends M {
     return this.min(1, e);
   }
 }
-we.create = (s, e) => new we({
-  valueType: s,
+_e.create = (i, e) => new _e({
+  valueType: i,
   minSize: null,
   maxSize: null,
   typeName: x.ZodSet,
-  ...w(e)
+  ...q(e)
 });
-class bt extends M {
+class yt extends w {
   get schema() {
     return this._def.getter();
   }
@@ -2472,20 +2472,20 @@ class bt extends M {
     return this._def.getter()._parse({ data: t.data, path: t.path, parent: t });
   }
 }
-bt.create = (s, e) => new bt({
-  getter: s,
+yt.create = (i, e) => new yt({
+  getter: i,
   typeName: x.ZodLazy,
-  ...w(e)
+  ...q(e)
 });
-class ze extends M {
+class He extends w {
   _parse(e) {
     if (e.data !== this._def.value) {
       const t = this._getOrReturnCtx(e);
-      return m(t, {
+      return p(t, {
         received: t.data,
         code: h.invalid_literal,
         expected: this._def.value
-      }), k;
+      }), S;
     }
     return { status: "valid", value: e.data };
   }
@@ -2493,37 +2493,37 @@ class ze extends M {
     return this._def.value;
   }
 }
-ze.create = (s, e) => new ze({
-  value: s,
+He.create = (i, e) => new He({
+  value: i,
   typeName: x.ZodLiteral,
-  ...w(e)
+  ...q(e)
 });
-function Lt(s, e) {
+function Ct(i, e) {
   return new ve({
-    values: s,
+    values: i,
     typeName: x.ZodEnum,
-    ...w(e)
+    ...q(e)
   });
 }
-class ve extends M {
+class ve extends w {
   _parse(e) {
     if (typeof e.data != "string") {
       const t = this._getOrReturnCtx(e), a = this._def.values;
-      return m(t, {
+      return p(t, {
         expected: I.joinValues(a),
         received: t.parsedType,
         code: h.invalid_type
-      }), k;
+      }), S;
     }
     if (this._cache || (this._cache = new Set(this._def.values)), !this._cache.has(e.data)) {
       const t = this._getOrReturnCtx(e), a = this._def.values;
-      return m(t, {
+      return p(t, {
         received: t.data,
         code: h.invalid_enum_value,
         options: a
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
   get options() {
     return this._def.values;
@@ -2559,62 +2559,62 @@ class ve extends M {
     });
   }
 }
-ve.create = Lt;
-class xt extends M {
+ve.create = Ct;
+class xt extends w {
   _parse(e) {
     const t = I.getValidEnumValues(this._def.values), a = this._getOrReturnCtx(e);
-    if (a.parsedType !== p.string && a.parsedType !== p.number) {
+    if (a.parsedType !== f.string && a.parsedType !== f.number) {
       const r = I.objectValues(t);
-      return m(a, {
+      return p(a, {
         expected: I.joinValues(r),
         received: a.parsedType,
         code: h.invalid_type
-      }), k;
+      }), S;
     }
     if (this._cache || (this._cache = new Set(I.getValidEnumValues(this._def.values))), !this._cache.has(e.data)) {
       const r = I.objectValues(t);
-      return m(a, {
+      return p(a, {
         received: a.data,
         code: h.invalid_enum_value,
         options: r
-      }), k;
+      }), S;
     }
-    return K(e.data);
+    return Q(e.data);
   }
   get enum() {
     return this._def.values;
   }
 }
-xt.create = (s, e) => new xt({
-  values: s,
+xt.create = (i, e) => new xt({
+  values: i,
   typeName: x.ZodNativeEnum,
-  ...w(e)
+  ...q(e)
 });
-class qe extends M {
+class Ee extends w {
   unwrap() {
     return this._def.type;
   }
   _parse(e) {
     const { ctx: t } = this._processInputParams(e);
-    if (t.parsedType !== p.promise && t.common.async === !1)
-      return m(t, {
+    if (t.parsedType !== f.promise && t.common.async === !1)
+      return p(t, {
         code: h.invalid_type,
-        expected: p.promise,
+        expected: f.promise,
         received: t.parsedType
-      }), k;
-    const a = t.parsedType === p.promise ? t.data : Promise.resolve(t.data);
-    return K(a.then((r) => this._def.type.parseAsync(r, {
+      }), S;
+    const a = t.parsedType === f.promise ? t.data : Promise.resolve(t.data);
+    return Q(a.then((r) => this._def.type.parseAsync(r, {
       path: t.path,
       errorMap: t.common.contextualErrorMap
     })));
   }
 }
-qe.create = (s, e) => new qe({
-  type: s,
+Ee.create = (i, e) => new Ee({
+  type: i,
   typeName: x.ZodPromise,
-  ...w(e)
+  ...q(e)
 });
-class ye extends M {
+class be extends w {
   innerType() {
     return this._def.schema;
   }
@@ -2622,121 +2622,121 @@ class ye extends M {
     return this._def.schema._def.typeName === x.ZodEffects ? this._def.schema.sourceType() : this._def.schema;
   }
   _parse(e) {
-    const { status: t, ctx: a } = this._processInputParams(e), r = this._def.effect || null, i = {
-      addIssue: (o) => {
-        m(a, o), o.fatal ? t.abort() : t.dirty();
+    const { status: t, ctx: a } = this._processInputParams(e), r = this._def.effect || null, s = {
+      addIssue: (l) => {
+        p(a, l), l.fatal ? t.abort() : t.dirty();
       },
       get path() {
         return a.path;
       }
     };
-    if (i.addIssue = i.addIssue.bind(i), r.type === "preprocess") {
-      const o = r.transform(a.data, i);
+    if (s.addIssue = s.addIssue.bind(s), r.type === "preprocess") {
+      const l = r.transform(a.data, s);
       if (a.common.async)
-        return Promise.resolve(o).then(async (l) => {
+        return Promise.resolve(l).then(async (o) => {
           if (t.value === "aborted")
-            return k;
-          const u = await this._def.schema._parseAsync({
-            data: l,
+            return S;
+          const d = await this._def.schema._parseAsync({
+            data: o,
             path: a.path,
             parent: a
           });
-          return u.status === "aborted" ? k : u.status === "dirty" || t.value === "dirty" ? xe(u.value) : u;
+          return d.status === "aborted" ? S : d.status === "dirty" || t.value === "dirty" ? Se(d.value) : d;
         });
       {
         if (t.value === "aborted")
-          return k;
-        const l = this._def.schema._parseSync({
-          data: o,
+          return S;
+        const o = this._def.schema._parseSync({
+          data: l,
           path: a.path,
           parent: a
         });
-        return l.status === "aborted" ? k : l.status === "dirty" || t.value === "dirty" ? xe(l.value) : l;
+        return o.status === "aborted" ? S : o.status === "dirty" || t.value === "dirty" ? Se(o.value) : o;
       }
     }
     if (r.type === "refinement") {
-      const o = (l) => {
-        const u = r.refinement(l, i);
+      const l = (o) => {
+        const d = r.refinement(o, s);
         if (a.common.async)
-          return Promise.resolve(u);
-        if (u instanceof Promise)
+          return Promise.resolve(d);
+        if (d instanceof Promise)
           throw new Error("Async refinement encountered during synchronous parse operation. Use .parseAsync instead.");
-        return l;
+        return o;
       };
-      if (a.common.async === !1) {
-        const l = this._def.schema._parseSync({
-          data: a.data,
-          path: a.path,
-          parent: a
-        });
-        return l.status === "aborted" ? k : (l.status === "dirty" && t.dirty(), o(l.value), { status: t.value, value: l.value });
-      } else
-        return this._def.schema._parseAsync({ data: a.data, path: a.path, parent: a }).then((l) => l.status === "aborted" ? k : (l.status === "dirty" && t.dirty(), o(l.value).then(() => ({ status: t.value, value: l.value }))));
-    }
-    if (r.type === "transform")
       if (a.common.async === !1) {
         const o = this._def.schema._parseSync({
           data: a.data,
           path: a.path,
           parent: a
         });
-        if (!pe(o))
-          return k;
-        const l = r.transform(o.value, i);
-        if (l instanceof Promise)
-          throw new Error("Asynchronous transform encountered during synchronous parse operation. Use .parseAsync instead.");
-        return { status: t.value, value: l };
+        return o.status === "aborted" ? S : (o.status === "dirty" && t.dirty(), l(o.value), { status: t.value, value: o.value });
       } else
-        return this._def.schema._parseAsync({ data: a.data, path: a.path, parent: a }).then((o) => pe(o) ? Promise.resolve(r.transform(o.value, i)).then((l) => ({
+        return this._def.schema._parseAsync({ data: a.data, path: a.path, parent: a }).then((o) => o.status === "aborted" ? S : (o.status === "dirty" && t.dirty(), l(o.value).then(() => ({ status: t.value, value: o.value }))));
+    }
+    if (r.type === "transform")
+      if (a.common.async === !1) {
+        const l = this._def.schema._parseSync({
+          data: a.data,
+          path: a.path,
+          parent: a
+        });
+        if (!fe(l))
+          return S;
+        const o = r.transform(l.value, s);
+        if (o instanceof Promise)
+          throw new Error("Asynchronous transform encountered during synchronous parse operation. Use .parseAsync instead.");
+        return { status: t.value, value: o };
+      } else
+        return this._def.schema._parseAsync({ data: a.data, path: a.path, parent: a }).then((l) => fe(l) ? Promise.resolve(r.transform(l.value, s)).then((o) => ({
           status: t.value,
-          value: l
-        })) : k);
+          value: o
+        })) : S);
     I.assertNever(r);
   }
 }
-ye.create = (s, e, t) => new ye({
-  schema: s,
+be.create = (i, e, t) => new be({
+  schema: i,
   typeName: x.ZodEffects,
   effect: e,
-  ...w(t)
+  ...q(t)
 });
-ye.createWithPreprocess = (s, e, t) => new ye({
+be.createWithPreprocess = (i, e, t) => new be({
   schema: e,
-  effect: { type: "preprocess", transform: s },
+  effect: { type: "preprocess", transform: i },
   typeName: x.ZodEffects,
-  ...w(t)
+  ...q(t)
 });
-class le extends M {
+class oe extends w {
   _parse(e) {
-    return this._getType(e) === p.undefined ? K(void 0) : this._def.innerType._parse(e);
+    return this._getType(e) === f.undefined ? Q(void 0) : this._def.innerType._parse(e);
   }
   unwrap() {
     return this._def.innerType;
   }
 }
-le.create = (s, e) => new le({
-  innerType: s,
+oe.create = (i, e) => new oe({
+  innerType: i,
   typeName: x.ZodOptional,
-  ...w(e)
+  ...q(e)
 });
-class be extends M {
+class ye extends w {
   _parse(e) {
-    return this._getType(e) === p.null ? K(null) : this._def.innerType._parse(e);
+    return this._getType(e) === f.null ? Q(null) : this._def.innerType._parse(e);
   }
   unwrap() {
     return this._def.innerType;
   }
 }
-be.create = (s, e) => new be({
-  innerType: s,
+ye.create = (i, e) => new ye({
+  innerType: i,
   typeName: x.ZodNullable,
-  ...w(e)
+  ...q(e)
 });
-class Ve extends M {
+class Ze extends w {
   _parse(e) {
     const { ctx: t } = this._processInputParams(e);
     let a = t.data;
-    return t.parsedType === p.undefined && (a = this._def.defaultValue()), this._def.innerType._parse({
+    return t.parsedType === f.undefined && (a = this._def.defaultValue()), this._def.innerType._parse({
       data: a,
       path: t.path,
       parent: t
@@ -2746,13 +2746,13 @@ class Ve extends M {
     return this._def.innerType;
   }
 }
-Ve.create = (s, e) => new Ve({
-  innerType: s,
+Ze.create = (i, e) => new Ze({
+  innerType: i,
   typeName: x.ZodDefault,
   defaultValue: typeof e.default == "function" ? e.default : () => e.default,
-  ...w(e)
+  ...q(e)
 });
-class He extends M {
+class Je extends w {
   _parse(e) {
     const { ctx: t } = this._processInputParams(e), a = {
       ...t,
@@ -2767,11 +2767,11 @@ class He extends M {
         ...a
       }
     });
-    return Le(r) ? r.then((i) => ({
+    return Ce(r) ? r.then((s) => ({
       status: "valid",
-      value: i.status === "valid" ? i.value : this._def.catchValue({
+      value: s.status === "valid" ? s.value : this._def.catchValue({
         get error() {
-          return new ie(a.common.issues);
+          return new ne(a.common.issues);
         },
         input: a.data
       })
@@ -2779,7 +2779,7 @@ class He extends M {
       status: "valid",
       value: r.status === "valid" ? r.value : this._def.catchValue({
         get error() {
-          return new ie(a.common.issues);
+          return new ne(a.common.issues);
         },
         input: a.data
       })
@@ -2789,30 +2789,30 @@ class He extends M {
     return this._def.innerType;
   }
 }
-He.create = (s, e) => new He({
-  innerType: s,
+Je.create = (i, e) => new Je({
+  innerType: i,
   typeName: x.ZodCatch,
   catchValue: typeof e.catch == "function" ? e.catch : () => e.catch,
-  ...w(e)
+  ...q(e)
 });
-class _t extends M {
+class At extends w {
   _parse(e) {
-    if (this._getType(e) !== p.nan) {
+    if (this._getType(e) !== f.nan) {
       const a = this._getOrReturnCtx(e);
-      return m(a, {
+      return p(a, {
         code: h.invalid_type,
-        expected: p.nan,
+        expected: f.nan,
         received: a.parsedType
-      }), k;
+      }), S;
     }
     return { status: "valid", value: e.data };
   }
 }
-_t.create = (s) => new _t({
+At.create = (i) => new At({
   typeName: x.ZodNaN,
-  ...w(s)
+  ...q(i)
 });
-class xa extends M {
+class xa extends w {
   _parse(e) {
     const { ctx: t } = this._processInputParams(e), a = t.data;
     return this._def.type._parse({
@@ -2825,18 +2825,18 @@ class xa extends M {
     return this._def.type;
   }
 }
-class Ge extends M {
+class Qe extends w {
   _parse(e) {
     const { status: t, ctx: a } = this._processInputParams(e);
     if (a.common.async)
       return (async () => {
-        const i = await this._def.in._parseAsync({
+        const s = await this._def.in._parseAsync({
           data: a.data,
           path: a.path,
           parent: a
         });
-        return i.status === "aborted" ? k : i.status === "dirty" ? (t.dirty(), xe(i.value)) : this._def.out._parseAsync({
-          data: i.value,
+        return s.status === "aborted" ? S : s.status === "dirty" ? (t.dirty(), Se(s.value)) : this._def.out._parseAsync({
+          data: s.value,
           path: a.path,
           parent: a
         });
@@ -2847,7 +2847,7 @@ class Ge extends M {
         path: a.path,
         parent: a
       });
-      return r.status === "aborted" ? k : r.status === "dirty" ? (t.dirty(), {
+      return r.status === "aborted" ? S : r.status === "dirty" ? (t.dirty(), {
         status: "dirty",
         value: r.value
       }) : this._def.out._parseSync({
@@ -2858,66 +2858,66 @@ class Ge extends M {
     }
   }
   static create(e, t) {
-    return new Ge({
+    return new Qe({
       in: e,
       out: t,
       typeName: x.ZodPipeline
     });
   }
 }
-class Ue extends M {
+class Ve extends w {
   _parse(e) {
-    const t = this._def.innerType._parse(e), a = (r) => (pe(r) && (r.value = Object.freeze(r.value)), r);
-    return Le(t) ? t.then((r) => a(r)) : a(t);
+    const t = this._def.innerType._parse(e), a = (r) => (fe(r) && (r.value = Object.freeze(r.value)), r);
+    return Ce(t) ? t.then((r) => a(r)) : a(t);
   }
   unwrap() {
     return this._def.innerType;
   }
 }
-Ue.create = (s, e) => new Ue({
-  innerType: s,
+Ve.create = (i, e) => new Ve({
+  innerType: i,
   typeName: x.ZodReadonly,
-  ...w(e)
+  ...q(e)
 });
 var x;
-(function(s) {
-  s.ZodString = "ZodString", s.ZodNumber = "ZodNumber", s.ZodNaN = "ZodNaN", s.ZodBigInt = "ZodBigInt", s.ZodBoolean = "ZodBoolean", s.ZodDate = "ZodDate", s.ZodSymbol = "ZodSymbol", s.ZodUndefined = "ZodUndefined", s.ZodNull = "ZodNull", s.ZodAny = "ZodAny", s.ZodUnknown = "ZodUnknown", s.ZodNever = "ZodNever", s.ZodVoid = "ZodVoid", s.ZodArray = "ZodArray", s.ZodObject = "ZodObject", s.ZodUnion = "ZodUnion", s.ZodDiscriminatedUnion = "ZodDiscriminatedUnion", s.ZodIntersection = "ZodIntersection", s.ZodTuple = "ZodTuple", s.ZodRecord = "ZodRecord", s.ZodMap = "ZodMap", s.ZodSet = "ZodSet", s.ZodFunction = "ZodFunction", s.ZodLazy = "ZodLazy", s.ZodLiteral = "ZodLiteral", s.ZodEnum = "ZodEnum", s.ZodEffects = "ZodEffects", s.ZodNativeEnum = "ZodNativeEnum", s.ZodOptional = "ZodOptional", s.ZodNullable = "ZodNullable", s.ZodDefault = "ZodDefault", s.ZodCatch = "ZodCatch", s.ZodPromise = "ZodPromise", s.ZodBranded = "ZodBranded", s.ZodPipeline = "ZodPipeline", s.ZodReadonly = "ZodReadonly";
+(function(i) {
+  i.ZodString = "ZodString", i.ZodNumber = "ZodNumber", i.ZodNaN = "ZodNaN", i.ZodBigInt = "ZodBigInt", i.ZodBoolean = "ZodBoolean", i.ZodDate = "ZodDate", i.ZodSymbol = "ZodSymbol", i.ZodUndefined = "ZodUndefined", i.ZodNull = "ZodNull", i.ZodAny = "ZodAny", i.ZodUnknown = "ZodUnknown", i.ZodNever = "ZodNever", i.ZodVoid = "ZodVoid", i.ZodArray = "ZodArray", i.ZodObject = "ZodObject", i.ZodUnion = "ZodUnion", i.ZodDiscriminatedUnion = "ZodDiscriminatedUnion", i.ZodIntersection = "ZodIntersection", i.ZodTuple = "ZodTuple", i.ZodRecord = "ZodRecord", i.ZodMap = "ZodMap", i.ZodSet = "ZodSet", i.ZodFunction = "ZodFunction", i.ZodLazy = "ZodLazy", i.ZodLiteral = "ZodLiteral", i.ZodEnum = "ZodEnum", i.ZodEffects = "ZodEffects", i.ZodNativeEnum = "ZodNativeEnum", i.ZodOptional = "ZodOptional", i.ZodNullable = "ZodNullable", i.ZodDefault = "ZodDefault", i.ZodCatch = "ZodCatch", i.ZodPromise = "ZodPromise", i.ZodBranded = "ZodBranded", i.ZodPipeline = "ZodPipeline", i.ZodReadonly = "ZodReadonly";
 })(x || (x = {}));
-const Z = se.create, fe = ge.create;
-ce.create;
-const kt = te.create, Qe = $.create;
+const z = se.create, me = ge.create;
+ue.create;
+const St = ae.create, Ke = B.create;
 Me.create;
+Te.create;
+ce.create;
+const Oe = Ie.create, Be = He.create, Ye = ve.create;
 Ee.create;
-de.create;
-const Re = Ie.create, $e = ze.create, Ye = ve.create;
-qe.create;
-le.create;
-be.create;
-const _a = Qe({
-  id: Z().min(1),
-  french: Z().min(1),
-  arabic: Z().optional(),
-  phonetic: Z().optional(),
-  translation: Z().optional(),
-  merit: Z().optional(),
-  target: fe().int().positive(),
-  targetLabel: Z().optional(),
+oe.create;
+ye.create;
+const Aa = Ke({
+  id: z().min(1),
+  french: z().min(1),
+  arabic: z().optional(),
+  phonetic: z().optional(),
+  translation: z().optional(),
+  merit: z().optional(),
+  target: me().int().positive(),
+  targetLabel: z().optional(),
   category: Ye(["daily", "morning_evening", "prayer", "sleep", "custom"]),
-  audioUrl: Z().optional()
-}), ka = Qe({
-  version: Z().optional(),
-  exportedAt: Z().optional(),
-  dailyCounts: Re(Z(), fe().int().nonnegative()),
-  lifetimeCounts: Re(Z(), fe().int().nonnegative()),
-  favorites: kt(Z()),
-  historyDays: Re(Z(), fe().int().nonnegative()).optional().default({}),
-  streak: fe().int().nonnegative().optional().default(1),
+  audioUrl: z().optional()
+}), Sa = Ke({
+  version: z().optional(),
+  exportedAt: z().optional(),
+  dailyCounts: Oe(z(), me().int().nonnegative()),
+  lifetimeCounts: Oe(z(), me().int().nonnegative()),
+  favorites: St(z()),
+  historyDays: Oe(z(), me().int().nonnegative()).optional().default({}),
+  streak: me().int().nonnegative().optional().default(1),
   theme: Ye(["emerald", "medina", "kaaba", "oled"]).optional().default("emerald"),
-  customDhikrs: kt(_a).optional().default([])
+  customDhikrs: St(Aa).optional().default([])
 });
-class q {
+class P {
   static getKey(e) {
-    return `${Jt.storagePrefix}${e}`;
+    return `${Gt.storagePrefix}${e}`;
   }
   static getDailyCounts() {
     try {
@@ -3101,15 +3101,15 @@ class q {
     } catch {
       throw new Error("Le fichier fourni n'est pas un JSON valide.");
     }
-    const a = ka.safeParse(t);
+    const a = Sa.safeParse(t);
     if (!a.success) {
-      const r = a.error.errors.map((i) => `${i.path.join(".")}: ${i.message}`).join(", ");
+      const r = a.error.errors.map((s) => `${s.path.join(".")}: ${s.message}`).join(", ");
       throw new Error(`Format de sauvegarde invalide : ${r}`);
     }
     return a.data;
   }
 }
-class wt {
+class qt {
   static isSupported() {
     return typeof navigator < "u" && "vibrate" in navigator;
   }
@@ -3133,16 +3133,16 @@ class wt {
 function We() {
   return { status: "idle", data: null, error: null };
 }
-function Je(s = null) {
-  return { status: "loading", data: s, error: null };
+function Ge(i = null) {
+  return { status: "loading", data: i, error: null };
 }
-function Tt(s) {
-  return { status: "success", data: s, error: null };
+function wt(i) {
+  return { status: "success", data: i, error: null };
 }
-function Ae(s, e = null) {
-  return { status: "error", data: e, error: s };
+function Le(i, e = null) {
+  return { status: "error", data: e, error: i };
 }
-class _e {
+class qe {
   static audioCtx = null;
   static speechState = We();
   static stateListeners = [];
@@ -3182,24 +3182,24 @@ class _e {
     return new Promise((t) => {
       if (typeof window > "u" || !("speechSynthesis" in window)) {
         const r = new Error("La synthèse vocale n’est pas supportée par ce navigateur.");
-        this.updateSpeechState(Ae(r)), t();
+        this.updateSpeechState(Le(r)), t();
         return;
       }
-      this.updateSpeechState(Je(e)), window.speechSynthesis.cancel();
+      this.updateSpeechState(Ge(e)), window.speechSynthesis.cancel();
       const a = new SpeechSynthesisUtterance(e);
       a.lang = "ar-SA", a.rate = 0.88, a.pitch = 1, a.onstart = () => {
-        this.updateSpeechState(Je(e));
+        this.updateSpeechState(Ge(e));
       }, a.onend = () => {
-        this.updateSpeechState(Tt(e)), t();
+        this.updateSpeechState(wt(e)), t();
       }, a.onerror = (r) => {
-        const i = new Error(`Erreur de synthèse vocale : ${r.error}`);
-        this.updateSpeechState(Ae(i)), t();
+        const s = new Error(`Erreur de synthèse vocale : ${r.error}`);
+        this.updateSpeechState(Le(s)), t();
       };
       try {
         window.speechSynthesis.speak(a);
       } catch (r) {
-        const i = r instanceof Error ? r : new Error("Erreur de synthèse vocale");
-        this.updateSpeechState(Ae(i)), t();
+        const s = r instanceof Error ? r : new Error("Erreur de synthèse vocale");
+        this.updateSpeechState(Le(s)), t();
       }
     });
   }
@@ -3231,86 +3231,86 @@ class _e {
   }
 }
 var Xe = {};
-(function s(e, t, a, r) {
-  var i = !!(e.Worker && e.Blob && e.Promise && e.OffscreenCanvas && e.OffscreenCanvasRenderingContext2D && e.HTMLCanvasElement && e.HTMLCanvasElement.prototype.transferControlToOffscreen && e.URL && e.URL.createObjectURL), o = typeof Path2D == "function" && typeof DOMMatrix == "function", l = (function() {
+(function i(e, t, a, r) {
+  var s = !!(e.Worker && e.Blob && e.Promise && e.OffscreenCanvas && e.OffscreenCanvasRenderingContext2D && e.HTMLCanvasElement && e.HTMLCanvasElement.prototype.transferControlToOffscreen && e.URL && e.URL.createObjectURL), l = typeof Path2D == "function" && typeof DOMMatrix == "function", o = (function() {
     if (!e.OffscreenCanvas)
       return !1;
     try {
-      var c = new OffscreenCanvas(1, 1), n = c.getContext("2d");
+      var u = new OffscreenCanvas(1, 1), n = u.getContext("2d");
       n.fillRect(0, 0, 1, 1);
-      var y = c.transferToImageBitmap();
-      n.createPattern(y, "no-repeat");
+      var b = u.transferToImageBitmap();
+      n.createPattern(b, "no-repeat");
     } catch {
       return !1;
     }
     return !0;
   })();
-  function u() {
+  function d() {
   }
-  function d(c) {
-    var n = t.exports.Promise, y = n !== void 0 ? n : e.Promise;
-    return typeof y == "function" ? new y(c) : (c(u, u), null);
+  function c(u) {
+    var n = t.exports.Promise, b = n !== void 0 ? n : e.Promise;
+    return typeof b == "function" ? new b(u) : (u(d, d), null);
   }
-  var v = /* @__PURE__ */ (function(c, n) {
+  var v = /* @__PURE__ */ (function(u, n) {
     return {
-      transform: function(y) {
-        if (c)
-          return y;
-        if (n.has(y))
-          return n.get(y);
-        var _ = new OffscreenCanvas(y.width, y.height), S = _.getContext("2d");
-        return S.drawImage(y, 0, 0), n.set(y, _), _;
+      transform: function(b) {
+        if (u)
+          return b;
+        if (n.has(b))
+          return n.get(b);
+        var A = new OffscreenCanvas(b.width, b.height), k = A.getContext("2d");
+        return k.drawImage(b, 0, 0), n.set(b, A), A;
       },
       clear: function() {
         n.clear();
       }
     };
-  })(l, /* @__PURE__ */ new Map()), T = (function() {
-    var c = Math.floor(16.666666666666668), n, y, _ = {}, S = 0;
-    return typeof requestAnimationFrame == "function" && typeof cancelAnimationFrame == "function" ? (n = function(C) {
-      var A = Math.random();
-      return _[A] = requestAnimationFrame(function b(L) {
-        S === L || S + c - 1 < L ? (S = L, delete _[A], C()) : _[A] = requestAnimationFrame(b);
-      }), A;
-    }, y = function(C) {
-      _[C] && cancelAnimationFrame(_[C]);
-    }) : (n = function(C) {
-      return setTimeout(C, c);
-    }, y = function(C) {
-      return clearTimeout(C);
-    }), { frame: n, cancel: y };
-  })(), N = /* @__PURE__ */ (function() {
-    var c, n, y = {};
-    function _(S) {
-      function C(A, b) {
-        S.postMessage({ options: A || {}, callback: b });
+  })(o, /* @__PURE__ */ new Map()), M = (function() {
+    var u = Math.floor(16.666666666666668), n, b, A = {}, k = 0;
+    return typeof requestAnimationFrame == "function" && typeof cancelAnimationFrame == "function" ? (n = function(_) {
+      var L = Math.random();
+      return A[L] = requestAnimationFrame(function y(C) {
+        k === C || k + u - 1 < C ? (k = C, delete A[L], _()) : A[L] = requestAnimationFrame(y);
+      }), L;
+    }, b = function(_) {
+      A[_] && cancelAnimationFrame(A[_]);
+    }) : (n = function(_) {
+      return setTimeout(_, u);
+    }, b = function(_) {
+      return clearTimeout(_);
+    }), { frame: n, cancel: b };
+  })(), E = /* @__PURE__ */ (function() {
+    var u, n, b = {};
+    function A(k) {
+      function _(L, y) {
+        k.postMessage({ options: L || {}, callback: y });
       }
-      S.init = function(b) {
-        var L = b.transferControlToOffscreen();
-        S.postMessage({ canvas: L }, [L]);
-      }, S.fire = function(b, L, D) {
+      k.init = function(y) {
+        var C = y.transferControlToOffscreen();
+        k.postMessage({ canvas: C }, [C]);
+      }, k.fire = function(y, C, j) {
         if (n)
-          return C(b, null), n;
-        var P = Math.random().toString(36).slice(2);
-        return n = d(function(j) {
-          function R(F) {
-            F.data.callback === P && (delete y[P], S.removeEventListener("message", R), n = null, v.clear(), D(), j());
+          return _(y, null), n;
+        var R = Math.random().toString(36).slice(2);
+        return n = c(function(D) {
+          function O(F) {
+            F.data.callback === R && (delete b[R], k.removeEventListener("message", O), n = null, v.clear(), j(), D());
           }
-          S.addEventListener("message", R), C(b, P), y[P] = R.bind(null, { data: { callback: P } });
+          k.addEventListener("message", O), _(y, R), b[R] = O.bind(null, { data: { callback: R } });
         }), n;
-      }, S.reset = function() {
-        S.postMessage({ reset: !0 });
-        for (var b in y)
-          y[b](), delete y[b];
+      }, k.reset = function() {
+        k.postMessage({ reset: !0 });
+        for (var y in b)
+          b[y](), delete b[y];
       };
     }
     return function() {
-      if (c)
-        return c;
-      if (!a && i) {
-        var S = [
+      if (u)
+        return u;
+      if (!a && s) {
+        var k = [
           "var CONFETTI, SIZE = {}, module = {};",
-          "(" + s.toString() + ")(this, module, true, SIZE);",
+          "(" + i.toString() + ")(this, module, true, SIZE);",
           "onmessage = function(msg) {",
           "  if (msg.data.options) {",
           "    CONFETTI(msg.data.options).then(function () {",
@@ -3332,15 +3332,15 @@ var Xe = {};
         ].join(`
 `);
         try {
-          c = new Worker(URL.createObjectURL(new Blob([S])));
-        } catch (C) {
-          return typeof console < "u" && typeof console.warn == "function" && console.warn("🎊 Could not load worker", C), null;
+          u = new Worker(URL.createObjectURL(new Blob([k])));
+        } catch (_) {
+          return typeof console < "u" && typeof console.warn == "function" && console.warn("🎊 Could not load worker", _), null;
         }
-        _(c);
+        A(u);
       }
-      return c;
+      return u;
     };
-  })(), B = {
+  })(), $ = {
     particleCount: 50,
     angle: 90,
     spread: 45,
@@ -3366,280 +3366,280 @@ var Xe = {};
     disableForReducedMotion: !1,
     scalar: 1
   };
-  function G(c, n) {
-    return n ? n(c) : c;
+  function K(u, n) {
+    return n ? n(u) : u;
   }
-  function H(c) {
-    return c != null;
+  function J(u) {
+    return u != null;
   }
-  function O(c, n, y) {
-    return G(
-      c && H(c[n]) ? c[n] : B[n],
-      y
+  function N(u, n, b) {
+    return K(
+      u && J(u[n]) ? u[n] : $[n],
+      b
     );
   }
-  function W(c) {
-    return c < 0 ? 0 : Math.floor(c);
+  function G(u) {
+    return u < 0 ? 0 : Math.floor(u);
   }
-  function J(c, n) {
-    return Math.floor(Math.random() * (n - c)) + c;
+  function V(u, n) {
+    return Math.floor(Math.random() * (n - u)) + u;
   }
-  function ne(c) {
-    return parseInt(c, 16);
+  function U(u) {
+    return parseInt(u, 16);
   }
-  function De(c) {
-    return c.map(Oe);
+  function Pe(u) {
+    return u.map(je);
   }
-  function Oe(c) {
-    var n = String(c).replace(/[^0-9a-f]/gi, "");
+  function je(u) {
+    var n = String(u).replace(/[^0-9a-f]/gi, "");
     return n.length < 6 && (n = n[0] + n[0] + n[1] + n[1] + n[2] + n[2]), {
-      r: ne(n.substring(0, 2)),
-      g: ne(n.substring(2, 4)),
-      b: ne(n.substring(4, 6))
+      r: U(n.substring(0, 2)),
+      g: U(n.substring(2, 4)),
+      b: U(n.substring(4, 6))
     };
   }
-  function Mt(c) {
-    var n = O(c, "origin", Object);
-    return n.x = O(n, "x", Number), n.y = O(n, "y", Number), n;
+  function Mt(u) {
+    var n = N(u, "origin", Object);
+    return n.x = N(n, "x", Number), n.y = N(n, "y", Number), n;
   }
-  function Et(c) {
-    c.width = document.documentElement.clientWidth, c.height = document.documentElement.clientHeight;
+  function Tt(u) {
+    u.width = document.documentElement.clientWidth, u.height = document.documentElement.clientHeight;
   }
-  function It(c) {
-    var n = c.getBoundingClientRect();
-    c.width = n.width, c.height = n.height;
+  function It(u) {
+    var n = u.getBoundingClientRect();
+    u.width = n.width, u.height = n.height;
   }
-  function qt(c) {
+  function Et(u) {
     var n = document.createElement("canvas");
-    return n.style.position = "fixed", n.style.top = "0px", n.style.left = "0px", n.style.pointerEvents = "none", n.style.zIndex = c, n;
+    return n.style.position = "fixed", n.style.top = "0px", n.style.left = "0px", n.style.pointerEvents = "none", n.style.zIndex = u, n;
   }
-  function Dt(c, n, y, _, S, C, A, b, L) {
-    c.save(), c.translate(n, y), c.rotate(C), c.scale(_, S), c.arc(0, 0, 1, A, b, L), c.restore();
+  function Pt(u, n, b, A, k, _, L, y, C) {
+    u.save(), u.translate(n, b), u.rotate(_), u.scale(A, k), u.arc(0, 0, 1, L, y, C), u.restore();
   }
-  function Ot(c) {
-    var n = c.angle * (Math.PI / 180), y = c.spread * (Math.PI / 180);
+  function jt(u) {
+    var n = u.angle * (Math.PI / 180), b = u.spread * (Math.PI / 180);
     return {
-      x: c.x,
-      y: c.y,
+      x: u.x,
+      y: u.y,
       wobble: Math.random() * 10,
       wobbleSpeed: Math.min(0.11, Math.random() * 0.1 + 0.05),
-      velocity: c.startVelocity * 0.5 + Math.random() * c.startVelocity,
-      angle2D: -n + (0.5 * y - Math.random() * y),
+      velocity: u.startVelocity * 0.5 + Math.random() * u.startVelocity,
+      angle2D: -n + (0.5 * b - Math.random() * b),
       tiltAngle: (Math.random() * (0.75 - 0.25) + 0.25) * Math.PI,
-      color: c.color,
-      shape: c.shape,
+      color: u.color,
+      shape: u.shape,
       tick: 0,
-      totalTicks: c.ticks,
-      decay: c.decay,
-      drift: c.drift,
+      totalTicks: u.ticks,
+      decay: u.decay,
+      drift: u.drift,
       random: Math.random() + 2,
       tiltSin: 0,
       tiltCos: 0,
       wobbleX: 0,
       wobbleY: 0,
-      gravity: c.gravity * 3,
+      gravity: u.gravity * 3,
       ovalScalar: 0.6,
-      scalar: c.scalar,
-      flat: c.flat
+      scalar: u.scalar,
+      flat: u.flat
     };
   }
-  function jt(c, n) {
+  function Nt(u, n) {
     n.x += Math.cos(n.angle2D) * n.velocity + n.drift, n.y += Math.sin(n.angle2D) * n.velocity + n.gravity, n.velocity *= n.decay, n.flat ? (n.wobble = 0, n.wobbleX = n.x + 10 * n.scalar, n.wobbleY = n.y + 10 * n.scalar, n.tiltSin = 0, n.tiltCos = 0, n.random = 1) : (n.wobble += n.wobbleSpeed, n.wobbleX = n.x + 10 * n.scalar * Math.cos(n.wobble), n.wobbleY = n.y + 10 * n.scalar * Math.sin(n.wobble), n.tiltAngle += 0.1, n.tiltSin = Math.sin(n.tiltAngle), n.tiltCos = Math.cos(n.tiltAngle), n.random = Math.random() + 2);
-    var y = n.tick++ / n.totalTicks, _ = n.x + n.random * n.tiltCos, S = n.y + n.random * n.tiltSin, C = n.wobbleX + n.random * n.tiltCos, A = n.wobbleY + n.random * n.tiltSin;
-    if (c.fillStyle = "rgba(" + n.color.r + ", " + n.color.g + ", " + n.color.b + ", " + (1 - y) + ")", c.beginPath(), o && n.shape.type === "path" && typeof n.shape.path == "string" && Array.isArray(n.shape.matrix))
-      c.fill(Pt(
+    var b = n.tick++ / n.totalTicks, A = n.x + n.random * n.tiltCos, k = n.y + n.random * n.tiltSin, _ = n.wobbleX + n.random * n.tiltCos, L = n.wobbleY + n.random * n.tiltSin;
+    if (u.fillStyle = "rgba(" + n.color.r + ", " + n.color.g + ", " + n.color.b + ", " + (1 - b) + ")", u.beginPath(), l && n.shape.type === "path" && typeof n.shape.path == "string" && Array.isArray(n.shape.matrix))
+      u.fill(Rt(
         n.shape.path,
         n.shape.matrix,
         n.x,
         n.y,
-        Math.abs(C - _) * 0.1,
-        Math.abs(A - S) * 0.1,
+        Math.abs(_ - A) * 0.1,
+        Math.abs(L - k) * 0.1,
         Math.PI / 10 * n.wobble
       ));
     else if (n.shape.type === "bitmap") {
-      var b = Math.PI / 10 * n.wobble, L = Math.abs(C - _) * 0.1, D = Math.abs(A - S) * 0.1, P = n.shape.bitmap.width * n.scalar, j = n.shape.bitmap.height * n.scalar, R = new DOMMatrix([
-        Math.cos(b) * L,
-        Math.sin(b) * L,
-        -Math.sin(b) * D,
-        Math.cos(b) * D,
+      var y = Math.PI / 10 * n.wobble, C = Math.abs(_ - A) * 0.1, j = Math.abs(L - k) * 0.1, R = n.shape.bitmap.width * n.scalar, D = n.shape.bitmap.height * n.scalar, O = new DOMMatrix([
+        Math.cos(y) * C,
+        Math.sin(y) * C,
+        -Math.sin(y) * j,
+        Math.cos(y) * j,
         n.x,
         n.y
       ]);
-      R.multiplySelf(new DOMMatrix(n.shape.matrix));
-      var F = c.createPattern(v.transform(n.shape.bitmap), "no-repeat");
-      F.setTransform(R), c.globalAlpha = 1 - y, c.fillStyle = F, c.fillRect(
-        n.x - P / 2,
-        n.y - j / 2,
-        P,
-        j
-      ), c.globalAlpha = 1;
+      O.multiplySelf(new DOMMatrix(n.shape.matrix));
+      var F = u.createPattern(v.transform(n.shape.bitmap), "no-repeat");
+      F.setTransform(O), u.globalAlpha = 1 - b, u.fillStyle = F, u.fillRect(
+        n.x - R / 2,
+        n.y - D / 2,
+        R,
+        D
+      ), u.globalAlpha = 1;
     } else if (n.shape === "circle")
-      c.ellipse ? c.ellipse(n.x, n.y, Math.abs(C - _) * n.ovalScalar, Math.abs(A - S) * n.ovalScalar, Math.PI / 10 * n.wobble, 0, 2 * Math.PI) : Dt(c, n.x, n.y, Math.abs(C - _) * n.ovalScalar, Math.abs(A - S) * n.ovalScalar, Math.PI / 10 * n.wobble, 0, 2 * Math.PI);
+      u.ellipse ? u.ellipse(n.x, n.y, Math.abs(_ - A) * n.ovalScalar, Math.abs(L - k) * n.ovalScalar, Math.PI / 10 * n.wobble, 0, 2 * Math.PI) : Pt(u, n.x, n.y, Math.abs(_ - A) * n.ovalScalar, Math.abs(L - k) * n.ovalScalar, Math.PI / 10 * n.wobble, 0, 2 * Math.PI);
     else if (n.shape === "star")
-      for (var E = Math.PI / 2 * 3, V = 4 * n.scalar, Q = 8 * n.scalar, Y = n.x, re = n.y, ue = 5, X = Math.PI / ue; ue--; )
-        Y = n.x + Math.cos(E) * Q, re = n.y + Math.sin(E) * Q, c.lineTo(Y, re), E += X, Y = n.x + Math.cos(E) * V, re = n.y + Math.sin(E) * V, c.lineTo(Y, re), E += X;
+      for (var T = Math.PI / 2 * 3, Z = 4 * n.scalar, Y = 8 * n.scalar, X = n.x, ie = n.y, de = 5, ee = Math.PI / de; de--; )
+        X = n.x + Math.cos(T) * Y, ie = n.y + Math.sin(T) * Y, u.lineTo(X, ie), T += ee, X = n.x + Math.cos(T) * Z, ie = n.y + Math.sin(T) * Z, u.lineTo(X, ie), T += ee;
     else
-      c.moveTo(Math.floor(n.x), Math.floor(n.y)), c.lineTo(Math.floor(n.wobbleX), Math.floor(S)), c.lineTo(Math.floor(C), Math.floor(A)), c.lineTo(Math.floor(_), Math.floor(n.wobbleY));
-    return c.closePath(), c.fill(), n.tick < n.totalTicks;
+      u.moveTo(Math.floor(n.x), Math.floor(n.y)), u.lineTo(Math.floor(n.wobbleX), Math.floor(k)), u.lineTo(Math.floor(_), Math.floor(L)), u.lineTo(Math.floor(A), Math.floor(n.wobbleY));
+    return u.closePath(), u.fill(), n.tick < n.totalTicks;
   }
-  function Nt(c, n, y, _, S) {
-    var C = n.slice(), A = c.getContext("2d"), b, L, D = d(function(P) {
-      function j() {
-        b = L = null, A.clearRect(0, 0, _.width, _.height), v.clear(), S(), P();
+  function Dt(u, n, b, A, k) {
+    var _ = n.slice(), L = u.getContext("2d"), y, C, j = c(function(R) {
+      function D() {
+        y = C = null, L.clearRect(0, 0, A.width, A.height), v.clear(), k(), R();
       }
-      function R() {
-        a && !(_.width === r.width && _.height === r.height) && (_.width = c.width = r.width, _.height = c.height = r.height), !_.width && !_.height && (y(c), _.width = c.width, _.height = c.height), A.clearRect(0, 0, _.width, _.height), C = C.filter(function(F) {
-          return jt(A, F);
-        }), C.length ? b = T.frame(R) : j();
+      function O() {
+        a && !(A.width === r.width && A.height === r.height) && (A.width = u.width = r.width, A.height = u.height = r.height), !A.width && !A.height && (b(u), A.width = u.width, A.height = u.height), L.clearRect(0, 0, A.width, A.height), _ = _.filter(function(F) {
+          return Nt(L, F);
+        }), _.length ? y = M.frame(O) : D();
       }
-      b = T.frame(R), L = j;
+      y = M.frame(O), C = D;
     });
     return {
-      addFettis: function(P) {
-        return C = C.concat(P), D;
+      addFettis: function(R) {
+        return _ = _.concat(R), j;
       },
-      canvas: c,
-      promise: D,
+      canvas: u,
+      promise: j,
       reset: function() {
-        b && T.cancel(b), L && L();
+        y && M.cancel(y), C && C();
       }
     };
   }
-  function et(c, n) {
-    var y = !c, _ = !!O(n || {}, "resize"), S = !1, C = O(n, "disableForReducedMotion", Boolean), A = i && !!O(n || {}, "useWorker"), b = A ? N() : null, L = y ? Et : It, D = c && b ? !!c.__confetti_initialized : !1, P = typeof matchMedia == "function" && matchMedia("(prefers-reduced-motion)").matches, j;
-    function R(E, V, Q) {
-      for (var Y = O(E, "particleCount", W), re = O(E, "angle", Number), ue = O(E, "spread", Number), X = O(E, "startVelocity", Number), Bt = O(E, "decay", Number), Zt = O(E, "gravity", Number), Ft = O(E, "drift", Number), at = O(E, "colors", De), zt = O(E, "ticks", Number), rt = O(E, "shapes"), Vt = O(E, "scalar"), Ht = !!O(E, "flat"), st = Mt(E), it = Y, Ne = [], Ut = c.width * st.x, Wt = c.height * st.y; it--; )
-        Ne.push(
-          Ot({
-            x: Ut,
+  function et(u, n) {
+    var b = !u, A = !!N(n || {}, "resize"), k = !1, _ = N(n, "disableForReducedMotion", Boolean), L = s && !!N(n || {}, "useWorker"), y = L ? E() : null, C = b ? Tt : It, j = u && y ? !!u.__confetti_initialized : !1, R = typeof matchMedia == "function" && matchMedia("(prefers-reduced-motion)").matches, D;
+    function O(T, Z, Y) {
+      for (var X = N(T, "particleCount", G), ie = N(T, "angle", Number), de = N(T, "spread", Number), ee = N(T, "startVelocity", Number), $t = N(T, "decay", Number), zt = N(T, "gravity", Number), Ft = N(T, "drift", Number), at = N(T, "colors", Pe), Ht = N(T, "ticks", Number), rt = N(T, "shapes"), Zt = N(T, "scalar"), Jt = !!N(T, "flat"), it = Mt(T), st = X, De = [], Vt = u.width * it.x, Wt = u.height * it.y; st--; )
+        De.push(
+          jt({
+            x: Vt,
             y: Wt,
-            angle: re,
-            spread: ue,
-            startVelocity: X,
-            color: at[it % at.length],
-            shape: rt[J(0, rt.length)],
-            ticks: zt,
-            decay: Bt,
-            gravity: Zt,
+            angle: ie,
+            spread: de,
+            startVelocity: ee,
+            color: at[st % at.length],
+            shape: rt[V(0, rt.length)],
+            ticks: Ht,
+            decay: $t,
+            gravity: zt,
             drift: Ft,
-            scalar: Vt,
-            flat: Ht
+            scalar: Zt,
+            flat: Jt
           })
         );
-      return j ? j.addFettis(Ne) : (j = Nt(c, Ne, L, V, Q), j.promise);
+      return D ? D.addFettis(De) : (D = Dt(u, De, C, Z, Y), D.promise);
     }
-    function F(E) {
-      var V = C || O(E, "disableForReducedMotion", Boolean), Q = O(E, "zIndex", Number);
-      if (V && P)
-        return d(function(X) {
-          X();
+    function F(T) {
+      var Z = _ || N(T, "disableForReducedMotion", Boolean), Y = N(T, "zIndex", Number);
+      if (Z && R)
+        return c(function(ee) {
+          ee();
         });
-      y && j ? c = j.canvas : y && !c && (c = qt(Q), document.body.appendChild(c)), _ && !D && L(c);
-      var Y = {
-        width: c.width,
-        height: c.height
+      b && D ? u = D.canvas : b && !u && (u = Et(Y), document.body.appendChild(u)), A && !j && C(u);
+      var X = {
+        width: u.width,
+        height: u.height
       };
-      b && !D && b.init(c), D = !0, b && (c.__confetti_initialized = !0);
-      function re() {
-        if (b) {
-          var X = {
+      y && !j && y.init(u), j = !0, y && (u.__confetti_initialized = !0);
+      function ie() {
+        if (y) {
+          var ee = {
             getBoundingClientRect: function() {
-              if (!y)
-                return c.getBoundingClientRect();
+              if (!b)
+                return u.getBoundingClientRect();
             }
           };
-          L(X), b.postMessage({
+          C(ee), y.postMessage({
             resize: {
-              width: X.width,
-              height: X.height
+              width: ee.width,
+              height: ee.height
             }
           });
           return;
         }
-        Y.width = Y.height = null;
+        X.width = X.height = null;
       }
-      function ue() {
-        j = null, _ && (S = !1, e.removeEventListener("resize", re)), y && c && (document.body.contains(c) && document.body.removeChild(c), c = null, D = !1);
+      function de() {
+        D = null, A && (k = !1, e.removeEventListener("resize", ie)), b && u && (document.body.contains(u) && document.body.removeChild(u), u = null, j = !1);
       }
-      return _ && !S && (S = !0, e.addEventListener("resize", re, !1)), b ? b.fire(E, Y, ue) : R(E, Y, ue);
+      return A && !k && (k = !0, e.addEventListener("resize", ie, !1)), y ? y.fire(T, X, de) : O(T, X, de);
     }
     return F.reset = function() {
-      b && b.reset(), j && j.reset();
+      y && y.reset(), D && D.reset();
     }, F;
   }
-  var je;
+  var Ne;
   function tt() {
-    return je || (je = et(null, { useWorker: !0, resize: !0 })), je;
+    return Ne || (Ne = et(null, { useWorker: !0, resize: !0 })), Ne;
   }
-  function Pt(c, n, y, _, S, C, A) {
-    var b = new Path2D(c), L = new Path2D();
-    L.addPath(b, new DOMMatrix(n));
-    var D = new Path2D();
-    return D.addPath(L, new DOMMatrix([
-      Math.cos(A) * S,
-      Math.sin(A) * S,
-      -Math.sin(A) * C,
-      Math.cos(A) * C,
-      y,
-      _
-    ])), D;
+  function Rt(u, n, b, A, k, _, L) {
+    var y = new Path2D(u), C = new Path2D();
+    C.addPath(y, new DOMMatrix(n));
+    var j = new Path2D();
+    return j.addPath(C, new DOMMatrix([
+      Math.cos(L) * k,
+      Math.sin(L) * k,
+      -Math.sin(L) * _,
+      Math.cos(L) * _,
+      b,
+      A
+    ])), j;
   }
-  function Rt(c) {
-    if (!o)
+  function Ot(u) {
+    if (!l)
       throw new Error("path confetti are not supported in this browser");
-    var n, y;
-    typeof c == "string" ? n = c : (n = c.path, y = c.matrix);
-    var _ = new Path2D(n), S = document.createElement("canvas"), C = S.getContext("2d");
-    if (!y) {
-      for (var A = 1e3, b = A, L = A, D = 0, P = 0, j, R, F = 0; F < A; F += 2)
-        for (var E = 0; E < A; E += 2)
-          C.isPointInPath(_, F, E, "nonzero") && (b = Math.min(b, F), L = Math.min(L, E), D = Math.max(D, F), P = Math.max(P, E));
-      j = D - b, R = P - L;
-      var V = 10, Q = Math.min(V / j, V / R);
-      y = [
-        Q,
+    var n, b;
+    typeof u == "string" ? n = u : (n = u.path, b = u.matrix);
+    var A = new Path2D(n), k = document.createElement("canvas"), _ = k.getContext("2d");
+    if (!b) {
+      for (var L = 1e3, y = L, C = L, j = 0, R = 0, D, O, F = 0; F < L; F += 2)
+        for (var T = 0; T < L; T += 2)
+          _.isPointInPath(A, F, T, "nonzero") && (y = Math.min(y, F), C = Math.min(C, T), j = Math.max(j, F), R = Math.max(R, T));
+      D = j - y, O = R - C;
+      var Z = 10, Y = Math.min(Z / D, Z / O);
+      b = [
+        Y,
         0,
         0,
-        Q,
-        -Math.round(j / 2 + b) * Q,
-        -Math.round(R / 2 + L) * Q
+        Y,
+        -Math.round(D / 2 + y) * Y,
+        -Math.round(O / 2 + C) * Y
       ];
     }
     return {
       type: "path",
       path: n,
-      matrix: y
+      matrix: b
     };
   }
-  function $t(c) {
-    var n, y = 1, _ = "#000000", S = '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "EmojiOne Color", "Android Emoji", "Twemoji Mozilla", "system emoji", sans-serif';
-    typeof c == "string" ? n = c : (n = c.text, y = "scalar" in c ? c.scalar : y, S = "fontFamily" in c ? c.fontFamily : S, _ = "color" in c ? c.color : _);
-    var C = 10 * y, A = "" + C + "px " + S, b = new OffscreenCanvas(C, C), L = b.getContext("2d");
-    L.font = A;
-    var D = L.measureText(n), P = Math.ceil(D.actualBoundingBoxRight + D.actualBoundingBoxLeft), j = Math.ceil(D.actualBoundingBoxAscent + D.actualBoundingBoxDescent), R = 2, F = D.actualBoundingBoxLeft + R, E = D.actualBoundingBoxAscent + R;
-    P += R + R, j += R + R, b = new OffscreenCanvas(P, j), L = b.getContext("2d"), L.font = A, L.fillStyle = _, L.fillText(n, F, E);
-    var V = 1 / y;
+  function Bt(u) {
+    var n, b = 1, A = "#000000", k = '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "EmojiOne Color", "Android Emoji", "Twemoji Mozilla", "system emoji", sans-serif';
+    typeof u == "string" ? n = u : (n = u.text, b = "scalar" in u ? u.scalar : b, k = "fontFamily" in u ? u.fontFamily : k, A = "color" in u ? u.color : A);
+    var _ = 10 * b, L = "" + _ + "px " + k, y = new OffscreenCanvas(_, _), C = y.getContext("2d");
+    C.font = L;
+    var j = C.measureText(n), R = Math.ceil(j.actualBoundingBoxRight + j.actualBoundingBoxLeft), D = Math.ceil(j.actualBoundingBoxAscent + j.actualBoundingBoxDescent), O = 2, F = j.actualBoundingBoxLeft + O, T = j.actualBoundingBoxAscent + O;
+    R += O + O, D += O + O, y = new OffscreenCanvas(R, D), C = y.getContext("2d"), C.font = L, C.fillStyle = A, C.fillText(n, F, T);
+    var Z = 1 / b;
     return {
       type: "bitmap",
       // TODO these probably need to be transfered for workers
-      bitmap: b.transferToImageBitmap(),
-      matrix: [V, 0, 0, V, -P * V / 2, -j * V / 2]
+      bitmap: y.transferToImageBitmap(),
+      matrix: [Z, 0, 0, Z, -R * Z / 2, -D * Z / 2]
     };
   }
   t.exports = function() {
     return tt().apply(this, arguments);
   }, t.exports.reset = function() {
     tt().reset();
-  }, t.exports.create = et, t.exports.shapeFromPath = Rt, t.exports.shapeFromText = $t;
+  }, t.exports.create = et, t.exports.shapeFromPath = Ot, t.exports.shapeFromText = Bt;
 })(/* @__PURE__ */ (function() {
   return typeof window < "u" ? window : typeof self < "u" ? self : this || {};
 })(), Xe, !1);
-const wa = Xe.exports;
+const qa = Xe.exports;
 Xe.exports.create;
-class Sa {
+class ka {
   static triggerGoalCelebration() {
     try {
-      wa({
+      qa({
         particleCount: 75,
         spread: 60,
         origin: { y: 0.65 },
@@ -3650,7 +3650,7 @@ class Sa {
     }
   }
 }
-class me {
+class pe {
   static instance;
   adhkars = [];
   dailyCounts = {};
@@ -3670,12 +3670,12 @@ class me {
     this.init();
   }
   static getInstance() {
-    return me.instance || (me.instance = new me()), me.instance;
+    return pe.instance || (pe.instance = new pe()), pe.instance;
   }
   init() {
-    this.theme = q.getTheme(), this.soundEnabled = q.getSoundEnabled(), this.hapticEnabled = q.getHapticEnabled(), this.autoDelayMs = q.getAutoDelay();
-    const e = q.getCustomDhikrs();
-    this.adhkars = [...nt, ...e], this.dailyCounts = q.getDailyCounts(), this.lifetimeCounts = q.getLifetimeCounts(), this.favorites = q.getFavorites(), this.historyDays = q.getHistoryDays(), this.streak = q.getStreak(), this.lastActiveDate = q.getLastActiveDate(), this.checkDailyReset();
+    this.theme = P.getTheme(), this.soundEnabled = P.getSoundEnabled(), this.hapticEnabled = P.getHapticEnabled(), this.autoDelayMs = P.getAutoDelay();
+    const e = P.getCustomDhikrs();
+    this.adhkars = [...nt, ...e], this.dailyCounts = P.getDailyCounts(), this.lifetimeCounts = P.getLifetimeCounts(), this.favorites = P.getFavorites(), this.historyDays = P.getHistoryDays(), this.streak = P.getStreak(), this.lastActiveDate = P.getLastActiveDate(), this.checkDailyReset();
     for (const t of this.adhkars)
       this.dailyCounts[t.id] === void 0 && (this.dailyCounts[t.id] = 0), this.lifetimeCounts[t.id] === void 0 && (this.lifetimeCounts[t.id] = 0);
   }
@@ -3697,16 +3697,16 @@ class me {
     if (this.lastActiveDate && this.lastActiveDate !== e) {
       const t = /* @__PURE__ */ new Date();
       t.setDate(t.getDate() - 1);
-      const a = t.toISOString().slice(0, 10), r = Object.values(this.dailyCounts).reduce((i, o) => i + o, 0);
+      const a = t.toISOString().slice(0, 10), r = Object.values(this.dailyCounts).reduce((s, l) => s + l, 0);
       r > 0 && (this.historyDays[this.lastActiveDate] = r), this.lastActiveDate === a && r > 0 ? this.streak += 1 : this.lastActiveDate !== a && (this.streak = 1), this.dailyCounts = {};
     } else this.lastActiveDate || (this.streak = 1);
-    this.lastActiveDate = e, q.saveLastActiveDate(this.lastActiveDate), q.saveStreak(this.streak), q.saveHistoryDays(this.historyDays);
+    this.lastActiveDate = e, P.saveLastActiveDate(this.lastActiveDate), P.saveStreak(this.streak), P.saveHistoryDays(this.historyDays);
   }
   increment(e) {
     const a = (this.dailyCounts[e] || 0) + 1;
     this.dailyCounts[e] = a, this.lifetimeCounts[e] = (this.lifetimeCounts[e] || 0) + 1;
-    const i = this.adhkars.find((l) => l.id === e)?.target || 100, o = a % i === 0 && a > 0;
-    return _e.playBeep(this.soundEnabled), o ? (wt.vibrateMilestone(this.hapticEnabled), Sa.triggerGoalCelebration()) : wt.vibrateTick(this.hapticEnabled), this.persist(), this.notify(), { isMilestone: o, count: a, target: i };
+    const s = this.adhkars.find((o) => o.id === e)?.target || 100, l = a % s === 0 && a > 0;
+    return qe.playBeep(this.soundEnabled), l ? (qt.vibrateMilestone(this.hapticEnabled), ka.triggerGoalCelebration()) : qt.vibrateTick(this.hapticEnabled), this.persist(), this.notify(), { isMilestone: l, count: a, target: s };
   }
   resetDhikr(e) {
     this.dailyCounts[e] = 0, this.persist(), this.notify();
@@ -3719,7 +3719,7 @@ class me {
   }
   toggleFavorite(e) {
     const t = this.favorites.includes(e);
-    return t ? this.favorites = this.favorites.filter((a) => a !== e) : this.favorites.push(e), q.saveFavorites(this.favorites), this.notify(), !t;
+    return t ? this.favorites = this.favorites.filter((a) => a !== e) : this.favorites.push(e), P.saveFavorites(this.favorites), this.notify(), !t;
   }
   setCategory(e) {
     this.currentCategory = e, this.notify();
@@ -3728,23 +3728,23 @@ class me {
     this.searchQuery = e.trim().toLowerCase(), this.notify();
   }
   setTheme(e) {
-    this.theme = e, q.saveTheme(e), this.notify();
+    this.theme = e, P.saveTheme(e), this.notify();
   }
   toggleSound() {
-    return this.soundEnabled = !this.soundEnabled, q.saveSoundEnabled(this.soundEnabled), this.notify(), this.soundEnabled;
+    return this.soundEnabled = !this.soundEnabled, P.saveSoundEnabled(this.soundEnabled), this.notify(), this.soundEnabled;
   }
   setHaptic(e) {
-    this.hapticEnabled = e, q.saveHapticEnabled(e), this.notify();
+    this.hapticEnabled = e, P.saveHapticEnabled(e), this.notify();
   }
   setAutoDelay(e) {
-    this.autoDelayMs = e, q.saveAutoDelay(e), this.notify();
+    this.autoDelayMs = e, P.saveAutoDelay(e), this.notify();
   }
   addOrUpdateCustomDhikr(e) {
     const t = this.adhkars.findIndex((a) => a.id === e.id);
     t >= 0 ? this.adhkars[t] = e : (this.adhkars.push(e), this.dailyCounts[e.id] === void 0 && (this.dailyCounts[e.id] = 0), this.lifetimeCounts[e.id] === void 0 && (this.lifetimeCounts[e.id] = 0)), this.persistCustomDhikrs(), this.persist(), this.notify();
   }
   deleteCustomDhikr(e) {
-    this.adhkars = this.adhkars.filter((t) => t.id !== e), this.favorites = this.favorites.filter((t) => t !== e), delete this.dailyCounts[e], delete this.lifetimeCounts[e], this.persistCustomDhikrs(), q.saveFavorites(this.favorites), this.persist(), this.notify();
+    this.adhkars = this.adhkars.filter((t) => t.id !== e), this.favorites = this.favorites.filter((t) => t !== e), delete this.dailyCounts[e], delete this.lifetimeCounts[e], this.persistCustomDhikrs(), P.saveFavorites(this.favorites), this.persist(), this.notify();
   }
   importBackup(e) {
     this.dailyCounts = { ...e.dailyCounts }, this.lifetimeCounts = { ...e.lifetimeCounts }, this.favorites = [...e.favorites], this.historyDays = { ...e.historyDays }, this.streak = e.streak, this.theme = e.theme;
@@ -3752,7 +3752,7 @@ class me {
     this.adhkars = [...nt, ...t];
     for (const a of this.adhkars)
       this.dailyCounts[a.id] === void 0 && (this.dailyCounts[a.id] = 0), this.lifetimeCounts[a.id] === void 0 && (this.lifetimeCounts[a.id] = 0);
-    q.saveTheme(this.theme), q.saveStreak(this.streak), q.saveFavorites(this.favorites), this.persistCustomDhikrs(), this.persist(), this.notify();
+    P.saveTheme(this.theme), P.saveStreak(this.streak), P.saveFavorites(this.favorites), this.persistCustomDhikrs(), this.persist(), this.notify();
   }
   exportBackup() {
     return {
@@ -3797,25 +3797,25 @@ class me {
   }
   persistCustomDhikrs() {
     const e = this.adhkars.filter((t) => t.id.startsWith("custom_"));
-    q.saveCustomDhikrs(e);
+    P.saveCustomDhikrs(e);
   }
   persist() {
-    q.saveDailyCounts(this.dailyCounts), q.saveLifetimeCounts(this.lifetimeCounts);
+    P.saveDailyCounts(this.dailyCounts), P.saveLifetimeCounts(this.lifetimeCounts);
     const e = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
-    this.historyDays[e] = this.getTodayTotal(), q.saveHistoryDays(this.historyDays);
+    this.historyDays[e] = this.getTodayTotal(), P.saveHistoryDays(this.historyDays);
   }
 }
-class Ke {
+class Ue {
   static deferredPrompt = null;
   static swState = We();
   static installableListeners = [];
   static init() {
-    typeof window > "u" || ("serviceWorker" in navigator && (this.swState = Je(), window.addEventListener("load", () => {
+    typeof window > "u" || ("serviceWorker" in navigator && (this.swState = Ge(), window.addEventListener("load", () => {
       navigator.serviceWorker.register("./sw.js").then((e) => {
-        this.swState = Tt(e), console.log("[PwaService] Service Worker actif:", e.scope);
+        this.swState = wt(e), console.log("[PwaService] Service Worker actif:", e.scope);
       }).catch((e) => {
         const t = e instanceof Error ? e : new Error("Erreur Service Worker");
-        this.swState = Ae(t), console.warn("[PwaService] Service Worker non disponible :", t);
+        this.swState = Le(t), console.warn("[PwaService] Service Worker non disponible :", t);
       });
     })), window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault(), this.deferredPrompt = e, this.notifyInstallable(!0);
@@ -3849,7 +3849,7 @@ class Ke {
     return this.swState;
   }
 }
-const Ca = [
+const _a = [
   "Mouharram",
   "Safar",
   "Rabi' al-Awwal",
@@ -3863,48 +3863,48 @@ const Ca = [
   "Dhou al-Qi'da",
   "Dhou al-Hijja"
 ];
-class Aa {
+class La {
   static getTodayHijri() {
-    const e = /* @__PURE__ */ new Date(), t = e.getDay(), a = e.getDate(), r = e.getMonth(), i = e.getFullYear();
-    let o = r + 1, l = i;
-    o < 3 && (l -= 1, o += 12);
-    const u = Math.floor(l / 100), d = 2 - u + Math.floor(u / 4), N = Math.floor(365.25 * (l + 4716)) + Math.floor(30.6001 * (o + 1)) + a + d - 1524 - 19484395e-1, B = Math.floor((30 * N + 10646) / 10631), G = N - Math.floor((10631 * B - 10646) / 30), H = Math.min(12, Math.max(1, Math.ceil(G / 29.5))), O = Math.floor((H - 1) * 29.5);
-    let W = Math.floor(G - O) + 1;
-    W < 1 && (W = 1), W > 30 && (W = 30);
-    const J = Math.min(11, Math.max(0, H - 1)), ne = Ca[J] || "Mois Hégirien", De = W === 13 || W === 14 || W === 15, Oe = t === 1 || t === 4;
+    const e = /* @__PURE__ */ new Date(), t = e.getDay(), a = e.getDate(), r = e.getMonth(), s = e.getFullYear();
+    let l = r + 1, o = s;
+    l < 3 && (o -= 1, l += 12);
+    const d = Math.floor(o / 100), c = 2 - d + Math.floor(d / 4), E = Math.floor(365.25 * (o + 4716)) + Math.floor(30.6001 * (l + 1)) + a + c - 1524 - 19484395e-1, $ = Math.floor((30 * E + 10646) / 10631), K = E - Math.floor((10631 * $ - 10646) / 30), J = Math.min(12, Math.max(1, Math.ceil(K / 29.5))), N = Math.floor((J - 1) * 29.5);
+    let G = Math.floor(K - N) + 1;
+    G < 1 && (G = 1), G > 30 && (G = 30);
+    const V = Math.min(11, Math.max(0, J - 1)), U = _a[V] || "Mois Hégirien", Pe = G === 13 || G === 14 || G === 15, je = t === 1 || t === 4;
     return {
-      day: W,
-      month: H,
-      year: B,
-      monthNameFr: ne,
-      formattedString: `${W} ${ne} ${B}`,
-      isWhiteDay: De,
-      isSunnahFastDay: Oe
+      day: G,
+      month: J,
+      year: $,
+      monthNameFr: U,
+      formattedString: `${G} ${U} ${$}`,
+      isWhiteDay: Pe,
+      isSunnahFastDay: je
     };
   }
 }
-function ee(s) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+function te(i) {
+  return i.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
-function f(s) {
-  const e = document.getElementById(s);
+function m(i) {
+  const e = document.getElementById(i);
   if (!e)
-    throw new Error(`[DOM Error] Élément requis #${s} introuvable dans le document.`);
+    throw new Error(`[DOM Error] Élément requis #${i} introuvable dans le document.`);
   return e;
 }
-function Se(s, e) {
-  const t = f(s), a = f(e);
+function xe(i, e) {
+  const t = m(i), a = m(e);
   t.classList.remove("hidden"), setTimeout(() => {
     t.classList.remove("opacity-0"), window.innerWidth < 640 ? a.classList.remove("translate-y-full") : a.classList.remove("scale-95");
   }, 10);
 }
-function Ce(s, e) {
-  const t = f(s), a = f(e);
+function Ae(i, e) {
+  const t = m(i), a = m(e);
   t.classList.add("opacity-0"), window.innerWidth < 640 ? a.classList.add("translate-y-full") : a.classList.add("scale-95"), setTimeout(() => {
     t.classList.add("hidden");
   }, 280);
 }
-class La {
+class Ca {
   store;
   constructor(e) {
     this.store = e;
@@ -3913,34 +3913,34 @@ class La {
     this.renderHijriInfo(), this.bindEvents(), this.updateSoundIcon();
   }
   renderHijriInfo() {
-    const e = Aa.getTodayHijri(), t = f("hijri-date-badge"), a = f("hijri-fast-badge");
+    const e = La.getTodayHijri(), t = m("hijri-date-badge"), a = m("hijri-fast-badge");
     t.textContent = e.formattedString, e.isWhiteDay ? (a.innerHTML = '<i class="ph-fill ph-moon-stars text-amber-400"></i> Jours Blancs (Jeûne conseillé)', a.classList.remove("hidden")) : e.isSunnahFastDay ? (a.innerHTML = '<i class="ph-fill ph-sun text-amber-400"></i> Jeûne prophétique (Lundi/Jeudi)', a.classList.remove("hidden")) : a.classList.add("hidden");
   }
   bindEvents() {
-    const e = f("btn-toggle-search"), t = f("search-bar-container"), a = f("search-input"), r = f("btn-search-clear");
+    const e = m("btn-toggle-search"), t = m("search-bar-container"), a = m("search-input"), r = m("btn-search-clear");
     e.addEventListener("click", () => {
       t.classList.toggle("hidden"), t.classList.contains("hidden") || a.focus();
-    }), a.addEventListener("input", (o) => {
-      const l = o.target.value;
-      this.store.setSearchQuery(l);
+    }), a.addEventListener("input", (l) => {
+      const o = l.target.value;
+      this.store.setSearchQuery(o);
     }), r.addEventListener("click", () => {
       a.value = "", this.store.setSearchQuery("");
-    }), f("btn-toggle-sound").addEventListener("click", () => {
+    }), m("btn-toggle-sound").addEventListener("click", () => {
       this.store.toggleSound(), this.updateSoundIcon();
     });
   }
   updateSoundIcon() {
-    const e = f("btn-toggle-sound"), t = this.store.soundEnabled;
+    const e = m("btn-toggle-sound"), t = this.store.soundEnabled;
     e.innerHTML = t ? '<i class="ph ph-speaker-high text-lg"></i>' : '<i class="ph ph-speaker-slash text-lg text-rose-400"></i>', e.title = t ? "Son activé" : "Son coupé";
   }
 }
-class Ta {
+class wa {
   onOpenModal;
   constructor(e) {
     this.onOpenModal = e;
   }
   init() {
-    f("btn-open-names-banner").addEventListener("click", () => {
+    m("btn-open-names-banner").addEventListener("click", () => {
       this.onOpenModal();
     });
   }
@@ -3954,7 +3954,7 @@ const Ma = {
   favorites: "Vos invocations favorites",
   custom: "Vos invocations personnalisées"
 };
-class Ea {
+class Ta {
   store;
   constructor(e) {
     this.store = e;
@@ -3968,10 +3968,10 @@ class Ea {
     }), this.render();
   }
   render() {
-    const e = this.store.currentCategory, t = this.store.getCategoryCounts(), a = f("category-summary");
-    a.textContent = Ma[e] || "Invocations", document.querySelectorAll(".cat-pill").forEach((i) => {
-      const o = i.getAttribute("data-cat"), l = o === e, u = i.querySelector(".cat-badge");
-      u && o && (u.textContent = (t[o] || 0).toString()), l ? (i.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect", u && (u.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums")) : (i.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect", u && (u.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums"));
+    const e = this.store.currentCategory, t = this.store.getCategoryCounts(), a = m("category-summary");
+    a.textContent = Ma[e] || "Invocations", document.querySelectorAll(".cat-pill").forEach((s) => {
+      const l = s.getAttribute("data-cat"), o = l === e, d = s.querySelector(".cat-badge");
+      d && l && (d.textContent = (t[l] || 0).toString()), o ? (s.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect", d && (d.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums")) : (s.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect", d && (d.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums"));
     });
   }
 }
@@ -3981,35 +3981,35 @@ class Ia {
     this.store = e;
   }
   render() {
-    const e = this.store.getTodayTotal(), t = this.store.getLifetimeTotal(), a = this.store.streak, r = f("daily-total-counter"), i = f("lifetime-counter-banner"), o = f("streak-counter");
-    r.textContent = `${e.toLocaleString("fr-FR")} invocation${e > 1 ? "s" : ""}`, i.textContent = t.toLocaleString("fr-FR"), o.textContent = a.toString();
+    const e = this.store.getTodayTotal(), t = this.store.getLifetimeTotal(), a = this.store.streak, r = m("daily-total-counter"), s = m("lifetime-counter-banner"), l = m("streak-counter");
+    r.textContent = `${e.toLocaleString("fr-FR")} invocation${e > 1 ? "s" : ""}`, s.textContent = t.toLocaleString("fr-FR"), l.textContent = a.toString();
   }
 }
-class U {
+class W {
   static timeoutId = null;
   static show(e, t = 3200) {
-    const a = f("toast"), r = f("toast-msg");
+    const a = m("toast"), r = m("toast-msg");
     r.textContent = e, a.classList.remove("hidden"), a.offsetWidth, a.classList.add("toast-show"), this.timeoutId !== null && window.clearTimeout(this.timeoutId), this.timeoutId = window.setTimeout(() => {
       a.classList.remove("toast-show"), a.classList.add("hidden"), this.timeoutId = null;
     }, t);
   }
 }
-class qa {
+class Ea {
   static render(e, t, a) {
-    const r = t.dailyCounts[e.id] || 0, i = e.target || 100, o = Math.floor(r / i), l = r % i, u = r > 0 && l === 0 ? 100 : l / i * 100, d = t.favorites.includes(e.id), v = e.id.startsWith("custom_"), T = document.createElement("div");
-    return T.className = "glass-card rounded-[28px] overflow-hidden flex flex-col relative group transition-all duration-300 hover:border-primary-500/30", T.setAttribute("data-dhikr-id", e.id), T.innerHTML = `
+    const r = t.dailyCounts[e.id] || 0, s = e.target || 100, l = Math.floor(r / s), o = r % s, d = r > 0 && o === 0 ? 100 : o / s * 100, c = t.favorites.includes(e.id), v = e.id.startsWith("custom_"), M = document.createElement("div");
+    return M.className = "glass-card rounded-[28px] overflow-hidden flex flex-col relative group transition-all duration-300 hover:border-primary-500/30", M.setAttribute("data-dhikr-id", e.id), M.innerHTML = `
       <!-- En-tête de carte -->
       <div class="p-5 pb-2 flex justify-between items-start z-10 gap-3">
         <div class="flex-1">
           <div class="flex items-center gap-2 mb-1 flex-wrap">
             <span class="px-2 py-0.5 rounded-full bg-surface text-[10px] font-bold text-primary-400 border border-bordercolor">
-              ${ee(e.targetLabel || `Objectif : ${i}`)}
+              ${te(e.targetLabel || `Objectif : ${s}`)}
             </span>
-            ${o > 0 ? `<span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-[10px] font-bold text-amber-400 border border-amber-500/30 flex items-center gap-1 animate-pulse">
-                     <i class="ph-fill ph-check-circle"></i> ${o} accompli${o > 1 ? "s" : ""}
+            ${l > 0 ? `<span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-[10px] font-bold text-amber-400 border border-amber-500/30 flex items-center gap-1 animate-pulse">
+                     <i class="ph-fill ph-check-circle"></i> ${l} accompli${l > 1 ? "s" : ""}
                    </span>` : ""}
           </div>
-          <h3 class="text-base font-extrabold text-textmain leading-tight">${ee(e.french)}</h3>
+          <h3 class="text-base font-extrabold text-textmain leading-tight">${te(e.french)}</h3>
         </div>
 
         <div class="flex items-center gap-1.5 shrink-0">
@@ -4020,7 +4020,7 @@ class qa {
                    <i class="ph ph-trash text-sm"></i>
                  </button>` : ""}
           <button class="btn-fav w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-amber-400 tap-effect transition-colors" title="Favori">
-            <i class="${d ? "ph-fill ph-star text-amber-400" : "ph ph-star"} text-sm"></i>
+            <i class="${c ? "ph-fill ph-star text-amber-400" : "ph ph-star"} text-sm"></i>
           </button>
           <button class="btn-reset-dhikr w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-rose-400 tap-effect transition-colors" title="Réinitialiser">
             <i class="ph ph-arrow-counter-clockwise text-sm"></i>
@@ -4030,69 +4030,86 @@ class qa {
 
       <!-- Corps : Calligraphie Arabe -->
       ${e.arabic ? `<div class="px-5 py-3 text-center">
-               <p class="font-arabic text-2xl sm:text-3xl text-primary-400 leading-loose select-none" dir="rtl">${ee(e.arabic)}</p>
+               <p class="font-arabic text-2xl sm:text-3xl text-primary-400 leading-loose select-none" dir="rtl">${te(e.arabic)}</p>
              </div>` : '<div class="py-2"></div>'}
 
       <!-- Translittération phonétique & sens -->
       ${e.phonetic || e.translation ? `<div class="px-5 pb-3 flex flex-col gap-1 text-center">
-               ${e.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${ee(e.phonetic)}</p>` : ""}
-               ${e.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${ee(e.translation)}</p>` : ""}
+               ${e.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${te(e.phonetic)}</p>` : ""}
+               ${e.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${te(e.translation)}</p>` : ""}
              </div>` : ""}
 
       <!-- Mérite / Source -->
       ${e.merit ? `<div class="mx-5 mb-3 p-2 rounded-xl bg-surface/40 border border-bordercolor/60 text-[10px] text-textmuted flex items-start gap-1.5 leading-normal">
                <i class="ph-fill ph-info text-primary-400 text-xs mt-0.5 shrink-0"></i>
-               <span>${ee(e.merit)}</span>
+               <span>${te(e.merit)}</span>
              </div>` : ""}
 
       <!-- Bas de carte : Progression & Actions -->
-      <div class="p-4 bg-surface/40 mt-auto border-t border-bordercolor relative overflow-hidden">
+      <div class="p-3.5 bg-surface/40 mt-auto border-t border-bordercolor relative overflow-hidden">
         <div class="absolute top-0 left-0 h-1.5 w-full bg-surface">
-          <div class="h-full bg-primary-500 transition-all duration-300 ease-out" style="width: ${u}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
+          <div class="h-full bg-primary-500 transition-all duration-300 ease-out" style="width: ${d}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
         </div>
 
-        <div class="flex items-center justify-between gap-2.5 pt-1.5">
-          <div class="flex-[1.2] bg-background/70 rounded-2xl py-2.5 px-2 flex flex-col items-center justify-center border border-bordercolor">
-            <span class="text-[9px] text-primary-400 font-bold uppercase tracking-wider mb-0.5">Aujourd'hui</span>
-            <span class="text-xl font-black text-textmain tabular-nums">${r}</span>
+        <div class="flex items-center gap-2.5 pt-1.5">
+          <!-- Compteur & Ratio journalier compact et moderne -->
+          <div class="flex flex-col justify-center px-3 py-1.5 rounded-2xl bg-surface/80 border border-bordercolor/80 min-w-[74px] shrink-0">
+            <span class="text-[9px] text-textmuted font-extrabold uppercase tracking-wider flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full ${r >= s ? "bg-amber-400 shadow-[0_0_6px_#f59e0b]" : "bg-primary-400 shadow-[0_0_6px_var(--color-primary-400)]"}"></span>
+              Auj.
+            </span>
+            <div class="flex items-baseline gap-1 mt-0.5">
+              <span class="text-xl font-black text-textmain tabular-nums tracking-tight count-num-val transition-all duration-150">${r}</span>
+              <span class="text-[10px] text-textmuted font-bold opacity-70">/${s}</span>
+            </div>
           </div>
 
-          <button class="btn-increment flex-[2.5] h-[60px] rounded-2xl bg-primary-500 text-white shadow-neon flex items-center justify-center gap-2 tap-effect font-bold text-base uppercase tracking-wider active:bg-primary-600 transition-colors">
-            <i class="ph-bold ph-plus"></i> Compter
+          <!-- Bouton Tactile d'Égrenage Moderne (Remplaçant l'ancien + COMPTER lourd) -->
+          <button class="btn-increment group relative overflow-hidden flex-1 h-[52px] rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-emerald-500 hover:from-primary-500 hover:to-emerald-400 active:scale-[0.96] text-white shadow-[0_4px_20px_-2px_var(--color-primary-500-alpha)] flex items-center justify-center gap-2 px-3 tap-effect transition-all select-none border border-white/10 cursor-pointer" title="Égrener (+1)">
+            <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div class="w-7 h-7 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner group-active:scale-115 transition-transform">
+              <i class="ph-bold ph-plus text-sm text-white"></i>
+            </div>
+            <span class="font-bold text-sm tracking-wide">Égrener</span>
+            <span class="text-[10px] font-extrabold bg-black/20 text-white/95 px-2 py-0.5 rounded-full border border-white/15 font-mono shadow-sm">+1</span>
           </button>
 
-          <button class="btn-focus w-[60px] h-[60px] rounded-2xl bg-surface flex flex-col items-center justify-center text-primary-400 hover:text-primary-300 tap-effect border border-bordercolor" title="Mode Plein Écran">
-            <i class="ph ph-corners-out text-2xl"></i>
+          <!-- Bouton Mode Focus Plein Écran -->
+          <button class="btn-focus w-[52px] h-[52px] rounded-2xl bg-surface/80 hover:bg-surface active:scale-95 text-primary-400 hover:text-primary-300 border border-bordercolor flex items-center justify-center tap-effect transition-all shrink-0 shadow-sm cursor-pointer" title="Mode Plein Écran (Tasbih Immersif)">
+            <i class="ph ph-corners-out text-xl"></i>
           </button>
         </div>
       </div>
-    `, T.querySelector(".btn-increment")?.addEventListener("click", () => {
-      t.increment(e.id).isMilestone && U.show(`Objectif atteint pour "${e.french}" ! 🎉`);
-    }), T.querySelector(".btn-focus")?.addEventListener("click", () => {
+    `, M.querySelector(".btn-increment")?.addEventListener("click", () => {
+      const V = t.increment(e.id), U = M.querySelector(".count-num-val");
+      U && (U.classList.add("scale-125", "text-primary-400"), setTimeout(() => {
+        U.classList.remove("scale-125", "text-primary-400");
+      }, 150)), V.isMilestone && W.show(`Objectif atteint pour "${e.french}" ! 🎉`);
+    }), M.querySelector(".btn-focus")?.addEventListener("click", () => {
       a.onOpenFocus(e.id);
-    }), T.querySelector(".btn-fav")?.addEventListener("click", (J) => {
-      J.stopPropagation();
-      const ne = t.toggleFavorite(e.id);
-      U.show(ne ? "Ajouté aux favoris ⭐" : "Retiré des favoris");
-    }), T.querySelector(".btn-reset-dhikr")?.addEventListener("click", (J) => {
-      J.stopPropagation(), confirm(
+    }), M.querySelector(".btn-fav")?.addEventListener("click", (V) => {
+      V.stopPropagation();
+      const U = t.toggleFavorite(e.id);
+      W.show(U ? "Ajouté aux favoris ⭐" : "Retiré des favoris");
+    }), M.querySelector(".btn-reset-dhikr")?.addEventListener("click", (V) => {
+      V.stopPropagation(), confirm(
         `Remettre à zéro le compteur d'aujourd'hui pour "${e.french}" ? L'historique global est conservé.`
-      ) && (t.resetDhikr(e.id), U.show("Compteur réinitialisé"));
-    }), T.querySelector(".btn-edit-custom")?.addEventListener("click", (J) => {
-      J.stopPropagation(), a.onEditCustom(e.id);
-    }), T.querySelector(".btn-delete-custom")?.addEventListener("click", (J) => {
-      J.stopPropagation(), confirm(`Supprimer définitivement l'invocation "${e.french}" ?`) && (t.deleteCustomDhikr(e.id), U.show("Invocation supprimée"));
-    }), T;
+      ) && (t.resetDhikr(e.id), W.show("Compteur réinitialisé"));
+    }), M.querySelector(".btn-edit-custom")?.addEventListener("click", (V) => {
+      V.stopPropagation(), a.onEditCustom(e.id);
+    }), M.querySelector(".btn-delete-custom")?.addEventListener("click", (V) => {
+      V.stopPropagation(), confirm(`Supprimer définitivement l'invocation "${e.french}" ?`) && (t.deleteCustomDhikr(e.id), W.show("Invocation supprimée"));
+    }), M;
   }
 }
-class Da {
+class Pa {
   store;
   callbacks;
   constructor(e, t) {
     this.store = e, this.callbacks = t;
   }
   render() {
-    const e = f("app-container");
+    const e = m("app-container");
     e.innerHTML = "";
     const t = this.store.getFilteredDhikrs();
     if (t.length === 0) {
@@ -4106,12 +4123,12 @@ class Da {
       return;
     }
     for (const a of t) {
-      const r = qa.render(a, this.store, this.callbacks);
+      const r = Ea.render(a, this.store, this.callbacks);
       e.appendChild(r);
     }
   }
 }
-class Oa {
+class ja {
   store;
   currentId = null;
   isAutoPlaying = !1;
@@ -4125,50 +4142,50 @@ class Oa {
     this.initFocusBeads(), this.bindEvents();
   }
   bindEvents() {
-    f("focus-close-btn").addEventListener("click", () => {
+    m("focus-close-btn").addEventListener("click", () => {
       this.close();
-    }), f("focus-tap-zone").addEventListener("click", () => {
+    }), m("focus-tap-zone").addEventListener("click", () => {
       this.currentId && (this.store.increment(this.currentId), this.renderCurrentFocus());
-    }), f("focus-autoplay-btn").addEventListener("click", (u) => {
-      u.stopPropagation(), this.toggleAutoPlay();
-    }), f("focus-speaker-btn").addEventListener("click", (u) => {
-      u.stopPropagation(), this.speakCurrent();
-    }), f("focus-font-minus").addEventListener("click", (u) => {
-      u.stopPropagation(), this.changeFontSize(-2);
-    }), f("focus-font-plus").addEventListener("click", (u) => {
-      u.stopPropagation(), this.changeFontSize(2);
-    }), f("focus-details-btn").addEventListener("click", (u) => {
-      u.stopPropagation(), this.toggleDetails();
-    }), window.addEventListener("keydown", (u) => {
-      const d = document.getElementById("focus-modal");
-      d && !d.classList.contains("hidden") && (u.code === "Space" || u.key === "Enter" ? (u.preventDefault(), this.currentId && (this.store.increment(this.currentId), this.renderCurrentFocus())) : u.key === "Escape" && this.close());
+    }), m("focus-autoplay-btn").addEventListener("click", (d) => {
+      d.stopPropagation(), this.toggleAutoPlay();
+    }), m("focus-speaker-btn").addEventListener("click", (d) => {
+      d.stopPropagation(), this.speakCurrent();
+    }), m("focus-font-minus").addEventListener("click", (d) => {
+      d.stopPropagation(), this.changeFontSize(-2);
+    }), m("focus-font-plus").addEventListener("click", (d) => {
+      d.stopPropagation(), this.changeFontSize(2);
+    }), m("focus-details-btn").addEventListener("click", (d) => {
+      d.stopPropagation(), this.toggleDetails();
+    }), window.addEventListener("keydown", (d) => {
+      const c = document.getElementById("focus-modal");
+      c && !c.classList.contains("hidden") && (d.code === "Space" || d.key === "Enter" ? (d.preventDefault(), this.currentId && (this.store.increment(this.currentId), this.renderCurrentFocus())) : d.key === "Escape" && this.close());
     });
   }
   open(e) {
-    this.currentId = e, this.renderCurrentFocus(), Se("focus-modal", "focus-box");
+    this.currentId = e, this.renderCurrentFocus(), xe("focus-modal", "focus-box");
   }
   close() {
-    this.stopAutoPlay(), _e.stopSpeech(), Ce("focus-modal", "focus-box"), this.currentId = null;
+    this.stopAutoPlay(), qe.stopSpeech(), Ae("focus-modal", "focus-box"), this.currentId = null;
   }
   renderCurrentFocus() {
     if (!this.currentId) return;
-    const e = this.store.adhkars.find((H) => H.id === this.currentId);
+    const e = this.store.adhkars.find((J) => J.id === this.currentId);
     if (!e) return;
-    const t = this.store.dailyCounts[e.id] || 0, a = e.target || 100, r = Math.floor(t / a) + 1, i = t % a, o = t > 0 && i === 0 ? 1 : i / a, l = f("focus-title"), u = f("focus-arabic"), d = f("focus-phonetic"), v = f("focus-translation"), T = f("focus-counter"), N = f("focus-progress-text"), B = f("focus-round-badge"), G = document.getElementById("focus-ring");
-    if (l.textContent = e.french, u.textContent = e.arabic || "", u.style.fontSize = `${this.arabicFontSize}px`, d.textContent = e.phonetic || "", v.textContent = e.translation || "", T.textContent = t.toString(), N.textContent = `${i} / ${a}`, B.textContent = `Tour ${r}`, G) {
-      const O = 276.46 - o * 276.46;
-      G.style.strokeDashoffset = O.toFixed(1);
+    const t = this.store.dailyCounts[e.id] || 0, a = e.target || 100, r = Math.floor(t / a) + 1, s = t % a, l = t > 0 && s === 0 ? 1 : s / a, o = m("focus-title"), d = m("focus-arabic"), c = m("focus-phonetic"), v = m("focus-translation"), M = m("focus-counter"), E = m("focus-progress-text"), $ = m("focus-round-badge"), K = document.getElementById("focus-ring");
+    if (o.textContent = e.french, d.textContent = e.arabic || "", d.style.fontSize = `${this.arabicFontSize}px`, c.textContent = e.phonetic || "", v.textContent = e.translation || "", M.textContent = t.toString(), E.textContent = `${s} / ${a}`, $.textContent = `Tour ${r}`, K) {
+      const N = 276.46 - l * 276.46;
+      K.style.strokeDashoffset = N.toFixed(1);
     }
     this.updateFocusBeads(t);
   }
   changeFontSize(e) {
     this.arabicFontSize = Math.min(52, Math.max(22, this.arabicFontSize + e));
-    const t = f("focus-arabic");
+    const t = m("focus-arabic");
     t.style.fontSize = `${this.arabicFontSize}px`;
   }
   toggleDetails() {
     this.detailsVisible = !this.detailsVisible;
-    const e = f("focus-extra-content"), t = f("focus-details-label");
+    const e = m("focus-extra-content"), t = m("focus-details-label");
     this.detailsVisible ? (e.classList.remove("hidden"), t.textContent = "Détails") : (e.classList.add("hidden"), t.textContent = "Masqué");
   }
   initFocusBeads() {
@@ -4177,18 +4194,18 @@ class Oa {
     e.innerHTML = "";
     const t = 33, a = 44;
     for (let r = 0; r < t; r++) {
-      const i = r / t * 2 * Math.PI, o = 50 + a * Math.cos(i), l = 50 + a * Math.sin(i), u = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      u.setAttribute("cx", o.toFixed(2)), u.setAttribute("cy", l.toFixed(2)), u.setAttribute("r", "2.2"), u.setAttribute("class", "bead fill-bordercolor transition-all duration-200"), u.setAttribute("id", `bead-${r}`), e.appendChild(u);
+      const s = r / t * 2 * Math.PI, l = 50 + a * Math.cos(s), o = 50 + a * Math.sin(s), d = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      d.setAttribute("cx", l.toFixed(2)), d.setAttribute("cy", o.toFixed(2)), d.setAttribute("r", "2.2"), d.setAttribute("class", "bead fill-bordercolor transition-all duration-200"), d.setAttribute("id", `bead-${r}`), e.appendChild(d);
     }
   }
   updateFocusBeads(e) {
     const a = (e - 1) % 33;
     for (let r = 0; r < 33; r++) {
-      const i = document.getElementById(`bead-${r}`);
-      i && (e === 0 ? (i.setAttribute("class", "bead fill-bordercolor transition-all duration-200"), i.setAttribute("r", "2.2")) : r === a ? (i.setAttribute(
+      const s = document.getElementById(`bead-${r}`);
+      s && (e === 0 ? (s.setAttribute("class", "bead fill-bordercolor transition-all duration-200"), s.setAttribute("r", "2.2")) : r === a ? (s.setAttribute(
         "class",
         "bead fill-amber-400 transition-all duration-200 filter drop-shadow-[0_0_4px_#fbbf24]"
-      ), i.setAttribute("r", "3.8")) : r < a ? (i.setAttribute("class", "bead fill-primary-400 transition-all duration-200"), i.setAttribute("r", "2.5")) : (i.setAttribute("class", "bead fill-bordercolor transition-all duration-200"), i.setAttribute("r", "2.2")));
+      ), s.setAttribute("r", "3.8")) : r < a ? (s.setAttribute("class", "bead fill-primary-400 transition-all duration-200"), s.setAttribute("r", "2.5")) : (s.setAttribute("class", "bead fill-bordercolor transition-all duration-200"), s.setAttribute("r", "2.2")));
     }
   }
   speakCurrent() {
@@ -4196,81 +4213,1764 @@ class Oa {
     const e = this.store.adhkars.find((a) => a.id === this.currentId);
     if (!e) return;
     const t = e.arabic || e.phonetic || e.french;
-    _e.speakText(t);
+    qe.speakText(t);
   }
   toggleAutoPlay() {
     this.isAutoPlaying ? this.stopAutoPlay() : this.startAutoPlay();
   }
   startAutoPlay() {
-    this.currentId && (this.isAutoPlaying = !0, this.updateAutoPlayUI(!0), U.show("Mode Mains-Libres activé ▶️"), this.runAutoPlayStep());
+    this.currentId && (this.isAutoPlaying = !0, this.updateAutoPlayUI(!0), W.show("Mode Mains-Libres activé ▶️"), this.runAutoPlayStep());
   }
   stopAutoPlay() {
-    this.isAutoPlaying = !1, this.autoPlayTimer !== null && (window.clearTimeout(this.autoPlayTimer), this.autoPlayTimer = null), _e.stopSpeech(), this.updateAutoPlayUI(!1);
+    this.isAutoPlaying = !1, this.autoPlayTimer !== null && (window.clearTimeout(this.autoPlayTimer), this.autoPlayTimer = null), qe.stopSpeech(), this.updateAutoPlayUI(!1);
   }
   updateAutoPlayUI(e) {
-    const t = f("focus-autoplay-btn"), a = f("focus-autoplay-icon"), r = f("focus-autoplay-label");
+    const t = m("focus-autoplay-btn"), a = m("focus-autoplay-icon"), r = m("focus-autoplay-label");
     e ? (t.className = "px-3 py-2 rounded-2xl bg-amber-500 text-black text-xs font-bold border border-amber-400 tap-effect flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.5)] animate-pulse", a.className = "ph-bold ph-pause text-sm", r.textContent = "Pause") : (t.className = "px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-amber-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5", a.className = "ph-bold ph-play text-sm", r.textContent = "Auto");
   }
   runAutoPlayStep() {
     if (!this.isAutoPlaying || !this.currentId) return;
-    const e = this.store.adhkars.find((o) => o.id === this.currentId);
+    const e = this.store.adhkars.find((l) => l.id === this.currentId);
     if (!e) {
       this.stopAutoPlay();
       return;
     }
     const t = this.store.dailyCounts[e.id] || 0, a = e.target || 100;
     if (t >= a) {
-      this.stopAutoPlay(), U.show(`Objectif atteint pour "${e.french}" ! 🎉`);
+      this.stopAutoPlay(), W.show(`Objectif atteint pour "${e.french}" ! 🎉`);
       return;
     }
     const r = this.store.increment(e.id);
     if (this.renderCurrentFocus(), r.isMilestone) {
-      this.stopAutoPlay(), U.show(`Objectif de ${a} atteint ! 🎉`);
+      this.stopAutoPlay(), W.show(`Objectif de ${a} atteint ! 🎉`);
       return;
     }
-    const i = e.arabic || e.phonetic || e.french;
-    _e.speakText(i).then(() => {
+    const s = e.arabic || e.phonetic || e.french;
+    qe.speakText(s).then(() => {
       this.isAutoPlaying && (this.autoPlayTimer = window.setTimeout(() => {
         this.runAutoPlayStep();
       }, this.store.autoDelayMs));
     });
   }
 }
-const Be = [{ n: 1, a: "الرَّحْمَنُ", p: "Ar-Rahman", f: "Le Tout-Miséricordieux", m: "Celui dont la miséricorde infinie englobe toute la création." }, { n: 2, a: "الرَّحِيمُ", p: "Ar-Rahim", f: "Le Très-Miséricordieux", m: "Celui qui accorde Sa miséricorde spéciale aux croyants." }, { n: 3, a: "الْمَلِكُ", p: "Al-Malik", f: "Le Souverain Suprême", m: "Le Roi absolu de l'univers, sans associé ni égal." }, { n: 4, a: "الْقُدُّوسُ", p: "Al-Quddus", f: "Le Pur et Sanctifié", m: "Le Purifié de tout défaut, faiblesse ou imperfection." }, { n: 5, a: "السَّلَامُ", p: "As-Salam", f: "La Paix", m: "La Source de la paix et Celui qui préserve de tout mal." }, { n: 6, a: "الْمُؤْمِنُ", p: "Al-Mu'min", f: "Le Rassurant / Le Fidèle", m: "Celui qui accorde la foi, la sérénité et la sécurité." }, { n: 7, a: "الْمُهَيْمِنُ", p: "Al-Muhaymin", f: "Le Protecteur / Surveillant", m: "Celui qui veille sur toute Sa création et la protège." }, { n: 8, a: "الْعَزِيزُ", p: "Al-'Aziz", f: "Le Tout-Puissant", m: "L'Invincible que rien ne peut vaincre ni surpasser." }, { n: 9, a: "الْجَبَّارُ", p: "Al-Jabbar", f: "L'Imposant / Le Réparateur", m: "Celui qui contraint toute chose et panse les cœurs brisés." }, { n: 10, a: "الْمُتَكَبِّرُ", p: "Al-Mutakabbir", f: "Le Majestueux", m: "Celui à qui appartient la grandeur suprême et exclusive." }, { n: 11, a: "الْخَالِقُ", p: "Al-Khaliq", f: "Le Créateur", m: "Celui qui donne l'existence à partir du néant." }, { n: 12, a: "الْبَارِئُ", p: "Al-Bari'", f: "Le Novateur", m: "Celui qui façonne la création avec harmonie et perfection." }, { n: 13, a: "الْمُصَوِّرُ", p: "Al-Musawwir", f: "Le Façonneur", m: "Celui qui donne à chaque être sa forme et ses caractéristiques uniques." }, { n: 14, a: "الْغَفَّارُ", p: "Al-Ghaffar", f: "Le Pardonneur", m: "Celui qui pardonne inlassablement les fautes de Ses serviteurs." }, { n: 15, a: "الْقَهَّارُ", p: "Al-Qahhar", f: "Le Dominateur Suprême", m: "Celui devant la majesté de qui tout être est soumis." }, { n: 16, a: "الْوَهَّابُ", p: "Al-Wahhab", f: "Le Grand Donateur", m: "Celui qui comble de bienfaits sans rien attendre en retour." }, { n: 17, a: "الرَّزَّاقُ", p: "Ar-Razzaq", f: "Le Pourvoyeur", m: "Celui qui assure la subsistance de chaque être vivant." }, { n: 18, a: "الْفَتَّاحُ", p: "Al-Fattah", f: "Celui qui ouvre les portes", m: "Celui qui accorde la victoire et ouvre les trésors de Sa grâce." }, { n: 19, a: "الْعَلِيمُ", p: "Al-'Alim", f: "L'Omniscient", m: "Celui dont la science parfaite cerne toute chose passée, présente et future." }, { n: 20, a: "الْقَابِضُ", p: "Al-Qabid", f: "Celui qui retient", m: "Celui qui restreint la subsistance ou les âmes selon Sa sagesse." }, { n: 21, a: "الْبَاسِطُ", p: "Al-Basit", f: "Celui qui dilate", m: "Celui qui répand Ses bienfaits avec abondance et soulage les cœurs." }, { n: 22, a: "الْخَافِضُ", p: "Al-Khafid", f: "Celui qui abaisse", m: "Celui qui abaisse les oppresseurs et les orgueilleux." }, { n: 23, a: "الرَّافِعُ", p: "Ar-Rafi'", f: "Celui qui élève", m: "Celui qui élève en degrés les croyants et les humbles." }, { n: 24, a: "الْمُعِزُّ", p: "Al-Mu'izz", f: "Celui qui donne la puissance", m: "Celui qui accorde honneur, noblesse et victoire." }, { n: 25, a: "الْمُذِلُّ", p: "Al-Mudhill", f: "Celui qui humilie", m: "Celui qui prive d'honneur ceux qui se rebellent contre la vérité." }, { n: 26, a: "السَّمِيعُ", p: "As-Sami'", f: "L'Audient", m: "Celui qui entend toute parole, soupir et prière secrète." }, { n: 27, a: "الْبَصِيرُ", p: "Al-Basir", f: "Le Clairvoyant", m: "Celui qui voit toute chose, même la fourmi noire sur une pierre noire la nuit." }, { n: 28, a: "الْحَكَمُ", p: "Al-Hakam", f: "Le Juge Suprême", m: "L'Arbitre ultime dont les décrets sont pure justice." }, { n: 29, a: "الْعَدْلُ", p: "Al-'Adl", f: "Le Juste Absolu", m: "L'Équité absolue, exempt de toute injustice." }, { n: 30, a: "اللَّطِيفُ", p: "Al-Latif", f: "Le Subtil / Le Bienveillant", m: "Celui qui dispense Sa grâce par des voies secrètes et imperceptibles." }, { n: 31, a: "الْخَبِيرُ", p: "Al-Khabir", f: "Le Parfaitement Informé", m: "Celui qui connaît les secrets intimes de toute chose." }, { n: 32, a: "الْحَلِيمُ", p: "Al-Halim", f: "Le Très-Clément", m: "Celui qui ne se hâte pas de châtier et accorde le temps du repentir." }, { n: 33, a: "الْعَظِيمُ", p: "Al-'Azim", f: "L'Incommensurable", m: "Celui dont la grandeur dépasse toute compréhension." }, { n: 34, a: "الْغَفُورُ", p: "Al-Ghafur", f: "Le Tout-Pardonnant", m: "Celui qui efface abondamment les péchés et protège de leurs conséquences." }, { n: 35, a: "الشَّكُورُ", p: "Ash-Shakur", f: "Le Reconnaissant", m: "Celui qui récompense généreusement la moindre bonne action." }, { n: 36, a: "الْعَلِيُّ", p: "Al-'Aliyy", f: "Le Très-Haut", m: "L'Élevé au-dessus de tout, sans équivalent." }, { n: 37, a: "الْكَبِيرُ", p: "Al-Kabir", f: "L'Infiniment Grand", m: "Le Plus Grand que tout ce que l'on peut imaginer." }, { n: 38, a: "الْحَفِيظُ", p: "Al-Hafiz", f: "Le Préservateur", m: "Le Protecteur qui sauvegarde l'univers et les œuvres de Ses créatures." }, { n: 39, a: "الْمُقِيتُ", p: "Al-Muqit", f: "Le Nourricier", m: "Celui qui dispense à chaque corps et âme sa nourriture." }, { n: 40, a: "الْحَسِيبُ", p: "Al-Hasib", f: "Le Comptable", m: "Celui qui suffit à Ses serviteurs et tient compte de chaque acte." }, { n: 41, a: "الْجَلِيلُ", p: "Al-Jalil", f: "Le Majestueux", m: "Celui qui possède la beauté, la splendeur et la magnificence." }, { n: 42, a: "الْكَرِيمُ", p: "Al-Karim", f: "Le Noble Généreux", m: "Celui qui donne sans compter et pardonne avec bienveillance." }, { n: 43, a: "الرَّقِيبُ", p: "Ar-Raqib", f: "Le Vigilant", m: "Celui à qui aucun regard ni aucune pensée n'échappe." }, { n: 44, a: "الْمُجِيبُ", p: "Al-Mujib", f: "Celui qui exauce", m: "Celui qui répond avec amour à l'appel de celui qui L'invoque." }, { n: 45, a: "الْوَاسِعُ", p: "Al-Wasi'", f: "L'Immense", m: "Celui dont la miséricorde, la science et les bienfaits englobent tout." }, { n: 46, a: "الْحَكِيمُ", p: "Al-Hakim", f: "Le Sage", m: "Celui qui dispose toute chose avec une sagesse absolue." }, { n: 47, a: "الْوَدُودُ", p: "Al-Wadud", f: "Le Tout-Aimant", m: "Celui qui aime Ses pieux serviteurs et Se fait aimer d'eux." }, { n: 48, a: "الْمَجِيدُ", p: "Al-Majid", f: "Le Glorieux", m: "Le Très-Haut en gloire, en dignité et en générosité." }, { n: 49, a: "الْبَاعِثُ", p: "Al-Ba'ith", f: "Le Résurrecteur", m: "Celui qui ressuscitera les morts pour le Jugement dernier." }, { n: 50, a: "الشَّهِيدُ", p: "Ash-Shahid", f: "Le Témoin", m: "Celui qui est présent et témoin de toute parole et action." }, { n: 51, a: "الْحَقُّ", p: "Al-Haqq", f: "La Vérité Absolue", m: "L'Éternel dont l'existence et la parole sont la vérité immuable." }, { n: 52, a: "الْوَكِيلُ", p: "Al-Wakil", f: "Le Digne de confiance", m: "Le Garant suprême sur qui repose toute confiance sincère." }, { n: 53, a: "الْقَوِيُّ", p: "Al-Qawiyy", f: "Le Tout-Fort", m: "Celui dont la force est sans limite ni épuisement." }, { n: 54, a: "الْمَتِينُ", p: "Al-Matin", f: "L'Inébranlable", m: "L'Inaltérable qui n'éprouve aucune fatigue ni difficulté." }, { n: 55, a: "الْوَلِيُّ", p: "Al-Waliyy", f: "Le Protecteur Allié", m: "L'Ami intime et le Secoureur des croyants." }, { n: 56, a: "الْحَمِيدُ", p: "Al-Hamid", f: "Le Digne de louanges", m: "Celui qui est loué pour Son essence, Ses noms et Ses actes parfaits." }, { n: 57, a: "الْمُحْصِي", p: "Al-Muhsi", f: "Celui qui dénombre tout", m: "Celui dont la science compte précisément chaque souffle et poussière." }, { n: 58, a: "الْمُبْدِئُ", p: "Al-Mubdi'", f: "L'Auteur de la création", m: "Celui qui crée le premier sans modèle préexistant." }, { n: 59, a: "الْمُعِيدُ", p: "Al-Mu'id", f: "Celui qui réintègre", m: "Celui qui redonnera vie à la création après son anéantissement." }, { n: 60, a: "الْمُحْيِي", p: "Al-Muhyi", f: "Celui qui fait vivre", m: "Celui qui insuffle la vie dans les corps et vivifie les cœurs." }, { n: 61, a: "الْمُمِيتُ", p: "Al-Mumit", f: "Celui qui donne la mort", m: "Celui qui décrète le terme de chaque être vivant." }, { n: 62, a: "الْحَيُّ", p: "Al-Hayy", f: "Le Vivant Éternel", m: "Celui qui possède une vie parfaite sans commencement ni fin." }, { n: 63, a: "الْقَيُّومُ", p: "Al-Qayyum", f: "L'Immuable / L'Autonome", m: "Celui qui subsiste par Lui-même et par qui subsiste toute la création." }, { n: 64, a: "الْوَاجِدُ", p: "Al-Wajid", f: "L'Opulent", m: "Celui qui ne manque de rien et trouve tout ce qu'Il veut." }, { n: 65, a: "الْمَاجِدُ", p: "Al-Majid", f: "Le Noble", m: "Le Magnifique en bienfaits et en générosité." }, { n: 66, a: "الْوَاحِدُ", p: "Al-Wahid", f: "L'Unique", m: "L'Un sans second, sans égal et sans associé." }, { n: 67, a: "الْأَحَدُ", p: "Al-Ahad", f: "L'Un Absolu", m: "L'Unique dans Son essence et Ses attributs, indivisible." }, { n: 68, a: "الصَّمَدُ", p: "As-Samad", f: "Le Soutien Universel", m: "Celui dont toute la création a besoin et qui n'a besoin de rien." }, { n: 69, a: "الْقَادِرُ", p: "Al-Qadir", f: "Le Puissant", m: "Celui qui accomplit tout ce qu'Il décrète avec détermination." }, { n: 70, a: "الْمُقْتَدِرُ", p: "Al-Muqtadir", f: "L'Omnipotent", m: "Le Dominateur absolu dont la puissance prévaut sur tout." }, { n: 71, a: "الْمُقَدِّمُ", p: "Al-Muqaddim", f: "Celui qui avance", m: "Celui qui accorde priorité et avance les rangs selon Sa justice." }, { n: 72, a: "الْمُؤَخِّرُ", p: "Al-Mu'akhkhir", f: "Celui qui retarde", m: "Celui qui repousse et retarde les choses en leur temps fixé." }, { n: 73, a: "الْأَوَّلُ", p: "Al-Awwal", f: "Le Premier", m: "Celui avant qui rien n'existait, sans commencement." }, { n: 74, a: "الْآخِرُ", p: "Al-Akhir", f: "Le Dernier", m: "Celui après qui rien ne subsistera, l'Éternel." }, { n: 75, a: "الظَّاهِرُ", p: "Az-Zahir", f: "Le Manifeste", m: "Celui dont l'existence éclate à travers les signes de l'univers." }, { n: 76, a: "الْبَاطِنُ", p: "Al-Batin", f: "Le Caché", m: "L'Invisible aux yeux des mortels et le Connaisseur des secrets cachés." }, { n: 77, a: "الْوَالِي", p: "Al-Wali", f: "Le Gouverneur de l'Univers", m: "Le Maître qui gère et administre toute chose avec autorité." }, { n: 78, a: "الْمُتَعَالِي", p: "Al-Muta'ali", f: "Le Sublime", m: "L'Élevé au-dessus de toute ressemblance avec Sa création." }, { n: 79, a: "الْبَرُّ", p: "Al-Barr", f: "Le Bienfaisant", m: "La Source de toute bonté, douce compassion et piété." }, { n: 80, a: "التَّوَّابُ", p: "At-Tawwab", f: "L'Accueillant au repentir", m: "Celui qui agrée avec clémence le retour sincère du pécheur." }, { n: 81, a: "الْمُنْتَقِمُ", p: "Al-Muntaqim", f: "Le Justicier", m: "Celui qui brise les tyrans et châtie avec justice les rebelles." }, { n: 82, a: "الْعَفُوُّ", p: "Al-'Afuww", f: "L'Indulgent", m: "Celui qui efface totalement les fautes sans laisser de trace." }, { n: 83, a: "الرَّؤُوفُ", p: "Ar-Ra'uf", f: "Le Très-Bienveillant", m: "Celui dont la tendresse et la compassion sont extrêmes." }, { n: 84, a: "مَالِكُ الْمُلْكِ", p: "Malik-ul-Mulk", f: "Le Maître de la Royauté", m: "Le Détenteur souverain de tout le royaume des cieux et de la terre." }, { n: 85, a: "ذُو الْجَلَالِ وَالْإِكْرَامِ", p: "Dhul-Jalali wal-Ikram", f: "Détenteur de Majesté et Générosité", m: "Celui qui mérite d'être craint, glorifié et aimé par excellence." }, { n: 86, a: "الْمُقْسِطُ", p: "Al-Muqsit", f: "L'Équitable", m: "Celui qui rend justice aux opprimés et juge avec droiture." }, { n: 87, a: "الْجَامِعُ", p: "Al-Jami'", f: "Le Rassembleur", m: "Celui qui réunira l'humanité entière le Jour du Jugement." }, { n: 88, a: "الْغَنِيُّ", p: "Al-Ghaniyy", f: "Le Suffisant à Soi-même", m: "Le Riche absolu qui ne dépend de rien ni de personne." }, { n: 89, a: "الْمُغْنِي", p: "Al-Mughni", f: "Celui qui enrichit", m: "Celui qui accorde la richesse matérielle et la plénitude du cœur." }, { n: 90, a: "الْمَانِعُ", p: "Al-Mani'", f: "Le Défenseur", m: "Celui qui protège et empêche ce qui pourrait nuire selon Sa sagesse." }, { n: 91, a: "الضَّارُّ", p: "Ad-Darr", f: "Celui qui éprouve", m: "Le Maître de toute épreuve destinée à purifier et éveiller l'âme." }, { n: 92, a: "النَّافِعُ", p: "An-Nafi'", f: "La Source du bien", m: "Celui qui procure tout profit, guérison et bénéfice." }, { n: 93, a: "النُّورُ", p: "An-Nur", f: "La Lumière", m: "La Lumière des cieux et de la terre qui guide les égarés." }, { n: 94, a: "الْهَادِي", p: "Al-Hadi", f: "Le Guide Suprême", m: "Celui qui oriente les cœurs vers le chemin droit de la vérité." }, { n: 95, a: "الْبَدِيعُ", p: "Al-Badi'", f: "L'Incomparable Créateur", m: "Celui qui crée avec une beauté incomparable sans précédent." }, { n: 96, a: "الْبَاقِي", p: "Al-Baqi", f: "L'Éternel", m: "Celui qui subsistera pour toujours lorsque tout disparaîtra." }, { n: 97, a: "الْوَارِثُ", p: "Al-Warith", f: "L'Héritier Suprême", m: "Celui à qui reviendra toute la royauté à la fin des temps." }, { n: 98, a: "الرَّشِيدُ", p: "Ar-Rashid", f: "Le Guide Parfait", m: "Celui dont tous les desseins mènent à la rectitude absolue." }, { n: 99, a: "الصَّبُورُ", p: "As-Sabur", f: "Le Très-Patient", m: "Celui qui ne précipite rien et agit avec une infinie patience." }];
-class ja {
-  store;
-  onSelectNameForFocus;
-  constructor(e, t) {
-    this.store = e, this.onSelectNameForFocus = t;
+const $e = [
+  {
+    n: 1,
+    a: "الرَّحْمَنُ",
+    p: "Ar-Rahman",
+    f: "Le Tout-Miséricordieux",
+    m: "Celui dont la miséricorde infinie englobe toute la création dans ce monde.",
+    detailedMeaning: "Issu de la racine 'R-H-M' (رحمة), Ar-Rahman est un Nom exclusif à Allah exprimant la plénitude et l'immensité de Sa miséricorde universelle envers toutes Ses créatures, croyants comme mécréants, qu'Il pourvoit, protège et soutient sans discontinuer.",
+    quran: {
+      arabic: "الرَّحْمَٰنُ عَلَى الْعَرْشِ اسْتَوَىٰ",
+      translation: "Le Tout-Miséricordieux S'est établi sur le Trône.",
+      surah: "Sourate Ta-Ha (20:5)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Quand Allah a décrété la Création, Il a écrit dans Son Livre auprès de Lui au-dessus du Trône : 'Certes, Ma miséricorde l'emporte sur Ma colère.' »",
+      source: "Sahih Al-Bukhari (n°3194) et Sahih Muslim (n°2751)"
+    }
+  },
+  {
+    n: 2,
+    a: "الرَّحِيمُ",
+    p: "Ar-Rahim",
+    f: "Le Très-Miséricordieux",
+    m: "Celui qui accorde Sa miséricorde spéciale et perpétuelle aux croyants.",
+    detailedMeaning: "Alors qu'Ar-Rahman désigne l'essence même de la miséricorde infinie, Ar-Rahim caractérise la manifestation bienveillante et continue de cette miséricorde, particulièrement envers les croyants qu'Il guide ici-bas et récompense éternellement dans l'au-delà.",
+    quran: {
+      arabic: "وَكَانَ بِالْمُؤْمِنِينَ رَحِيمًا",
+      translation: "Et Il est très miséricordieux envers les croyants.",
+      surah: "Sourate Al-Ahzab (33:43)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a vu une femme cherchant son enfant parmi des prisonniers, dès qu'elle le trouva, elle le serra contre sa poitrine et l'allaita. Il dit alors : « Pensez-vous que cette femme jetterait son enfant au feu ? Certainement non ! Allah est plus miséricordieux envers Ses serviteurs que cette femme envers son enfant. »",
+      source: "Sahih Al-Bukhari (n°5999) et Sahih Muslim (n°2754)"
+    }
+  },
+  {
+    n: 3,
+    a: "الْمَلِكُ",
+    p: "Al-Malik",
+    f: "Le Souverain Suprême",
+    m: "Le Roi absolu de l'univers, possesseur exclusif de toute souveraineté.",
+    detailedMeaning: "Al-Malik désigne Celui dont le pouvoir royal est sans limite. Il dispose de Sa création selon Sa volonté sans que nul ne puisse s'opposer à Ses décrets. Tous les rois et souverains terrestres sont Ses sujets dépendants et éphémères.",
+    quran: {
+      arabic: "فَتَعَالَى اللَّهُ الْمَلِكُ الْحَقُّ ۖ لَا إِلَٰهَ إِلَّا هُوَ رَبُّ الْعَرْشِ الْكَرِيمِ",
+      translation: "Que soit exalté Allah, le vrai Souverain ! Pas de divinité en dehors de Lui, le Seigneur du Trône sublime !",
+      surah: "Sourate Al-Mu'minun (23:116)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Au Jour de la Résurrection, Allah pliera les cieux puis les prendra dans Sa main droite et dira : 'Je suis le Roi ! Où sont les tyrans ? Où sont les orgueilleux ?' »",
+      source: "Sahih Muslim (n°2787)"
+    }
+  },
+  {
+    n: 4,
+    a: "الْقُدُّوسُ",
+    p: "Al-Quddus",
+    f: "Le Pur et Sanctifié",
+    m: "Le Purifié de tout défaut, faiblesse, ressemblance ou imperfection.",
+    detailedMeaning: "Du terme 'Quds' signifiant la pureté absolue et l'éloignement de toute souillure. Al-Quddus est exempt de tout ce qui ne sied pas à Sa majesté : ni fatigue, ni oubli, ni injustice, ni besoin de progéniture ou d'associé.",
+    quran: {
+      arabic: "هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ",
+      translation: "C'est Lui, Allah. Nulle divinité que Lui; Le Souverain, Le Pur, L'Apaisant...",
+      surah: "Sourate Al-Hashr (59:23)"
+    },
+    hadith: {
+      text: "Après avoir terminé la prière du Witr, le Messager d'Allah ﷺ disait trois fois : « Subhâna al-Maliki al-Quddûs » (Gloire au Souverain, le Pur), en élevant la voix et en allongeant la dernière fois.",
+      source: "Sunan An-Nasa'i (n°1732), authentifié par Al-Albani"
+    }
+  },
+  {
+    n: 5,
+    a: "السَّلَامُ",
+    p: "As-Salam",
+    f: "La Paix et la Source de Paix",
+    m: "Celui qui est indemne de tout défaut et qui diffuse la sécurité et la sérénité.",
+    detailedMeaning: "As-Salam incarne la paix par essence. Ses actes sont exempts d'injustice, Ses attributs sont préservés de toute déficience, et c'est de Lui seul qu'émane toute paix intérieure, salut dans ce bas-monde et salut éternel au Paradis (Dar as-Salam).",
+    quran: {
+      arabic: "وَاللَّهُ يَدْعُو إِلَىٰ دَارِ السَّلَامِ وَيَهْدِي مَن يَشَاءُ إِلَىٰ صِرَاطٍ مُّسْتَقِيمٍ",
+      translation: "Allah appelle à la demeure de la paix et guide qui Il veut vers un droit chemin.",
+      surah: "Sourate Yunus (10:25)"
+    },
+    hadith: {
+      text: "Lorsque le Prophète ﷺ terminait sa prière obligatoire, il demandait pardon trois fois puis disait : « Allâhumma Antas-Salâm wa minkas-Salâm, tabârakta yâ dhal-Jalâli wal-Ikrâm » (Ô Allah ! Tu es la Paix et de Toi vient la Paix, béni sois-Tu, Ô Détenteur de Majesté et de Générosité).",
+      source: "Sahih Muslim (n°591)"
+    }
+  },
+  {
+    n: 6,
+    a: "الْمُؤْمِنُ",
+    p: "Al-Mu'min",
+    f: "Le Rassurant / Le Fidèle",
+    m: "Celui qui accorde la foi, la sécurité aux cœurs et confirme Ses promesses.",
+    detailedMeaning: "Al-Mu'min est Celui qui a rendu témoignage de Sa propre véracité et de celle de Ses envoyés par les miracles. Il est le Dispensateur de la paix de l'âme et de la sécurité contre Ses tourments pour quiconque croit en Lui.",
+    quran: {
+      arabic: "الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ",
+      translation: "Qui les a nourris contre la faim et rassurés de la peur !",
+      surah: "Sourate Quraysh (106:4)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Le croyant est celui auprès de qui les gens se sentent en sécurité (amân) pour leurs biens et leurs personnes. »",
+      source: "Jami' At-Tirmidhi (n°2627), authentique"
+    }
+  },
+  {
+    n: 7,
+    a: "الْمُهَيْمِنُ",
+    p: "Al-Muhaymin",
+    f: "Le Protecteur / Surveillant",
+    m: "Celui qui veille sur toute chose, témoin vigilant et gardien absolu.",
+    detailedMeaning: "Al-Muhaymin combine trois significations sublimes : la connaissance exhaustive de toute action, la garde protectrice infaillible et le témoignage impartial au Jour du Jugement. Rien ne saurait échapper à Son regard pénétrant.",
+    quran: {
+      arabic: "الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ",
+      translation: "Le Souverain, Le Pur, La Paix, Le Rassurant, Le Gardien vigilant, Le Tout-Puissant...",
+      surah: "Sourate Al-Hashr (59:23)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait : « Ô Allah ! C'est Toi le Compagnon de voyage et le Gardien protecteur de la famille laissée derrière soi. »",
+      source: "Sahih Muslim (n°1342)"
+    }
+  },
+  {
+    n: 8,
+    a: "الْعَزِيزُ",
+    p: "Al-'Aziz",
+    f: "Le Tout-Puissant",
+    m: "L'Invincible que nul ne peut surpasser et auprès de qui se trouve toute gloire.",
+    detailedMeaning: "La racine 'Izz' désigne la puissance victorieuse, l'inaccessibilité au mal et la rareté précieuse. Al-'Aziz est le Majestueux dont la volonté s'impose toujours, et dont personne ne peut entraver le jugement.",
+    quran: {
+      arabic: "وَإِنَّ رَبَّكَ لَهُوَ الْعَزِيزُ الرَّحِيمُ",
+      translation: "Et certes, ton Seigneur est le Tout-Puissant, le Très-Miséricordieux.",
+      surah: "Sourate Ash-Shu'ara (26:9)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait lors des épreuves : « Je cherche refuge auprès de Ta Puissance ('Izzatika), nulle divinité en dehors de Toi, afin que Tu ne m'égares point. Tu es le Vivant qui ne meurt jamais, tandis que les djinns et les hommes meurent. »",
+      source: "Sahih Al-Bukhari (n°7383) et Sahih Muslim (n°2717)"
+    }
+  },
+  {
+    n: 9,
+    a: "الْجَبَّارُ",
+    p: "Al-Jabbar",
+    f: "L'Imposant / Le Réparateur",
+    m: "Celui qui soumet toute la création à Sa volonté et qui panse les cœurs brisés.",
+    detailedMeaning: "Al-Jabbar comporte une double dimension spirituelle : d'une part la toute-puissance qui plie et soumet les tyrans orgueilleux ; d'autre part, la tendresse infinie du 'Jabr' qui répare les fractures de l'âme, console les affligés et enrichit les pauvres.",
+    quran: {
+      arabic: "الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ ۚ سُبْحَانَ اللَّهِ عَمَّا يُشْرِكُونَ",
+      translation: "Le Tout-Puissant, Celui qui soumet tout, Le Superbe. Gloire à Allah ! Il transcende ce qu'ils Lui associent.",
+      surah: "Sourate Al-Hashr (59:23)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait entre les deux prosternations de la prière : « Rabbi-ghfir lî, warhamnî, wajburnî, warfa'nî, warzuqnî » (Seigneur, pardonne-moi, fais-moi miséricorde, répare mes faiblesses, élève-moi et accorde-moi ma subsistance).",
+      source: "Sunan Abi Dawud (n°850) et Jami' At-Tirmidhi (n°284)"
+    }
+  },
+  {
+    n: 10,
+    a: "الْمُتَكَبِّرُ",
+    p: "Al-Mutakabbir",
+    f: "Le Majestueux / Le Superbe",
+    m: "Celui à qui appartient la grandeur suprême et exclusive, au-dessus de tout mal.",
+    detailedMeaning: "La fierté et la grandeur légitime n'appartiennent qu'au Créateur. Al-Mutakabbir est Celui qui s'élève au-dessus des attributs de Ses créatures, dédaigne toute injustice et anéantit la vanité des créatures qui tentent d'usurper Sa fierté.",
+    quran: {
+      arabic: "وَلَهُ الْكِبْرِيَاءُ فِي السَّمَاوَاتِ وَالْأَرْضِ ۖ وَهُوَ الْعَزِيزُ الْحَكِيمُ",
+      translation: "Et à Lui la Grandeur dans les cieux et la terre. Et c'est Lui le Puissant, le Sage.",
+      surah: "Sourate Al-Jathiya (45:37)"
+    },
+    hadith: {
+      text: "Allah le Très-Haut a dit dans un Hadith Qudsi : « La Grandeur est Mon manteau et la Majesté Mon habit. Quiconque Me dispute l'un d'eux, Je le châtierai. »",
+      source: "Sahih Muslim (n°2620)"
+    }
+  },
+  {
+    n: 11,
+    a: "الْخَالِقُ",
+    p: "Al-Khaliq",
+    f: "Le Créateur",
+    m: "Celui qui détermine l'existence et fait surgir toute chose à partir du néant.",
+    detailedMeaning: "Al-Khaliq est Celui qui conçoit, mesure avec une rigueur absolue et donne existence à ce qui n'était rien auparavant selon Son dessein et Sa pré-détermination parfaite.",
+    quran: {
+      arabic: "اللَّهُ خَالِقُ كُلِّ شَيْءٍ ۖ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ وَكِيلٌ",
+      translation: "Allah est le Créateur de toute chose, et de toute chose Il est le Garant.",
+      surah: "Sourate Az-Zumar (39:62)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Nulle créature n'a droit à l'obéissance dans la désobéissance au Créateur (Al-Khâliq). »",
+      source: "Musnad Ahmad (n°1095), authentifié par Al-Albani"
+    }
+  },
+  {
+    n: 12,
+    a: "الْبَارِئُ",
+    p: "Al-Bari'",
+    f: "Le Novateur / Le Producteur",
+    m: "Celui qui tire la création du néant et l'agence avec harmonie sans défaut.",
+    detailedMeaning: "Du verbe 'Bara'a' signifiant séparer et façonner. Al-Bari' extirpe la création du vide pour lui donner une forme matérielle harmonieuse, parfaitement adaptée à son rôle dans l'écosystème cosmique.",
+    quran: {
+      arabic: "هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ ۖ لَهُ الْأَسْمَاءُ الْحُسْنَىٰ",
+      translation: "C'est Lui Allah, le Créateur, le Novateur, le Façonneur. À Lui les plus beaux Noms.",
+      surah: "Sourate Al-Hashr (59:24)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait dans ses invocations au coucher : « Louange à Allah qui m'a suffi et m'a abrité, et louange à Allah qui m'a nourri et abreuvé... »",
+      source: "Sahih Muslim (n°2715)"
+    }
+  },
+  {
+    n: 13,
+    a: "الْمُصَوِّرُ",
+    p: "Al-Musawwir",
+    f: "Le Façonneur",
+    m: "Celui qui donne à chaque être sa silhouette, son visage et ses traits distincts.",
+    detailedMeaning: "Al-Musawwir confère à chaque créature son apparence extérieure et intérieure unique. Des empreintes digitales aux galaxies, Il conçoit une diversité infinie sans jamais épuiser Son art divin.",
+    quran: {
+      arabic: "هُوَ الَّذِي يُصَوِّرُكُمْ فِي الْأَرْحَامِ كَيْفَ يَشَاءُ ۚ لَا إِلَٰهَ إِلَّا هُوَ الْعَزِيزُ الْحَكِيمُ",
+      translation: "C'est Lui qui vous façonne dans les matrices comme Il veut. Point de divinité sinon Lui, le Puissant, le Sage.",
+      surah: "Sourate Ali 'Imran (3:6)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait en prosternation : « Mon visage s'est prosterné devant Celui qui l'a créé, l'a façonné et lui a fendu son ouïe et sa vue. Béni soit Allah, le Meilleur des créateurs ! »",
+      source: "Sahih Muslim (n°771)"
+    }
+  },
+  {
+    n: 14,
+    a: "الْغَفَّارُ",
+    p: "Al-Ghaffar",
+    f: "Le Pardonneur Indulgent",
+    m: "Celui qui dissimule inlassablement les péchés et pardonne à répétition.",
+    detailedMeaning: "Al-Ghaffar est la forme intensive de 'Ghafar' (couvrir, préserver). Il voile les turpitudes de Ses serviteurs dans ce monde et efface leurs sanctions dans l'autre, quel que soit le nombre de fois où le serviteur retombe puis se repent.",
+    quran: {
+      arabic: "وَإِنِّي لَغَفَّارٌ لِّمَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا ثُمَّ اهْتَدَىٰ",
+      translation: "Et Je suis Grand Pardonneur envers celui qui se repent, croit, fait bonne œuvre puis se met sur le bon chemin.",
+      surah: "Sourate Ta-Ha (20:82)"
+    },
+    hadith: {
+      text: "Allah le Très-Haut a dit : « Ô fils d'Adam ! Si tes péchés atteignaient les cimes du ciel et qu'ensuite tu Me demandais pardon, Je te pardonnerais sans Me soucier de leur nombre. »",
+      source: "Jami' At-Tirmidhi (n°3540), authentifié par Al-Albani"
+    }
+  },
+  {
+    n: 15,
+    a: "الْقَهَّارُ",
+    p: "Al-Qahhar",
+    f: "Le Dominateur Suprême",
+    m: "Celui devant la majesté de qui tout être ploie, vaincu et soumis.",
+    detailedMeaning: "Al-Qahhar brise les desseins des orgueilleux et soumet toute créature vivante aux lois inexorables de la vie, de la maladie et de la mort. Nulle force ne saurait échapper à Son emprise universelle.",
+    quran: {
+      arabic: "يَوْمَ هُم بَارِزُونَ ۖ لَا يَخْفَىٰ عَلَى اللَّهِ مِنْهُمْ شَيْءٌ ۚ لِّمَنِ الْمُلْكُ الْيَوْمَ ۖ لِلَّهِ الْوَاحِدِ الْقَهَّارِ",
+      translation: "Le jour où ils comparaîtront sans que rien d'eux n'échappe à Allah. 'À qui la royauté aujourd'hui ? À Allah, l'Unique, le Dominateur Suprême.'",
+      surah: "Sourate Ghafir (40:16)"
+    },
+    hadith: {
+      text: "Lorsque le Prophète ﷺ se retournait la nuit dans son lit, il disait : « Nulle divinité en dehors d'Allah, l'Unique, le Dominateur Suprême, Seigneur des cieux et de la terre et de ce qui se trouve entre eux, le Tout-Puissant, le Grand Pardonneur. »",
+      source: "Sahih Ibn Hibban (n°5530), authentique selon An-Nawawi"
+    }
+  },
+  {
+    n: 16,
+    a: "الْوَهَّابُ",
+    p: "Al-Wahhab",
+    f: "Le Grand Donateur",
+    m: "Celui qui donne continuellement sans compensation ni contrepartie attendue.",
+    detailedMeaning: "Issu de la 'Hiba' (don gratuit et désintéressé). Al-Wahhab comble Ses créatures de grâces immenses, de foi, de santé et de clairvoyance sans qu'elles n'aient de droit préalable sur Lui ni qu'Il n'attende d'avantage en retour.",
+    quran: {
+      arabic: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ الْوَهَّابُ",
+      translation: "Seigneur ! Ne laisse pas dévier nos cœurs après nous avoir guidés, et accorde-nous de Ta part une miséricorde. Car c'est Toi le Grand Donateur.",
+      surah: "Sourate Ali 'Imran (3:8)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait : « Seigneur, accorde-moi une foi inébranlable et une certitude véridique... C'est Toi qui combles de bienfaits. »",
+      source: "Musnad Ahmad (n°2420)"
+    }
+  },
+  {
+    n: 17,
+    a: "الرَّزَّاقُ",
+    p: "Ar-Razzaq",
+    f: "Le Pourvoyeur",
+    m: "Celui qui assure et répartit la subsistance matérielle et spirituelle de chaque âme.",
+    detailedMeaning: "Ar-Razzaq nourrit aussi bien les corps par les aliments et la santé, que les cœurs et les esprits par la sagesse, le savoir et la lumière de la foi. Aucun être ne meurt avant d'avoir consommé l'intégralité du 'Rizq' qui lui était destiné.",
+    quran: {
+      arabic: "إِنَّ اللَّهَ هُوَ الرَّزَّاقُ ذُو الْقُوَّةِ الْمَتِينُ",
+      translation: "En vérité, c'est Allah qui est le Grand Pourvoyeur, le Détenteur de la force inébranlable.",
+      surah: "Sourate Adh-Dhariyat (51:58)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Si vous vous en remettiez à Allah d'une confiance véridique, Il vous pourvoirait comme Il pourvoit l'oiseau : il part le matin le ventre vide et rentre le soir rassasié. »",
+      source: "Jami' At-Tirmidhi (n°2344), authentique"
+    }
+  },
+  {
+    n: 18,
+    a: "الْفَتَّاحُ",
+    p: "Al-Fattah",
+    f: "Celui qui ouvre / L'Arbitre Suprême",
+    m: "Celui qui ouvre les portes fermées, résout les difficultés et juge avec équité.",
+    detailedMeaning: "Al-Fattah ouvre les portes des solutions, de la compréhension spirituelle et du secours providentiel là où tout semblait bloqué. Il est également le Juge Suprême qui départage avec clarté la vérité du mensonge.",
+    quran: {
+      arabic: "قُلْ يَجْمَعُ بَيْنَنَا رَبُّنَا ثُمَّ يَفْتَحُ بَيْنَنَا بِالْحَقِّ وَهُوَ الْفَتَّاحُ الْعَلِيمُ",
+      translation: "Dis : 'Notre Seigneur nous réunira, puis Il tranchera entre nous avec la vérité. Car Il est l'Arbitre Suprême, l'Omniscient.'",
+      surah: "Sourate Saba (34:26)"
+    },
+    hadith: {
+      text: "En entrant dans la mosquée, le Prophète ﷺ enseignait de dire : « Ô Allah ! Ouvre-moi les portes de Ta miséricorde » (Allâhummaftah lî abwâba rahmatik).",
+      source: "Sahih Muslim (n°713)"
+    }
+  },
+  {
+    n: 19,
+    a: "الْعَلِيمُ",
+    p: "Al-'Alim",
+    f: "L'Omniscient",
+    m: "Celui dont le savoir parfait embrasse l'invisible, le visible, le passé et l'avenir.",
+    detailedMeaning: "La science d'Allah précède toute création, pénètre les replis les plus secrets de la conscience et perçoit le mouvement d'un atome dans l'immensité cosmique sans jamais subir d'oubli ni d'inattention.",
+    quran: {
+      arabic: "وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ",
+      translation: "Et Il est Omniscient de toute chose.",
+      surah: "Sourate Al-Baqarah (2:29)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ enseignait la prière de consultation (Istikhâra) : « Ô Allah ! Je Te consulte de par Ta science et je prends puissance de par Ta puissance... Tu sais et je ne sais pas, et Tu es le Grand Connaisseur des mystères. »",
+      source: "Sahih Al-Bukhari (n°1162)"
+    }
+  },
+  {
+    n: 20,
+    a: "الْقَابِضُ",
+    p: "Al-Qabid",
+    f: "Celui qui retient et restreint",
+    m: "Celui qui restreint la subsistance, retient les âmes et resserre selon Sa sagesse.",
+    detailedMeaning: "Al-Qabid éprouve Ses serviteurs par la retenue et le resserrement passager afin d'éveiller leur humilité et leur repentir. Cette retenue découle d'une sagesse infinie et d'une bienveillance préservatrice.",
+    quran: {
+      arabic: "وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ",
+      translation: "Allah restreint ou étend Ses dons. Et c'est vers Lui que vous serez ramenés.",
+      surah: "Sourate Al-Baqarah (2:245)"
+    },
+    hadith: {
+      text: "Le Messager d'Allah ﷺ a dit : « Certes, c'est Allah qui fixe les prix, qui retient (Al-Qâbid), qui dispense largement (Al-Bâsit) et qui pourvoit. »",
+      source: "Sunan Abi Dawud (n°3451) et Jami' At-Tirmidhi (n°1314), authentique"
+    }
+  },
+  {
+    n: 21,
+    a: "الْبَاسِطُ",
+    p: "Al-Basit",
+    f: "Celui qui dilate et dispense avec largesse",
+    m: "Celui qui répand Ses bienfaits avec abondance, élargit les cœurs et rassérène.",
+    detailedMeaning: "Complémentaire d'Al-Qabid, Al-Basit étend la subsistance matérielle, console les âmes et ouvre largement les horizons spirituels par la joie de la foi et la libération de toute détresse.",
+    quran: {
+      arabic: "اللَّهُ يَبْسُطُ الرِّزْقَ لِمَن يَشَاءُ مِنْ عِبَادِهِ وَيَقْدِرُ لَهُ",
+      translation: "Allah dispense largement Sa subsistance à qui Il veut parmi Ses serviteurs, ou la restreint.",
+      surah: "Sourate Al-'Ankabut (29:62)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait : « Ô Allah ! Nul ne peut retenir ce que Tu as étendu, et nul ne peut étendre ce que Tu as retenu. »",
+      source: "Musnad Ahmad (n°15492) et Al-Adab Al-Mufrad (n°699)"
+    }
+  },
+  {
+    n: 22,
+    a: "الْخَافِضُ",
+    p: "Al-Khafid",
+    f: "Celui qui abaisse",
+    m: "Celui qui abaisse les arrogants, les oppresseurs et les égarés infatués d'eux-mêmes.",
+    detailedMeaning: "Al-Khafid brise l'orgueil des tyrans et prive d'honneur ceux qui méprisent la justice divine. Il réduit à néant les faux prestiges terrestres face à la grandeur de la vérité.",
+    quran: {
+      arabic: "إِذَا وَقَعَتِ الْوَاقِعَةُ ... خَافِضَةٌ رَّافِعَةٌ",
+      translation: "Quand l'Événement inéluctable arrivera... Il abaissera [les uns] et élèvera [les autres].",
+      surah: "Sourate Al-Waqi'ah (56:1-3)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Certes, Allah n'élève une chose de ce monde sans ensuite la redescendre (pour enseigner l'humilité). »",
+      source: "Sahih Al-Bukhari (n°2872)"
+    }
+  },
+  {
+    n: 23,
+    a: "الرَّافِعُ",
+    p: "Ar-Rafi'",
+    f: "Celui qui élève",
+    m: "Celui qui hausse les rangs des humbles, des savants et des serviteurs sincères.",
+    detailedMeaning: "Ar-Rafi' accorde une distinction noble et pérenne à ceux qui se soumettent avec dévotion. Il élève leurs cœurs par la lumière de la foi et leur confère une place éminente au Paradis.",
+    quran: {
+      arabic: "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ",
+      translation: "Allah élèvera en degrés ceux d'entre vous qui ont cru et ceux qui ont reçu le savoir.",
+      surah: "Sourate Al-Mujadila (58:11)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Jamais une personne ne fait preuve d'humilité par amour pour Allah sans qu'Allah ne l'élève. »",
+      source: "Sahih Muslim (n°2588)"
+    }
+  },
+  {
+    n: 24,
+    a: "الْمُعِزُّ",
+    p: "Al-Mu'izz",
+    f: "Celui qui accorde la puissance et l'honneur",
+    m: "Celui qui confère la véritable noblesse, le secours et la dignité.",
+    detailedMeaning: "L'honneur véritable ne provient ni de la lignée ni des trésors périssables, mais de la proximité avec le Créateur. Al-Mu'izz rend invincible le cœur qui ne cherche sa gloire qu'en Allah.",
+    quran: {
+      arabic: "قُلِ اللَّهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَن تَشَاءُ وَتَنزِعُ الْمُلْكَ مِمَّن تَشَاءُ وَتُعِزُّ مَن تَشَاءُ",
+      translation: "Dis : 'Ô Allah, Maître de l'autorité ! Tu donnes le pouvoir à qui Tu veux et Tu l'arraches à qui Tu veux; Tu rends puissant qui Tu veux...'",
+      surah: "Sourate Ali 'Imran (3:26)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « La fierté et la dignité de l'homme résident dans sa foi, et son honneur réside dans ses œuvres de bienfaisance. »",
+      source: "Musnad Ahmad (n°8747)"
+    }
+  },
+  {
+    n: 25,
+    a: "الْمُذِلُّ",
+    p: "Al-Mudhill",
+    f: "Celui qui humilie",
+    m: "Celui qui prive d'honneur ceux qui se rebellent contre la rectitude et la vérité.",
+    detailedMeaning: "Al-Mudhill abandonne les orgueilleux à leurs illusions trompeuses jusqu'à ce que leur châtiment et leur disgrâce éclatent aux yeux du monde.",
+    quran: {
+      arabic: "وَتُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ ۖ بِيَدِكَ الْخَيْرُ ۖ إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+      translation: "Tu honores qui Tu veux et Tu humilies qui Tu veux. Le bien est en Ta main et Tu es Omnipotent sur toute chose.",
+      surah: "Sourate Ali 'Imran (3:26)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Quiconque cherche la gloire dans le péché, Allah ne manquera pas de l'humilier. »",
+      source: "Al-Bayhaqi dans Shu'ab Al-Iman"
+    }
+  },
+  {
+    n: 26,
+    a: "السَّمِيعُ",
+    p: "As-Sami'",
+    f: "L'Audient",
+    m: "Celui qui entend tout soupir, chuchotement, invocation secrète et parole prononcée.",
+    detailedMeaning: "L'ouïe divine transcende le temps, les distances et les barrières physiques. La simultanéité des prières de milliards d'êtres dans toutes les langues ne crée nulle confusion pour As-Sami'.",
+    quran: {
+      arabic: "لَيْسَ كَمِثْلِهِ شَيْءٌ ۖ وَهُوَ السَّمِيعُ الْبَصِيرُ",
+      translation: "Il n'y a rien qui Lui ressemble; et c'est Lui l'Audient, le Clairvoyant.",
+      surah: "Sourate Ash-Shura (42:11)"
+    },
+    hadith: {
+      text: "'Aïcha (qu'Allah l'agrée) a dit : « Louange à Allah dont l'ouïe embrasse toutes les voix ! La femme qui plaidait avec le Prophète était dans un coin de la pièce et je ne saisissais pas tout ce qu'elle disait, mais Allah a révélé : 'Allah a bien entendu la parole de celle qui discutait avec toi...' »",
+      source: "Sahih Al-Bukhari (n°7386) et Sunan An-Nasa'i"
+    }
+  },
+  {
+    n: 27,
+    a: "الْبَصِيرُ",
+    p: "Al-Basir",
+    f: "Le Clairvoyant",
+    m: "Celui qui voit toute chose dans l'infiniment grand comme dans l'infiniment petit.",
+    detailedMeaning: "Al-Basir perçoit la démarche d'une fourmi noire sur un rocher obscur au cœur de la nuit noire. Il voit les arrière-pensées, les intentions cachées et les moindres mouvements de l'univers.",
+    quran: {
+      arabic: "إِنَّ اللَّهَ يَعْلَمُ غَيْبَ السَّمَاوَاتِ وَالْأَرْضِ ۚ وَاللَّهُ بَصِيرٌ بِمَا تَعْمَلُونَ",
+      translation: "Allah connaît l'inconnaissable des cieux et de la terre et Allah est Clairvoyant sur ce que vous faites.",
+      surah: "Sourate Al-Hujurat (49:18)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a défini l'excellence de la foi (Al-Ihsân) : « C'est d'adorer Allah comme si tu Le voyais, car si toi tu ne Le vois pas, certes Lui te voit. »",
+      source: "Sahih Muslim (n°8) et Sahih Al-Bukhari (n°50)"
+    }
+  },
+  {
+    n: 28,
+    a: "الْحَكَمُ",
+    p: "Al-Hakam",
+    f: "Le Juge Arbitre",
+    m: "L'Arbitre impartial suprême dont les jugements ne souffrent aucun appel.",
+    detailedMeaning: "Al-Hakam tranche souverainement les litiges entre les hommes. Ses lois sont pure justice, Ses promesses sont vérités et nulle iniquité ne peut entacher Ses décrets.",
+    quran: {
+      arabic: "أَفَغَيْرَ اللَّهِ أَبْتَغِي حَكَمًا وَهُوَ الَّذِي أَنزَلَ إِلَيْكُمُ الْكِتَابَ مُفَصَّلًا",
+      translation: "Chercherai-je un autre juge qu'Allah, alors que c'est Lui qui a fait descendre vers vous ce Livre explicité ?",
+      surah: "Sourate Al-An'am (6:114)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit au compagnon Hani' dont le surnom était Abul-Hakam : « Certes, Allah est le Juge (Al-Hakam) et c'est à Lui qu'appartient le jugement. »",
+      source: "Sunan Abi Dawud (n°4955), authentique"
+    }
+  },
+  {
+    n: 29,
+    a: "الْعَدْلُ",
+    p: "Al-'Adl",
+    f: "Le Juste Absolu",
+    m: "L'Équité absolue, exempt de toute ombre d'injustice ou de partialité.",
+    detailedMeaning: "Al-'Adl met chaque chose à sa juste place. Il récompense l'obéissance par Sa grâce et ne sanctionne la faute que selon sa juste proportion sans jamais léser quiconque du poids d'un grain de moutarde.",
+    quran: {
+      arabic: "وَتَمَّتْ كَلِمَتُ رَبِّكَ صِدْقًا وَعَدْلًا ۚ لَّا مُبَدِّلَ لِكَلِمَاتِهِ",
+      translation: "Et la parole de ton Seigneur s'est accomplie en toute vérité et justice. Nul ne peut modifier Ses paroles.",
+      surah: "Sourate Al-An'am (6:115)"
+    },
+    hadith: {
+      text: "Allah le Très-Haut a dit dans un Hadith Qudsi : « Ô Mes serviteurs ! Je Me suis interdit l'injustice à Moi-même et Je l'ai déclarée interdite entre vous : ne soyez donc pas injustes les uns envers les autres ! »",
+      source: "Sahih Muslim (n°2577)"
+    }
+  },
+  {
+    n: 30,
+    a: "اللَّطِيفُ",
+    p: "Al-Latif",
+    f: "Le Subtil / Le Bienveillant",
+    m: "Celui qui dispense Ses grâces avec une infinie délicatesse par des voies insoupçonnées.",
+    detailedMeaning: "Al-Latif connaît les finesses les plus subtiles de Ses créatures et leur achemine la délivrance et le réconfort à travers des moyens discrets et inattendus, transformant les épreuves en trésors de bénédictions.",
+    quran: {
+      arabic: "أَلَا يَعْلَمُ مَنْ خَلَقَ وَهُوَ اللَّطِيفُ الْخَبِيرُ",
+      translation: "Ne connaît-Il pas ce qu'Il a créé, alors qu'Il est le Subtil, le Parfaitement Informé ?",
+      surah: "Sourate Al-Mulk (67:14)"
+    },
+    hadith: {
+      text: "Le Prophète Joseph (Yusuf) disait : « Mon Seigneur est plein de douceur et de bienveillance (Latîf) pour ce qu'Il veut, car c'est Lui l'Omniscient, le Sage. »",
+      source: "Sourate Yusuf (12:100)"
+    }
+  },
+  {
+    n: 31,
+    a: "الْخَبِيرُ",
+    p: "Al-Khabir",
+    f: "Le Parfaitement Informé",
+    m: "Celui qui pénètre les réalités profondes et les secrets intimes de toute chose.",
+    detailedMeaning: "Tandis que la science générale est désignée par Al-'Alim, Al-Khabir met en valeur la perception de la vérité intrinsèque, la cause secrète et la finalité dissimulée derrière chaque phénomène.",
+    quran: {
+      arabic: "وَهُوَ الْحَكِيمُ الْخَبِيرُ",
+      translation: "Et c'est Lui le Sage, le Parfaitement Informé.",
+      surah: "Sourate Al-An'am (6:18)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit à 'Aïcha : « Tu m'informeras ou bien c'est le Subtil, le Parfaitement Informé (Al-Latîf Al-Khabîr) qui m'en informera. »",
+      source: "Sahih Muslim (n°974)"
+    }
+  },
+  {
+    n: 32,
+    a: "الْحَلِيمُ",
+    p: "Al-Halim",
+    f: "Le Très-Clément / Le Patient",
+    m: "Celui qui ne précipite pas le châtiment et laisse au pécheur le répit du repentir.",
+    detailedMeaning: "Al-Halim voit Ses créatures désobéir à Ses commandements mais n'est pas emporté par la colère. Il accorde des délais bienveillants afin que les égarés reviennent vers Sa grâce.",
+    quran: {
+      arabic: "وَاعْلَمُوا أَنَّ اللَّهَ غَفُورٌ حَلِيمٌ",
+      translation: "Et sachez qu'Allah est Pardonneur et Plein de mansuétude.",
+      surah: "Sourate Al-Baqarah (2:235)"
+    },
+    hadith: {
+      text: "Lors de l'angoisse ou de l'affliction, le Prophète ﷺ invoquait : « Lâ ilâha illallâhul-'Adhîmul-Halîm... » (Nulle divinité en dehors d'Allah, l'Immense, le Très-Clément).",
+      source: "Sahih Al-Bukhari (n°6345) et Sahih Muslim (n°2730)"
+    }
+  },
+  {
+    n: 33,
+    a: "الْعَظِيمُ",
+    p: "Al-'Azim",
+    f: "L'Incommensurable / Le Majestueux",
+    m: "Celui dont la grandeur transcende l'imagination humaine et la raison.",
+    detailedMeaning: "Al-'Azim possède une grandeur absolue dans Son essence, Ses attributs et Ses actes. Tout ce qui est grand dans l'univers s'amenuise en une poussière négligeable face à Sa souveraineté.",
+    quran: {
+      arabic: "وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+      translation: "Et Il est le Très-Haut, l'Incommensurable.",
+      surah: "Sourate Al-Baqarah (2:255)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Quant à l'inclinaison (Rukû'), glorifiez-y le Seigneur l'Incommensurable (Subhâna Rabbiyal-'Adhîm). »",
+      source: "Sahih Muslim (n°479)"
+    }
+  },
+  {
+    n: 34,
+    a: "الْغَفُورُ",
+    p: "Al-Ghafur",
+    f: "Le Tout-Pardonnant",
+    m: "Celui qui pardonne avec abondance et ensevelit les péchés sous Sa miséricorde.",
+    detailedMeaning: "Al-Ghafur est Celui auprès de qui aucun péché n'est trop grave pour être effacé si le serviteur implore sincèrement Sa clémence. Il protège le repenti du déshonneur et des remords destructeurs.",
+    quran: {
+      arabic: "نَبِّئْ عِبَادِي أَنِّي أَنَا الْغَفُورُ الرَّحِيمُ",
+      translation: "Informe Mes serviteurs que c'est Moi le Pardonneur, le Très-Miséricordieux.",
+      surah: "Sourate Al-Hijr (15:49)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Par Celui qui détient mon âme dans Sa main, si vous ne commettiez pas de péchés, Allah vous ferait disparaître pour amener un peuple qui pécherait puis Lui demanderait pardon, et Il leur pardonnerait. »",
+      source: "Sahih Muslim (n°2749)"
+    }
+  },
+  {
+    n: 35,
+    a: "الشَّكُورُ",
+    p: "Ash-Shakur",
+    f: "Le Très-Reconnaissant",
+    m: "Celui qui récompense magnifiquement le moindre acte pieux et multiplie les mérites.",
+    detailedMeaning: "Ash-Shakur apprécie la modeste dévotion de Ses créatures et la rétribue par une béatitude infinie au Paradis. Il n'oublie aucune aumône, aucun sourire ni aucune invocation formulée pour Sa face.",
+    quran: {
+      arabic: "لِيُوَفِّيَهُمْ أُجُورَهُمْ وَيَزِيدَهُم مِّن فَضْلِهِ ۚ إِنَّهُ غَفُورٌ شَكُورٌ",
+      translation: "Afin qu'Il les récompense pleinement et leur ajoute de Sa grâce. Il est certes Pardonneur et Reconnaissant.",
+      surah: "Sourate Fatir (35:30)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a raconté qu'un homme écarta une branche d'épines de la route : « Allah lui en fut reconnaissant (fashakara-llâhu lahu) et lui pardonna ses péchés. »",
+      source: "Sahih Al-Bukhari (n°652) et Sahih Muslim (n°1914)"
+    }
+  },
+  {
+    n: 36,
+    a: "الْعَلِيُّ",
+    p: "Al-'Aliyy",
+    f: "Le Très-Haut",
+    m: "L'Élevé au zénith de la transcendance, au-dessus de toute création.",
+    detailedMeaning: "Al-'Aliyy possède la suprématie de rang, d'essence et de domination. Il transcende toute ressemblance matérielle et trône avec majesté au-dessus des sept cieux.",
+    quran: {
+      arabic: "فَالْحُكْمُ لِلَّهِ الْعَلِيِّ الْكَبِيرِ",
+      translation: "Le jugement appartient donc à Allah, le Très-Haut, le Grand.",
+      surah: "Sourate Ghafir (40:12)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a ordonné lors de la prosternation : « Dites : Gloire à mon Seigneur le Très-Haut (Subhâna Rabbiyal-A'lâ). »",
+      source: "Sunan Abi Dawud (n°869) et Sahih Muslim"
+    }
+  },
+  {
+    n: 37,
+    a: "الْكَبِيرُ",
+    p: "Al-Kabir",
+    f: "L'Infiniment Grand",
+    m: "Le Plus Grand que tout ce qui peut être conçu ou imaginé par l'esprit.",
+    detailedMeaning: "Al-Kabir domine l'immensité de l'espace et du temps. C'est en vertu de ce Nom sacré que chaque prière, appel à la prière et fête musulmane s'ouvre par le cri de libération : 'Allahu Akbar' (Allah est plus Grand).",
+    quran: {
+      arabic: "عَالِمُ الْغَيْبِ وَالشَّهَادَةِ الْكَبِيرُ الْمُتَعَالِ",
+      translation: "Le Connaisseur de l'invisible et du visible, le Grand, le Sublime.",
+      surah: "Sourate Ar-Ra'd (13:9)"
+    },
+    hadith: {
+      text: "Un compagnon dit en ouvrant la prière : 'Allâhu Akbaru kabîrâ, wal-hamdu lillâhi kathîrâ...' Le Prophète ﷺ dit : « J'ai été émerveillé par cette parole, car les portes du ciel se sont ouvertes pour elle ! »",
+      source: "Sahih Muslim (n°601)"
+    }
+  },
+  {
+    n: 38,
+    a: "الْحَفِيظُ",
+    p: "Al-Hafiz",
+    f: "Le Préservateur / Le Gardien",
+    m: "Celui qui sauvegarde l'ordre de l'univers et protège les œuvres et la foi des croyants.",
+    detailedMeaning: "Al-Hafiz préserve les astres de la collision, sauvegarde les écritures célestes et garde les croyants des ruses sataniques. Aucune action humaine n'est oubliée de Ses registres éternels.",
+    quran: {
+      arabic: "إِنَّ رَبِّي عَلَىٰ كُلِّ شَيْءٍ حَفِيظٌ",
+      translation: "Certes, mon Seigneur veille sur toute chose et la préserve.",
+      surah: "Sourate Hud (11:57)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a enseigné au jeune Ibn 'Abbas : « Préserve les commandements d'Allah, Il te préservera (Ihfazillâha yahfazk). »",
+      source: "Jami' At-Tirmidhi (n°2516), authentique"
+    }
+  },
+  {
+    n: 39,
+    a: "الْمُقِيتُ",
+    p: "Al-Muqit",
+    f: "Le Nourricier / Le Dispensateur",
+    m: "Celui qui dote chaque créature des provisions matérielles et spirituelles nécessaires.",
+    detailedMeaning: "Al-Muqit calcule avec précision l'énergie, l'eau et le souffle nécessaires à chaque cellule vivante et préserve l'équilibre vital des espèces vivantes à travers les âges.",
+    quran: {
+      arabic: "وَكَانَ اللَّهُ عَلَىٰ كُلِّ شَيْءٍ مُّقِيتًا",
+      translation: "Et Allah est le Dispensateur et le Gardien vigilant de toute chose.",
+      surah: "Sourate An-Nisa (4:85)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Il suffit comme péché à un homme d'abandonner ceux dont il a la charge nourricière (man yaqût). »",
+      source: "Sunan Abi Dawud (n°1692), authentifié par Al-Albani"
+    }
+  },
+  {
+    n: 40,
+    a: "الْحَسِيبُ",
+    p: "Al-Hasib",
+    f: "Le Comptable / Le Protecteur Suffisant",
+    m: "Celui qui suffit amplement à Son serviteur et dénombre les comptes avec célérité.",
+    detailedMeaning: "Al-Hasib comble le cœur de sérénité au point que le croyant ne craint plus rien des créatures. Au Jour dernier, Il effectuera le bilan de chaque vie avec une rapidité et une équité sans faille.",
+    quran: {
+      arabic: "وَكَفَىٰ بِاللَّهِ حَسِيبًا",
+      translation: "Et Allah suffit amplement pour tenir les comptes.",
+      surah: "Sourate An-Nisa (4:6)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Quand Abraham fut jeté dans le brasier, il dit : 'Hasbunallâhu wa ni'mal-Wakîl' (Allah nous suffit, et quel excellent Protecteur !). Et le Prophète Muhammad ﷺ a dit de même lorsque les coalisés menaçaient Médine. »",
+      source: "Sahih Al-Bukhari (n°4563)"
+    }
+  },
+  {
+    n: 41,
+    a: "الْجَلِيلُ",
+    p: "Al-Jalil",
+    f: "Le Majestueux",
+    m: "Celui qui est drapé de dignité sublime, de magnificence et d'honneur souverain.",
+    detailedMeaning: "Al-Jalil inspire la vénération respectueuse des cœurs purs. La contemplation de Sa splendeur emplit l'âme d'admiration, de crainte révérencielle et de paix sublime.",
+    quran: {
+      arabic: "تَبَارَكَ اسْمُ رَبِّكَ ذِي الْجَلَالِ وَالْإِكْرَامِ",
+      translation: "Béni soit le Nom de ton Seigneur, Plein de Majesté et de Noblesse !",
+      surah: "Sourate Ar-Rahman (55:78)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Attachez-vous fermement dans vos invocations à la formule : 'Yâ Dhal-Jalâli wal-Ikrâm' (Ô Détenteur de Majesté et de Générosité !). »",
+      source: "Jami' At-Tirmidhi (n°3525), authentifié par Al-Albani"
+    }
+  },
+  {
+    n: 42,
+    a: "الْكَرِيمُ",
+    p: "Al-Karim",
+    f: "Le Noble Généreux",
+    m: "Celui qui donne sans compter, pardonne les fautes et honore sans exiger de tribut.",
+    detailedMeaning: "Al-Karim comble Ses serviteurs même lorsqu'ils négligent Ses rappels. Sa bienveillance devance la demande, Ses largesses surpassent les mérites et Sa miséricorde dépasse les espoirs.",
+    quran: {
+      arabic: "يَا أَيُّهَا الْإِنسَانُ مَا غَرَّكَ بِرَبِّكَ الْكَرِيمِ",
+      translation: "Ô homme ! Qu'est-ce qui t'a trompé au sujet de ton Seigneur, le Noble Généreux ?",
+      surah: "Sourate Al-Infitar (82:6)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Certes, votre Seigneur est Pudique et Généreux (Karîm) ; Il a honte, lorsque Son serviteur lève les mains vers Lui en prière, de les lui renvoyer vides et déçues. »",
+      source: "Sunan Abi Dawud (n°1488) et Jami' At-Tirmidhi (n°3556)"
+    }
+  },
+  {
+    n: 43,
+    a: "الرَّقِيبُ",
+    p: "Ar-Raqib",
+    f: "Le Vigilant / L'Observateur",
+    m: "Celui qui observe sans relâche les battements des cœurs et les actes humains.",
+    detailedMeaning: "Ar-Raqib ne s'assoupit jamais. Conscient de cette présence vigilante, le cœur du croyant cultive la pudeur spirituelle ('Al-Murâqaba') dans le secret le plus absolu comme en public.",
+    quran: {
+      arabic: "إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا",
+      translation: "Certes, Allah est un Observateur vigilant sur vous.",
+      surah: "Sourate An-Nisa (4:1)"
+    },
+    hadith: {
+      text: "Jésus ('Issa) dira au Jour du Jugement : « ...Et quand Tu m'as rappelé vers Toi, c'est Toi qui étais leur Gardien vigilant (Ar-Raqîb), et Tu es témoin de toute chose. »",
+      source: "Sourate Al-Ma'idah (5:117)"
+    }
+  },
+  {
+    n: 44,
+    a: "الْمُجِيبُ",
+    p: "Al-Mujib",
+    f: "Celui qui exauce",
+    m: "Celui qui accueille et répond avec amour à l'appel de celui qui L'invoque.",
+    detailedMeaning: "Al-Mujib ne laisse aucune prière sincère se perdre. Il exauce la demande immédiatement, la réserve sous forme de grâce supérieure pour l'au-delà, ou détourne en échange un mal équivalent.",
+    quran: {
+      arabic: "إِنَّ رَبِّي قَرِيبٌ مُّجِيبٌ",
+      translation: "Certes, mon Seigneur est tout proche et Il répond toujours aux prières.",
+      surah: "Sourate Hud (11:61)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Nul croyant n'invoque Allah par une prière sans qu'Allah ne lui accorde sa demande, ne lui détourne un malheur semblable, ou ne la lui garde en récompense pour l'au-delà. »",
+      source: "Jami' At-Tirmidhi (n°3573), authentique"
+    }
+  },
+  {
+    n: 45,
+    a: "الْوَاسِعُ",
+    p: "Al-Wasi'",
+    f: "L'Immense / L'Infini",
+    m: "Celui dont la miséricorde, la richesse, la science et le pardon englobent tout.",
+    detailedMeaning: "Aucune limite ne circonscrit les attributs d'Al-Wasi'. Sa richesse ne s'amenuise jamais par Ses dons, et Sa miséricorde accueille les repentis les plus accablés sans jamais se tarir.",
+    quran: {
+      arabic: "وَلِلَّهِ الْمَشْرِقُ وَالْمَغْرِبُ ۚ فَأَيْنَمَا تُوَلُّوا فَثَمَّ وَجْهُ اللَّهِ ۚ إِنَّ اللَّهَ وَاسِعٌ عَلِيمٌ",
+      translation: "À Allah appartiennent l'Orient et l'Occident. Où que vous vous tourniez, la Face d'Allah est là. Car Allah est Immense et Omniscient.",
+      surah: "Sourate Al-Baqarah (2:115)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « La miséricorde d'Allah a embrassé toute chose, et Sa grâce est infinie. »",
+      source: "Sahih Al-Bukhari (n°7453)"
+    }
+  },
+  {
+    n: 46,
+    a: "الْحَكِيمُ",
+    p: "Al-Hakim",
+    f: "Le Sage Suprême",
+    m: "Celui qui dispose toute chose à sa place idéale avec une perfection absolue.",
+    detailedMeaning: "Al-Hakim n'accomplit rien au hasard. Même les difficultés et les épreuves de l'existence recèlent des bienfaits cachés et des leçons spirituelles que la raison humaine découvre avec reconnaissance.",
+    quran: {
+      arabic: "وَهُوَ الْعَزِيزُ الْحَكِيمُ",
+      translation: "Et c'est Lui le Puissant, le Sage.",
+      surah: "Sourate Ibrahim (14:4)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Ce qu'Allah a décrété pour le croyant est toujours un bien : s'il lui arrive un bonheur, il remercie et c'est un bien ; s'il lui arrive un malheur, il patiente et c'est un bien. »",
+      source: "Sahih Muslim (n°2999)"
+    }
+  },
+  {
+    n: 47,
+    a: "الْوَدُودُ",
+    p: "Al-Wadud",
+    f: "Le Tout-Aimant",
+    m: "Celui qui aime tendrement Ses serviteurs fidèles et Se fait chérir d'eux.",
+    detailedMeaning: "Le 'Wudd' est l'amour pur qui se manifeste par la tendresse, les délicatesses et la proximité. Al-Wadud déverse Son affection dans le cœur de ceux qui se tournent vers Lui avec sincérité.",
+    quran: {
+      arabic: "وَاسْتَغْفِرُوا رَبَّكُمْ ثُمَّ تُوبُوا إِلَيْهِ ۚ إِنَّ رَبِّي رَحِيمٌ وَدُودٌ",
+      translation: "Et implorez le pardon de votre Seigneur, puis revenez à Lui. Mon Seigneur est certes Très-Miséricordieux et Plein d'amour.",
+      surah: "Sourate Hud (11:90)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Quand Allah aime un serviteur, Il appelle l'ange Gabriel et lui dit : 'J'aime untel, aime-le donc !' Alors Gabriel l'aime, puis il lance l'appel dans les cieux : 'Allah aime untel, aimez-le !' Alors les habitants du ciel l'aiment, et on lui accorde l'agrément sur la terre. »",
+      source: "Sahih Al-Bukhari (n°3209) et Sahih Muslim (n°2637)"
+    }
+  },
+  {
+    n: 48,
+    a: "الْمَجِيدُ",
+    p: "Al-Majid",
+    f: "Le Très-Glorieux",
+    m: "Le Souverain d'une gloire insigne, d'une noblesse parfaite et de bienfaits infinis.",
+    detailedMeaning: "Al-Majid réunit la grandeur absolue et la générosité infinie. Sa royauté est immaculée et Sa munificence resplendit sur toutes les créatures des cieux et de la terre.",
+    quran: {
+      arabic: "ذُو الْعَرْشِ الْمَجِيدُ",
+      translation: "Le Maître du Trône, le Très-Glorieux.",
+      surah: "Sourate Al-Buruj (85:15)"
+    },
+    hadith: {
+      text: "Dans la prière Abrahamique récitée à chaque Tashahhud : « Allâhumma salli 'alâ Muhammadin... Innaka Hamîdun Majîd » (Tu es certes digne de louange et Très-Glorieux).",
+      source: "Sahih Al-Bukhari (n°3370) et Sahih Muslim (n°405)"
+    }
+  },
+  {
+    n: 49,
+    a: "الْبَاعِثُ",
+    p: "Al-Ba'ith",
+    f: "Le Résurrecteur",
+    m: "Celui qui réveillera les morts de leurs tombes et envoie les prophètes avec guidance.",
+    detailedMeaning: "Al-Ba'ith insuffle la vie aux ossements devenus poussière au Jour dernier et ressuscite les consciences endormies par l'envoi des prophètes et la révélation des saintes écritures.",
+    quran: {
+      arabic: "وَأَنَّ السَّاعَةَ آتِيَةٌ لَّا رَيْبَ فِيهَا وَأَنَّ اللَّهَ يَبْعَثُ مَن فِي الْقُبُورِ",
+      translation: "Et que l'Heure viendra sans aucun doute, et qu'Allah ressuscitera ceux qui sont dans les tombeaux.",
+      surah: "Sourate Al-Hajj (22:7)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait à son réveil : « Louange à Allah qui nous a rendu la vie après nous avoir fait mourir (le sommeil), et c'est vers Lui que se fera la résurrection (An-Nushûr). »",
+      source: "Sahih Al-Bukhari (n°6312)"
+    }
+  },
+  {
+    n: 50,
+    a: "الشَّهِيدُ",
+    p: "Ash-Shahid",
+    f: "Le Témoin Infini",
+    m: "Celui à qui rien n'échappe, présent et témoin de chaque parole et acte.",
+    detailedMeaning: "Ash-Shahid constate toute réalité extérieure avec la même netteté qu'Il connaît les secrets de l'invisible. Au Jour du Jugement, Son témoignage souverain scellera le sort des créatures avec équité.",
+    quran: {
+      arabic: "قُلْ كَفَىٰ بِاللَّهِ شَهِيدًا بَيْنِي وَبَيْنَكُمْ ۚ إِنَّهُ كَانَ بِعِبَادِهِ خَبِيرًا بَصِيرًا",
+      translation: "Dis : 'Allah suffit comme témoin entre vous et moi. Il est sur Ses serviteurs Parfaitement Informé et Clairvoyant.'",
+      surah: "Sourate Al-Isra (17:96)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit lors de son prêche d'adieu : « Ai-je transmis le message ? » Les compagnons répondirent : « Oui ! » Il leva le doigt vers le ciel puis le baissa vers eux en disant : « Ô Allah, sois Témoin ! (Allâhumma sh-had). »",
+      source: "Sahih Muslim (n°1218)"
+    }
+  },
+  {
+    n: 51,
+    a: "الْحَقُّ",
+    p: "Al-Haqq",
+    f: "La Vérité Absolue",
+    m: "L'Éternel immuable dont l'existence, la souveraineté et la parole sont vérités.",
+    detailedMeaning: "Al-Haqq est l'Être réel par excellence : Son existence ne connaît ni début ni fin, Ses promesses se réalisent sans faillir et toute vérité émanant de la création n'est qu'un pâle reflet de Sa lumière.",
+    quran: {
+      arabic: "فَتَعَالَى اللَّهُ الْمَلِكُ الْحَقُّ ۖ لَا إِلَٰهَ إِلَّا هُوَ",
+      translation: "Que soit exalté Allah, le Vrai Souverain ! Nulle divinité digne d'adoration en dehors de Lui.",
+      surah: "Sourate Al-Mu'minun (23:116)"
+    },
+    hadith: {
+      text: "Dans la prière nocturne, le Prophète ﷺ invoquait : « Tu es la Vérité (Antal-Haqq), Ta promesse est vérité, Ta parole est vérité, la rencontre avec Toi est vérité, le Paradis est vérité, et l'Enfer est vérité... »",
+      source: "Sahih Al-Bukhari (n°1120) et Sahih Muslim (n°769)"
+    }
+  },
+  {
+    n: 52,
+    a: "الْوَكِيلُ",
+    p: "Al-Wakil",
+    f: "Le Digne de Confiance / Le Garant",
+    m: "Le Tuteur suprême à qui l'on peut confier avec sérénité la conduite de son destin.",
+    detailedMeaning: "Al-Wakil gère les affaires de Ses serviteurs avec une perfection infiniment supérieure à ce qu'ils pourraient accomplir par eux-mêmes. Se reposer sur Lui (Tawakkul) décharge l'âme de toute anxiété futile.",
+    quran: {
+      arabic: "الَّذِينَ قَالَ لَهُمُ النَّاسُ إِنَّ النَّاسَ قَدْ جَمَعُوا لَكُمْ فَاخْشَوْهُمْ فَزَادَهُمْ إِيمَانًا وَقَالُوا حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+      translation: "Ceux à qui l'on disait : 'Les gens se sont rassemblés contre vous, craignez-les !' Cela accrut leur foi et ils dirent : 'Allah nous suffit, et quel excellent Garant !'",
+      surah: "Sourate Ali 'Imran (3:173)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait en sortant de sa maison : « Au nom d'Allah, je m'en remets à Allah, il n'y a de force ni de puissance que par Allah » (Bismillâhi tawakkaltu 'alallâh, lâ hawla wa lâ quwwata illâ billâh).",
+      source: "Sunan Abi Dawud (n°5095) et Jami' At-Tirmidhi (n°3426)"
+    }
+  },
+  {
+    n: 53,
+    a: "الْقَوِيُّ",
+    p: "Al-Qawiyy",
+    f: "Le Tout-Fort",
+    m: "Celui dont l'énergie et la force sont infinies, sans défaillance ni épuisement.",
+    detailedMeaning: "Al-Qawiyy possède la pleine capacité motrice et créatrice. Rien dans les immensités galactiques ne peut opposer de résistance à Sa détermination souveraine.",
+    quran: {
+      arabic: "إِنَّ اللَّهَ لَقَوِيٌّ عَزِيزٌ",
+      translation: "Certes, Allah est Fort et Puissant.",
+      surah: "Sourate Al-Hajj (22:40)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Le croyant fort est meilleur et plus aimé d'Allah que le croyant faible, bien que dans les deux il y ait du bien. »",
+      source: "Sahih Muslim (n°2664)"
+    }
+  },
+  {
+    n: 54,
+    a: "الْمَتِينُ",
+    p: "Al-Matin",
+    f: "L'Inébranlable / Le Solide",
+    m: "Celui dont la vigueur est inaltérable, incapable d'éprouver la moindre lassitude.",
+    detailedMeaning: "Al-Matin désigne l'intensité indéfectible de la force divine. Ni l'effort, ni le passage des millénaires n'altèrent Son pouvoir qui demeure à jamais éclatant.",
+    quran: {
+      arabic: "إِنَّ اللَّهَ هُوَ الرَّزَّاقُ ذُو الْقُوَّةِ الْمَتِينُ",
+      translation: "En vérité, c'est Allah qui est le Grand Pourvoyeur, le Détenteur de la force inébranlable.",
+      surah: "Sourate Adh-Dhariyat (51:58)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Certes, cette religion est solide et profonde (matîn), pénétrez-y donc avec douceur. »",
+      source: "Musnad Ahmad (n°13052)"
+    }
+  },
+  {
+    n: 55,
+    a: "الْوَلِيُّ",
+    p: "Al-Waliyy",
+    f: "Le Protecteur Allié / Le Bienfaiteur",
+    m: "L'Ami intime, le Secoureur dévoué et le Défenseur bienveillant des croyants.",
+    detailedMeaning: "Al-Waliyy prend en charge les affaires de ceux qui L'aiment : Il les tire des ténèbres vers la clarté lumineuse, guide leurs pas dans l'adversité et leur octroie Sa victoire.",
+    quran: {
+      arabic: "اللَّهُ وَلِيُّ الَّذِينَ آمَنُوا يُخْرِجُهُم مِّنَ الظُّلُمَاتِ إِلَى النُّورِ",
+      translation: "Allah est le Protecteur de ceux qui ont la foi : Il les fait sortir des ténèbres à la lumière.",
+      surah: "Sourate Al-Baqarah (2:257)"
+    },
+    hadith: {
+      text: "Allah le Très-Haut a dit dans un Hadith Qudsi : « Quiconque prend pour ennemi un de Mes alliés dévoués (walî), Je lui déclare la guerre ! »",
+      source: "Sahih Al-Bukhari (n°6502)"
+    }
+  },
+  {
+    n: 56,
+    a: "الْحَمِيدُ",
+    p: "Al-Hamid",
+    f: "Le Digne de Louange",
+    m: "Celui qui est universellement loué pour Son essence, Ses attributs et Ses bienfaits.",
+    detailedMeaning: "Al-Hamid mérite la louange éternelle même si aucune créature ne prononçait Son éloge. Tous les atomes de l'univers célèbrent Sa magnificence par leur simple existence harmonieuse.",
+    quran: {
+      arabic: "يَا أَيُّهَا النَّاسُ أَنتُمُ الْفُقَرَاءُ إِلَى اللَّهِ ۖ وَاللَّهُ هُوَ الْغَنِيُّ الْحَمِيدُ",
+      translation: "Ô hommes ! C'est vous les indigents envers Allah, tandis qu'Allah est le Riche et le Digne de louange.",
+      surah: "Sourate Fatir (35:15)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait en se relevant de l'inclinaison : « Sami'allâhu liman hamidah... Rabbanâ wa lakal-hamd » (Allah entend celui qui Le loue... Ô notre Seigneur, à Toi la louange !).",
+      source: "Sahih Al-Bukhari (n°795) et Sahih Muslim (n°409)"
+    }
+  },
+  {
+    n: 57,
+    a: "الْمُحْصِي",
+    p: "Al-Muhsi",
+    f: "Celui qui dénombre et recense tout",
+    m: "Celui dont le calcul exhaustif cerne chaque grain de poussière, souffle et pensée.",
+    detailedMeaning: "Al-Muhsi possède un registre parfait où tout est consigné. Nulle goutte de pluie ni aucun battement d'aile d'oiseau ne quitte l'inventaire minutieux de Sa science infaillible.",
+    quran: {
+      arabic: "لَّقَدْ أَحْصَاهُمْ وَعَدَّهُمْ عَدًّا",
+      translation: "Il les a dénombrés et bien comptés un à un.",
+      surah: "Sourate Maryam (19:94)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Certes, Allah a 99 Noms... Quiconque les dénombre et les médite avec piété (ahsâha) entrera au Paradis. »",
+      source: "Sahih Al-Bukhari (n°2736) et Sahih Muslim (n°2677)"
+    }
+  },
+  {
+    n: 58,
+    a: "الْمُبْدِئُ",
+    p: "Al-Mubdi'",
+    f: "L'Auteur de la création initiale",
+    m: "Celui qui initie la création sans modèle préexistant ni exemple antérieur.",
+    detailedMeaning: "Al-Mubdi' conçoit l'univers ex nihilo par Sa seule parole créatrice 'Koun' (Sois !). Il inaugure les lois physiques et la vie avec une pureté originelle absolue.",
+    quran: {
+      arabic: "إِنَّهُ هُوَ يُبْدِئُ وَيُعِيدُ",
+      translation: "C'est Lui certes qui commence la création et la refait.",
+      surah: "Sourate Al-Buruj (85:13)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Allah existait alors qu'il n'y avait rien avant Lui, et Son Trône était sur l'eau, puis Il créa les cieux et la terre. »",
+      source: "Sahih Al-Bukhari (n°3191)"
+    }
+  },
+  {
+    n: 59,
+    a: "الْمُعِيدُ",
+    p: "Al-Mu'id",
+    f: "Le Réintégrateur / Le Restaurateur",
+    m: "Celui qui redonnera vie à toute la création après sa mort pour le Jugement.",
+    detailedMeaning: "Celui qui a fait surgir la création sans précédent est capable à plus forte raison de la rassembler et de la restaurer après sa décomposition physique dans la terre.",
+    quran: {
+      arabic: "كَمَا بَدَأْنَا أَوَّلَ خَلْقٍ نُّعِيدُهُ ۚ وَعْدًا عَلَيْنَا ۚ إِنَّا كُنَّا فَاعِلِينَ",
+      translation: "Tout comme Nous avons commencé la première création, Nous la recommencerons. C'est une promesse qui Nous incombe !",
+      surah: "Sourate Al-Anbiya (21:104)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Tout le corps du fils d'Adam sera dévoré par la terre sauf le coccyx (l'os minuscule de la base), c'est à partir de lui que la création sera reconstituée au Jour dernier. »",
+      source: "Sahih Al-Bukhari (n°4935) et Sahih Muslim (n°2955)"
+    }
+  },
+  {
+    n: 60,
+    a: "الْمُحْيِي",
+    p: "Al-Muhyi",
+    f: "Celui qui donne la vie",
+    m: "Celui qui insuffle l'esprit vital dans la matière inerte et fait revivre les cœurs.",
+    detailedMeaning: "Al-Muhyi fait verdir la terre aride après la pluie, fertilise l'embryon dans le sein maternel et ressuscite les âmes desséchées par la lumière vivifiante du Coran.",
+    quran: {
+      arabic: "فَانظُرْ إِلَىٰ آثَارِ رَحْمَتِ اللَّهِ كَيْفَ يُحْيِي الْأَرْضَ بَعْدَ مَوْتِهَا ۚ إِنَّ ذَٰلِكَ لَمُحْيِي الْمَوْتَىٰ",
+      translation: "Regarde donc les effets de la miséricorde d'Allah, comment Il redonne la vie à la terre après sa mort. C'est Lui en vérité qui fera revivre les morts.",
+      surah: "Sourate Ar-Rum (30:50)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « L'exemple de celui qui se rappelle son Seigneur et de celui qui ne se Le rappelle point est comparable à l'exemple du vivant et du mort. »",
+      source: "Sahih Al-Bukhari (n°6407) et Sahih Muslim (n°779)"
+    }
+  },
+  {
+    n: 61,
+    a: "الْمُمِيتُ",
+    p: "Al-Mumit",
+    f: "Celui qui donne la mort",
+    m: "Le Souverain qui décrète l'arrêt du souffle terrestre au terme fixé sans retard.",
+    detailedMeaning: "Al-Mumit rappelle à Lui les âmes créées. La mort n'est pas un anéantissement mais une passerelle vers la vie véritable de l'au-delà, rappelant la caducité de l'orgueil humain.",
+    quran: {
+      arabic: "كُلُّ نَفْسٍ ذَائِقَةُ الْمَوْتِ ۖ ثُمَّ إِلَيْنَا تُرْجَعُونَ",
+      translation: "Toute âme goûtera la mort. Ensuite, c'est vers Nous que vous serez ramenés.",
+      surah: "Sourate Al-'Ankabut (29:57)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Multipliez le souvenir de celle qui brise les plaisirs : la mort. »",
+      source: "Jami' At-Tirmidhi (n°2307) et Sunan An-Nasa'i, authentique"
+    }
+  },
+  {
+    n: 62,
+    a: "الْحَيُّ",
+    p: "Al-Hayy",
+    f: "Le Vivant Éternel",
+    m: "Celui qui possède une vie parfaite, continue, sans commencement ni fin.",
+    detailedMeaning: "La vie d'Allah n'est précédée d'aucun néant et suivie d'aucune fin. Elle est la source de toute existence, exempte de sommeil, de fatigue ou de dégénérescence.",
+    quran: {
+      arabic: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",
+      translation: "Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par Lui-même. Ni somnolence ni sommeil ne Le saisissent.",
+      surah: "Sourate Al-Baqarah (2:255)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a entendu un homme invoquer : 'Ô Allah, je Te demande en attestant que c'est Toi le Vivant, le Subsistant par Soi (Yâ Hayyu yâ Qayyûm)...' Le Prophète ﷺ dit alors : « Il a certes invoqué Allah par Son Nom Suprême avec lequel, lorsqu'Il est prié, Il exauce ! »",
+      source: "Sunan Abi Dawud (n°1495) et Jami' At-Tirmidhi (n°3544)"
+    }
+  },
+  {
+    n: 63,
+    a: "الْقَيُّومُ",
+    p: "Al-Qayyum",
+    f: "L'Immuable / L'Autonome",
+    m: "Celui qui subsiste par Lui-même et par qui subsiste l'ensemble de l'univers.",
+    detailedMeaning: "Al-Qayyum n'a besoin d'aucun soutien, d'aucune nourriture ni d'aucun lieu pour être. En revanche, le moindre atome de la création a besoin de Son maintien perpétuel pour ne pas s'effondrer.",
+    quran: {
+      arabic: "وَعَنَتِ الْوُجُوهُ لِلْحَيِّ الْقَيُّومِ ۖ وَقَدْ خَابَ مَنْ حَمَلَ ظُلْمًا",
+      translation: "Et les visages s'humilieront devant le Vivant, Celui qui subsiste par Lui-même. Et sera déçu quiconque porte une injustice.",
+      surah: "Sourate Ta-Ha (20:111)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait dans son invocation de secours : « Yâ Hayyu yâ Qayyûm, bi-rahmatika astaghîth » (Ô Vivant, Ô Subsistant par Toi-même, par Ta miséricorde j'appelle au secours !).",
+      source: "Jami' At-Tirmidhi (n°3524), authentifié par Al-Albani"
+    }
+  },
+  {
+    n: 64,
+    a: "الْوَاجِدُ",
+    p: "Al-Wajid",
+    f: "L'Opulent / Celui qui trouve tout",
+    m: "Celui qui ne manque de rien et dont aucune chose ne saurait échapper au vouloir.",
+    detailedMeaning: "Al-Wajid ne connaît nulle pénurie. Tout ce qu'Il désire se trouve instantanément à Sa portée sans recherche laborieuse ni obstacle.",
+    quran: {
+      arabic: "وَمَا كَانَ اللَّهُ لِيُعْجِزَهُ مِن شَيْءٍ فِي السَّمَاوَاتِ وَلَا فِي الْأَرْضِ",
+      translation: "Et rien dans les cieux ni sur terre ne saurait réduire Allah à l'impuissance.",
+      surah: "Sourate Fatir (35:44)"
+    },
+    hadith: {
+      text: "Allah dit dans le Hadith Qudsi : « Ô Mes serviteurs ! Si du premier au dernier d'entre vous... vous vous teniez sur une même terre pour Me demander et que J'accordais à chacun sa demande, cela ne diminuerait en rien ce que Je possède, pas plus qu'une aiguille plongée dans la mer n'en diminue l'eau. »",
+      source: "Sahih Muslim (n°2577)"
+    }
+  },
+  {
+    n: 65,
+    a: "الْمَاجِدُ",
+    p: "Al-Majid",
+    f: "L'Illustre / Le Noble",
+    m: "Le Magnifique en bienfaits, en gloire, en largesses et en bonté infinie.",
+    detailedMeaning: "Ce Nom exprime la surabondance de la générosité divine unie au faîte de la noblesse d'être. Ses présents ne tarissent jamais et Sa magnanimité est incomparable.",
+    quran: {
+      arabic: "قَالُوا أَتَعْجَبِينَ مِنْ أَمْرِ اللَّهِ ۖ رَحْمَتُ اللَّهِ وَبَرَكَاتُهُ عَلَيْكُمْ أَهْلَ الْبَيْتِ ۚ إِنَّهُ حَمِيدٌ مَّجِيدٌ",
+      translation: "Ils dirent : 'T'étonnes-tu de l'ordre d'Allah ? Que la miséricorde d'Allah et Ses bénédictions soient sur vous, gens de cette demeure ! Il est digne de louange et Très-Noble.'",
+      surah: "Sourate Hud (11:73)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ enseignait la prière sur lui-même en concluant : « Innaka Hamîdun Majîd » (Tu es certes digne de louange et de gloire).",
+      source: "Sahih Al-Bukhari (n°3370)"
+    }
+  },
+  {
+    n: 66,
+    a: "الْوَاحِدُ",
+    p: "Al-Wahid",
+    f: "L'Unique",
+    m: "L'Un sans second, sans égal et sans associé dans Sa royauté.",
+    detailedMeaning: "Al-Wahid réfute le polythéisme sous toutes ses formes : Il est seul créateur, seul législateur et seul digne d'amour inconditionnel et d'adoration pieuse.",
+    quran: {
+      arabic: "وَإِلَٰهُكُمْ إِلَٰهٌ وَاحِدٌ ۖ لَّا إِلَٰهَ إِلَّا هُوَ الرَّحْمَٰنُ الرَّحِيمُ",
+      translation: "Et votre Divinité est une Divinité Unique. Pas de divinité que Lui, le Tout-Miséricordieux, le Très-Miséricordieux.",
+      surah: "Sourate Al-Baqarah (2:163)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « La meilleure parole que j'ai prononcée, moi ainsi que les prophètes avant moi, est : 'Lâ ilâha illallâhu wahdahu lâ sharîka lah' (Nulle divinité en dehors d'Allah, Seul et sans associé). »",
+      source: "Muwatta Malik et Jami' At-Tirmidhi (n°3585)"
+    }
+  },
+  {
+    n: 67,
+    a: "الْأَحَدُ",
+    p: "Al-Ahad",
+    f: "L'Un Absolu",
+    m: "L'Indivisible, sans partie, sans commencement et sans descendance.",
+    detailedMeaning: "Alors qu'Al-Wahid exclut la pluralité d'associés, Al-Ahad exprime l'indivisibilité absolue de Son essence sainte : Il n'a pas été engendré et n'engendre point, et nul n'est Son semblable.",
+    quran: {
+      arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ",
+      translation: "Dis : 'Lui, Allah est Unique. Allah, le Refuge Universel.'",
+      surah: "Sourate Al-Ikhlas (112:1-2)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « La récitation de 'Qul Huwa Allâhu Ahad' équivaut au tiers du Coran tout entier. »",
+      source: "Sahih Al-Bukhari (n°5015) et Sahih Muslim (n°811)"
+    }
+  },
+  {
+    n: 68,
+    a: "الصَّمَدُ",
+    p: "As-Samad",
+    f: "Le Soutien Universel / L'Impénétrable",
+    m: "Celui dont toute créature a besoin et qui n'a besoin de rien ni de personne.",
+    detailedMeaning: "As-Samad est le roc vers lequel toutes les créatures se tournent dans leurs détresses et leurs espoirs. Il n'a besoin ni de nourriture ni de repos, tandis que tout dépend de Sa pérennité.",
+    quran: {
+      arabic: "اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+      translation: "Allah, Le Seul à être imploré pour ce que nous désirons. Il n'a jamais engendré, n'a pas été engendré non plus. Et nul n'est égal à Lui.",
+      surah: "Sourate Al-Ikhlas (112:2-4)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit au sujet d'un homme qui invoquait en disant : 'Allâhumma innî as'aluka bi-annî ashhadu annaka Antallâhul-Ahadus-Samad...' : « Il a juré par le Nom Suprême d'Allah avec lequel toute demande est accordée ! »",
+      source: "Sunan Abi Dawud (n°1493) et Jami' At-Tirmidhi (n°3475)"
+    }
+  },
+  {
+    n: 69,
+    a: "الْقَادِرُ",
+    p: "Al-Qadir",
+    f: "Le Capable / Le Puissant",
+    m: "Celui qui possède la capacité intégrale d'accomplir tout ce qu'Il décrète.",
+    detailedMeaning: "Al-Qadir peut créer ou anéantir selon Sa volonté sans qu'aucun décret ne Le prenne au dépourvu ni ne rencontre la moindre difficulté d'exécution.",
+    quran: {
+      arabic: "قُلْ هُوَ الْقَادِرُ عَلَىٰ أَن يَبْعَثَ عَلَيْكُمْ عَذَابًا مِّن فَوْقِكُمْ أَوْ مِن تَحْتِ أَرْجُلِكُمْ",
+      translation: "Dis : 'Il est capable d'envoyer sur vous un châtiment venant du haut ou de dessous vos pieds...'",
+      surah: "Sourate Al-An'am (6:65)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Nul ne saurait devancer la volonté du Capable Suprême. »",
+      source: "Musnad Ahmad (n°14321)"
+    }
+  },
+  {
+    n: 70,
+    a: "الْمُقْتَدِرُ",
+    p: "Al-Muqtadir",
+    f: "L'Omnipotent Prédominant",
+    m: "Le Dominateur absolu dont la puissance domine et subjugue toutes les forces.",
+    detailedMeaning: "Al-Muqtadir est la forme superlative d'Al-Qadir. Sa puissance triomphe des complots des puissants de la terre et mène le destin universel à son accomplissement inéluctable.",
+    quran: {
+      arabic: "فَأَخَذْنَاهُمْ أَخْذَ عَزِيزٍ مُّقْتَدِرٍ",
+      translation: "Nous les saisîmes donc du châtiment d'un Tout-Puissant, d'un Omnipotent.",
+      surah: "Sourate Al-Qamar (54:42)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Les cœurs des fils d'Adam sont tous entre deux doigts des Doigts du Miséricordieux, comme un seul cœur, Il le tourne comme Il veut. »",
+      source: "Sahih Muslim (n°2654)"
+    }
+  },
+  {
+    n: 71,
+    a: "الْمُقَدِّمُ",
+    p: "Al-Muqaddim",
+    f: "Celui qui avance et donne priorité",
+    m: "Celui qui élève, rapproche et favorise les êtres selon Sa justice souveraine.",
+    detailedMeaning: "Al-Muqaddim avance dans le temps et dans les rangs spirituels les croyants dévoués et les prophètes, leur accordant la primauté sur la terre et dans les degrés célestes.",
+    quran: {
+      arabic: "يُقَدِّمُ مَن يَشَاءُ وَيُؤَخِّرُ مَن يَشَاءُ بِمَا قَدَّمَتْ أَيْدِيهِمْ",
+      translation: "Il accorde priorité à qui Il veut et relègue qui Il veut en toute justice.",
+      surah: "Sens coranique récurrent (Sourate Al-Qaf et Fatir)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait à la fin de sa prière : « Antal-Muqaddimu wa Antal-Mu'akhkhiru, lâ ilâha illâ Ant » (Tu es Celui qui avance et Tu es Celui qui retarde, point de divinité en dehors de Toi).",
+      source: "Sahih Al-Bukhari (n°1120) et Sahih Muslim (n°771)"
+    }
+  },
+  {
+    n: 72,
+    a: "الْمُؤَخِّرُ",
+    p: "Al-Mu'akhkhir",
+    f: "Celui qui retarde et relègue",
+    m: "Celui qui repousse dans le temps et abaisse les rangs des coupables.",
+    detailedMeaning: "Al-Mu'akhkhir retarde le terme des peuples pour leur laisser la chance de se réformer ou relègue au dernier rang ceux qui ont méprisé Sa guidance et Ses commandements.",
+    quran: {
+      arabic: "إِنَّ أَجَلَ اللَّهِ إِذَا جَاءَ لَا يُؤَخَّرُ ۖ لَوْ كُنتُمْ تَعْلَمُونَ",
+      translation: "Certes, le terme fixé par Allah, quand il vient, ne peut être retardé, si seulement vous saviez !",
+      surah: "Sourate Nuh (71:4)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Seigneur ! Pardonne-moi ce que j'ai avancé et ce que j'ai retardé... C'est Toi qui avances et c'est Toi qui retardes. »",
+      source: "Sahih Muslim (n°769)"
+    }
+  },
+  {
+    n: 73,
+    a: "الْأَوَّلُ",
+    p: "Al-Awwal",
+    f: "Le Premier",
+    m: "Celui avant qui rien n'existait, sans commencement temporel.",
+    detailedMeaning: "Al-Awwal est la cause première de toute existence sans avoir Lui-même été causé. L'univers entier est né de Son décret, tandis que Lui est prééternel.",
+    quran: {
+      arabic: "هُوَ الْأَوَّلُ وَالْآخِرُ وَالظَّاهِرُ وَالْبَاطِنُ ۖ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ",
+      translation: "C'est Lui le Premier et le Dernier, l'Apparent et le Caché et Il est Omniscient de toute chose.",
+      surah: "Sourate Al-Hadid (57:3)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait avant de dormir : « Ô Allah ! Tu es le Premier, rien n'était avant Toi ; et Tu es le Dernier, rien ne sera après Toi ! »",
+      source: "Sahih Muslim (n°2713)"
+    }
+  },
+  {
+    n: 74,
+    a: "الْآخِرُ",
+    p: "Al-Akhir",
+    f: "Le Dernier",
+    m: "Celui qui subsistera pour toujours lorsque tout aura disparu de l'univers.",
+    detailedMeaning: "Quand les étoiles s'éteindront et que les créatures retourneront au néant, Al-Akhir demeurera dans Sa gloire impérissable, sans fin ni déclin.",
+    quran: {
+      arabic: "كُلُّ مَنْ عَلَيْهَا فَانٍ ۝ وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو الْجَلَالِ وَالْإِكْرَامِ",
+      translation: "Tout ce qui est sur elle (la terre) doit disparaître, seule subsistera la Face de ton Seigneur, Plein de Majesté et de Noblesse.",
+      surah: "Sourate Ar-Rahman (55:26-27)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Tu es le Dernier et rien n'est après Toi. Règle pour nous notre dette et enrichis-nous contre la pauvreté. »",
+      source: "Sahih Muslim (n°2713)"
+    }
+  },
+  {
+    n: 75,
+    a: "الظَّاهِرُ",
+    p: "Az-Zahir",
+    f: "Le Manifeste / L'Éclatant",
+    m: "Celui dont l'existence est révélée avec splendeur par les signes de l'univers.",
+    detailedMeaning: "Az-Zahir se manifeste avec une éclatante certitude à travers l'ordonnancement mathématique du cosmos, la beauté des cieux et la vie qui foisonne dans la nature.",
+    quran: {
+      arabic: "سَنُرِيهِمْ آيَاتِنَا فِي الْآفَاقِ وَفِي أَنفُسِهِمْ حَتَّىٰ يَتَبَيَّنَ لَهُمْ أَنَّهُ الْحَقُّ",
+      translation: "Nous leur montrerons Nos signes dans les horizons et en eux-mêmes, jusqu'à ce qu'il leur apparaisse clairement que c'est la vérité.",
+      surah: "Sourate Fussilat (41:53)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a enseigné : « Tu es le Manifeste (Az-Zhâhir), nul n'est au-dessus de Toi ! »",
+      source: "Sahih Muslim (n°2713)"
+    }
+  },
+  {
+    n: 76,
+    a: "الْبَاطِنُ",
+    p: "Al-Batin",
+    f: "Le Caché / L'Insondable",
+    m: "L'Invisible aux regards matériels et le Connaisseur des secrets les plus intimes.",
+    detailedMeaning: "Les yeux de chair ne peuvent contempler Al-Batin dans ce monde, mais Son regard pénètre la trame invisible des pensées et de l'âme humaine.",
+    quran: {
+      arabic: "لَّا تُدْرِكُهُ الْأَبْصَارُ وَهُوَ يُدْرِكُ الْأَبْصَارَ ۖ وَهُوَ اللَّطِيفُ الْخَبِيرُ",
+      translation: "Les regards ne peuvent l'atteindre, cependant qu'Il saisit tous les regards. Et Il est le Subtil, le Parfaitement Informé.",
+      surah: "Sourate Al-An'am (6:103)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Et Tu es l'Insondable (Al-Bâtin), rien n'est plus impénétrable que Toi ! »",
+      source: "Sahih Muslim (n°2713)"
+    }
+  },
+  {
+    n: 77,
+    a: "الْوَالِي",
+    p: "Al-Wali",
+    f: "Le Maître Souverain / Le Gouverneur",
+    m: "Le Maître unique qui administre et gouverne toute la création avec sagesse.",
+    detailedMeaning: "Al-Wali ordonne le cours des événements, gère les royautés et pourvoit au destin de chaque créature sans avoir besoin de conseillers ni de délégués.",
+    quran: {
+      arabic: "لَهُ مُعَقِّبَاتٌ مِّن بَيْنِ يَدَيْهِ وَمِنْ خَلْفِهِ يَحْفَظُونَهُ مِنْ أَمْرِ اللَّهِ ... وَمَا لَهُم مِّن دُونِهِ مِن وَالٍ",
+      translation: "...Et ils n'ont en dehors de Lui aucun maître ni protecteur souverain.",
+      surah: "Sourate Ar-Ra'd (13:11)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Ô Allah, c'est Toi qui diriges les cœurs, dirige nos cœurs vers Ton obéissance ! »",
+      source: "Sahih Muslim (n°2654)"
+    }
+  },
+  {
+    n: 78,
+    a: "الْمُتَعَالِي",
+    p: "Al-Muta'ali",
+    f: "Le Sublime Transcendant",
+    m: "L'Élevé infiniment au-dessus de toute calomnie, imperfection ou faiblesse.",
+    detailedMeaning: "Al-Muta'ali transcende les fausses représentations humaines. Sa perfection surpasse infiniment ce que les négateurs ou les polythéistes Lui attribuent.",
+    quran: {
+      arabic: "عَالِمُ الْغَيْبِ وَالشَّهَادَةِ الْكَبِيرُ الْمُتَعَالِ",
+      translation: "Le Connaisseur de ce qui est caché et de ce qui est visible, le Grand, le Très-Sublime.",
+      surah: "Sourate Ar-Ra'd (13:9)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait dans ses louanges : « Que soit béni et exalté notre Seigneur (Tabâraka wa Ta'âlâ Rabbunâ), à Lui appartient la majesté suprême. »",
+      source: "Sahih Al-Bukhari (n°1145)"
+    }
+  },
+  {
+    n: 79,
+    a: "الْبَرُّ",
+    p: "Al-Barr",
+    f: "Le Bienfaisant / La Source de Bonté",
+    m: "La Source originelle de toute bienveillance, compassion et loyauté fidèle.",
+    detailedMeaning: "Al-Barr tient toutes Ses promesses avec fidélité et traite Ses serviteurs avec une mansuétude et une générosité paternelle infiniment douce et bienveillante.",
+    quran: {
+      arabic: "إِنَّا كُنَّا مِن قَبْلُ نَدْعُوهُ ۖ إِنَّهُ هُوَ الْبَرُّ الرَّحِيمُ",
+      translation: "Nous L'invoquions auparavant. C'est Lui certes le Bienfaisant, le Très-Miséricordieux.",
+      surah: "Sourate At-Tur (52:28)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « La piété et la vraie bienfaisance (Al-Birr) résident dans le bon comportement, et le péché est ce qui trouble ton for intérieur. »",
+      source: "Sahih Muslim (n°2553)"
+    }
+  },
+  {
+    n: 80,
+    a: "التَّوَّابُ",
+    p: "At-Tawwab",
+    f: "L'Accueillant au Repentir",
+    m: "Celui qui inspire le repentir et l'agrée avec effusion sans jamais s'en lasser.",
+    detailedMeaning: "At-Tawwab suscite d'abord le remords sincère dans le cœur du pécheur, puis lorsque celui-ci revient vers Lui en pleurant sa faute, Il le reçoit avec miséricorde et efface son passé.",
+    quran: {
+      arabic: "أَلَمْ يَعْلَمُوا أَنَّ اللَّهَ هُوَ يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ وَيَأْخُذُ الصَّدَقَاتِ وَأَنَّ اللَّهَ هُوَ التَّوَّابُ الرَّحِيمُ",
+      translation: "Ne savent-ils pas que c'est Allah qui accueille le repentir de Ses serviteurs et reçoit les aumônes, et qu'Allah est l'Accueillant au repentir, le Très-Miséricordieux ?",
+      surah: "Sourate At-Tawbah (9:104)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Certes, Allah se réjouit du repentir de Son serviteur plus que l'un d'entre vous qui retrouve sa chamelle égarée au milieu du désert avec ses vivres ! »",
+      source: "Sahih Al-Bukhari (n°6309) et Sahih Muslim (n°2747)"
+    }
+  },
+  {
+    n: 81,
+    a: "الْمُنْتَقِمُ",
+    p: "Al-Muntaqim",
+    f: "Le Justicier Vengeur",
+    m: "Celui qui brise avec équité les tyrans obstinés après leur avoir laissé avertissement.",
+    detailedMeaning: "La vengeance d'Allah n'a rien d'une passion aveugle : elle constitue l'application de la justice suprême pour venger les orphelins, les opprimés et restaurer l'ordre moral brisé par les criminels endurcis.",
+    quran: {
+      arabic: "إِنَّا مِنَ الْمُجْرِمِينَ مُنتَقِمُونَ",
+      translation: "Nous Nous vengerons certes des criminels endurcis.",
+      surah: "Sourate As-Sajdah (32:22)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a averti : « Prenez garde à l'invocation de l'opprimé, car il n'y a pas entre elle et Allah de voile ! »",
+      source: "Sahih Al-Bukhari (n°2448) et Sahih Muslim (n°19)"
+    }
+  },
+  {
+    n: 82,
+    a: "الْعَفُوُّ",
+    p: "Al-'Afuww",
+    f: "L'Indulgent / L'Effaceur des péchés",
+    m: "Celui qui efface totalement les fautes sans laisser la moindre trace ni stigmate.",
+    detailedMeaning: "La notion de ''Afw' est plus profonde que le simple pardon : elle implique d'effacer la faute comme le vent balaie une trace de pas dans le sable jusqu'à ce qu'il n'en subsiste plus rien.",
+    quran: {
+      arabic: "فَأُولَٰئِكَ عَسَى اللَّهُ أَن يَعْفُوَ عَنْهُمْ ۚ وَكَانَ اللَّهُ عَفُوًّا غَفُورًا",
+      translation: "Pour ceux-là, il se peut qu'Allah leur pardonne. Et Allah est Indulgent et Grand Pardonneur.",
+      surah: "Sourate An-Nisa (4:99)"
+    },
+    hadith: {
+      text: "'Aïcha a demandé au Prophète ﷺ : « Si je sais quelle nuit est Laylatul-Qadr, que dois-je dire ? » Il répondit : « Dis : Allâhumma innaka 'Afuwwun tuhibbul-'afwa fa'fu 'annî (Ô Allah, Tu es l'Effaceur des péchés, Tu aimes effacer les fautes, alors efface mes péchés !). »",
+      source: "Jami' At-Tirmidhi (n°3513) et Sunan Ibn Majah, authentique"
+    }
+  },
+  {
+    n: 83,
+    a: "الرَّؤُوفُ",
+    p: "Ar-Ra'uf",
+    f: "Le Très-Compatissant",
+    m: "Celui dont la tendresse, la pitié et la bienveillance sont au degré le plus touchant.",
+    detailedMeaning: "La 'Ra'fa' est une miséricorde particulièrement délicate et protectrice qui préserve le serviteur des fardeaux insupportables et veille sur son bien-être avec une douceur infinie.",
+    quran: {
+      arabic: "وَإِنَّ اللَّهَ بِكُمْ لَرَءُوفٌ رَّحِيمٌ",
+      translation: "Et certes, Allah est envers vous Compatissant et Très-Miséricordieux.",
+      surah: "Sourate Al-Hadid (57:9)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « La compassion n'entre dans une chose sans la parer de beauté, et elle ne s'en retire sans l'enlaidir. »",
+      source: "Sahih Muslim (n°2594)"
+    }
+  },
+  {
+    n: 84,
+    a: "مَالِكُ الْمُلْكِ",
+    p: "Malik-ul-Mulk",
+    f: "Le Maître du Royaume Céleste et Terrestre",
+    m: "Le Détenteur souverain et perpétuel de toute l'autorité dans l'univers.",
+    detailedMeaning: "Tous les empires du monde ne sont que des ombres éphémères. Malik-ul-Mulk confère la royauté à qui Il veut pour l'éprouver, puis la reprend souverainement au moment décidé.",
+    quran: {
+      arabic: "قُلِ اللَّهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَن تَشَاءُ وَتَنزِعُ الْمُلْكَ مِمَّن تَشَاءُ",
+      translation: "Dis : 'Ô Allah, Maître de l'autorité suprême ! Tu donnes le pouvoir à qui Tu veux, et Tu l'arraches à qui Tu veux...'",
+      surah: "Sourate Ali 'Imran (3:26)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a enseigné : « Nul n'a de titre plus répréhensible auprès d'Allah qu'un homme s'autoproclamant 'Roi des rois', car il n'y a de Roi Souverain qu'Allah. »",
+      source: "Sahih Al-Bukhari (n°6205) et Sahih Muslim (n°2143)"
+    }
+  },
+  {
+    n: 85,
+    a: "ذُو الْجَلَالِ وَالْإِكْرَامِ",
+    p: "Dhul-Jalali wal-Ikram",
+    f: "Détenteur de Majesté et de Générosité",
+    m: "Celui qui est à la fois craint pour Sa grandeur et aimé pour Ses immenses grâces.",
+    detailedMeaning: "Ce Nom illustre unit les deux pôles de la foi : la révérence sacrée inspirée par Sa grandeur (Jalal) et l'amour reconnaissant suscité par Ses bienfaits inépuisables (Ikram).",
+    quran: {
+      arabic: "وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو الْجَلَالِ وَالْإِكْرَامِ",
+      translation: "Et seule subsistera la Face de ton Seigneur, Détenteur de la Majesté et de la Noblesse.",
+      surah: "Sourate Ar-Rahman (55:27)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Persévérez avec insistance dans vos prières par la formule : 'Yâ Dhal-Jalâli wal-Ikrâm' ! »",
+      source: "Jami' At-Tirmidhi (n°3525), authentique"
+    }
+  },
+  {
+    n: 86,
+    a: "الْمُقْسِطُ",
+    p: "Al-Muqsit",
+    f: "L'Équitable",
+    m: "Celui qui établit la justice parfaite et rend droit aux personnes opprimées.",
+    detailedMeaning: "Al-Muqsit compense les victimes avec magnificence et ôte la rancœur des cœurs des fidèles au Paradis afin qu'ils y vivent en frères réconciliés dans la paix.",
+    quran: {
+      arabic: "شَهِدَ اللَّهُ أَنَّهُ لَا إِلَٰهَ إِلَّا هُوَ وَالْمَلَائِكَةُ وَأُولُو الْعِلْمِ قَائِمًا بِالْقِسْطِ",
+      translation: "Allah atteste, et aussi les Anges et les doués de savoir, qu'il n'y a de divinité que Lui, maintenant la justice avec équité.",
+      surah: "Sourate Ali 'Imran (3:18)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Les personnes équitables (Al-Muqsitûn) seront auprès d'Allah sur des estrades de lumière à la droite du Tout-Miséricordieux. »",
+      source: "Sahih Muslim (n°1827)"
+    }
+  },
+  {
+    n: 87,
+    a: "الْجَامِعُ",
+    p: "Al-Jami'",
+    f: "Le Rassembleur",
+    m: "Celui qui réunira l'humanité entière au Jour du Jugement et unit les cœurs dispersés.",
+    detailedMeaning: "Al-Jami' rassemble les contraires dans la nature, unit les cœurs dans la fraternité de la foi et rassemblera les générations humaines passées et futures pour l'Ultime Jugement.",
+    quran: {
+      arabic: "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ ۚ إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ",
+      translation: "Seigneur ! C'est Toi qui rassembleras les gens en un Jour dont la venue ne fait aucun doute. Certes, Allah ne manque jamais à Sa promesse.",
+      surah: "Sourate Ali 'Imran (3:9)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Vous serez rassemblés au Jour de la Résurrection pieds nus, nus et incirconcis... tout comme Nous avons commencé la première création. »",
+      source: "Sahih Al-Bukhari (n°3349) et Sahih Muslim (n°2860)"
+    }
+  },
+  {
+    n: 88,
+    a: "الْغَنِيُّ",
+    p: "Al-Ghaniyy",
+    f: "Le Suffisant à Soi-même / L'Infiniment Riche",
+    m: "Le Riche absolu qui ne dépend de rien tandis que toute créature dépend de Lui.",
+    detailedMeaning: "L'obéissance de tous les habitants des cieux et de la terre n'ajoute rien à Sa majesté, pas plus que leur désobéissance ne saurait Lui nuire. Sa richesse est auto-suffisante.",
+    quran: {
+      arabic: "وَرَبُّكَ الْغَنِيُّ ذُو الرَّحْمَةِ",
+      translation: "Et ton Seigneur est le Suffisant à Soi-même, le Détenteur de la miséricorde.",
+      surah: "Sourate Al-An'am (6:133)"
+    },
+    hadith: {
+      text: "Allah le Très-Haut dit dans le Hadith Qudsi : « Ô Mes serviteurs ! Vous ne sauriez Me nuire en quoi que ce soit, ni M'être utiles en quoi que ce soit... »",
+      source: "Sahih Muslim (n°2577)"
+    }
+  },
+  {
+    n: 89,
+    a: "الْمُغْنِي",
+    p: "Al-Mughni",
+    f: "Celui qui enrichit et comble",
+    m: "Celui qui octroie la plénitude du cœur et verse la subsistance matérielle et spirituelle.",
+    detailedMeaning: "La richesse suprême accordée par Al-Mughni n'est pas l'accumulation des biens terrestres, mais le sentiment apaisé de contentement intérieur (Ghina an-Nafs).",
+    quran: {
+      arabic: "وَأَنَّهُ هُوَ أَغْنَىٰ وَأَقْنَىٰ",
+      translation: "Et c'est Lui qui a enrichi et qui a fait acquérir.",
+      surah: "Sourate An-Najm (53:48)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « La vraie richesse ne réside pas dans l'abondance des biens matériels, mais la vraie richesse est la richesse de l'âme. »",
+      source: "Sahih Al-Bukhari (n°6446) et Sahih Muslim (n°1051)"
+    }
+  },
+  {
+    n: 90,
+    a: "الْمَانِعُ",
+    p: "Al-Mani'",
+    f: "Le Défenseur / Celui qui préserve et retient",
+    m: "Celui qui empêche le mal de nuire et refuse certains désirs par pure bienveillance.",
+    detailedMeaning: "Lorsqu'Allah refuse un bien matériel à un serviteur croyant, ce refus est en réalité un don protecteur (Man'uhu 'Ata') afin d'éviter qu'il ne se perde dans l'égarement ou la vanité.",
+    quran: {
+      arabic: "مَّا يَفْتَحِ اللَّهُ لِلنَّاسِ مِن رَّحْمَةٍ فَلَا مُمْسِكَ لَهَا ۖ وَمَا يُمْسِكْ فَلَا مُرْسِلَ لَهُ مِن بَعْدِهِ",
+      translation: "Ce qu'Allah accorde en miséricorde aux hommes, nul ne peut le retenir. Et ce qu'Il retient, nul ne peut le relâcher après Lui.",
+      surah: "Sourate Fatir (35:2)"
+    },
+    hadith: {
+      text: "Après chaque prière, le Prophète ﷺ proclamait : « Ô Allah ! Nul ne peut empêcher ce que Tu as donné, et nul ne peut donner ce que Tu as retenu (Lâ mâni'a limâ a'tayta wa lâ mu'tiya limâ mana'ta). »",
+      source: "Sahih Al-Bukhari (n°844) et Sahih Muslim (n°593)"
+    }
+  },
+  {
+    n: 91,
+    a: "الضَّارُّ",
+    p: "Ad-Darr",
+    f: "Le Maître des épreuves",
+    m: "Celui qui décrète les difficultés pour purifier, éveiller et forger les âmes.",
+    detailedMeaning: "Rien de pénible ne survient dans l'univers sans Sa permission souveraine. Ces épreuves sont destinées à guérir l'âme de l'orgueil et à l'orienter vers la patience et la quête de délivrance.",
+    quran: {
+      arabic: "وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ",
+      translation: "Et si Allah fait qu'un mal te touche, nul ne peut l'écarter en dehors de Lui.",
+      surah: "Sourate Yunus (10:107)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a enseigné : « Sache que si la communauté entière s'unissait pour te nuire en quelque chose, ils ne te nuiraient qu'en ce qu'Allah a déjà prescrit à ton encontre. »",
+      source: "Jami' At-Tirmidhi (n°2516)"
+    }
+  },
+  {
+    n: 92,
+    a: "النَّافِعُ",
+    p: "An-Nafi'",
+    f: "La Source de tout profit et bienfaisance",
+    m: "Celui qui procure tout bénéfice véritable, toute guérison et toute félicité.",
+    detailedMeaning: "Tout ce qui procure une joie pure, une santé recouvrée, une nourriture saine ou une inspiration lumineuse prend sa source auprès d'An-Nafi'.",
+    quran: {
+      arabic: "وَإِن يُرِدْكَ بِخَيْرٍ فَلَا رَادَّ لِفَضْلِهِ ۚ يُصِيبُ بِهِ مَن يَشَاءُ مِنْ عِبَادِهِ",
+      translation: "Et s'Il veut pour toi un bien, nul ne peut repousser Sa grâce. Il en gratifie qui Il veut parmi Ses serviteurs.",
+      surah: "Sourate Yunus (10:107)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Sache que si les hommes s'unissaient pour te faire bénéficier d'une chose, ils ne te feraient bénéficier que de ce qu'Allah a déjà écrit pour toi. »",
+      source: "Jami' At-Tirmidhi (n°2516)"
+    }
+  },
+  {
+    n: 93,
+    a: "النُّورُ",
+    p: "An-Nur",
+    f: "La Lumière Suprême",
+    m: "La Lumière divine des cieux et de la terre qui éclaire et guide les égarés.",
+    detailedMeaning: "An-Nur dissipe les ténèbres de l'ignorance par la révélation du Coran, illumine la raison humaine et éclaire le cœur des croyants par la clarté éclatante de la vérité.",
+    quran: {
+      arabic: "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ ۚ مَثَلُ نُورِهِ كَمِشْكَاةٍ فِيهَا مِصْبَاحٌ",
+      translation: "Allah est la Lumière des cieux et de la terre. L'exemple de Sa lumière est semblable à une niche où se trouve une lampe...",
+      surah: "Sourate An-Nur (24:35)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait : « Ô Allah ! Mets dans mon cœur une lumière, dans ma vue une lumière, dans mon ouïe une lumière, à ma droite une lumière, à ma gauche une lumière, et accorde-moi une immense lumière ! »",
+      source: "Sahih Muslim (n°763)"
+    }
+  },
+  {
+    n: 94,
+    a: "الْهَادِي",
+    p: "Al-Hadi",
+    f: "Le Guide Suprême",
+    m: "Celui qui éclaire les cœurs et conduit sur la voie droite du salut éternel.",
+    detailedMeaning: "Al-Hadi oriente les oiseaux migrateurs dans le ciel, instruit l'enfant nouveau-né à téter sa mère et inspire aux êtres de lumière le chemin de la sagesse et de l'adoration sincère.",
+    quran: {
+      arabic: "وَكَفَىٰ بِرَبِّكَ هَادِيًا وَنَصِيرًا",
+      translation: "Et ton Seigneur suffit amplement comme Guide et comme Soutien.",
+      surah: "Sourate Al-Furqan (25:31)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ invoquait quotidiennement : « Ô Allah ! Je Te demande la guidance (Al-Hudâ), la piété, la retenue et la richesse de l'âme. »",
+      source: "Sahih Muslim (n°2721)"
+    }
+  },
+  {
+    n: 95,
+    a: "الْبَدِيعُ",
+    p: "Al-Badi'",
+    f: "L'Incomparable Créateur",
+    m: "Celui qui donne naissance à une création admirable d'une originalité stupéfiante.",
+    detailedMeaning: "Al-Badi' est Celui dont les œuvres ne souffrent aucune répétition banale. Chaque fleur, chaque galaxie et chaque flocon de neige est une œuvre d'art sans modèle préexistant.",
+    quran: {
+      arabic: "بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ ۖ وَإِذَا قَضَىٰ أَمْرًا فَإِنَّمَا يَقُولُ لَهُ كُن فَيَكُونُ",
+      translation: "Créateur incomparable des cieux et de la terre ! Quand Il décide d'une chose, Il dit seulement : 'Sois !', et elle est aussitôt.",
+      surah: "Sourate Al-Baqarah (2:117)"
+    },
+    hadith: {
+      text: "Un compagnon invoqua : 'Ô Allah, je Te prie par le fait que Tu es le Créateur Incomparable des cieux et de la terre (Badî'as-samâwâti wal-ard)...' Le Prophète ﷺ dit : « Il a prié par le Nom Suprême avec lequel Allah exauce assurément. »",
+      source: "Sunan Abi Dawud (n°1495) et Jami' At-Tirmidhi (n°3544)"
+    }
+  },
+  {
+    n: 96,
+    a: "الْبَاقِي",
+    p: "Al-Baqi",
+    f: "L'Éternel Subsistant",
+    m: "Celui qui ne périt jamais, demeurant à perpétuité par-delà la fin des temps.",
+    detailedMeaning: "Toutes les beautés terrestres et les royaumes humains ne sont que des éclats passagers voués au déclin. Seul Al-Baqi subsiste avec splendeur dans une éternité inaltérable.",
+    quran: {
+      arabic: "وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو الْجَلَالِ وَالْإِكْرَامِ",
+      translation: "Seule subsistera la Face de ton Seigneur, Plein de Majesté et de Noblesse.",
+      surah: "Sourate Ar-Rahman (55:27)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ disait : « Ce qui est auprès de vous s'épuise, mais ce qui est auprès d'Allah est permanent et éternel (Bâq). »",
+      source: "En référence au verset de la Sourate An-Nahl (16:96)"
+    }
+  },
+  {
+    n: 97,
+    a: "الْوَارِثُ",
+    p: "Al-Warith",
+    f: "L'Héritier Suprême",
+    m: "Celui à qui reviendra la royauté et la possession intégrale après l'anéantissement du monde.",
+    detailedMeaning: "Au terme de la création, tous les possesseurs terrestres lâcheront leurs richesses éphémères. C'est à Al-Warith que revient la royauté totale, car Il en est le Propriétaire originel et final.",
+    quran: {
+      arabic: "وَإِنَّا لَنَحْنُ نُحْيِي وَنُمِيتُ وَنَحْنُ الْوَارِثُونَ",
+      translation: "Et c'est bien Nous qui donnons la vie et donnons la mort, et c'est Nous l'Héritier Suprême.",
+      surah: "Sourate Al-Hijr (15:23)"
+    },
+    hadith: {
+      text: "Le Prophète Zacharie (Zakariyya) invoquait : « Seigneur, ne me laisse pas seul, bien que Tu sois le Meilleur des héritiers (Wa Anta Khayrul-Wârithîn). »",
+      source: "Sourate Al-Anbiya (21:89)"
+    }
+  },
+  {
+    n: 98,
+    a: "الرَّشِيدُ",
+    p: "Ar-Rashid",
+    f: "Le Guide Parfait / Le Juste Concepteur",
+    m: "Celui dont tous les décrets et ordonnances mènent infailliblement à la rectitude.",
+    detailedMeaning: "Ar-Rashid agit toujours selon la sagesse suprême sans nulle erreur d'appréciation. Il dirige Ses serviteurs avec rectitude vers leur bien spirituel et terrestre.",
+    quran: {
+      arabic: "إِذْ أَوَى الْفِتْيَةُ إِلَى الْكَهْفِ فَقَالُوا رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا",
+      translation: "Quand les jeunes gens se réfugièrent dans la caverne, ils dirent : 'Ô notre Seigneur, donne-nous de Ta part une miséricorde et prépare-nous un chemin de rectitude !'",
+      surah: "Sourate Al-Kahf (18:10)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ enseignait dans le sermon du besoin (Khutbatul-Hâjah) : « Celui qu'Allah guide, nul ne peut l'égarer ; et celui qu'Il égare, nul ne peut le guider avec rectitude (Murshidâ). »",
+      source: "Sahih Muslim (n°867)"
+    }
+  },
+  {
+    n: 99,
+    a: "الصَّبُورُ",
+    p: "As-Sabur",
+    f: "Le Patient Suprême",
+    m: "Celui qui ne précipite rien et agit avec une endurance et une patience infinies.",
+    detailedMeaning: "As-Sabur endure les blasphèmes des hommes tout en continuant à leur accorder la vie, la santé et la nourriture. Sa patience permet aux pécheurs de s'éveiller et de se repentir avant l'heure fixée.",
+    quran: {
+      arabic: "وَاصْبِرْ وَمَا صَبْرُكَ إِلَّا بِاللَّهِ",
+      translation: "Et endure patiemment ! Ton endurance n'est possible qu'avec l'aide d'Allah.",
+      surah: "Sourate An-Nahl (16:127)"
+    },
+    hadith: {
+      text: "Le Prophète ﷺ a dit : « Nul n'est plus patient face à une offense qu'il entend qu'Allah : ils Lui attribuent un fils et des associés, et pourtant Il les préserve et leur accorde leur subsistance ! »",
+      source: "Sahih Al-Bukhari (n°7378) et Sahih Muslim (n°2804)"
+    }
+  }
+];
+class Na {
+  onSelectName;
+  constructor(e) {
+    this.onSelectName = e;
   }
   init() {
-    f("names-close-btn").addEventListener("click", () => {
+    m("names-close-btn").addEventListener("click", () => {
       this.close();
-    }), f("names-search-input").addEventListener("input", (a) => {
+    }), m("names-search-input").addEventListener("input", (a) => {
       const r = a.target.value;
       this.filter(r);
     });
   }
   open() {
-    const e = f("names-search-input");
-    e.value = "", this.renderList(Be), Se("names-modal", "names-box");
+    const e = m("names-search-input");
+    e.value = "", this.renderList($e), xe("names-modal", "names-box");
   }
   close() {
-    Ce("names-modal", "names-box");
+    Ae("names-modal", "names-box");
   }
   filter(e) {
     const t = e.trim().toLowerCase();
     if (!t) {
-      this.renderList(Be);
+      this.renderList($e);
       return;
     }
-    const a = Be.filter(
-      (r) => r.p.toLowerCase().includes(t) || r.f.toLowerCase().includes(t) || r.m.toLowerCase().includes(t) || r.a.includes(t) || r.n.toString() === t
+    const a = $e.filter(
+      (r) => r.p.toLowerCase().includes(t) || r.f.toLowerCase().includes(t) || r.m.toLowerCase().includes(t) || r.detailedMeaning.toLowerCase().includes(t) || r.a.includes(t) || r.n.toString() === t
     );
     this.renderList(a);
   }
   renderList(e) {
-    const t = f("names-list-container");
+    const t = m("names-list-container");
     if (t.innerHTML = "", e.length === 0) {
       t.innerHTML = `
         <div class="text-center py-8 text-textmuted text-xs">
@@ -4290,142 +5990,173 @@ class ja {
           </div>
           <div class="min-w-0">
             <div class="flex items-baseline gap-1.5 flex-wrap">
-              <span class="font-bold text-sm text-textmain group-hover:text-amber-400 transition-colors">${ee(a.p)}</span>
-              <span class="text-xs text-textmuted font-medium">· ${ee(a.f)}</span>
+              <span class="font-bold text-sm text-textmain group-hover:text-amber-400 transition-colors">${te(a.p)}</span>
+              <span class="text-xs text-textmuted font-medium">· ${te(a.f)}</span>
             </div>
-            <p class="text-[11px] text-textmuted mt-0.5 leading-relaxed line-clamp-2">${ee(a.m)}</p>
+            <p class="text-[11px] text-textmuted mt-0.5 leading-relaxed line-clamp-2">${te(a.m)}</p>
           </div>
         </div>
 
-        <!-- Partie Droite : Calligraphie Arabe Pure & Aérée (Sans bouton répétitif) -->
+        <!-- Partie Droite : Calligraphie Arabe & Lien Détails -->
         <div class="text-right shrink-0 pl-2">
-          <span class="font-arabic text-2xl sm:text-3xl text-amber-400 font-bold leading-none select-none block drop-shadow-sm" dir="rtl">${ee(a.a)}</span>
-          <span class="text-[10px] text-textmuted/70 group-hover:text-amber-400/80 transition-colors flex items-center justify-end gap-0.5 mt-1">
-            <span>Méditer</span>
+          <span class="font-arabic text-2xl sm:text-3xl text-amber-400 font-bold leading-none select-none block drop-shadow-sm" dir="rtl">${te(a.a)}</span>
+          <span class="text-[10px] text-amber-400 font-semibold group-hover:text-amber-300 transition-colors flex items-center justify-end gap-0.5 mt-1">
+            <span>Détails & Coran</span>
             <i class="ph ph-caret-right text-[10px]"></i>
           </span>
         </div>
       `, r.addEventListener("click", () => {
-        this.meditateName(a);
+        this.close(), this.onSelectName(a);
       }), t.appendChild(r);
     }
+  }
+}
+class Da {
+  store;
+  onStartTasbih;
+  onBackToCatalog;
+  currentName = null;
+  constructor(e, t, a) {
+    this.store = e, this.onStartTasbih = t, this.onBackToCatalog = a;
+  }
+  init() {
+    m("name-detail-close-btn").addEventListener("click", () => {
+      this.close();
+    }), m("name-detail-back-btn").addEventListener("click", () => {
+      this.close(), this.onBackToCatalog();
+    }), m("name-detail-tasbih-btn").addEventListener("click", () => {
+      this.currentName && this.meditateName(this.currentName);
+    });
+  }
+  open(e) {
+    this.currentName = e, this.render(e), xe("name-detail-modal", "name-detail-box");
+  }
+  close() {
+    Ae("name-detail-modal", "name-detail-box");
+  }
+  render(e) {
+    m("name-detail-badge").textContent = `Nom n° ${e.n} sur 99`, m("name-detail-arabic").textContent = e.a, m("name-detail-phonetic").textContent = e.p, m("name-detail-french").textContent = e.f, m("name-detail-meaning").textContent = e.detailedMeaning || e.m, m("name-detail-quran-surah").textContent = e.quran.surah, m("name-detail-quran-arabic").textContent = e.quran.arabic, m("name-detail-quran-translation").textContent = `« ${e.quran.translation} »`, m("name-detail-hadith-text").textContent = e.hadith.text, m("name-detail-hadith-source").textContent = e.hadith.source;
   }
   meditateName(e) {
     this.close();
     const t = `name_${e.n}`;
     let a = this.store.adhkars.find((r) => r.id === t);
-    a || (a = {
-      id: t,
-      category: "daily",
-      arabic: `يَا ${e.a.replace(/^ال/, "")}`,
-      french: `Nom d'Allah : ${e.p}`,
-      phonetic: `Yā ${e.p}`,
-      translation: `${e.f} - ${e.m}`,
-      merit: "« C'est à Allah qu'appartiennent les plus beaux Noms. Invoquez-Le par ces Noms. » (Sourate Al-A'raf, 180)",
-      target: 33,
-      targetLabel: "Boucle de 33"
-    }, this.store.addOrUpdateCustomDhikr(a)), this.onSelectNameForFocus(a.id);
+    if (!a) {
+      const r = e.a.replace(/^ال/, "");
+      a = {
+        id: t,
+        category: "daily",
+        arabic: `يَا ${r}`,
+        french: `Nom d'Allah : ${e.p}`,
+        phonetic: `Yā ${e.p}`,
+        translation: `${e.f} - ${e.m}`,
+        merit: `« C'est à Allah qu'appartiennent les plus beaux Noms. Invoquez-Le par ces Noms. » (${e.quran.surah})`,
+        target: 33,
+        targetLabel: "Boucle de 33"
+      }, this.store.addOrUpdateCustomDhikr(a);
+    }
+    this.onStartTasbih(a.id);
   }
 }
-const Na = Qe({
-  french: Z().trim().min(2, "Le nom de l'invocation doit comporter au moins 2 caractères.").max(120, "Le nom de l'invocation ne doit pas dépasser 120 caractères."),
-  arabic: Z().trim().max(1e3, "Le texte arabe ne doit pas dépasser 1000 caractères.").optional().or($e("")),
-  phonetic: Z().trim().max(1e3, "La phonétique ne doit pas dépasser 1000 caractères.").optional().or($e("")),
-  translation: Z().trim().max(1e3, "La traduction ne doit pas dépasser 1000 caractères.").optional().or($e("")),
-  target: fe({ invalid_type_error: "L'objectif de répétition doit être un nombre." }).int("L'objectif doit être un entier.").min(1, "L'objectif doit être d'au moins 1 répétition.").max(1e4, "L'objectif ne peut pas dépasser 10 000 répétitions."),
+const Ra = Ke({
+  french: z().trim().min(2, "Le nom de l'invocation doit comporter au moins 2 caractères.").max(120, "Le nom de l'invocation ne doit pas dépasser 120 caractères."),
+  arabic: z().trim().max(1e3, "Le texte arabe ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
+  phonetic: z().trim().max(1e3, "La phonétique ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
+  translation: z().trim().max(1e3, "La traduction ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
+  target: me({ invalid_type_error: "L'objectif de répétition doit être un nombre." }).int("L'objectif doit être un entier.").min(1, "L'objectif doit être d'au moins 1 répétition.").max(1e4, "L'objectif ne peut pas dépasser 10 000 répétitions."),
   category: Ye(["daily", "morning_evening", "prayer", "sleep", "custom"], {
     errorMap: () => ({ message: "Catégorie sélectionnée invalide." })
   })
 });
-class Pa {
+class Oa {
   store;
   editingId = null;
   constructor(e) {
     this.store = e;
   }
   init() {
-    f("btn-open-add-modal").addEventListener("click", () => {
+    m("btn-open-add-modal").addEventListener("click", () => {
       this.open();
-    }), f("add-close-btn").addEventListener("click", () => {
+    }), m("add-close-btn").addEventListener("click", () => {
       this.close();
-    }), f("add-save-btn").addEventListener("click", () => {
+    }), m("add-save-btn").addEventListener("click", () => {
       this.save();
     });
   }
   open(e) {
     this.editingId = e || null;
-    const t = f("add-modal-title"), a = f("add-title"), r = f("add-arabic"), i = f("add-phonetic"), o = f("add-translation"), l = f("add-target"), u = f("add-category");
+    const t = m("add-modal-title"), a = m("add-title"), r = m("add-arabic"), s = m("add-phonetic"), l = m("add-translation"), o = m("add-target"), d = m("add-category");
     if (e) {
-      const d = this.store.adhkars.find((v) => v.id === e);
-      d && (t.textContent = "Modifier l'invocation", a.value = d.french, r.value = d.arabic || "", i.value = d.phonetic || "", o.value = d.translation || "", l.value = d.target.toString(), u.value = d.category);
+      const c = this.store.adhkars.find((v) => v.id === e);
+      c && (t.textContent = "Modifier l'invocation", a.value = c.french, r.value = c.arabic || "", s.value = c.phonetic || "", l.value = c.translation || "", o.value = c.target.toString(), d.value = c.category);
     } else
-      t.textContent = "Nouvelle Invocation", a.value = "", r.value = "", i.value = "", o.value = "", l.value = "100", u.value = "daily";
-    Se("add-modal", "add-box");
+      t.textContent = "Nouvelle Invocation", a.value = "", r.value = "", s.value = "", l.value = "", o.value = "100", d.value = "daily";
+    xe("add-modal", "add-box");
   }
   close() {
-    Ce("add-modal", "add-box"), this.editingId = null;
+    Ae("add-modal", "add-box"), this.editingId = null;
   }
   save() {
-    const e = f("add-title"), t = f("add-arabic"), a = f("add-phonetic"), r = f("add-translation"), i = f("add-target"), o = f("add-category"), l = {
+    const e = m("add-title"), t = m("add-arabic"), a = m("add-phonetic"), r = m("add-translation"), s = m("add-target"), l = m("add-category"), o = {
       french: e.value,
       arabic: t.value,
       phonetic: a.value,
       translation: r.value,
-      target: parseInt(i.value, 10),
-      category: o.value
-    }, u = Na.safeParse(l);
-    if (!u.success) {
-      const N = u.error.errors[0]?.message || "Données invalides.";
-      alert(`Erreur de validation : ${N}`);
+      target: parseInt(s.value, 10),
+      category: l.value
+    }, d = Ra.safeParse(o);
+    if (!d.success) {
+      const E = d.error.errors[0]?.message || "Données invalides.";
+      alert(`Erreur de validation : ${E}`);
       return;
     }
-    const d = u.data, T = {
+    const c = d.data, M = {
       id: this.editingId || `custom_${Date.now()}`,
-      french: d.french,
-      arabic: d.arabic || void 0,
-      phonetic: d.phonetic || void 0,
-      translation: d.translation || void 0,
-      target: d.target,
-      targetLabel: `Boucle de ${d.target}`,
-      category: d.category
+      french: c.french,
+      arabic: c.arabic || void 0,
+      phonetic: c.phonetic || void 0,
+      translation: c.translation || void 0,
+      target: c.target,
+      targetLabel: `Boucle de ${c.target}`,
+      category: c.category
     };
-    this.store.addOrUpdateCustomDhikr(T), this.close(), U.show(this.editingId ? "Invocation mise à jour !" : "Nouvelle invocation ajoutée !");
+    this.store.addOrUpdateCustomDhikr(M), this.close(), W.show(this.editingId ? "Invocation mise à jour !" : "Nouvelle invocation ajoutée !");
   }
 }
-class Ra {
+class Ba {
   store;
   constructor(e) {
     this.store = e;
   }
   init() {
-    f("btn-open-stats").addEventListener("click", () => {
+    m("btn-open-stats").addEventListener("click", () => {
       this.open();
-    }), f("stats-close-btn").addEventListener("click", () => {
+    }), m("stats-close-btn").addEventListener("click", () => {
       this.close();
     });
   }
   open() {
-    this.renderStats(), Se("stats-modal", "stats-box");
+    this.renderStats(), xe("stats-modal", "stats-box");
   }
   close() {
-    Ce("stats-modal", "stats-box");
+    Ae("stats-modal", "stats-box");
   }
   renderStats() {
-    const e = f("stats-streak"), t = f("stats-lifetime"), a = f("stats-chart");
+    const e = m("stats-streak"), t = m("stats-lifetime"), a = m("stats-chart");
     e.textContent = this.store.streak.toString(), t.textContent = this.store.getLifetimeTotal().toLocaleString("fr-FR"), a.innerHTML = "";
     const r = [];
-    for (let u = 6; u >= 0; u--) {
-      const d = /* @__PURE__ */ new Date();
-      d.setDate(d.getDate() - u), r.push(d.toISOString().slice(0, 10));
+    for (let d = 6; d >= 0; d--) {
+      const c = /* @__PURE__ */ new Date();
+      c.setDate(c.getDate() - d), r.push(c.toISOString().slice(0, 10));
     }
-    const i = r.map((u) => u === (/* @__PURE__ */ new Date()).toISOString().slice(0, 10) ? this.store.getTodayTotal() : this.store.historyDays[u] || 0), o = Math.max(...i, 10), l = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-    r.forEach((u, d) => {
-      const v = i[d] || 0, T = Math.min(100, Math.max(8, v / o * 100)), N = new Date(u), B = l[N.getDay()] || "", G = d === 6, H = document.createElement("div");
-      H.className = "flex-1 flex flex-col items-center gap-1.5 h-full justify-end", H.innerHTML = `
+    const s = r.map((d) => d === (/* @__PURE__ */ new Date()).toISOString().slice(0, 10) ? this.store.getTodayTotal() : this.store.historyDays[d] || 0), l = Math.max(...s, 10), o = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+    r.forEach((d, c) => {
+      const v = s[c] || 0, M = Math.min(100, Math.max(8, v / l * 100)), E = new Date(d), $ = o[E.getDay()] || "", K = c === 6, J = document.createElement("div");
+      J.className = "flex-1 flex flex-col items-center gap-1.5 h-full justify-end", J.innerHTML = `
         <span class="text-[9px] font-bold text-textmuted tabular-nums">${v > 0 ? v > 999 ? (v / 1e3).toFixed(1) + "k" : v : ""}</span>
-        <div class="w-full max-w-[28px] rounded-t-lg transition-all duration-500 ${G ? "bg-primary-500 shadow-neon" : "bg-surface border border-bordercolor"}" style="height: ${T}%;"></div>
-        <span class="text-[10px] font-bold ${G ? "text-primary-400" : "text-textmuted"} uppercase">${B}</span>
-      `, a.appendChild(H);
+        <div class="w-full max-w-[28px] rounded-t-lg transition-all duration-500 ${K ? "bg-primary-500 shadow-neon" : "bg-surface border border-bordercolor"}" style="height: ${M}%;"></div>
+        <span class="text-[10px] font-bold ${K ? "text-primary-400" : "text-textmuted"} uppercase">${$}</span>
+      `, a.appendChild(J);
     });
   }
 }
@@ -4435,48 +6166,48 @@ class $a {
     this.store = e;
   }
   init() {
-    f("btn-open-settings").addEventListener("click", () => {
+    m("btn-open-settings").addEventListener("click", () => {
       this.open();
-    }), f("settings-close-btn").addEventListener("click", () => {
+    }), m("settings-close-btn").addEventListener("click", () => {
       this.close();
-    }), document.querySelectorAll(".theme-card").forEach((N) => {
-      N.addEventListener("click", () => {
-        const B = N.getAttribute("data-theme");
-        B && (this.store.setTheme(B), this.applyThemeDOM(B), this.updateThemeCards(B), U.show(`Thème ${B} appliqué`));
+    }), document.querySelectorAll(".theme-card").forEach((E) => {
+      E.addEventListener("click", () => {
+        const $ = E.getAttribute("data-theme");
+        $ && (this.store.setTheme($), this.applyThemeDOM($), this.updateThemeCards($), W.show(`Thème ${$} appliqué`));
       });
     });
-    const r = f("sound-toggle");
+    const r = m("sound-toggle");
     r.checked = this.store.soundEnabled, r.addEventListener("change", () => {
       this.store.toggleSound();
     });
-    const i = f("haptic-toggle");
-    i.checked = this.store.hapticEnabled, i.addEventListener("change", () => {
-      this.store.setHaptic(i.checked);
+    const s = m("haptic-toggle");
+    s.checked = this.store.hapticEnabled, s.addEventListener("change", () => {
+      this.store.setHaptic(s.checked);
     });
-    const o = f("auto-delay-select");
-    o.value = this.store.autoDelayMs.toString(), o.addEventListener("change", () => {
-      const N = parseInt(o.value, 10) || 2e3;
-      this.store.setAutoDelay(N), U.show(`Délai réglé à ${N / 1e3}s`);
-    }), f("btn-reset-all-daily").addEventListener("click", () => {
-      confirm("Voulez-vous réinitialiser tous les compteurs du jour à zéro ?") && (this.store.resetAllDaily(), this.close(), U.show("Tous les compteurs du jour ont été remis à zéro"));
-    }), f("btn-export-backup").addEventListener("click", () => {
+    const l = m("auto-delay-select");
+    l.value = this.store.autoDelayMs.toString(), l.addEventListener("change", () => {
+      const E = parseInt(l.value, 10) || 2e3;
+      this.store.setAutoDelay(E), W.show(`Délai réglé à ${E / 1e3}s`);
+    }), m("btn-reset-all-daily").addEventListener("click", () => {
+      confirm("Voulez-vous réinitialiser tous les compteurs du jour à zéro ?") && (this.store.resetAllDaily(), this.close(), W.show("Tous les compteurs du jour ont été remis à zéro"));
+    }), m("btn-export-backup").addEventListener("click", () => {
       this.exportBackup();
-    }), f("import-file-input").addEventListener("change", (N) => {
-      const B = N.target.files?.[0];
-      B && this.importBackup(B);
+    }), m("import-file-input").addEventListener("change", (E) => {
+      const $ = E.target.files?.[0];
+      $ && this.importBackup($);
     });
-    const v = f("pwa-install-container"), T = f("btn-pwa-install");
-    Ke.onInstallableChange((N) => {
-      N ? v.classList.remove("hidden") : v.classList.add("hidden");
-    }), T.addEventListener("click", () => {
-      Ke.promptInstall();
+    const v = m("pwa-install-container"), M = m("btn-pwa-install");
+    Ue.onInstallableChange((E) => {
+      E ? v.classList.remove("hidden") : v.classList.add("hidden");
+    }), M.addEventListener("click", () => {
+      Ue.promptInstall();
     }), this.applyThemeDOM(this.store.theme), this.updateThemeCards(this.store.theme);
   }
   open() {
-    Se("settings-modal", "settings-box");
+    xe("settings-modal", "settings-box");
   }
   close() {
-    Ce("settings-modal", "settings-box");
+    Ae("settings-modal", "settings-box");
   }
   applyThemeDOM(e) {
     const t = document.documentElement;
@@ -4488,47 +6219,53 @@ class $a {
     });
   }
   exportBackup() {
-    const e = this.store.exportBackup(), t = JSON.stringify(e, null, 2), a = new Blob([t], { type: "application/json" }), r = URL.createObjectURL(a), i = document.createElement("a");
-    i.href = r, i.download = `dhikr-pro-backup-${(/* @__PURE__ */ new Date()).toISOString().slice(0, 10)}.json`, i.click(), URL.revokeObjectURL(r), U.show("Sauvegarde exportée avec succès ! 💾");
+    const e = this.store.exportBackup(), t = JSON.stringify(e, null, 2), a = new Blob([t], { type: "application/json" }), r = URL.createObjectURL(a), s = document.createElement("a");
+    s.href = r, s.download = `dhikr-pro-backup-${(/* @__PURE__ */ new Date()).toISOString().slice(0, 10)}.json`, s.click(), URL.revokeObjectURL(r), W.show("Sauvegarde exportée avec succès ! 💾");
   }
   importBackup(e) {
     const t = new FileReader();
     t.onload = (a) => {
       try {
-        const r = a.target?.result, i = q.validateAndParseBackup(r);
-        confirm("Importer cette sauvegarde ? Vos données actuelles seront mises à jour.") && (this.store.importBackup(i), this.applyThemeDOM(this.store.theme), this.updateThemeCards(this.store.theme), this.close(), U.show("Données restaurées avec succès ! 🎉"));
+        const r = a.target?.result, s = P.validateAndParseBackup(r);
+        confirm("Importer cette sauvegarde ? Vos données actuelles seront mises à jour.") && (this.store.importBackup(s), this.applyThemeDOM(this.store.theme), this.updateThemeCards(this.store.theme), this.close(), W.show("Données restaurées avec succès ! 🎉"));
       } catch (r) {
-        const i = r instanceof Error ? r.message : "Fichier invalide.";
-        alert(`Erreur d'importation : ${i}`);
+        const s = r instanceof Error ? r.message : "Fichier invalide.";
+        alert(`Erreur d'importation : ${s}`);
       }
     }, t.readAsText(e);
   }
 }
-function St() {
+function kt() {
   try {
-    const s = me.getInstance();
-    Ke.init();
-    const e = new Oa(s);
+    const i = pe.getInstance();
+    Ue.init();
+    const e = new ja(i);
     e.init();
-    const t = new ja(s, (T) => {
-      e.open(T);
-    });
+    const t = new Da(
+      i,
+      (E) => e.open(E),
+      () => a.open()
+    );
     t.init();
-    const a = new Pa(s);
-    a.init(), new Ra(s).init(), new $a(s).init(), new La(s).init(), new Ta(() => {
-      t.open();
-    }).init();
-    const u = new Ea(s);
-    u.init();
-    const d = new Ia(s), v = new Da(s, {
-      onOpenFocus: (T) => e.open(T),
-      onEditCustom: (T) => a.open(T)
+    const a = new Na((E) => {
+      t.open(E);
     });
-    d.render(), u.render(), v.render(), s.subscribe(() => {
-      d.render(), u.render(), v.render();
+    a.init();
+    const r = new Oa(i);
+    r.init(), new Ba(i).init(), new $a(i).init(), new Ca(i).init(), new wa(() => {
+      a.open();
+    }).init();
+    const c = new Ta(i);
+    c.init();
+    const v = new Ia(i), M = new Pa(i, {
+      onOpenFocus: (E) => e.open(E),
+      onEditCustom: (E) => r.open(E)
+    });
+    v.render(), c.render(), M.render(), i.subscribe(() => {
+      v.render(), c.render(), M.render();
     }), console.log("[Dhikr Pro] Application modulaire v2 initialisée avec succès.");
-  } catch (s) {
-    console.error("[Dhikr Pro] Erreur fatale lors de l’initialisation:", s);
+  } catch (i) {
+    console.error("[Dhikr Pro] Erreur fatale lors de l’initialisation:", i);
   }
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", St) : St();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", kt) : kt();

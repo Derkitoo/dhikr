@@ -7,6 +7,7 @@ import { DailySummaryBanner } from './components/DailySummaryBanner';
 import { DhikrGrid } from './components/DhikrGrid';
 import { FocusModal } from './components/FocusModal';
 import { NamesModal } from './components/NamesModal';
+import { NameDetailModal } from './components/NameDetailModal';
 import { AddDhikrModal } from './components/AddDhikrModal';
 import { StatsModal } from './components/StatsModal';
 import { SettingsModal } from './components/SettingsModal';
@@ -23,8 +24,15 @@ function startApp(): void {
     const focusModal = new FocusModal(store);
     focusModal.init();
 
-    const namesModal = new NamesModal(store, (dhikrId) => {
-      focusModal.open(dhikrId);
+    const nameDetailModal = new NameDetailModal(
+      store,
+      (dhikrId) => focusModal.open(dhikrId),
+      () => namesModal.open()
+    );
+    nameDetailModal.init();
+
+    const namesModal = new NamesModal((name) => {
+      nameDetailModal.open(name);
     });
     namesModal.init();
 

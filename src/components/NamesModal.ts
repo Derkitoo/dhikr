@@ -1,15 +1,12 @@
 import type { AllahDivineName } from '../types/name.types';
 import { ALLAH_NAMES } from '../data/allah-names';
-import { AppStore } from '../state/store';
 import { getRequiredElement, escapeHtml, openModal, closeModal } from '../utils/dom.utils';
 
 export class NamesModal {
-  private store: AppStore;
-  private onSelectNameForFocus: (id: string) => void;
+  private onSelectName: (name: AllahDivineName) => void;
 
-  constructor(store: AppStore, onSelectNameForFocus: (id: string) => void) {
-    this.store = store;
-    this.onSelectNameForFocus = onSelectNameForFocus;
+  constructor(onSelectName: (name: AllahDivineName) => void) {
+    this.onSelectName = onSelectName;
   }
 
   public init(): void {
@@ -48,6 +45,7 @@ export class NamesModal {
         item.p.toLowerCase().includes(q) ||
         item.f.toLowerCase().includes(q) ||
         item.m.toLowerCase().includes(q) ||
+        item.detailedMeaning.toLowerCase().includes(q) ||
         item.a.includes(q) ||
         item.n.toString() === q
     );
@@ -89,45 +87,22 @@ export class NamesModal {
           </div>
         </div>
 
-        <!-- Partie Droite : Calligraphie Arabe Pure & Aérée (Sans bouton répétitif) -->
+        <!-- Partie Droite : Calligraphie Arabe & Lien Détails -->
         <div class="text-right shrink-0 pl-2">
           <span class="font-arabic text-2xl sm:text-3xl text-amber-400 font-bold leading-none select-none block drop-shadow-sm" dir="rtl">${escapeHtml(name.a)}</span>
-          <span class="text-[10px] text-textmuted/70 group-hover:text-amber-400/80 transition-colors flex items-center justify-end gap-0.5 mt-1">
-            <span>Méditer</span>
+          <span class="text-[10px] text-amber-400 font-semibold group-hover:text-amber-300 transition-colors flex items-center justify-end gap-0.5 mt-1">
+            <span>Détails & Coran</span>
             <i class="ph ph-caret-right text-[10px]"></i>
           </span>
         </div>
       `;
 
       card.addEventListener('click', () => {
-        this.meditateName(name);
+        this.close();
+        this.onSelectName(name);
       });
 
       container.appendChild(card);
     }
-  }
-
-  private meditateName(name: AllahDivineName): void {
-    this.close();
-
-    const nameId = `name_${name.n}`;
-    let dhikr = this.store.adhkars.find((d) => d.id === nameId);
-
-    if (!dhikr) {
-      dhikr = {
-        id: nameId,
-        category: 'daily',
-        arabic: `يَا ${name.a.replace(/^ال/, '')}`,
-        french: `Nom d'Allah : ${name.p}`,
-        phonetic: `Yā ${name.p}`,
-        translation: `${name.f} - ${name.m}`,
-        merit: `« C'est à Allah qu'appartiennent les plus beaux Noms. Invoquez-Le par ces Noms. » (Sourate Al-A'raf, 180)`,
-        target: 33,
-        targetLabel: 'Boucle de 33'
-      };
-      this.store.addOrUpdateCustomDhikr(dhikr);
-    }
-
-    this.onSelectNameForFocus(dhikr.id);
   }
 }
