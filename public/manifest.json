@@ -1,0 +1,55 @@
+{
+  "id": "./",
+  "name": "Dhikr Pro - Adhkars & Tasbih",
+  "short_name": "Dhikr Pro",
+  "description": "Votre compagnon quotidien de Dhikr, Tasbih et invocations authentiques.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#020617",
+  "theme_color": "#10b981",
+  "categories": ["lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Matin & Soir",
+      "short_name": "Matin/Soir",
+      "url": "./index.html?cat=morning_evening",
+      "description": "Adhkars du matin et du soir",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Après la Prière",
+      "short_name": "Prière",
+      "url": "./index.html?cat=prayer",
+      "description": "Tasbih post-prière (33x)",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

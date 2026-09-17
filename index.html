@@ -1,65 +1,57 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="theme-emerald">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dhikr Pro v2 - Adhkars & Tasbih</title>
+    <title>Dhikr Pro — Invocations & Chapelet Électronique</title>
     
-    <!-- PWA & Métadonnées -->
-    <meta name="description" content="Application de Dhikr, Tasbih et invocations authentiques avec audio hors-ligne, modes personnalisés et statistiques.">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#10b981">
-    
-    <!-- Support iOS PWA Standalone (Plein Écran sans barre Safari) -->
+    <!-- Méta PWA & Mobile -->
+    <meta name="theme-color" content="#020617">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Dhikr Pro">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    
-    <!-- Favicon & Icones Haute Définition -->
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
 
-    <!-- Confetti pour les célébrations de boucle -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <!-- Polices Google -->
+    <!-- Typographie : Amiri (Calligraphie arabe) & Plus Jakarta Sans (UI moderne) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Icônes Phosphor -->
+    <!-- Icônes Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (avec variables CSS personnalisées) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        arabic: ['Amiri', 'serif'],
-                    },
                     colors: {
+                        background: 'var(--color-background)',
+                        surface: 'var(--color-surface)',
+                        card: 'var(--color-card)',
+                        bordercolor: 'var(--color-border)',
+                        textmain: 'var(--color-text-main)',
+                        textmuted: 'var(--color-text-muted)',
                         primary: {
-                            300: 'var(--color-primary-300)',
+                            50: 'var(--color-primary-50)',
+                            100: 'var(--color-primary-100)',
                             400: 'var(--color-primary-400)',
                             500: 'var(--color-primary-500)',
                             600: 'var(--color-primary-600)',
-                        },
-                        surface: 'var(--color-surface)',
-                        surfaceelevated: 'var(--color-surface-elevated)',
-                        background: 'var(--color-background)',
-                        card: 'var(--color-card)',
-                        textmain: 'var(--color-text-main)',
-                        textmuted: 'var(--color-text-muted)',
-                        bordercolor: 'var(--color-border)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        arabic: ['"Amiri"', 'serif'],
                     },
                     boxShadow: {
-                        'neon': '0 0 25px var(--color-primary-500-alpha)',
-                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.25)',
+                        'neon': '0 0 25px -5px var(--color-primary-500-alpha)',
+                        'gold': '0 0 25px -5px rgba(245, 158, 11, 0.4)',
+                        'card': '0 10px 30px -10px rgba(0, 0, 0, 0.3)',
                     }
                 }
             }
@@ -67,176 +59,165 @@
     </script>
 
     <style>
-        /* Moteur de Thèmes via Variables CSS */
         :root {
-            /* Thème 1 : Midnight Emerald (Par défaut) */
-            --color-primary-300: #6ee7b7;
-            --color-primary-400: #34d399;
-            --color-primary-500: #10b981;
-            --color-primary-600: #047857;
-            --color-primary-500-alpha: rgba(16, 185, 129, 0.25);
-            --color-surface: #0f172a;
-            --color-surface-elevated: #1e293b;
             --color-background: #020617;
-            --color-card: rgba(15, 23, 42, 0.75);
+            --color-surface: #0f172a;
+            --color-card: #1e293b;
+            --color-border: #334155;
             --color-text-main: #f8fafc;
             --color-text-muted: #94a3b8;
-            --color-border: rgba(255, 255, 255, 0.08);
-        }
-
-        [data-theme="kaaba"] {
-            /* Thème 2 : Kaaba Gold (Noir & Doré Ambré) */
-            --color-primary-300: #fde047;
-            --color-primary-400: #fbbf24;
-            --color-primary-500: #f59e0b;
-            --color-primary-600: #b45309;
-            --color-primary-500-alpha: rgba(245, 158, 11, 0.25);
-            --color-surface: #121212;
-            --color-surface-elevated: #1c1917;
-            --color-background: #050505;
-            --color-card: rgba(20, 20, 20, 0.85);
-            --color-text-main: #ffffff;
-            --color-text-muted: #a8a29e;
-            --color-border: rgba(245, 158, 11, 0.18);
-        }
-
-        [data-theme="medina"] {
-            /* Thème 3 : Medina Light (Clair, Pur & Sérénité) */
-            --color-primary-300: #86efac;
-            --color-primary-400: #4ade80;
-            --color-primary-500: #16a34a;
-            --color-primary-600: #15803d;
-            --color-primary-500-alpha: rgba(22, 163, 74, 0.2);
-            --color-surface: #ffffff;
-            --color-surface-elevated: #f1f5f9;
-            --color-background: #f8fafc;
-            --color-card: rgba(255, 255, 255, 0.95);
-            --color-text-main: #0f172a;
-            --color-text-muted: #64748b;
-            --color-border: rgba(22, 163, 74, 0.15);
-        }
-
-        
-        [data-theme="oled"] {
-            /* Thème 5 : OLED Pure Black (Noir Absolu pour écran AMOLED) */
-            --color-primary-300: #6ee7b7;
+            --color-primary-50: #ecfdf5;
+            --color-primary-100: #d1fae5;
             --color-primary-400: #34d399;
             --color-primary-500: #10b981;
-            --color-primary-600: #047857;
-            --color-primary-500-alpha: rgba(16, 185, 129, 0.2);
-            --color-surface: #0a0a0a;
-            --color-surface-elevated: #141414;
-            --color-background: #000000;
-            --color-card: rgba(10, 10, 10, 0.95);
-            --color-text-main: #ffffff;
-            --color-text-muted: #737373;
-            --color-border: #222222;
+            --color-primary-600: #059669;
+            --color-primary-500-alpha: rgba(16, 185, 129, 0.4);
         }
 
-        [data-theme="celestial"] {
-            /* Thème 4 : Celestial Blue (Bleu Nuit Profond & Cyan) */
-            --color-primary-300: #67e8f9;
-            --color-primary-400: #22d3ee;
-            --color-primary-500: #06b6d4;
-            --color-primary-600: #0e7490;
-            --color-primary-500-alpha: rgba(6, 182, 212, 0.25);
-            --color-surface: #0a192f;
-            --color-surface-elevated: #112240;
-            --color-background: #020c1b;
-            --color-card: rgba(10, 25, 47, 0.85);
-            --color-text-main: #e6f1ff;
-            --color-text-muted: #8892b0;
-            --color-border: rgba(34, 211, 238, 0.15);
+        .theme-medina {
+            --color-background: #f8fafc;
+            --color-surface: #ffffff;
+            --color-card: #f1f5f9;
+            --color-border: #e2e8f0;
+            --color-text-main: #0f172a;
+            --color-text-muted: #64748b;
+            --color-primary-50: #f0fdf4;
+            --color-primary-100: #dcfce7;
+            --color-primary-400: #16a34a;
+            --color-primary-500: #15803d;
+            --color-primary-600: #166534;
+            --color-primary-500-alpha: rgba(22, 163, 74, 0.25);
+        }
+
+        .theme-kaaba {
+            --color-background: #050505;
+            --color-surface: #121212;
+            --color-card: #1c1917;
+            --color-border: #292524;
+            --color-text-main: #fafaf9;
+            --color-text-muted: #a8a29e;
+            --color-primary-50: #fffbeb;
+            --color-primary-100: #fef3c7;
+            --color-primary-400: #fbbf24;
+            --color-primary-500: #f59e0b;
+            --color-primary-600: #d97706;
+            --color-primary-500-alpha: rgba(245, 158, 11, 0.35);
+        }
+
+        .theme-oled {
+            --color-background: #000000;
+            --color-surface: #000000;
+            --color-card: #080808;
+            --color-border: #1f2937;
+            --color-text-main: #ffffff;
+            --color-text-muted: #9ca3af;
+            --color-primary-50: #ecfdf5;
+            --color-primary-100: #d1fae5;
+            --color-primary-400: #34d399;
+            --color-primary-500: #10b981;
+            --color-primary-600: #059669;
+            --color-primary-500-alpha: rgba(16, 185, 129, 0.4);
         }
 
         body {
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--color-background);
             color: var(--color-text-main);
-            transition: background-color 0.4s ease, color 0.4s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .tap-effect {
-            transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.12s;
-        }
         .tap-effect:active {
-            transform: scale(0.94);
+            transform: scale(0.96);
         }
 
         .glass-card {
-            background: var(--color-card);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: var(--color-surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--color-border);
-            transition: all 0.25s ease;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            height: 4px;
             width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: var(--color-border);
-            border-radius: 999px;
+            border-radius: 4px;
         }
 
         @keyframes toastIn {
-            from { opacity: 0; transform: translateY(-12px) translateX(-50%) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) translateX(-50%) scale(1); }
+            from { transform: translate(-50%, 100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
         }
-        .toast-show { animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .toast-show {
+            animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center relative overflow-x-hidden font-sans" data-theme="emerald">
+<body class="min-h-screen pb-24 relative selection:bg-primary-500/30 selection:text-primary-400">
 
-    <!-- En-tête supérieur fixe -->
-    <header class="w-full max-w-lg mx-auto sticky top-0 glass-card z-40 px-5 py-3.5 flex justify-between items-center border-b border-bordercolor shadow-glass">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 shadow-inner">
-                <i class="ph-fill ph-circle-notch text-2xl"></i>
-            </div>
-            <div>
-                <div class="flex items-center gap-1.5">
-                    <h1 class="text-xl font-extrabold tracking-tight text-textmain">Dhikr<span class="text-primary-500">Pro</span></h1>
-                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30">v2</span>
-                </div>
-                <div class="flex items-center gap-2 mt-0.5">
-                    <span id="hijri-date-badge" class="text-[11px] text-textmuted font-medium tracking-wide flex items-center gap-1">
-                        <span class="text-amber-400">🌙</span> <span id="hijri-date">Chargement date...</span>
-                    </span>
-                    <span id="fasting-badge" class="hidden text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30"></span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-2">
-            <!-- Série quotidienne (Streak) -->
-            <button onclick="openStatsModal()" class="flex items-center gap-1.5 bg-surface/70 hover:bg-surface px-3 py-1.5 rounded-2xl border border-bordercolor shadow-inner tap-effect" title="Voir ma série et mes statistiques">
-                <span class="text-orange-500 text-base animate-bounce">🔥</span>
-                <span id="streak-counter" class="text-sm font-bold text-textmain tabular-nums">0</span>
-                <span class="text-[9px] text-textmuted uppercase tracking-wider font-semibold">j</span>
-            </button>
+    <!-- En-tête Principal -->
+    <header class="sticky top-0 z-30 backdrop-blur-xl bg-background/85 border-b border-bordercolor/80 transition-colors duration-200">
+        <div class="max-w-lg mx-auto px-4 h-16 flex items-center justify-between gap-2">
             
-            <!-- Recherche rapide -->
-            <button onclick="toggleSearchBar()" class="w-10 h-10 rounded-2xl bg-surface/70 hover:bg-surface flex items-center justify-center text-textmuted hover:text-primary-500 tap-effect border border-bordercolor" title="Rechercher">
-                <i class="ph ph-magnifying-glass text-lg"></i>
-            </button>
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white shadow-neon">
+                    <i class="ph-bold ph-hands-praying text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-extrabold tracking-tight text-textmain flex items-center gap-1.5 leading-none">
+                        Dhikr Pro
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary-500/15 text-primary-400 border border-primary-500/30">v2.0</span>
+                    </h1>
+                    
+                    <!-- Date Hégirienne & Badges de jeûne -->
+                    <div class="flex items-center gap-1.5 mt-1 flex-wrap">
+                        <span id="hijri-date-badge" class="text-[11px] text-textmuted font-semibold flex items-center gap-1">
+                            Calcul en cours...
+                        </span>
+                        <span id="hijri-fast-badge" class="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-amber-500/15 text-amber-400 border border-amber-500/30 hidden"></span>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Paramètres -->
-            <button onclick="openSettings()" class="w-10 h-10 rounded-2xl bg-surface/70 hover:bg-surface flex items-center justify-center text-textmuted hover:text-primary-500 tap-effect border border-bordercolor" title="Paramètres">
-                <i class="ph ph-sliders text-lg"></i>
-            </button>
+            <!-- Actions Rapides En-tête -->
+            <div class="flex items-center gap-1 sm:gap-1.5">
+                <!-- Bouton Recherche -->
+                <button id="btn-toggle-search" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Rechercher">
+                    <i class="ph ph-magnifying-glass text-lg"></i>
+                </button>
+
+                <!-- Bouton Son -->
+                <button id="btn-toggle-sound" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Son activé">
+                    <i class="ph ph-speaker-high text-lg"></i>
+                </button>
+
+                <!-- Bouton Statistiques -->
+                <button id="btn-open-stats" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Statistiques">
+                    <i class="ph ph-chart-bar text-lg"></i>
+                </button>
+
+                <!-- Bouton Paramètres -->
+                <button id="btn-open-settings" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Paramètres">
+                    <i class="ph ph-gear text-lg"></i>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Barre de recherche dépliable -->
-    <div id="search-bar-container" class="w-full max-w-lg mx-auto px-4 pt-3 hidden transition-all">
+    <!-- Barre de Recherche dynamique -->
+    <div id="search-bar-container" class="w-full max-w-lg mx-auto px-4 pt-3 hidden transition-all duration-200">
         <div class="relative flex items-center">
-            <i class="ph ph-magnifying-glass absolute left-4 text-textmuted text-lg"></i>
-            <input type="text" id="search-input" oninput="onSearchChange(this.value)" placeholder="Rechercher par mot-clé (arabe, français, phonétique)..." class="w-full bg-surface/80 border border-bordercolor rounded-2xl pl-11 pr-10 py-3 text-sm text-textmain outline-none focus:border-primary-500 transition-colors shadow-inner">
-            <button onclick="clearSearch()" class="absolute right-3 w-7 h-7 flex items-center justify-center text-textmuted hover:text-textmain">
+            <i class="ph ph-magnifying-glass absolute left-3.5 text-textmuted text-base"></i>
+            <input type="text" id="search-input" placeholder="Rechercher une invocation, mot arabe, phonétique..." class="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-surface border border-bordercolor text-xs text-textmain placeholder:text-textmuted outline-none focus:border-primary-500 transition-colors">
+            <button id="btn-search-clear" class="absolute right-3 text-textmuted hover:text-textmain p-1">
                 <i class="ph ph-x text-sm"></i>
             </button>
         </div>
@@ -244,7 +225,7 @@
 
     <!-- Accès Direct : Les 99 Noms d'Allah -->
     <div class="w-full max-w-lg mx-auto px-4 pt-3.5">
-        <button onclick="openNamesModal()" class="w-full py-2.5 px-3.5 rounded-2xl glass-card border border-amber-500/30 hover:border-amber-400/60 bg-gradient-to-r from-amber-500/10 via-surface to-amber-500/5 flex items-center justify-between tap-effect transition-all group shadow-sm">
+        <button id="btn-open-names-banner" class="w-full py-2.5 px-3.5 rounded-2xl glass-card border border-amber-500/30 hover:border-amber-400/60 bg-gradient-to-r from-amber-500/10 via-surface to-amber-500/5 flex items-center justify-between tap-effect transition-all group shadow-sm">
             <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold text-sm border border-amber-500/30 group-hover:scale-105 transition-transform">
                     <i class="ph-fill ph-sparkle text-amber-400"></i>
@@ -272,40 +253,40 @@
             <span class="text-[10px] text-textmuted font-medium" id="category-summary">Toutes les invocations</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            <button onclick="setCategory('all')" data-cat="all" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect">
+            <button data-cat="all" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect">
                 <i class="ph ph-squares-four text-sm"></i>
                 <span>Tous</span>
-                <span id="badge-cat-all" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('daily')" data-cat="daily" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+            <button data-cat="daily" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
                 <i class="ph ph-sun text-sm"></i>
                 <span>Quotidien</span>
-                <span id="badge-cat-daily" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('morning_evening')" data-cat="morning_evening" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+            <button data-cat="morning_evening" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
                 <i class="ph ph-cloud-sun text-sm"></i>
                 <span>Matin & Soir</span>
-                <span id="badge-cat-morning_evening" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('prayer')" data-cat="prayer" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+            <button data-cat="prayer" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
                 <i class="ph ph-hands-praying text-sm"></i>
                 <span>Post-Prière</span>
-                <span id="badge-cat-prayer" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('sleep')" data-cat="sleep" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+            <button data-cat="sleep" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
                 <i class="ph ph-moon-stars text-sm"></i>
                 <span>Sommeil</span>
-                <span id="badge-cat-sleep" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('favorites')" data-cat="favorites" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+            <button data-cat="favorites" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
                 <i class="ph ph-star text-sm text-amber-400"></i>
                 <span>Favoris</span>
-                <span id="badge-cat-favorites" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
-            <button onclick="setCategory('custom')" data-cat="custom" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
+            <button data-cat="custom" class="cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect">
                 <i class="ph ph-sparkle text-sm text-primary-400"></i>
                 <span>Mes Dhikrs</span>
-                <span id="badge-cat-custom" class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
+                <span class="cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums">0</span>
             </button>
         </div>
     </nav>
@@ -322,128 +303,184 @@
                     <span id="daily-total-counter" class="text-base font-extrabold text-textmain tabular-nums">0 invocations</span>
                 </div>
             </div>
-            <div class="text-right">
-                <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Grand Total</span>
-                <span id="lifetime-counter-banner" class="text-base font-extrabold text-primary-400 tabular-nums">0</span>
+            <div class="flex items-center gap-4 text-right">
+                <div>
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Série (Jours)</span>
+                    <span class="text-sm font-extrabold text-amber-400 flex items-center justify-end gap-1">
+                        <i class="ph-fill ph-fire text-amber-400"></i>
+                        <span id="streak-counter" class="tabular-nums">1</span>
+                    </span>
+                </div>
+                <div>
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Total global</span>
+                    <span id="lifetime-counter-banner" class="text-sm font-extrabold text-primary-400 tabular-nums">0</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-surfaceelevated text-textmain px-5 py-3 rounded-2xl shadow-2xl font-medium text-xs hidden flex items-center gap-2.5 border border-primary-500/40 backdrop-blur-md">
-        <i id="toast-icon" class="ph-fill ph-check-circle text-primary-400 text-lg"></i>
-        <span id="toast-msg">Opération effectuée</span>
-    </div>
-
-    <!-- Conteneur principal des cartes -->
-    <main id="app-container" class="w-full max-w-lg mx-auto px-4 py-4 pb-32 flex flex-col gap-5">
-        <!-- Cartes injectées dynamiquement par JS -->
+    <!-- Grille Principale des Cartes d'Invocations -->
+    <main class="w-full max-w-lg mx-auto px-4 pt-4 flex flex-col gap-4" id="app-container">
+        <!-- Rendu dynamique via DhikrGrid -->
     </main>
 
-    <!-- Bouton flottant / pied de page : Ajouter Dhikr -->
-    <div class="w-full max-w-lg mx-auto px-4 pb-28">
-        <button onclick="openAddModal()" class="w-full py-4 rounded-3xl glass-card border-dashed border-2 border-bordercolor hover:border-primary-500/50 text-textmuted hover:text-primary-500 flex items-center justify-center gap-3 tap-effect transition-all group">
-            <div class="w-9 h-9 rounded-2xl bg-surface group-hover:bg-primary-500/10 flex items-center justify-center text-primary-500 transition-colors border border-bordercolor">
-                <i class="ph ph-plus-bold text-lg"></i>
-            </div>
-            <span class="text-sm font-bold tracking-wide">Créer une invocation personnalisée</span>
+    <!-- Bouton Flottant (FAB) : Ajouter une Invocation -->
+    <div class="fixed bottom-6 right-6 z-20">
+        <button id="btn-open-add-modal" class="w-14 h-14 rounded-full bg-gradient-to-tr from-primary-600 to-primary-400 text-white shadow-neon flex items-center justify-center tap-effect hover:scale-105 transition-transform" title="Ajouter une invocation">
+            <i class="ph-bold ph-plus text-2xl"></i>
         </button>
     </div>
 
-    <!-- Modal : Statistiques & Progression -->
-    <div id="stats-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="stats-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[90vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-5">
-                <div class="flex items-center gap-2">
-                    <i class="ph-fill ph-chart-line-up text-xl text-primary-500"></i>
-                    <h3 class="text-lg font-bold text-textmain">Statistiques & Série</h3>
+    <!-- Modal : Les 99 Noms d'Allah -->
+    <div id="names-modal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 hidden transition-opacity duration-200">
+        <div id="names-box" class="glass-card w-full sm:max-w-lg max-h-[85vh] sm:rounded-3xl rounded-t-3xl flex flex-col p-5 translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300">
+            <div class="flex justify-between items-center pb-3 border-b border-bordercolor">
+                <div>
+                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">Asma' Allah Al-Husna</span>
+                    <h2 class="text-base font-extrabold text-textmain flex items-center gap-1.5">
+                        <i class="ph-fill ph-sparkle text-amber-400"></i> Les 99 Noms d'Allah
+                    </h2>
                 </div>
-                <button onclick="closeStatsModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
-                    <i class="ph ph-x"></i>
+                <button id="names-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor">
+                    <i class="ph ph-x text-sm"></i>
                 </button>
             </div>
 
-            <!-- Série & Activité -->
-            <div class="grid grid-cols-2 gap-3 mb-5">
-                <div class="bg-surface/70 rounded-2xl p-4 border border-bordercolor flex flex-col items-center text-center">
-                    <span class="text-3xl mb-1">🔥</span>
-                    <span id="stats-streak" class="text-2xl font-black text-textmain tabular-nums">0</span>
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider mt-0.5">Jours consécutifs</span>
-                </div>
-                <div class="bg-surface/70 rounded-2xl p-4 border border-bordercolor flex flex-col items-center text-center">
-                    <span class="text-3xl mb-1">📿</span>
-                    <span id="stats-lifetime" class="text-2xl font-black text-primary-400 tabular-nums">0</span>
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider mt-0.5">Dhikrs au total</span>
+            <!-- Barre de recherche dans les Noms -->
+            <div class="py-3">
+                <div class="relative flex items-center">
+                    <i class="ph ph-magnifying-glass absolute left-3 text-textmuted text-xs"></i>
+                    <input type="text" id="names-search-input" placeholder="Rechercher par numéro, nom arabe, phonétique, sens..." class="w-full pl-8 pr-4 py-2 bg-surface rounded-xl border border-bordercolor text-xs text-textmain placeholder:text-textmuted outline-none focus:border-amber-400 transition-colors">
                 </div>
             </div>
 
-            <!-- Graphique d'activité sur 7 jours -->
-            <div class="bg-surface/50 rounded-2xl p-4 mb-5 border border-bordercolor">
-                <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-3">Activité des 7 derniers jours</span>
-                <div id="activity-chart" class="flex items-end justify-between gap-2 h-28 pt-4 pb-1">
-                    <!-- Généré par JS -->
-                </div>
-            </div>
-
-            <!-- Conseils bienveillants -->
-            <div class="bg-primary-500/10 rounded-2xl p-4 border border-primary-500/20 text-xs text-textmain leading-relaxed">
-                <div class="font-bold text-primary-400 mb-1 flex items-center gap-1.5">
-                    <i class="ph-fill ph-lightbulb"></i> Le saviez-vous ?
-                </div>
-                La constance dans le rappel d'Allah, même en petite quantité, est l'acte le plus aimé d'Allah et de Son Messager ﷺ.
+            <!-- Liste avec défilement -->
+            <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-2 py-1 pr-1" id="names-list-container">
+                <!-- Rendu dynamique via NamesModal -->
             </div>
         </div>
     </div>
 
-    <!-- Modal : Paramètres & Sauvegarde -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="settings-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[90vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-lg font-bold text-textmain flex items-center gap-2">
-                    <i class="ph ph-sliders text-xl text-primary-500"></i> Paramètres
-                </h3>
-                <button onclick="closeSettings()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
-                    <i class="ph ph-x"></i>
+    <!-- Modal : Statistiques & Graphique 7 jours -->
+    <div id="stats-modal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 hidden transition-opacity duration-200">
+        <div id="stats-box" class="glass-card w-full sm:max-w-md max-h-[85vh] sm:rounded-3xl rounded-t-3xl p-5 translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300 flex flex-col">
+            <div class="flex justify-between items-center pb-3 border-b border-bordercolor">
+                <h2 class="text-base font-extrabold text-textmain flex items-center gap-2">
+                    <i class="ph-fill ph-chart-bar text-primary-400 text-lg"></i> Statistiques d'Assiduité
+                </h2>
+                <button id="stats-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor">
+                    <i class="ph ph-x text-sm"></i>
                 </button>
             </div>
 
-            <!-- Choix du son audio (Web Audio API) -->
-            <div class="mb-6">
-                <label class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Effet sonore du Tasbih</label>
-                <div class="grid grid-cols-2 gap-2.5">
-                    <button onclick="setSoundType('wood')" id="sound-btn-wood" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
-                        <i class="ph-fill ph-tree text-lg text-primary-500"></i>
-                        <div>
-                            <span class="text-xs font-bold text-textmain block">Perle en Bois</span>
-                            <span class="text-[10px] text-textmuted">Chapelet traditionnel</span>
-                        </div>
-                    </button>
-                    <button onclick="setSoundType('water')" id="sound-btn-water" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
-                        <i class="ph-fill ph-drop text-lg text-cyan-400"></i>
-                        <div>
-                            <span class="text-xs font-bold text-textmain block">Goutte d'Eau</span>
-                            <span class="text-[10px] text-textmuted">Doux & apaisant</span>
-                        </div>
-                    </button>
-                    <button onclick="setSoundType('click')" id="sound-btn-click" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
-                        <i class="ph-fill ph-hand-tap text-lg text-amber-400"></i>
-                        <div>
-                            <span class="text-xs font-bold text-textmain block">Clic Moderne</span>
-                            <span class="text-[10px] text-textmuted">Bouton discret</span>
-                        </div>
-                    </button>
-                    <button onclick="setSoundType('none')" id="sound-btn-none" class="sound-choice p-3 rounded-2xl border border-bordercolor bg-surface/70 text-left tap-effect flex items-center gap-3">
-                        <i class="ph-fill ph-speaker-slash text-lg text-rose-400"></i>
-                        <div>
-                            <span class="text-xs font-bold text-textmain block">Silencieux</span>
-                            <span class="text-[10px] text-textmuted">Sans son</span>
-                        </div>
-                    </button>
+            <div class="grid grid-cols-2 gap-3 my-4">
+                <div class="bg-surface/60 rounded-2xl p-3 border border-bordercolor text-center">
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Série en cours</span>
+                    <span class="text-xl font-extrabold text-amber-400 flex items-center justify-center gap-1">
+                        <i class="ph-fill ph-fire"></i> <span id="stats-streak">1</span> j
+                    </span>
+                </div>
+                <div class="bg-surface/60 rounded-2xl p-3 border border-bordercolor text-center">
+                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Total depuis le début</span>
+                    <span id="stats-lifetime" class="text-xl font-extrabold text-primary-400 tabular-nums">0</span>
                 </div>
             </div>
 
-            <!-- Retour haptique (vibration) -->
-            <div class="flex justify-between items-center mb-6 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
+            <!-- Graphique sur 7 jours -->
+            <div class="mt-2">
+                <span class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-2.5">Activité des 7 derniers jours</span>
+                <div class="h-36 w-full bg-surface/40 rounded-2xl p-3 border border-bordercolor flex items-end justify-between gap-1.5" id="stats-chart">
+                    <!-- Colonnes dynamiques -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal : Ajouter / Modifier une invocation -->
+    <div id="add-modal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 hidden transition-opacity duration-200">
+        <div id="add-box" class="glass-card w-full sm:max-w-md max-h-[90vh] sm:rounded-3xl rounded-t-3xl p-5 overflow-y-auto custom-scrollbar translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300">
+            <div class="flex justify-between items-center pb-3 border-b border-bordercolor mb-4">
+                <h2 id="add-modal-title" class="text-base font-extrabold text-textmain flex items-center gap-2">
+                    Nouvelle Invocation
+                </h2>
+                <button id="add-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor">
+                    <i class="ph ph-x text-sm"></i>
+                </button>
+            </div>
+
+            <div class="flex flex-col gap-3.5">
+                <div>
+                    <label class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-1">Nom de l'invocation *</label>
+                    <input type="text" id="add-title" placeholder="Ex: SubhanAllah wa bi-hamdihi" class="w-full bg-surface border border-bordercolor rounded-2xl px-3.5 py-2.5 text-sm text-textmain placeholder:text-textmuted outline-none focus:border-primary-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-1">Texte en arabe</label>
+                    <input type="text" id="add-arabic" placeholder="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ" dir="rtl" class="w-full bg-surface border border-bordercolor rounded-2xl px-3.5 py-2.5 text-base font-arabic text-textmain placeholder:text-textmuted outline-none focus:border-primary-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-1">Translittération (Phonétique)</label>
+                    <input type="text" id="add-phonetic" placeholder="SubhanAllahi wa bihamdih" class="w-full bg-surface border border-bordercolor rounded-2xl px-3.5 py-2.5 text-xs text-textmain placeholder:text-textmuted outline-none focus:border-primary-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-1">Sens / Traduction</label>
+                    <textarea id="add-translation" rows="2" placeholder="Gloire et pureté à Allah ainsi que Sa louange..." class="w-full bg-surface border border-bordercolor rounded-2xl px-3.5 py-2.5 text-xs text-textmain placeholder:text-textmuted outline-none focus:border-primary-500 transition-colors"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-1">Objectif *</label>
+                        <input type="number" id="add-target" value="100" min="1" max="10000" class="w-full bg-surface border border-bordercolor rounded-2xl px-3 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-textmuted uppercase tracking-wider block mb-1">Catégorie</label>
+                        <select id="add-category" class="w-full bg-surface border border-bordercolor rounded-2xl px-3 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
+                            <option value="daily">Quotidien</option>
+                            <option value="morning_evening">Matin & Soir</option>
+                            <option value="prayer">Post-Prière</option>
+                            <option value="sleep">Sommeil</option>
+                            <option value="custom">Mes Dhikrs</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button id="add-save-btn" class="w-full mt-2 py-3.5 rounded-2xl bg-primary-500 text-white font-bold text-base shadow-neon tap-effect hover:bg-primary-600 transition-colors flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-check"></i> <span>Enregistrer l'invocation</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal : Paramètres, Thèmes & Sauvegarde -->
+    <div id="settings-modal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 hidden transition-opacity duration-200">
+        <div id="settings-box" class="glass-card w-full sm:max-w-md max-h-[85vh] sm:rounded-3xl rounded-t-3xl p-5 overflow-y-auto custom-scrollbar translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300">
+            <div class="flex justify-between items-center pb-3 border-b border-bordercolor mb-4">
+                <h2 class="text-base font-extrabold text-textmain flex items-center gap-2">
+                    <i class="ph-fill ph-gear text-primary-400"></i> Réglages & Préférences
+                </h2>
+                <button id="settings-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor">
+                    <i class="ph ph-x text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Son du clic -->
+            <div class="flex justify-between items-center mb-4 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center">
+                        <i class="ph-fill ph-speaker-high text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-textmain block">Effets sonores</span>
+                        <span class="text-[10px] text-textmuted">Tintement discret à chaque clic</span>
+                    </div>
+                </div>
+                <input type="checkbox" id="sound-toggle" class="w-5 h-5 accent-primary-500 cursor-pointer">
+            </div>
+
+            <!-- Retour haptique -->
+            <div class="flex justify-between items-center mb-4 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center">
                         <i class="ph-fill ph-vibrate text-lg"></i>
@@ -453,23 +490,7 @@
                         <span class="text-[10px] text-textmuted">Vibration au clic & à l'objectif</span>
                     </div>
                 </div>
-                <input type="checkbox" id="haptic-toggle" onchange="toggleHaptic(this.checked)" class="w-5 h-5 accent-primary-500 cursor-pointer">
-            </div>
-
-            <!-- Rappels quotidiens (Notifications) -->
-            <div class="flex justify-between items-center mb-6 bg-surface/50 p-3.5 rounded-2xl border border-bordercolor">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center">
-                        <i class="ph-fill ph-bell-simple-ringing text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-textmain block">Rappels quotidiens</span>
-                        <span class="text-[10px] text-textmuted">Notification Matin & Soir</span>
-                    </div>
-                </div>
-                <button onclick="toggleReminders()" id="reminder-btn" class="px-3 py-1.5 rounded-xl bg-surface border border-bordercolor text-xs font-semibold text-textmuted hover:text-textmain tap-effect">
-                    Activer
-                </button>
+                <input type="checkbox" id="haptic-toggle" class="w-5 h-5 accent-primary-500 cursor-pointer">
             </div>
 
             <!-- Délai du mode Mains-Libres -->
@@ -483,7 +504,7 @@
                         <span class="text-[10px] text-textmuted">Pause entre chaque répétition</span>
                     </div>
                 </div>
-                <select id="auto-delay-select" onchange="changeAutoDelay(this.value)" class="bg-surface text-textmain border border-bordercolor text-xs rounded-xl px-2.5 py-1.5 outline-none focus:border-amber-400">
+                <select id="auto-delay-select" class="bg-surface text-textmain border border-bordercolor text-xs rounded-xl px-2.5 py-1.5 outline-none focus:border-amber-400">
                     <option value="1500">1.5 sec (Rapide)</option>
                     <option value="2000" selected>2.0 sec (Idéal)</option>
                     <option value="3000">3.0 sec (Posé)</option>
@@ -495,39 +516,35 @@
             <div class="mb-6">
                 <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Apparence & Thème</span>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                    <button onclick="setTheme('emerald')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#020617] text-[#10b981] flex flex-col items-center gap-1.5 tap-effect hover:border-[#10b981]">
+                    <button data-theme="emerald" class="theme-card py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#020617] text-[#10b981] flex flex-col items-center gap-1.5 tap-effect hover:border-[#10b981]">
                         <div class="w-4 h-4 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></div>
-                        <span class="text-[11px] font-bold">Emerald</span>
+                        <span class="text-[11px] font-bold">Émeraude</span>
                     </button>
-                    <button onclick="setTheme('kaaba')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#050505] text-[#f59e0b] flex flex-col items-center gap-1.5 tap-effect hover:border-[#f59e0b]">
+                    <button data-theme="medina" class="theme-card py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#f8fafc] text-[#16a34a] flex flex-col items-center gap-1.5 tap-effect hover:border-[#16a34a]">
+                        <div class="w-4 h-4 rounded-full bg-[#16a34a]"></div>
+                        <span class="text-[11px] font-bold">Médine</span>
+                    </button>
+                    <button data-theme="kaaba" class="theme-card py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#050505] text-[#f59e0b] flex flex-col items-center gap-1.5 tap-effect hover:border-[#f59e0b]">
                         <div class="w-4 h-4 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></div>
                         <span class="text-[11px] font-bold">Kaaba</span>
                     </button>
-                    <button onclick="setTheme('medina')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#f8fafc] text-[#16a34a] flex flex-col items-center gap-1.5 tap-effect hover:border-[#16a34a]">
-                        <div class="w-4 h-4 rounded-full bg-[#16a34a]"></div>
-                        <span class="text-[11px] font-bold">Medina</span>
-                    </button>
-                    <button onclick="setTheme('oled')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#000000] text-[#10b981] flex flex-col items-center gap-1.5 tap-effect hover:border-[#10b981]">
+                    <button data-theme="oled" class="theme-card py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#000000] text-[#10b981] flex flex-col items-center gap-1.5 tap-effect hover:border-[#10b981]">
                         <div class="w-4 h-4 rounded-full bg-[#000000] border border-[#10b981] shadow-[0_0_8px_#10b981]"></div>
                         <span class="text-[11px] font-bold">OLED</span>
-                    </button>
-                    <button onclick="setTheme('celestial')" class="py-2.5 px-3 rounded-2xl border border-bordercolor bg-[#020c1b] text-[#22d3ee] flex flex-col items-center gap-1.5 tap-effect hover:border-[#22d3ee]">
-                        <div class="w-4 h-4 rounded-full bg-[#22d3ee] shadow-[0_0_8px_#22d3ee]"></div>
-                        <span class="text-[11px] font-bold">Celestial</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Sauvegarde & Restauration des données (Export/Import JSON) -->
+            <!-- Sauvegarde & Restauration (Export/Import JSON avec Zod) -->
             <div class="mb-6">
                 <span class="text-xs text-textmuted font-bold uppercase tracking-wider block mb-2.5">Sauvegarde & Restauration</span>
                 <div class="grid grid-cols-2 gap-2.5">
-                    <button onclick="exportData()" class="py-3 px-3 rounded-2xl border border-bordercolor bg-surface/70 hover:bg-surface text-textmain flex items-center justify-center gap-2 tap-effect text-xs font-semibold">
+                    <button id="btn-export-backup" class="py-3 px-3 rounded-2xl border border-bordercolor bg-surface/70 hover:bg-surface text-textmain flex items-center justify-center gap-2 tap-effect text-xs font-semibold">
                         <i class="ph ph-export text-base text-primary-400"></i> Exporter (JSON)
                     </button>
                     <label class="py-3 px-3 rounded-2xl border border-bordercolor bg-surface/70 hover:bg-surface text-textmain flex items-center justify-center gap-2 tap-effect text-xs font-semibold cursor-pointer">
                         <i class="ph ph-import text-base text-primary-400"></i> Importer (JSON)
-                        <input type="file" id="import-input" accept=".json" onchange="importData(event)" class="hidden">
+                        <input type="file" id="import-file-input" accept=".json" class="hidden">
                     </label>
                 </div>
             </div>
@@ -544,1977 +561,105 @@
                             <span class="text-[10px] text-textmuted">Accès plein écran & hors-ligne</span>
                         </div>
                     </div>
-                    <button onclick="installPWA()" class="px-3.5 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-xl tap-effect transition-colors shadow-neon">
+                    <button id="btn-pwa-install" class="px-3.5 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-xl tap-effect transition-colors shadow-neon">
                         Installer
                     </button>
                 </div>
             </div>
 
-            <!-- Réinitialisation complète -->
+            <!-- Réinitialisation complète du jour -->
             <div class="mt-5 pt-4 border-t border-bordercolor/60 flex justify-between items-center">
                 <span class="text-[11px] text-textmuted">Réinitialiser les compteurs du jour</span>
-                <button onclick="resetAllDaily()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold tap-effect px-2 py-1">
+                <button id="btn-reset-all-daily" class="text-xs text-rose-400 hover:text-rose-300 font-semibold tap-effect px-2 py-1">
                     Remettre à zéro
                 </button>
             </div>
         </div>
     </div>
 
-    
-    <!-- Modal : Les 99 Noms d'Allah -->
-    <div id="names-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="names-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[92vh] flex flex-col transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-4 shrink-0">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                        <i class="ph-fill ph-sparkle text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-extrabold text-textmain">Les 99 Noms d'Allah</h3>
-                        <p class="text-[11px] text-textmuted">Asma' Allah Al-Husna (أسماء الله الحسنى)</p>
-                    </div>
-                </div>
-                <button onclick="closeNamesModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
-                    <i class="ph ph-x"></i>
-                </button>
-            </div>
-
-            <!-- Barre de recherche interne -->
-            <div class="relative mb-3.5 shrink-0">
-                <i class="ph ph-magnifying-glass absolute left-3.5 top-3 text-textmuted text-sm"></i>
-                <input type="text" id="names-search-input" oninput="filterNames(this.value)" placeholder="Rechercher par nom, arabe ou signification..." class="w-full bg-surface border border-bordercolor rounded-2xl pl-10 pr-4 py-2.5 text-xs text-textmain outline-none focus:border-amber-400 transition-colors">
-            </div>
-
-            <!-- Liste dynamique des 99 Noms -->
-            <div id="names-list" class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-2.5 pr-1">
-                <!-- Injecté par JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal : Carte de Partage (Générateur d'image HD) -->
-    <div id="share-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="share-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[92vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-2">
-                    <i class="ph ph-share-network text-xl text-primary-500"></i>
-                    <h3 class="text-lg font-bold text-textmain">Partager l'invocation</h3>
-                </div>
-                <button onclick="closeShareModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
-                    <i class="ph ph-x"></i>
-                </button>
-            </div>
-
-            <!-- Canvas de rendu de la carte d'image -->
-            <div class="rounded-2xl overflow-hidden border border-bordercolor mb-4 shadow-xl flex items-center justify-center bg-black/40">
-                <canvas id="share-canvas" width="1080" height="1080" class="w-full max-w-sm h-auto aspect-square"></canvas>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-                <button onclick="downloadShareImage()" class="py-3 px-4 rounded-2xl bg-primary-500 text-white font-bold text-xs shadow-neon flex items-center justify-center gap-2 tap-effect hover:bg-primary-600 transition-colors">
-                    <i class="ph-bold ph-download-simple text-base"></i> Télécharger (PNG)
-                </button>
-                <button onclick="copyShareText()" class="py-3 px-4 rounded-2xl bg-surface border border-bordercolor text-textmain font-bold text-xs flex items-center justify-center gap-2 tap-effect hover:bg-surfaceelevated transition-colors">
-                    <i class="ph-bold ph-copy text-base text-primary-400"></i> Copier le texte
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal : Ajouter ou Modifier un Dhikr -->
-    <div id="add-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center opacity-0 transition-opacity duration-300">
-        <div id="add-box" class="glass-card w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-7 max-h-[92vh] overflow-y-auto custom-scrollbar transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-300 border-t sm:border border-bordercolor">
-            <div class="flex justify-between items-center mb-5">
-                <h3 id="modal-title" class="text-lg font-bold text-textmain">Nouvelle invocation</h3>
-                <button onclick="closeAddModal()" class="w-9 h-9 rounded-full bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor flex items-center justify-center">
-                    <i class="ph ph-x"></i>
-                </button>
-            </div>
-            
-            <input type="hidden" id="edit-id" value="">
-
-            <div class="flex flex-col gap-3.5">
-                <div>
-                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Titre français *</label>
-                    <input type="text" id="add-title" placeholder="Ex: Subhanallah wa bihamdih" class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
-                </div>
-                <div>
-                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Texte Arabe (Optionnel)</label>
-                    <textarea id="add-arabic" rows="2" placeholder="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ" dir="rtl" class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2 text-textmain font-arabic text-lg outline-none focus:border-primary-500 transition-colors"></textarea>
-                </div>
-                <div>
-                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Translittération / Phonétique (Optionnel)</label>
-                    <input type="text" id="add-phonetic" placeholder="Ex: Subhanallahi wa bihamdih..." class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
-                </div>
-                <div>
-                    <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Traduction / Sens (Optionnel)</label>
-                    <input type="text" id="add-translation" placeholder="Ex: Gloire et louange à Allah..." class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Objectif par boucle *</label>
-                        <input type="number" id="add-target" min="1" max="10000" value="100" class="w-full bg-surface border border-bordercolor rounded-2xl px-4 py-2.5 text-sm text-textmain font-bold outline-none focus:border-primary-500 transition-colors">
-                    </div>
-                    <div>
-                        <label class="text-[11px] text-textmuted font-bold uppercase tracking-wider mb-1 block">Catégorie</label>
-                        <select id="add-category" class="w-full bg-surface border border-bordercolor rounded-2xl px-3 py-2.5 text-sm text-textmain outline-none focus:border-primary-500 transition-colors">
-                            <option value="daily">Quotidien</option>
-                            <option value="morning_evening">Matin & Soir</option>
-                            <option value="prayer">Post-Prière</option>
-                            <option value="sleep">Sommeil</option>
-                            <option value="custom">Général</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <button onclick="saveCustomDhikr()" class="w-full mt-2 py-3.5 rounded-2xl bg-primary-500 text-white font-bold text-base shadow-neon tap-effect hover:bg-primary-600 transition-colors flex items-center justify-center gap-2">
-                    <i class="ph-bold ph-check"></i> <span id="save-btn-text">Enregistrer l'invocation</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Mode Focus (Plein Écran & Tasbih Immersif avec Perles) -->
-    <div id="focus-mode" class="fixed inset-0 bg-background z-[60] hidden flex-col transition-transform duration-300 translate-y-full select-none">
-        
-        <!-- Barre supérieure du mode focus -->
-        <div class="px-5 py-4 flex justify-between items-center relative z-20 pointer-events-auto">
-            <button onclick="closeFocusMode()" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-textmain backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Quitter (Échap)">
-                <i class="ph ph-x text-xl"></i>
-            </button>
-            
-            <div class="flex items-center gap-2">
-                <!-- Bouton Mode Mains-Libres (Auto-Loop) -->
-                <button onclick="toggleAutoPlay()" id="focus-autoplay-btn" class="px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-amber-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5" title="Répétition automatique mains-libres">
-                    <i id="focus-autoplay-icon" class="ph-bold ph-play text-sm"></i>
-                    <span id="focus-autoplay-label">Auto</span>
+    <div id="focus-modal" class="fixed inset-0 bg-background z-[60] hidden flex-col transition-transform duration-300 translate-y-full select-none">
+        <div id="focus-box" class="w-full h-full flex flex-col">
+            <!-- Barre supérieure du mode focus -->
+            <div class="px-5 py-4 flex justify-between items-center relative z-20 pointer-events-auto">
+                <button id="focus-close-btn" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-textmain backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Quitter (Échap)">
+                    <i class="ph ph-x text-xl"></i>
                 </button>
-
-                <!-- Bouton Écouter la prononciation arabe -->
-                <button onclick="speakFocusDhikr()" id="focus-speaker-btn" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-cyan-400 backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Écouter la prononciation">
-                    <i id="focus-speaker-icon" class="ph ph-speaker-high text-xl"></i>
-                </button>
-
-                <!-- Contrôles de taille de police arabe -->
-                <div class="flex items-center bg-card rounded-2xl p-1 border border-bordercolor">
-                    <button onclick="changeFontSize(-2)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-textmuted hover:text-textmain tap-effect">A-</button>
-                    <button onclick="changeFontSize(2)" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-textmuted hover:text-textmain tap-effect">A+</button>
-                </div>
                 
-                <!-- Toggle Phonétique & Traduction -->
-                <button onclick="toggleFocusDetails()" id="focus-details-btn" class="px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-primary-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5" title="Afficher/Masquer traduction">
-                    <i class="ph ph-translate text-sm"></i>
-                    <span id="focus-details-label">Détails</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Zone de texte sacré et traduction -->
-        <div class="flex-1 flex flex-col items-center justify-start px-6 pt-2 pb-4 overflow-y-auto custom-scrollbar relative z-10 pointer-events-none">
-            <!-- Titre français -->
-            <h3 id="focus-french" class="text-primary-400 font-bold text-xs uppercase tracking-widest mb-3 text-center pointer-events-auto"></h3>
-            
-            <!-- Texte Arabe avec taille dynamique -->
-            <p id="focus-arabic" class="font-arabic leading-relaxed text-textmain text-center drop-shadow-md mb-3 pointer-events-auto px-2" dir="rtl" style="font-size: 32px; line-height: 1.8;"></p>
-            
-            <!-- Détails supplémentaires : Phonétique, Traduction & Mérite -->
-            <div id="focus-extra-content" class="w-full max-w-sm flex flex-col gap-2 mt-1 pointer-events-auto transition-all">
-                <div id="focus-phonetic-box" class="bg-surface/60 rounded-2xl p-3 border border-bordercolor/80 text-center">
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Phonétique</span>
-                    <p id="focus-phonetic" class="text-xs text-textmain italic leading-relaxed"></p>
-                </div>
-                <div id="focus-translation-box" class="bg-surface/60 rounded-2xl p-3 border border-bordercolor/80 text-center">
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Traduction</span>
-                    <p id="focus-translation" class="text-xs text-textmuted leading-relaxed"></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Zone tactile principale du Tasbih (clic n'importe où) -->
-        <div id="focus-tap-zone" class="relative w-full pb-10 pt-4 flex flex-col items-center justify-center outline-none tap-effect cursor-pointer" onclick="incrementFocus()">
-            
-            <!-- Cercle SVG de progression avec perles et compteurs -->
-            <div class="relative w-56 h-56 mb-4 flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 100 100">
-                    <!-- Fond du cercle -->
-                    <circle cx="50" cy="50" r="44" fill="transparent" stroke="var(--color-border)" stroke-width="4"></circle>
-                    <!-- Anneau animé -->
-                    <circle id="focus-ring" cx="50" cy="50" r="44" fill="transparent" stroke="var(--color-primary-500)" stroke-width="4" stroke-dasharray="276" stroke-dashoffset="276" class="transition-all duration-200 ease-out drop-shadow-[0_0_12px_var(--color-primary-500-alpha)]" stroke-linecap="round"></circle>
-                    <!-- Groupe des 33 perles de chapelet interactives -->
-                    <g id="focus-beads-group"></g>
-                </svg>
-                
-                <!-- Compteur intérieur -->
-                <div class="flex flex-col items-center justify-center z-10">
-                    <span id="focus-round-badge" class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-primary-500/20 text-primary-400 mb-1 border border-primary-500/30">Tour 1</span>
-                    <span id="focus-counter" class="text-6xl font-black text-textmain tabular-nums tracking-tighter drop-shadow-lg">0</span>
-                    <span id="focus-progress-text" class="text-textmuted font-semibold text-xs mt-0.5">0 / 100</span>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-1.5 text-textmuted text-xs font-semibold uppercase tracking-widest">
-                <i class="ph ph-hand-tap text-base animate-pulse text-primary-400"></i>
-                <span>Touchez l'écran pour compter</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script Principal de l'Application -->
-    <script>
-        // --- BASE DE DONNÉES D'ADHKARS AUTHENTIQUES (v2 enrichie - Sunan) ---
-        const defaultAdhkars = [
-            // --- Quotidien & Fondamentaux ---
-            {
-                id: 'salawat',
-                category: 'daily',
-                arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
-                french: "Prière sur le Prophète",
-                phonetic: "Allahumma salli wa sallim wa barik 'ala nabiyyina Muhammad",
-                translation: "Ô Allah, répands Tes éloges, Ton salut et Tes bénédictions sur notre Prophète Muhammad.",
-                merit: "« Celui qui prie sur moi une fois, Allah priera sur lui dix fois. » (Muslim)",
-                target: 10,
-                targetLabel: "Boucle de 10"
-            },
-            {
-                id: 'istighfar',
-                category: 'daily',
-                arabic: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
-                french: "Demande de pardon (Istighfar)",
-                phonetic: "Astaghfiru-llaha wa atubu ilayh",
-                translation: "Je demande pardon à Allah et je me repens auprès de Lui.",
-                merit: "« Par Allah ! Je demande pardon à Allah et me repens plus de 70 fois par jour. » (Bukhari)",
-                target: 100,
-                targetLabel: "Boucle de 100"
-            },
-            {
-                id: 'subhanallahi_wa_bihamdih_100',
-                category: 'daily',
-                arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
-                french: "Gloire et Louange à Allah (100x)",
-                phonetic: "Subhanallahi wa bi-hamdih",
-                translation: "Gloire et louange à Allah.",
-                merit: "« Celui qui la répète 100 fois par jour, ses péchés sont effacés même s'ils étaient semblables à l'écume de la mer. » (Bukhari & Muslim)",
-                target: 100,
-                targetLabel: "Boucle de 100"
-            },
-            {
-                id: 'tahlil',
-                category: 'daily',
-                arabic: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
-                french: "L'Unicité Suprême (Tahlil)",
-                phonetic: "La ilaha illa-llahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa Huwa 'ala kulli shay'in qadir",
-                translation: "Il n'y a de divinité digne d'adoration qu'Allah, Seul, sans associé. À Lui la royauté et la louange, et Il est Omnipotent.",
-                merit: "Équivaut à affranchir 10 esclaves, accorde 100 bienfaits et protège contre le diable. (Bukhari)",
-                target: 100,
-                targetLabel: "Boucle de 100"
-            },
-            {
-                id: 'hawqala',
-                category: 'daily',
-                arabic: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
-                french: "La Hawqala (Secours en Allah)",
-                phonetic: "La hawla wa la quwwata illa billahil-'Aliyyil-'Azim",
-                translation: "Il n'y a de force ni de puissance que par Allah, le Très-Haut, le Tout-Puissant.",
-                merit: "« L'un des trésors du Paradis. » (Bukhari & Muslim)",
-                target: 100,
-                targetLabel: "Boucle de 100"
-            },
-            {
-                id: 'yunus',
-                category: 'daily',
-                arabic: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
-                french: "Invocation de Jonas (Dua Yunus)",
-                phonetic: "La ilaha illa Anta subhanaka inni kuntu minadh-dhalimin",
-                translation: "Il n'y a pas d'autre divinité que Toi ! Gloire et pureté à Toi ! J'ai vraiment été parmi les injustes.",
-                merit: "Aucun croyant n'invoque par ces mots sans qu'Allah ne dissipe sa détresse. (Tirmidhi)",
-                target: 100,
-                targetLabel: "Boucle de 100"
-            },
-
-            // --- Matin & Soir (Adhkar As-Sabah wal-Masaa) ---
-            {
-                id: 'sayyid_istighfar',
-                category: 'morning_evening',
-                arabic: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
-                french: "Le Maître du Repentir (Sayyidul Istighfar)",
-                phonetic: "Allahumma Anta Rabbi la ilaha illa Ant, khalaqtani wa ana 'abduk, wa ana 'ala 'ahdika wa wa'dika ma-stata't...",
-                translation: "Ô Allah, Tu es mon Seigneur, nul dieu digne d'adoration sauf Toi. Tu m'as créé et je suis Ton serviteur...",
-                merit: "Celui qui la récite le matin ou le soir avec conviction et meurt fera partie des gens du Paradis. (Bukhari)",
-                target: 1,
-                targetLabel: "1x Matin et Soir"
-            },
-            {
-                id: 'protection_matin_soir',
-                category: 'morning_evening',
-                arabic: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
-                french: "Protection Suprême (3x)",
-                phonetic: "Bismillahi-lladhi la yadurru ma'as-mihi shay'un fil-ardi wa la fis-sama'i wa Huwas-Sami'ul-'Alim",
-                translation: "Au nom d'Allah dont le Nom empêche toute chose de nuire sur terre et dans le ciel, et Il est l'Audient, l'Omniscient.",
-                merit: "Répétée 3 fois matin et soir : rien ne pourra nuire à celui qui la prononce. (Abu Dawud & Tirmidhi)",
-                target: 3,
-                targetLabel: "3x Matin et Soir"
-            },
-            {
-                id: 'raditu_billah',
-                category: 'morning_evening',
-                arabic: "رَضِيتُ بِاللَّهِ رَبّاً، وَبِالْإِسْلَامِ دِيناً، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيّاً",
-                french: "L'agrément d'Allah (3x)",
-                phonetic: "Raditu billahi Rabban, wa bil-Islami dinan, wa bi-Muhammadin sallallahu 'alayhi wa sallama Nabiyya",
-                translation: "J'agrée Allah comme Seigneur, l'Islam comme religion et Muhammad ﷺ comme Prophète.",
-                merit: "« Celui qui la répète 3 fois matin et soir, Allah Se fait un devoir de le satisfaire le Jour de la Résurrection. » (Abu Dawud n° 5072)",
-                target: 3,
-                targetLabel: "3x Matin et Soir"
-            },
-            {
-                id: 'audhu_bikalimatillah',
-                category: 'morning_evening',
-                arabic: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
-                french: "Refuge auprès des Paroles d'Allah (3x)",
-                phonetic: "A'udhu bi-kalimatillahi t-tammati min sharri ma khalaq",
-                translation: "Je cherche refuge auprès des Paroles parfaites d'Allah contre le mal de ce qu'Il a créé.",
-                merit: "« Celui qui la dit le soir 3 fois, rien ne lui nuira au cours de la nuit. » (Muslim n° 2709)",
-                target: 3,
-                targetLabel: "3x le Soir"
-            },
-            {
-                id: 'ya_hayyu_ya_qayyum',
-                category: 'morning_evening',
-                arabic: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",
-                french: "L'appel au Secours Divin",
-                phonetic: "Ya Hayyu ya Qayyumu bi-rahmatika astaghith, aslih li sha'ni kullah, wa la takilni ila nafsi tarfata 'ayn",
-                translation: "Ô Vivant, Ô Toi qui subsistes par Toi-même, par Ta miséricorde j'implore secours. Réforme toutes mes affaires et ne m'abandonne pas à moi-même le temps d'un clin d'œil.",
-                merit: "Enseignée par le Prophète ﷺ à sa fille Fatima pour le matin et le soir. (An-Nasa'i & Al-Hakim, Sahih)",
-                target: 1,
-                targetLabel: "1x Matin et Soir"
-            },
-            {
-                id: 'hasbiyallahu',
-                category: 'morning_evening',
-                arabic: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
-                french: "La Suffisance en Allah (7x)",
-                phonetic: "Hasbiyallahu la ilaha illa Huwa 'alayhi tawakkaltu wa Huwa Rabbul-'Arshil-'Azim",
-                translation: "Allah me suffit ! Nul dieu digne d'adoration sauf Lui. En Lui je place ma confiance et Il est le Seigneur du Trône Immense.",
-                merit: "« Celui qui la dit 7 fois matin et soir, Allah lui suffira face à tout ce qui le préoccupe ici-bas et dans l'au-delà. » (Abu Dawud n° 5081)",
-                target: 7,
-                targetLabel: "7x Matin et Soir"
-            },
-            {
-                id: 'subhanallahi_adada_khalqihi',
-                category: 'morning_evening',
-                arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ",
-                french: "La formule au poids immense (3x)",
-                phonetic: "Subhanallahi wa bi-hamdih: 'adada khalqih, wa rida nafsih, wa zinata 'arshih, wa midada kalimatih",
-                translation: "Gloire et louange à Allah, autant de fois qu'il y a de créatures, autant qu'Il Lui plaît, du poids de Son Trône et de l'encre de Ses paroles.",
-                merit: "Le Prophète ﷺ indiqua qu'elle pèse plus lourd dans la balance que des heures de rappel consécutives. (Muslim n° 2726)",
-                target: 3,
-                targetLabel: "3x le Matin"
-            },
-
-            // --- Après la Prière (Post-Prière) ---
-            {
-                id: 'astaghfirullah_post_salat',
-                category: 'prayer',
-                arabic: "أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ، اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",
-                french: "As-Salam après la Prière",
-                phonetic: "Astaghfirullah (3x), Allahumma Antas-Salamu wa minkas-salam, tabarakta ya Dhal-Jalali wal-Ikram",
-                translation: "Je demande pardon à Allah (3x). Ô Allah, Tu es la Paix et de Toi provient la paix. Béni sois-Tu, Ô Détenteur de Majesté et de Générosité.",
-                merit: "L'invocation exacte récitée par le Prophète ﷺ dès la fin de chaque salât obligatoire. (Muslim n° 591)",
-                target: 1,
-                targetLabel: "Dès la fin de la Salât"
-            },
-            {
-                id: 'tasbih_salat',
-                category: 'prayer',
-                arabic: "سُبْحَانَ اللَّهِ • الحَمْدُ لِلَّهِ • اللَّهُ أَكْبَرُ",
-                french: "Tasbih post-prière (33x)",
-                phonetic: "Subhanallah (33x) - Alhamdulillah (33x) - Allahu Akbar (33x)",
-                translation: "Gloire et pureté à Allah • Louange à Allah • Allah est le Plus Grand.",
-                merit: "Pardonne les péchés même s'ils égalaient l'écume de la mer. (Muslim n° 597)",
-                target: 33,
-                targetLabel: "33 après la prière"
-            },
-            {
-                id: 'dua_muadh_post_salat',
-                category: 'prayer',
-                arabic: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ، وَشُكْرِكَ، وَحُسْنِ عِبَادَتِكَ",
-                french: "Invocation enseignée à Mu'adh",
-                phonetic: "Allahumma a'inni 'ala dhikrika, wa shukrika, wa husni 'ibadatik",
-                translation: "Ô Allah, aide-moi à Te mentionner, à Te remercier et à T'adorer de la meilleure manière.",
-                merit: "Le Prophète ﷺ dit : « Ô Mu'adh, par Allah je t'aime ! Ne manque pas de dire après chaque prière... » (Abu Dawud n° 1522)",
-                target: 1,
-                targetLabel: "1x après chaque prière"
-            },
-            {
-                id: 'ayat_kursi',
-                category: 'prayer',
-                arabic: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
-                french: "Verset du Trône (Ayat Al-Kursi)",
-                phonetic: "Allahu la ilaha illa Huwal-Hayyul-Qayyum, la ta'khudhuhu sinatun wa la nawm...",
-                translation: "Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par Lui-même. Ni somnolence ni sommeil ne Le saisissent...",
-                merit: "« Celui qui la récite après chaque prière obligatoire, rien ne l'empêche d'entrer au Paradis sauf la mort. » (An-Nasa'i, Sahih)",
-                target: 1,
-                targetLabel: "1x après chaque prière"
-            },
-
-            // --- Circonstances de la Vie Quotidienne ---
-            {
-                id: 'khuruj_manzil',
-                category: 'daily',
-                arabic: "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
-                french: "Sortie de la maison (Al-Khuruj)",
-                phonetic: "Bismillahi, tawakkaltu 'alallahi, wa la hawla wa la quwwata illa billah",
-                translation: "Au nom d'Allah, je place ma confiance en Allah, et il n'y a de force ni de puissance que par Allah.",
-                merit: "« Il lui est dit : Tu es guidé, pourvu et protégé, et le diable s'écarte de lui. » (Abu Dawud n° 5095 & Tirmidhi)",
-                target: 1,
-                targetLabel: "1x à la sortie"
-            },
-            {
-                id: 'dua_karb',
-                category: 'daily',
-                arabic: "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ",
-                french: "Face à l'angoisse et la détresse (Du'a al-Karb)",
-                phonetic: "La ilaha illallahul-'Azimul-Halim, la ilaha illallahu Rabbul-'Arshil-'Azim, la ilaha illallahu Rabbus-samawati wa Rabbul-ardi wa Rabbul-'Arshil-Karim",
-                translation: "Nul dieu digne d'adoration qu'Allah, l'Immense, le Magnanime. Nul dieu digne d'adoration qu'Allah, Seigneur du Trône Immense. Nul dieu digne d'adoration qu'Allah, Seigneur des cieux, de la terre et du Noble Trône.",
-                merit: "L'invocation prophétique en cas de souci intense ou de détresse. (Bukhari n° 6345 & Muslim n° 2730)",
-                target: 1,
-                targetLabel: "En cas d'épreuve"
-            },
-            {
-                id: 'kaffarat_majlis',
-                category: 'daily',
-                arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
-                french: "Expiation de l'assemblée (Kaffarat al-Majlis)",
-                phonetic: "Subhanakallahumma wa bi-hamdika, ash-hadu an la ilaha illa Anta, astaghfiruka wa atubu ilayk",
-                translation: "Gloire et pureté à Toi Ô Allah et louange à Toi. J'atteste qu'il n'y a de divinité que Toi, je Te demande pardon et me repens à Toi.",
-                merit: "« Elle expie tout ce qui a pu être prononcé au cours de l'assise avant de se lever. » (Tirmidhi n° 3433)",
-                target: 1,
-                targetLabel: "Fin de réunion / assise"
-            },
-
-            // --- Sommeil & Réveil ---
-            {
-                id: 'nawm_janbi',
-                category: 'sleep',
-                arabic: "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
-                french: "Avant de dormir (An-Nawm)",
-                phonetic: "Bismika Rabbi wada'tu janbi wa bika arfa'uh, fa-in amsakta nafsi farhamha, wa in arsaltaha fahfaz-ha bima tahfazu bihi 'ibadakas-salihin",
-                translation: "En Ton Nom mon Seigneur j'ai posé mon flanc et par Toi je le relève. Si Tu retiens mon âme, fais-lui miséricorde, et si Tu la renvoies, protège-la comme Tu protèges Tes serviteurs vertueux.",
-                merit: "Invocation au coucher recommandée par le Messager d'Allah ﷺ. (Bukhari n° 6320 & Muslim n° 2714)",
-                target: 1,
-                targetLabel: "1x au coucher"
-            },
-            {
-                id: 'istiqadh_ahyana',
-                category: 'sleep',
-                arabic: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
-                french: "Invocation au réveil (Al-Istiqadh)",
-                phonetic: "Al-hamdu lillahilladhi ahyana ba'da ma amatana wa ilayhin-nushur",
-                translation: "Louange à Allah qui nous a rendu la vie après nous avoir fait mourir, et c'est vers Lui que se fera la Résurrection.",
-                merit: "Récitée par le Prophète ﷺ dès son réveil. (Bukhari n° 6312 & Muslim n° 2711)",
-                target: 1,
-                targetLabel: "1x au réveil"
-            }
-        ];
-
-        // --- ÉTAT GLOBAL DE L'APPLICATION ---
-        let adhkars = [];
-        let dailyCounts = {};
-        let lifetimeCounts = {};
-        let favorites = [];
-        let historyDays = {}; // format: { 'YYYY-MM-DD': count }
-        let currentCategory = 'all';
-        let searchQuery = '';
-        let currentFocusId = null;
-        let arabicFontSize = parseInt(localStorage.getItem('dhikrArabicSize') || '32');
-        let showFocusDetails = localStorage.getItem('dhikrFocusDetails') !== 'false';
-        let currentSharingDhikr = null;
-        let isSpeaking = false;
-
-        // Paramètres
-        let currentTheme = localStorage.getItem('dhikrTheme') || 'emerald';
-        let soundType = localStorage.getItem('dhikrSoundType') || 'wood'; // wood, water, click, none
-        let hapticEnabled = localStorage.getItem('dhikrHaptic') !== 'false'; // true par défaut
-        let streak = parseInt(localStorage.getItem('dhikrStreak') || '0');
-        let lastActiveDate = localStorage.getItem('dhikrLastDate');
-        let remindersEnabled = localStorage.getItem('dhikrReminders') === 'true';
-
-        // --- MOTEUR AUDIO AVANCÉ (Web Audio API) ---
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx;
-
-        function initAudio() {
-            if (!audioCtx) audioCtx = new AudioContext();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-        }
-
-        function playSound() {
-            if (soundType === 'none') return;
-            initAudio();
-            const now = audioCtx.currentTime;
-
-            if (soundType === 'wood') {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(280, now);
-                osc.frequency.exponentialRampToValueAtTime(80, now + 0.04);
-
-                gain.gain.setValueAtTime(0.7, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.045);
-            } else if (soundType === 'water') {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, now);
-                osc.frequency.exponentialRampToValueAtTime(440, now + 0.08);
-
-                gain.gain.setValueAtTime(0.5, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.085);
-            } else if (soundType === 'click') {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1200, now);
-                osc.frequency.exponentialRampToValueAtTime(200, now + 0.02);
-
-                gain.gain.setValueAtTime(0.4, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.025);
-            }
-        }
-
-        function triggerVibration(isMilestone = false) {
-            if (!hapticEnabled || !window.navigator || !window.navigator.vibrate) return;
-            if (isMilestone) {
-                window.navigator.vibrate([40, 60, 80]);
-            } else {
-                window.navigator.vibrate(25);
-            }
-        }
-
-        // --- SYNTHÈSE VOCALE ARABE (RÉCITATION) ---
-        function speakArabic(text, onStateChange) {
-            if (!('speechSynthesis' in window)) {
-                showToast("Synthèse vocale non supportée sur ce navigateur");
-                return;
-            }
-
-            if (speechSynthesis.speaking) {
-                speechSynthesis.cancel();
-                isSpeaking = false;
-                if (onStateChange) onStateChange(false);
-                return;
-            }
-
-            const cleanText = text.replace(/[•\d()]/g, ' ').trim();
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.85;
-
-            isSpeaking = true;
-            if (onStateChange) onStateChange(true);
-
-            utterance.onend = () => {
-                isSpeaking = false;
-                if (onStateChange) onStateChange(false);
-            };
-
-            utterance.onerror = () => {
-                isSpeaking = false;
-                if (onStateChange) onStateChange(false);
-            };
-
-            speechSynthesis.speak(utterance);
-        }
-
-        function speakDhikr(id, event) {
-            if (event) event.stopPropagation();
-            const dhikr = adhkars.find(d => d.id === id);
-            if (!dhikr || !dhikr.arabic) return;
-
-            const iconEl = document.getElementById(`speaker-${id}`);
-            speakArabic(dhikr.arabic, (speaking) => {
-                if (iconEl) {
-                    if (speaking) {
-                        iconEl.className = "ph-fill ph-speaker-high text-cyan-400 animate-pulse";
-                    } else {
-                        iconEl.className = "ph ph-speaker-high text-base";
-                    }
-                }
-            });
-        }
-
-        function speakFocusDhikr() {
-            if (!currentFocusId) return;
-            const dhikr = adhkars.find(d => d.id === currentFocusId);
-            if (!dhikr || !dhikr.arabic) return;
-
-            const iconEl = document.getElementById('focus-speaker-icon');
-            speakArabic(dhikr.arabic, (speaking) => {
-                if (iconEl) {
-                    if (speaking) {
-                        iconEl.className = "ph-fill ph-speaker-high text-cyan-400 animate-pulse text-xl";
-                    } else {
-                        iconEl.className = "ph ph-speaker-high text-xl";
-                    }
-                }
-            });
-        }
-
-        // --- INITIALISATION ---
-        function initApp() {
-            setTheme(currentTheme);
-            updateSoundUI();
-            document.getElementById('haptic-toggle').checked = hapticEnabled;
-            updateReminderUI();
-
-            const customSaved = JSON.parse(localStorage.getItem('dhikrCustom') || '[]');
-            adhkars = [...defaultAdhkars, ...customSaved];
-
-            dailyCounts = JSON.parse(localStorage.getItem('dhikrDaily') || '{}');
-            lifetimeCounts = JSON.parse(localStorage.getItem('dhikrLifetime') || '{}');
-            favorites = JSON.parse(localStorage.getItem('dhikrFavorites') || '[]');
-            historyDays = JSON.parse(localStorage.getItem('dhikrHistoryDays') || '{}');
-
-            checkDailyReset();
-
-            adhkars.forEach(d => {
-                if (dailyCounts[d.id] === undefined) dailyCounts[d.id] = 0;
-                if (lifetimeCounts[d.id] === undefined) lifetimeCounts[d.id] = 0;
-            });
-
-            updateGlobalStats();
-            renderCards();
-            updateCategoryBadges();
-            setupKeyboardShortcuts();
-            initFocusBeads();
-        }
-
-        // --- GESTION DU RESET & SÉRIE ---
-        function checkDailyReset() {
-            const today = new Date().toISOString().slice(0, 10);
-            
-            if (lastActiveDate && lastActiveDate !== today) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yDateStr = yesterday.toISOString().slice(0, 10);
-
-                const yesterdayTotal = Object.values(dailyCounts).reduce((a, b) => a + b, 0);
-                if (yesterdayTotal > 0) {
-                    historyDays[lastActiveDate] = yesterdayTotal;
-                }
-
-                if (lastActiveDate === yDateStr && yesterdayTotal > 0) {
-                    streak++;
-                } else if (lastActiveDate !== yDateStr) {
-                    streak = 1;
-                }
-
-                dailyCounts = {};
-                showToast("Nouveau jour ! Vos invocations quotidiennes sont prêtes.");
-            } else if (!lastActiveDate) {
-                streak = 1;
-            }
-
-            lastActiveDate = today;
-            localStorage.setItem('dhikrLastDate', lastActiveDate);
-            localStorage.setItem('dhikrStreak', streak);
-            localStorage.setItem('dhikrHistoryDays', JSON.stringify(historyDays));
-            document.getElementById('streak-counter').innerText = streak;
-        }
-
-        function saveData() {
-            localStorage.setItem('dhikrDaily', JSON.stringify(dailyCounts));
-            localStorage.setItem('dhikrLifetime', JSON.stringify(lifetimeCounts));
-            localStorage.setItem('dhikrFavorites', JSON.stringify(favorites));
-            localStorage.setItem('dhikrCustom', JSON.stringify(adhkars.filter(d => d.id.startsWith('custom_'))));
-            
-            const today = new Date().toISOString().slice(0, 10);
-            const todayTotal = Object.values(dailyCounts).reduce((a, b) => a + b, 0);
-            historyDays[today] = todayTotal;
-            localStorage.setItem('dhikrHistoryDays', JSON.stringify(historyDays));
-        }
-
-        function updateGlobalStats() {
-            const todayTotal = Object.values(dailyCounts).reduce((a, b) => a + b, 0);
-            const lifeTotal = Object.values(lifetimeCounts).reduce((a, b) => a + b, 0);
-
-            document.getElementById('daily-total-counter').innerText = `${todayTotal.toLocaleString('fr-FR')} invocation${todayTotal > 1 ? 's' : ''}`;
-            document.getElementById('lifetime-counter-banner').innerText = lifeTotal.toLocaleString('fr-FR');
-            document.getElementById('streak-counter').innerText = streak;
-        }
-
-        // --- FILTRAGE & RECHERCHE ---
-        const categorySummaries = {
-            'all': "Toutes les invocations",
-            'daily': "Invocations quotidiennes",
-            'morning_evening': "Adhkars du matin et du soir",
-            'prayer': "Invocations après la prière",
-            'sleep': "Invocations avant de dormir",
-            'favorites': "Vos invocations favorites",
-            'custom': "Vos dhikrs personnalisés"
-        };
-
-        function updateCategoryBadges() {
-            const counts = {
-                all: adhkars.length,
-                daily: adhkars.filter(d => d.category === 'daily').length,
-                morning_evening: adhkars.filter(d => d.category === 'morning_evening').length,
-                prayer: adhkars.filter(d => d.category === 'prayer').length,
-                sleep: adhkars.filter(d => d.category === 'sleep').length,
-                favorites: favorites.length,
-                custom: adhkars.filter(d => d.id.startsWith('custom_')).length
-            };
-
-            for (const [cat, count] of Object.entries(counts)) {
-                const el = document.getElementById(`badge-cat-${cat}`);
-                if (el) el.textContent = count;
-            }
-        }
-
-        function setCategory(cat) {
-            currentCategory = cat;
-            const summaryEl = document.getElementById('category-summary');
-            if (summaryEl) summaryEl.textContent = categorySummaries[cat] || "Invocations";
-
-            document.querySelectorAll('.cat-pill').forEach(btn => {
-                const isSelected = btn.getAttribute('data-cat') === cat;
-                const badge = btn.querySelector('.cat-badge');
-                if (isSelected) {
-                    btn.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 bg-primary-500 text-white border-primary-400 shadow-neon tap-effect";
-                    if (badge) {
-                        badge.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-white/25 text-white tabular-nums";
-                    }
-                } else {
-                    btn.className = "cat-pill px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 bg-surface/70 text-textmuted border-bordercolor hover:text-textmain hover:bg-surface hover:border-primary-500/30 tap-effect";
-                    if (badge) {
-                        badge.className = "cat-badge px-1.5 py-0.2 rounded-md text-[10px] font-bold bg-bordercolor/60 text-textmuted tabular-nums";
-                    }
-                }
-            });
-            renderCards();
-        }
-
-        function toggleSearchBar() {
-            const container = document.getElementById('search-bar-container');
-            container.classList.toggle('hidden');
-            if (!container.classList.contains('hidden')) {
-                document.getElementById('search-input').focus();
-            }
-        }
-
-        function onSearchChange(val) {
-            searchQuery = val.trim().toLowerCase();
-            renderCards();
-        }
-
-        function clearSearch() {
-            document.getElementById('search-input').value = '';
-            searchQuery = '';
-            renderCards();
-        }
-
-        function toggleFavorite(id, event) {
-            if (event) event.stopPropagation();
-            if (favorites.includes(id)) {
-                favorites = favorites.filter(f => f !== id);
-                showToast("Retiré des favoris");
-            } else {
-                favorites.push(id);
-                showToast("Ajouté aux favoris ⭐");
-            }
-            saveData();
-            updateCategoryBadges();
-            renderCards();
-        }
-
-        // --- RENDU DES CARTES ---
-        function renderCards() {
-            const container = document.getElementById('app-container');
-            container.innerHTML = '';
-
-            let filtered = adhkars.filter(d => {
-                if (currentCategory === 'favorites') {
-                    if (!favorites.includes(d.id)) return false;
-                } else if (currentCategory === 'custom') {
-                    if (!d.id.startsWith('custom_')) return false;
-                } else if (currentCategory !== 'all') {
-                    if (d.category !== currentCategory) return false;
-                }
-
-                if (searchQuery) {
-                    const haystack = `${d.french} ${d.arabic || ''} ${d.phonetic || ''} ${d.translation || ''}`.toLowerCase();
-                    if (!haystack.includes(searchQuery)) return false;
-                }
-
-                return true;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="glass-card rounded-3xl p-8 text-center flex flex-col items-center justify-center my-6">
-                        <i class="ph ph-magnifying-glass text-4xl text-textmuted mb-2"></i>
-                        <h3 class="text-sm font-bold text-textmain mb-1">Aucune invocation trouvée</h3>
-                        <p class="text-xs text-textmuted">Essayez un autre mot-clé ou ajoutez un nouveau Dhikr.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            filtered.forEach((dhikr) => {
-                const count = dailyCounts[dhikr.id] || 0;
-                const target = dhikr.target || 100;
-                const completedRounds = Math.floor(count / target);
-                const currentRoundCount = count % target;
-                const progressPercent = count > 0 && currentRoundCount === 0 ? 100 : (currentRoundCount / target) * 100;
-                const isFav = favorites.includes(dhikr.id);
-                const isCustom = dhikr.id.startsWith('custom_');
-
-                const card = document.createElement('div');
-                card.className = "glass-card rounded-[28px] overflow-hidden flex flex-col relative group transition-all duration-300 hover:border-primary-500/30";
-                
-                card.innerHTML = `
-                    <!-- En-tête de carte -->
-                    <div class="p-5 pb-2 flex justify-between items-start z-10 gap-3">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-1 flex-wrap">
-                                <span class="px-2 py-0.5 rounded-full bg-surface text-[10px] font-bold text-primary-400 border border-bordercolor">
-                                    ${dhikr.targetLabel || `Objectif : ${target}`}
-                                </span>
-                                ${completedRounds > 0 ? `
-                                    <span class="px-2 py-0.5 rounded-full bg-primary-500/20 text-[10px] font-bold text-primary-300 border border-primary-500/30 flex items-center gap-1">
-                                        <i class="ph-bold ph-repeat"></i> ${completedRounds} tour${completedRounds > 1 ? 's' : ''}
-                                    </span>
-                                ` : ''}
-                            </div>
-                            <h2 class="text-textmain font-bold text-sm tracking-wide leading-snug">${dhikr.french}</h2>
-                        </div>
-                        
-                        <div class="flex items-center gap-1.5 shrink-0">
-                            <!-- Écouter la prononciation -->
-                            ${dhikr.arabic ? `
-                            <button onclick="speakDhikr('${dhikr.id}', event)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-cyan-400 tap-effect" title="Écouter la prononciation">
-                                <i id="speaker-${dhikr.id}" class="ph ph-speaker-high text-base"></i>
-                            </button>
-                            ` : ''}
-
-                            <!-- Partager l'invocation -->
-                            <button onclick="openShareModal('${dhikr.id}', event)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-primary-400 tap-effect" title="Partager">
-                                <i class="ph ph-share-network text-base"></i>
-                            </button>
-
-                            <!-- Favori -->
-                            <button onclick="toggleFavorite('${dhikr.id}', event)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-amber-400 tap-effect" title="Favori">
-                                <i class="${isFav ? 'ph-fill ph-star text-amber-400' : 'ph ph-star'} text-base"></i>
-                            </button>
-
-                            <!-- Actions personnalisées (modifier / supprimer) -->
-                            ${isCustom ? `
-                                <button onclick="editCustom('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-primary-400 tap-effect" title="Modifier">
-                                    <i class="ph ph-pencil-simple text-base"></i>
-                                </button>
-                                <button onclick="deleteCustom('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-rose-400 tap-effect" title="Supprimer">
-                                    <i class="ph ph-trash text-base"></i>
-                                </button>
-                            ` : ''}
-
-                            <!-- Réinitialiser ce dhikr -->
-                            <button onclick="resetDhikr('${dhikr.id}')" class="w-8 h-8 flex items-center justify-center rounded-xl bg-surface/60 text-textmuted hover:text-primary-400 tap-effect" title="Remettre à zéro">
-                                <i class="ph ph-arrow-counter-clockwise text-base"></i>
-                            </button>
-                        </div>
+                <div class="flex items-center gap-2">
+                    <!-- Bouton Mode Mains-Libres (Auto-Loop) -->
+                    <button id="focus-autoplay-btn" class="px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-amber-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5" title="Répétition automatique mains-libres">
+                        <i id="focus-autoplay-icon" class="ph-bold ph-play text-sm"></i>
+                        <span id="focus-autoplay-label">Auto</span>
+                    </button>
+
+                    <!-- Bouton Écouter la prononciation arabe -->
+                    <button id="focus-speaker-btn" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-card text-textmuted hover:text-cyan-400 backdrop-blur-md tap-effect border border-bordercolor shadow-md" title="Écouter la prononciation">
+                        <i class="ph ph-speaker-high text-xl"></i>
+                    </button>
+
+                    <!-- Contrôles de taille de police arabe -->
+                    <div class="flex items-center bg-card rounded-2xl p-1 border border-bordercolor">
+                        <button id="focus-font-minus" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-textmuted hover:text-textmain tap-effect">A-</button>
+                        <button id="focus-font-plus" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs text-textmuted hover:text-textmain tap-effect">A+</button>
                     </div>
                     
-                    <!-- Texte Arabe -->
-                    ${dhikr.arabic ? `
-                    <div class="px-5 py-3 flex flex-col items-center justify-center z-10">
-                        <p class="font-arabic text-2xl md:text-3xl leading-loose text-textmain text-center drop-shadow-sm select-text" dir="rtl" style="line-height: 1.8;">
-                            ${dhikr.arabic}
-                        </p>
-                    </div>` : '<div class="py-2"></div>'}
+                    <!-- Toggle Phonétique & Traduction -->
+                    <button id="focus-details-btn" class="px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-primary-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5" title="Afficher/Masquer détails">
+                        <i class="ph ph-translate text-sm"></i>
+                        <span id="focus-details-label">Détails</span>
+                    </button>
+                </div>
+            </div>
 
-                    <!-- Translittération phonétique & sens -->
-                    ${(dhikr.phonetic || dhikr.translation) ? `
-                    <div class="px-5 pb-3 flex flex-col gap-1 text-center">
-                        ${dhikr.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${dhikr.phonetic}</p>` : ''}
-                        ${dhikr.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${dhikr.translation}</p>` : ''}
-                    </div>` : ''}
-
-                    <!-- Mérite / Source -->
-                    ${dhikr.merit ? `
-                    <div class="mx-5 mb-3 p-2 rounded-xl bg-surface/40 border border-bordercolor/60 text-[10px] text-textmuted flex items-start gap-1.5 leading-normal">
-                        <i class="ph-fill ph-info text-primary-400 text-xs mt-0.5 shrink-0"></i>
-                        <span>${dhikr.merit}</span>
-                    </div>` : ''}
-
-                    <!-- Bas de carte : Barre de progression & Boutons de comptage -->
-                    <div class="p-4 bg-surface/40 mt-auto border-t border-bordercolor relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-1.5 w-full bg-surface">
-                            <div id="progress-${dhikr.id}" class="h-full bg-primary-500 transition-all duration-300 ease-out" style="width: ${progressPercent}%; box-shadow: 0 0 10px var(--color-primary-500);"></div>
-                        </div>
-
-                        <div class="flex items-center justify-between gap-2.5 pt-1.5">
-                            <div class="flex-[1.2] bg-background/70 rounded-2xl py-2.5 px-2 flex flex-col items-center justify-center border border-bordercolor">
-                                <span class="text-[9px] text-primary-400 font-bold uppercase tracking-wider mb-0.5">Aujourd'hui</span>
-                                <span class="text-xl font-black text-textmain tabular-nums" id="count-${dhikr.id}">${count}</span>
-                            </div>
-                            
-                            <button onclick="increment('${dhikr.id}')" class="flex-[2.5] h-[60px] rounded-2xl bg-primary-500 text-white shadow-neon flex items-center justify-center gap-2 tap-effect font-bold text-base uppercase tracking-wider active:bg-primary-600 transition-colors">
-                                <i class="ph-bold ph-plus"></i> Compter
-                            </button>
-
-                            <button onclick="openFocusMode('${dhikr.id}')" class="w-[60px] h-[60px] rounded-2xl bg-surface flex flex-col items-center justify-center text-primary-400 hover:text-primary-300 tap-effect border border-bordercolor" title="Mode Plein Écran">
-                                <i class="ph ph-corners-out text-2xl"></i>
-                            </button>
-                        </div>
+            <!-- Zone de texte sacré et traduction -->
+            <div class="flex-1 flex flex-col items-center justify-start px-6 pt-2 pb-4 overflow-y-auto custom-scrollbar relative z-10 pointer-events-none">
+                <h3 id="focus-title" class="text-primary-400 font-bold text-xs uppercase tracking-widest mb-3 text-center pointer-events-auto"></h3>
+                <p id="focus-arabic" class="font-arabic leading-relaxed text-textmain text-center drop-shadow-md mb-3 pointer-events-auto px-2" dir="rtl" style="font-size: 32px; line-height: 1.8;"></p>
+                
+                <div id="focus-extra-content" class="w-full max-w-sm flex flex-col gap-2 mt-1 pointer-events-auto transition-all">
+                    <div class="bg-surface/60 rounded-2xl p-3 border border-bordercolor/80 text-center">
+                        <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Phonétique</span>
+                        <p id="focus-phonetic" class="text-xs text-textmain italic leading-relaxed"></p>
                     </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // --- ACTIONS DE COMPTAGE ---
-        function increment(id) {
-            dailyCounts[id] = (dailyCounts[id] || 0) + 1;
-            lifetimeCounts[id] = (lifetimeCounts[id] || 0) + 1;
-
-            const dhikr = adhkars.find(d => d.id === id);
-            const count = dailyCounts[id];
-            const target = dhikr.target || 100;
-            const currentRound = count % target;
-            const isMilestone = count > 0 && currentRound === 0;
-
-            const countEl = document.getElementById(`count-${id}`);
-            if (countEl) countEl.innerText = count;
-
-            const progressEl = document.getElementById(`progress-${id}`);
-            if (progressEl) {
-                const progressPercent = isMilestone ? 100 : (currentRound / target) * 100;
-                progressEl.style.width = `${progressPercent}%`;
-            }
-
-            saveData();
-            updateGlobalStats();
-            triggerVibration(isMilestone);
-            playSound();
-
-            if (isMilestone) {
-                confetti({
-                    particleCount: 80,
-                    spread: 60,
-                    origin: { y: 0.65 },
-                    colors: ['#10b981', '#fbbf24', '#34d399', '#ffffff']
-                });
-                showToast(`Objectif atteint pour "${dhikr.french}" ! 🎉`);
-            }
-        }
-
-        function resetDhikr(id) {
-            const dhikr = adhkars.find(d => d.id === id);
-            if (!confirm(`Remettre à zéro le compteur d'aujourd'hui pour "${dhikr.french}" ? L'historique global est conservé.`)) return;
-            dailyCounts[id] = 0;
-            saveData();
-            updateGlobalStats();
-            renderCards();
-            showToast("Compteur réinitialisé");
-        }
-
-        function resetAllDaily() {
-            if (!confirm("Voulez-vous réinitialiser tous les compteurs du jour à zéro ?")) return;
-            dailyCounts = {};
-            saveData();
-            updateGlobalStats();
-            renderCards();
-            closeSettings();
-            showToast("Tous les compteurs du jour ont été remis à zéro");
-        }
-
-        // --- VISUALISEUR DE PERLES DE MISBAHA DANS LE MODE FOCUS ---
-        function initFocusBeads() {
-            const group = document.getElementById('focus-beads-group');
-            if (!group) return;
-            group.innerHTML = '';
-
-            const totalBeads = 33;
-            const radius = 44;
-
-            for (let i = 0; i < totalBeads; i++) {
-                const angle = (i / totalBeads) * 2 * Math.PI;
-                const cx = 50 + radius * Math.cos(angle);
-                const cy = 50 + radius * Math.sin(angle);
-                const isSeparator = (i % 11 === 0);
-
-                const bead = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                bead.setAttribute('id', `focus-bead-${i}`);
-                bead.setAttribute('cx', cx.toFixed(2));
-                bead.setAttribute('cy', cy.toFixed(2));
-                bead.setAttribute('r', isSeparator ? '2.4' : '1.6');
-                bead.setAttribute('fill', 'var(--color-border)');
-                bead.setAttribute('opacity', '0.4');
-                bead.setAttribute('class', 'transition-all duration-200');
-                group.appendChild(bead);
-            }
-        }
-
-        function updateFocusBeads(progressPercent) {
-            const totalBeads = 33;
-            const activeBeadCount = Math.round((progressPercent / 100) * totalBeads);
-
-            for (let i = 0; i < totalBeads; i++) {
-                const bead = document.getElementById(`focus-bead-${i}`);
-                if (!bead) continue;
-                const isSeparator = (i % 11 === 0);
-
-                if (i < activeBeadCount) {
-                    bead.setAttribute('fill', isSeparator ? '#f59e0b' : 'var(--color-primary-400)');
-                    bead.setAttribute('opacity', '1');
-                    bead.setAttribute('filter', 'drop-shadow(0 0 3px var(--color-primary-500))');
-                } else {
-                    bead.setAttribute('fill', 'var(--color-border)');
-                    bead.setAttribute('opacity', '0.35');
-                    bead.removeAttribute('filter');
-                }
-            }
-        }
-
-        // --- MODE FOCUS IMMERSIF ---
-        const focusMode = document.getElementById('focus-mode');
-        const focusRing = document.getElementById('focus-ring');
-
-        function openFocusMode(id) {
-            currentFocusId = id;
-            const dhikr = adhkars.find(d => d.id === id);
-
-            document.getElementById('focus-french').innerText = dhikr.french;
-            
-            const arabicEl = document.getElementById('focus-arabic');
-            arabicEl.innerText = dhikr.arabic || '';
-            arabicEl.style.fontSize = `${arabicFontSize}px`;
-
-            const phoneticEl = document.getElementById('focus-phonetic');
-            const pBox = document.getElementById('focus-phonetic-box');
-            if (dhikr.phonetic) {
-                phoneticEl.innerText = dhikr.phonetic;
-                pBox.classList.remove('hidden');
-            } else {
-                pBox.classList.add('hidden');
-            }
-
-            const transEl = document.getElementById('focus-translation');
-            const tBox = document.getElementById('focus-translation-box');
-            if (dhikr.translation) {
-                transEl.innerText = dhikr.translation;
-                tBox.classList.remove('hidden');
-            } else {
-                tBox.classList.add('hidden');
-            }
-
-            applyFocusDetailsVisibility();
-            updateFocusUI();
-
-            focusMode.classList.remove('hidden');
-            setTimeout(() => focusMode.classList.remove('translate-y-full'), 10);
-        }
-
-        function closeFocusMode() {
-            if (speechSynthesis.speaking) speechSynthesis.cancel();
-            focusMode.classList.add('translate-y-full');
-            setTimeout(() => {
-                focusMode.classList.add('hidden');
-                currentFocusId = null;
-                renderCards();
-            }, 280);
-        }
-
-        function incrementFocus() {
-            if (!currentFocusId) return;
-            increment(currentFocusId);
-            updateFocusUI();
-        }
-
-        function updateFocusUI() {
-            if (!currentFocusId) return;
-            const dhikr = adhkars.find(d => d.id === currentFocusId);
-            const count = dailyCounts[currentFocusId] || 0;
-            const target = dhikr.target || 100;
-
-            const completedRounds = Math.floor(count / target);
-            const currentRound = count % target;
-            const displayProgress = count > 0 && currentRound === 0 ? target : currentRound;
-            const progressPercent = (displayProgress / target) * 100;
-
-            document.getElementById('focus-counter').innerText = count;
-            document.getElementById('focus-progress-text').innerText = `${displayProgress} / ${target}`;
-            document.getElementById('focus-round-badge').innerText = `Tour ${completedRounds + 1}`;
-
-            const offset = 276 - (276 * progressPercent) / 100;
-            focusRing.style.strokeDashoffset = offset;
-            updateFocusBeads(progressPercent);
-        }
-
-        function changeFontSize(delta) {
-            arabicFontSize = Math.max(22, Math.min(50, arabicFontSize + delta));
-            document.getElementById('focus-arabic').style.fontSize = `${arabicFontSize}px`;
-            localStorage.setItem('dhikrArabicSize', arabicFontSize);
-        }
-
-        function toggleFocusDetails() {
-            showFocusDetails = !showFocusDetails;
-            localStorage.setItem('dhikrFocusDetails', showFocusDetails);
-            applyFocusDetailsVisibility();
-        }
-
-        function applyFocusDetailsVisibility() {
-            const extra = document.getElementById('focus-extra-content');
-            const label = document.getElementById('focus-details-label');
-            if (showFocusDetails) {
-                extra.classList.remove('hidden');
-                label.innerText = 'Masquer';
-            } else {
-                extra.classList.add('hidden');
-                label.innerText = 'Détails';
-            }
-        }
-
-        // --- GÉNÉRATEUR DE CARTE DE PARTAGE (CANVAS 1080x1080) ---
-        function openShareModal(id, event) {
-            if (event) event.stopPropagation();
-            currentSharingDhikr = adhkars.find(d => d.id === id);
-            if (!currentSharingDhikr) return;
-
-            renderShareCard(currentSharingDhikr);
-
-            const modal = document.getElementById('share-modal');
-            const box = document.getElementById('share-box');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
-                else box.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeShareModal() {
-            const modal = document.getElementById('share-modal');
-            const box = document.getElementById('share-box');
-            modal.classList.add('opacity-0');
-            if (window.innerWidth < 640) box.classList.add('translate-y-full');
-            else box.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 280);
-        }
-
-        function renderShareCard(dhikr) {
-            const canvas = document.getElementById('share-canvas');
-            const ctx = canvas.getContext('2d');
-            const W = 1080;
-            const H = 1080;
-
-            // Fond dégradé sombre et luxueux
-            const bgGrad = ctx.createLinearGradient(0, 0, W, H);
-            bgGrad.addColorStop(0, '#020e0b');
-            bgGrad.addColorStop(0.5, '#04221b');
-            bgGrad.addColorStop(1, '#010907');
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, W, H);
-
-            // Cadre ornemental double bordure dorée
-            ctx.strokeStyle = 'rgba(234, 179, 8, 0.35)';
-            ctx.lineWidth = 4;
-            ctx.strokeRect(50, 50, W - 100, H - 100);
-
-            ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
-            ctx.lineWidth = 1.5;
-            ctx.strokeRect(65, 65, W - 130, H - 130);
-
-            // Coins décoratifs
-            const drawCorner = (x, y) => {
-                ctx.fillStyle = '#eab308';
-                ctx.beginPath();
-                ctx.arc(x, y, 6, 0, Math.PI * 2);
-                ctx.fill();
-            };
-            drawCorner(50, 50);
-            drawCorner(W - 50, 50);
-            drawCorner(50, H - 50);
-            drawCorner(W - 50, H - 50);
-
-            // En-tête : Titre App et Invocations
-            ctx.textAlign = 'center';
-            ctx.fillStyle = '#34d399';
-            ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
-            ctx.fillText("DHIKR PRO • RAPPEL QUOTIDIEN", W / 2, 130);
-
-            ctx.fillStyle = '#f8fafc';
-            ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
-            ctx.fillText(dhikr.french, W / 2, 190);
-
-            // Séparateur fin
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(W / 2 - 120, 225);
-            ctx.lineTo(W / 2 + 120, 225);
-            ctx.stroke();
-
-            // Texte Arabe calligraphié au centre
-            if (dhikr.arabic) {
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 54px "Amiri", serif';
-                wrapText(ctx, dhikr.arabic, W / 2, 380, 880, 85, true);
-            }
-
-            // Phonétique
-            let nextY = 620;
-            if (dhikr.phonetic) {
-                ctx.fillStyle = '#6ee7b7';
-                ctx.font = 'italic 28px "Plus Jakarta Sans", sans-serif';
-                nextY = wrapText(ctx, `"${dhikr.phonetic}"`, W / 2, nextY, 860, 42) + 40;
-            }
-
-            // Traduction française
-            if (dhikr.translation) {
-                ctx.fillStyle = '#cbd5e1';
-                ctx.font = '400 26px "Plus Jakarta Sans", sans-serif';
-                nextY = wrapText(ctx, dhikr.translation, W / 2, nextY, 860, 38) + 40;
-            }
-
-            // Mérite / Source en bas
-            if (dhikr.merit) {
-                ctx.fillStyle = '#94a3b8';
-                ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
-                wrapText(ctx, `✨ ${dhikr.merit}`, W / 2, Math.max(nextY, 890), 840, 32);
-            }
-
-            // Signature en pied de page
-            ctx.fillStyle = '#eab308';
-            ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
-            ctx.fillText("derkitoo.github.io/dhikr", W / 2, 990);
-        }
-
-        function wrapText(ctx, text, x, y, maxWidth, lineHeight, isRTL = false) {
-            const words = text.split(' ');
-            let line = '';
-            let currentY = y;
-
-            for (let n = 0; n < words.length; n++) {
-                const testLine = line + words[n] + ' ';
-                const metrics = ctx.measureText(testLine);
-                const testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0) {
-                    ctx.fillText(line, x, currentY);
-                    line = words[n] + ' ';
-                    currentY += lineHeight;
-                } else {
-                    line = testLine;
-                }
-            }
-            ctx.fillText(line, x, currentY);
-            return currentY;
-        }
-
-        function downloadShareImage() {
-            const canvas = document.getElementById('share-canvas');
-            const link = document.createElement('a');
-            link.download = `dhikr_${currentSharingDhikr ? currentSharingDhikr.id : 'pro'}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            showToast("Image téléchargée !");
-        }
-
-        function copyShareText() {
-            if (!currentSharingDhikr) return;
-            const text = `${currentSharingDhikr.french}\n\n${currentSharingDhikr.arabic || ''}\n\n${currentSharingDhikr.phonetic ? `Phonétique : ${currentSharingDhikr.phonetic}\n` : ''}${currentSharingDhikr.translation ? `Traduction : ${currentSharingDhikr.translation}\n` : ''}${currentSharingDhikr.merit ? `\nMérite : ${currentSharingDhikr.merit}\n` : ''}\nPartagé via Dhikr Pro`;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast("Texte copié dans le presse-papier !");
-                });
-            } else {
-                showToast("Presse-papier indisponible");
-            }
-        }
-
-        // --- RAPPELS & NOTIFICATIONS ---
-        function toggleReminders() {
-            if (!('Notification' in window)) {
-                showToast("Notifications non supportées par ce navigateur");
-                return;
-            }
-
-            if (Notification.permission === 'granted') {
-                remindersEnabled = !remindersEnabled;
-                localStorage.setItem('dhikrReminders', remindersEnabled);
-                updateReminderUI();
-                showToast(remindersEnabled ? "Rappels activés !" : "Rappels désactivés");
-                if (remindersEnabled) scheduleNotificationDemo();
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        remindersEnabled = true;
-                        localStorage.setItem('dhikrReminders', true);
-                        updateReminderUI();
-                        showToast("Notifications autorisées !");
-                        scheduleNotificationDemo();
-                    }
-                });
-            } else {
-                alert("Les notifications sont bloquées dans votre navigateur. Veuillez les autoriser dans les paramètres du site.");
-            }
-        }
-
-        function updateReminderUI() {
-            const btn = document.getElementById('reminder-btn');
-            if (!btn) return;
-            if (remindersEnabled && Notification.permission === 'granted') {
-                btn.innerText = "Activé";
-                btn.className = "px-3 py-1.5 rounded-xl bg-primary-500 text-white font-bold text-xs shadow-neon tap-effect";
-            } else {
-                btn.innerText = "Activer";
-                btn.className = "px-3 py-1.5 rounded-xl bg-surface border border-bordercolor text-xs font-semibold text-textmuted hover:text-textmain tap-effect";
-            }
-        }
-
-        function scheduleNotificationDemo() {
-            setTimeout(() => {
-                new Notification("Dhikr Pro 📿", {
-                    body: "C'est l'heure des adhkars du jour. Prenez quelques instants pour vous reconnecter.",
-                    icon: "icon.svg"
-                });
-            }, 3000);
-        }
-
-        // --- RACCOURCIS CLAVIER ---
-        function setupKeyboardShortcuts() {
-            window.addEventListener('keydown', (e) => {
-                if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
-
-                if (e.code === 'Space' || e.key === ' ' || e.code === 'ArrowUp' || e.code === 'Enter') {
-                    e.preventDefault();
-                    if (currentFocusId) {
-                        incrementFocus();
-                    } else if (adhkars.length > 0) {
-                        increment(adhkars[0].id);
-                    }
-                } else if (e.code === 'Escape') {
-                    if (currentFocusId) closeFocusMode();
-                    closeSettings();
-                    closeStatsModal();
-                    closeAddModal();
-                    closeShareModal();
-                } else if (e.key === 'm' || e.key === 'M') {
-                    soundType = soundType === 'none' ? 'wood' : 'none';
-                    localStorage.setItem('dhikrSoundType', soundType);
-                    updateSoundUI();
-                    showToast(soundType === 'none' ? 'Son coupé' : 'Son activé');
-                } else if (e.key === '+' || e.key === '=') {
-                    if (currentFocusId) changeFontSize(2);
-                } else if (e.key === '-') {
-                    if (currentFocusId) changeFontSize(-2);
-                }
-            });
-        }
-
-        // --- AJOUT / MODIFICATION DE DHIKR PERSONNALISÉ ---
-        function openAddModal(editId = null) {
-            const modal = document.getElementById('add-modal');
-            const box = document.getElementById('add-box');
-            
-            if (editId) {
-                const item = adhkars.find(d => d.id === editId);
-                document.getElementById('modal-title').innerText = "Modifier l'invocation";
-                document.getElementById('save-btn-text').innerText = "Mettre à jour";
-                document.getElementById('edit-id').value = editId;
-                document.getElementById('add-title').value = item.french;
-                document.getElementById('add-arabic').value = item.arabic || '';
-                document.getElementById('add-phonetic').value = item.phonetic || '';
-                document.getElementById('add-translation').value = item.translation || '';
-                document.getElementById('add-target').value = item.target || 100;
-                document.getElementById('add-category').value = item.category || 'custom';
-            } else {
-                document.getElementById('modal-title').innerText = "Nouvelle invocation";
-                document.getElementById('save-btn-text').innerText = "Enregistrer l'invocation";
-                document.getElementById('edit-id').value = '';
-                document.getElementById('add-title').value = '';
-                document.getElementById('add-arabic').value = '';
-                document.getElementById('add-phonetic').value = '';
-                document.getElementById('add-translation').value = '';
-                document.getElementById('add-target').value = 100;
-                document.getElementById('add-category').value = 'custom';
-            }
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
-                else box.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeAddModal() {
-            const modal = document.getElementById('add-modal');
-            const box = document.getElementById('add-box');
-            modal.classList.add('opacity-0');
-            if (window.innerWidth < 640) box.classList.add('translate-y-full');
-            else box.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 280);
-        }
-
-        function saveCustomDhikr() {
-            const title = document.getElementById('add-title').value.trim();
-            const arabic = document.getElementById('add-arabic').value.trim();
-            const phonetic = document.getElementById('add-phonetic').value.trim();
-            const translation = document.getElementById('add-translation').value.trim();
-            const target = parseInt(document.getElementById('add-target').value) || 100;
-            const category = document.getElementById('add-category').value;
-            const editId = document.getElementById('edit-id').value;
-
-            if (!title) {
-                alert("Le titre de l'invocation est obligatoire !");
-                return;
-            }
-
-            if (editId) {
-                const idx = adhkars.findIndex(d => d.id === editId);
-                if (idx !== -1) {
-                    adhkars[idx].french = title;
-                    adhkars[idx].arabic = arabic;
-                    adhkars[idx].phonetic = phonetic;
-                    adhkars[idx].translation = translation;
-                    adhkars[idx].target = target;
-                    adhkars[idx].targetLabel = `Boucle de ${target}`;
-                    adhkars[idx].category = category;
-                }
-                showToast("Invocation mise à jour !");
-            } else {
-                const newDhikr = {
-                    id: 'custom_' + Date.now(),
-                    french: title,
-                    arabic: arabic,
-                    phonetic: phonetic,
-                    translation: translation,
-                    target: target,
-                    targetLabel: `Boucle de ${target}`,
-                    category: category
-                };
-                adhkars.push(newDhikr);
-                dailyCounts[newDhikr.id] = 0;
-                lifetimeCounts[newDhikr.id] = 0;
-                showToast("Invocation personnalisée ajoutée !");
-            }
-
-            saveData();
-            closeAddModal();
-            updateCategoryBadges();
-            renderCards();
-        }
-
-        function editCustom(id) {
-            openAddModal(id);
-        }
-
-        function deleteCustom(id) {
-            const item = adhkars.find(d => d.id === id);
-            if (!confirm(`Supprimer définitivement l'invocation "${item.french}" ?`)) return;
-            adhkars = adhkars.filter(d => d.id !== id);
-            favorites = favorites.filter(f => f !== id);
-            delete dailyCounts[id];
-            delete lifetimeCounts[id];
-            saveData();
-            updateCategoryBadges();
-            renderCards();
-            showToast("Invocation supprimée");
-        }
-
-        // --- STATISTIQUES & GRAPHIQUE 7 JOURS ---
-        function openStatsModal() {
-            document.getElementById('stats-streak').innerText = streak;
-            const lifeTotal = Object.values(lifetimeCounts).reduce((a, b) => a + b, 0);
-            document.getElementById('stats-lifetime').innerText = lifeTotal.toLocaleString('fr-FR');
-
-            const chart = document.getElementById('activity-chart');
-            chart.innerHTML = '';
-
-            const days = [];
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                days.push(d.toISOString().slice(0, 10));
-            }
-
-            const counts = days.map(day => historyDays[day] || 0);
-            const maxVal = Math.max(...counts, 10);
-
-            days.forEach((day, idx) => {
-                const val = counts[idx];
-                const pct = Math.min(100, Math.max(12, (val / maxVal) * 100));
-                const dayLabel = new Date(day).toLocaleDateString('fr-FR', { weekday: 'short' });
-
-                const col = document.createElement('div');
-                col.className = "flex-1 flex flex-col items-center gap-1.5 h-full justify-end";
-                col.innerHTML = `
-                    <span class="text-[9px] font-bold text-textmuted tabular-nums">${val > 0 ? val : ''}</span>
-                    <div class="w-full max-w-[28px] rounded-t-lg bg-primary-500/20 border-t-2 border-primary-500 transition-all duration-500" style="height: ${pct}%;"></div>
-                    <span class="text-[9px] font-semibold text-textmuted capitalize">${dayLabel.slice(0, 2)}</span>
-                `;
-                chart.appendChild(col);
-            });
-
-            const modal = document.getElementById('stats-modal');
-            const box = document.getElementById('stats-box');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
-                else box.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeStatsModal() {
-            const modal = document.getElementById('stats-modal');
-            const box = document.getElementById('stats-box');
-            modal.classList.add('opacity-0');
-            if (window.innerWidth < 640) box.classList.add('translate-y-full');
-            else box.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 280);
-        }
-
-        // --- PARAMÈTRES, THÈMES & SAUVEGARDE JSON ---
-        function openSettings() {
-            const modal = document.getElementById('settings-modal');
-            const box = document.getElementById('settings-box');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
-                else box.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeSettings() {
-            const modal = document.getElementById('settings-modal');
-            const box = document.getElementById('settings-box');
-            modal.classList.add('opacity-0');
-            if (window.innerWidth < 640) box.classList.add('translate-y-full');
-            else box.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 280);
-        }
-
-        function setTheme(theme) {
-            currentTheme = theme;
-            document.body.setAttribute('data-theme', theme);
-            localStorage.setItem('dhikrTheme', theme);
-        }
-
-        function setSoundType(type) {
-            soundType = type;
-            localStorage.setItem('dhikrSoundType', type);
-            updateSoundUI();
-            playSound();
-        }
-
-        function updateSoundUI() {
-            ['wood', 'water', 'click', 'none'].forEach(type => {
-                const btn = document.getElementById(`sound-btn-${type}`);
-                if (!btn) return;
-                if (soundType === type) {
-                    btn.classList.add('border-primary-500', 'bg-primary-500/15');
-                } else {
-                    btn.classList.remove('border-primary-500', 'bg-primary-500/15');
-                }
-            });
-        }
-
-        function toggleHaptic(enabled) {
-            hapticEnabled = enabled;
-            localStorage.setItem('dhikrHaptic', enabled);
-            if (enabled) triggerVibration();
-        }
-
-        // --- EXPORT & IMPORT JSON ---
-        function exportData() {
-            const exportObject = {
-                app: "Dhikr Pro v2",
-                version: "2.0",
-                exportDate: new Date().toISOString(),
-                streak: streak,
-                dailyCounts: dailyCounts,
-                lifetimeCounts: lifetimeCounts,
-                favorites: favorites,
-                customDhikrs: adhkars.filter(d => d.id.startsWith('custom_')),
-                historyDays: historyDays,
-                theme: currentTheme,
-                soundType: soundType,
-                remindersEnabled: remindersEnabled
-            };
-
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObject, null, 2));
-            const downloadAnchor = document.createElement('a');
-            const dateStr = new Date().toISOString().slice(0, 10);
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `dhikr_pro_sauvegarde_${dateStr}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-
-            showToast("Sauvegarde exportée avec succès !");
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (!data.dailyCounts && !data.lifetimeCounts && !data.customDhikrs) {
-                        throw new Error("Format JSON non reconnu");
-                    }
-
-                    if (confirm("Importer cette sauvegarde ? Vos données actuelles seront mises à jour.")) {
-                        if (data.dailyCounts) dailyCounts = data.dailyCounts;
-                        if (data.lifetimeCounts) lifetimeCounts = data.lifetimeCounts;
-                        if (data.favorites) favorites = data.favorites;
-                        if (data.historyDays) historyDays = data.historyDays;
-                        if (data.streak) streak = data.streak;
-                        if (data.theme) setTheme(data.theme);
-
-                        if (Array.isArray(data.customDhikrs)) {
-                            const currentDefaults = defaultAdhkars.slice();
-                            adhkars = [...currentDefaults, ...data.customDhikrs];
-                        }
-
-                        saveData();
-                        updateGlobalStats();
-                        renderCards();
-                        closeSettings();
-                        showToast("Données restaurées avec succès !");
-                    }
-                } catch (err) {
-                    alert("Erreur lors de l'importation du fichier JSON : " + err.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // --- TOAST NOTIFICATION ---
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.remove('hidden');
-            toast.classList.add('toast-show');
-            setTimeout(() => {
-                toast.classList.remove('toast-show');
-                toast.classList.add('hidden');
-            }, 3200);
-        }
-
-        // --- PWA (INSTALLATION & SERVICE WORKER) ---
-        let deferredPrompt;
-
-        function initPWA() {
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('sw.js')
-                        .then(reg => console.log('[PWA] Service Worker actif:', reg.scope))
-                        .catch(err => console.log('[PWA] Service Worker non disponible (normal en local/file://):', err));
-                });
-            }
-
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                const pwaBox = document.getElementById('pwa-install-container');
-                if (pwaBox) pwaBox.classList.remove('hidden');
-            });
-
-            window.addEventListener('appinstalled', () => {
-                const pwaBox = document.getElementById('pwa-install-container');
-                if (pwaBox) pwaBox.classList.add('hidden');
-                deferredPrompt = null;
-                showToast("Dhikr Pro v2 installé avec succès !");
-            });
-        }
-
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        document.getElementById('pwa-install-container').classList.add('hidden');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-        
-        // --- LES 99 NOMS D'ALLAH (ASMA' ALLAH AL-HUSNA) ---
-        const ALLAH_NAMES = [{"n": 1, "a": "الرَّحْمَنُ", "p": "Ar-Rahman", "f": "Le Tout-Miséricordieux", "m": "Celui dont la miséricorde infinie englobe toute la création."}, {"n": 2, "a": "الرَّحِيمُ", "p": "Ar-Rahim", "f": "Le Très-Miséricordieux", "m": "Celui qui accorde Sa miséricorde spéciale aux croyants."}, {"n": 3, "a": "الْمَلِكُ", "p": "Al-Malik", "f": "Le Souverain Suprême", "m": "Le Roi absolu de l'univers, sans associé ni égal."}, {"n": 4, "a": "الْقُدُّوسُ", "p": "Al-Quddus", "f": "Le Pur et Sanctifié", "m": "Le Purifié de tout défaut, faiblesse ou imperfection."}, {"n": 5, "a": "السَّلَامُ", "p": "As-Salam", "f": "La Paix", "m": "La Source de la paix et Celui qui préserve de tout mal."}, {"n": 6, "a": "الْمُؤْمِنُ", "p": "Al-Mu'min", "f": "Le Rassurant / Le Fidèle", "m": "Celui qui accorde la foi, la sérénité et la sécurité."}, {"n": 7, "a": "الْمُهَيْمِنُ", "p": "Al-Muhaymin", "f": "Le Protecteur / Surveillant", "m": "Celui qui veille sur toute Sa création et la protège."}, {"n": 8, "a": "الْعَزِيزُ", "p": "Al-'Aziz", "f": "Le Tout-Puissant", "m": "L'Invincible que rien ne peut vaincre ni surpasser."}, {"n": 9, "a": "الْجَبَّارُ", "p": "Al-Jabbar", "f": "L'Imposant / Le Réparateur", "m": "Celui qui contraint toute chose et panse les cœurs brisés."}, {"n": 10, "a": "الْمُتَكَبِّرُ", "p": "Al-Mutakabbir", "f": "Le Majestueux", "m": "Celui à qui appartient la grandeur suprême et exclusive."}, {"n": 11, "a": "الْخَالِقُ", "p": "Al-Khaliq", "f": "Le Créateur", "m": "Celui qui donne l'existence à partir du néant."}, {"n": 12, "a": "الْبَارِئُ", "p": "Al-Bari'", "f": "Le Novateur", "m": "Celui qui façonne la création avec harmonie et perfection."}, {"n": 13, "a": "الْمُصَوِّرُ", "p": "Al-Musawwir", "f": "Le Façonneur", "m": "Celui qui donne à chaque être sa forme et ses caractéristiques uniques."}, {"n": 14, "a": "الْغَفَّارُ", "p": "Al-Ghaffar", "f": "Le Pardonneur", "m": "Celui qui pardonne inlassablement les fautes de Ses serviteurs."}, {"n": 15, "a": "الْقَهَّارُ", "p": "Al-Qahhar", "f": "Le Dominateur Suprême", "m": "Celui devant la majesté de qui tout être est soumis."}, {"n": 16, "a": "الْوَهَّابُ", "p": "Al-Wahhab", "f": "Le Grand Donateur", "m": "Celui qui comble de bienfaits sans rien attendre en retour."}, {"n": 17, "a": "الرَّزَّاقُ", "p": "Ar-Razzaq", "f": "Le Pourvoyeur", "m": "Celui qui assure la subsistance de chaque être vivant."}, {"n": 18, "a": "الْفَتَّاحُ", "p": "Al-Fattah", "f": "Celui qui ouvre les portes", "m": "Celui qui accorde la victoire et ouvre les trésors de Sa grâce."}, {"n": 19, "a": "الْعَلِيمُ", "p": "Al-'Alim", "f": "L'Omniscient", "m": "Celui dont la science parfaite cerne toute chose passée, présente et future."}, {"n": 20, "a": "الْقَابِضُ", "p": "Al-Qabid", "f": "Celui qui retient", "m": "Celui qui restreint la subsistance ou les âmes selon Sa sagesse."}, {"n": 21, "a": "الْبَاسِطُ", "p": "Al-Basit", "f": "Celui qui dilate", "m": "Celui qui répand Ses bienfaits avec abondance et soulage les cœurs."}, {"n": 22, "a": "الْخَافِضُ", "p": "Al-Khafid", "f": "Celui qui abaisse", "m": "Celui qui abaisse les oppresseurs et les orgueilleux."}, {"n": 23, "a": "الرَّافِعُ", "p": "Ar-Rafi'", "f": "Celui qui élève", "m": "Celui qui élève en degrés les croyants et les humbles."}, {"n": 24, "a": "الْمُعِزُّ", "p": "Al-Mu'izz", "f": "Celui qui donne la puissance", "m": "Celui qui accorde honneur, noblesse et victoire."}, {"n": 25, "a": "الْمُذِلُّ", "p": "Al-Mudhill", "f": "Celui qui humilie", "m": "Celui qui prive d'honneur ceux qui se rebellent contre la vérité."}, {"n": 26, "a": "السَّمِيعُ", "p": "As-Sami'", "f": "L'Audient", "m": "Celui qui entend toute parole, soupir et prière secrète."}, {"n": 27, "a": "الْبَصِيرُ", "p": "Al-Basir", "f": "Le Clairvoyant", "m": "Celui qui voit toute chose, même la fourmi noire sur une pierre noire la nuit."}, {"n": 28, "a": "الْحَكَمُ", "p": "Al-Hakam", "f": "Le Juge Suprême", "m": "L'Arbitre ultime dont les décrets sont pure justice."}, {"n": 29, "a": "الْعَدْلُ", "p": "Al-'Adl", "f": "Le Juste Absolu", "m": "L'Équité absolue, exempt de toute injustice."}, {"n": 30, "a": "اللَّطِيفُ", "p": "Al-Latif", "f": "Le Subtil / Le Bienveillant", "m": "Celui qui dispense Sa grâce par des voies secrètes et imperceptibles."}, {"n": 31, "a": "الْخَبِيرُ", "p": "Al-Khabir", "f": "Le Parfaitement Informé", "m": "Celui qui connaît les secrets intimes de toute chose."}, {"n": 32, "a": "الْحَلِيمُ", "p": "Al-Halim", "f": "Le Très-Clément", "m": "Celui qui ne se hâte pas de châtier et accorde le temps du repentir."}, {"n": 33, "a": "الْعَظِيمُ", "p": "Al-'Azim", "f": "L'Incommensurable", "m": "Celui dont la grandeur dépasse toute compréhension."}, {"n": 34, "a": "الْغَفُورُ", "p": "Al-Ghafur", "f": "Le Tout-Pardonnant", "m": "Celui qui efface abondamment les péchés et protège de leurs conséquences."}, {"n": 35, "a": "الشَّكُورُ", "p": "Ash-Shakur", "f": "Le Reconnaissant", "m": "Celui qui récompense généreusement la moindre bonne action."}, {"n": 36, "a": "الْعَلِيُّ", "p": "Al-'Aliyy", "f": "Le Très-Haut", "m": "L'Élevé au-dessus de tout, sans équivalent."}, {"n": 37, "a": "الْكَبِيرُ", "p": "Al-Kabir", "f": "L'Infiniment Grand", "m": "Le Plus Grand que tout ce que l'on peut imaginer."}, {"n": 38, "a": "الْحَفِيظُ", "p": "Al-Hafiz", "f": "Le Préservateur", "m": "Le Protecteur qui sauvegarde l'univers et les œuvres de Ses créatures."}, {"n": 39, "a": "الْمُقِيتُ", "p": "Al-Muqit", "f": "Le Nourricier", "m": "Celui qui dispense à chaque corps et âme sa nourriture."}, {"n": 40, "a": "الْحَسِيبُ", "p": "Al-Hasib", "f": "Le Comptable", "m": "Celui qui suffit à Ses serviteurs et tient compte de chaque acte."}, {"n": 41, "a": "الْجَلِيلُ", "p": "Al-Jalil", "f": "Le Majestueux", "m": "Celui qui possède la beauté, la splendeur et la magnificence."}, {"n": 42, "a": "الْكَرِيمُ", "p": "Al-Karim", "f": "Le Noble Généreux", "m": "Celui qui donne sans compter et pardonne avec bienveillance."}, {"n": 43, "a": "الرَّقِيبُ", "p": "Ar-Raqib", "f": "Le Vigilant", "m": "Celui à qui aucun regard ni aucune pensée n'échappe."}, {"n": 44, "a": "الْمُجِيبُ", "p": "Al-Mujib", "f": "Celui qui exauce", "m": "Celui qui répond avec amour à l'appel de celui qui L'invoque."}, {"n": 45, "a": "الْوَاسِعُ", "p": "Al-Wasi'", "f": "L'Immense", "m": "Celui dont la miséricorde, la science et les bienfaits englobent tout."}, {"n": 46, "a": "الْحَكِيمُ", "p": "Al-Hakim", "f": "Le Sage", "m": "Celui qui dispose toute chose avec une sagesse absolue."}, {"n": 47, "a": "الْوَدُودُ", "p": "Al-Wadud", "f": "Le Tout-Aimant", "m": "Celui qui aime Ses pieux serviteurs et Se fait aimer d'eux."}, {"n": 48, "a": "الْمَجِيدُ", "p": "Al-Majid", "f": "Le Glorieux", "m": "Le Très-Haut en gloire, en dignité et en générosité."}, {"n": 49, "a": "الْبَاعِثُ", "p": "Al-Ba'ith", "f": "Le Résurrecteur", "m": "Celui qui ressuscitera les morts pour le Jugement dernier."}, {"n": 50, "a": "الشَّهِيدُ", "p": "Ash-Shahid", "f": "Le Témoin", "m": "Celui qui est présent et témoin de toute parole et action."}, {"n": 51, "a": "الْحَقُّ", "p": "Al-Haqq", "f": "La Vérité Absolue", "m": "L'Éternel dont l'existence et la parole sont la vérité immuable."}, {"n": 52, "a": "الْوَكِيلُ", "p": "Al-Wakil", "f": "Le Digne de confiance", "m": "Le Garant suprême sur qui repose toute confiance sincère."}, {"n": 53, "a": "الْقَوِيُّ", "p": "Al-Qawiyy", "f": "Le Tout-Fort", "m": "Celui dont la force est sans limite ni épuisement."}, {"n": 54, "a": "الْمَتِينُ", "p": "Al-Matin", "f": "L'Inébranlable", "m": "L'Inaltérable qui n'éprouve aucune fatigue ni difficulté."}, {"n": 55, "a": "الْوَلِيُّ", "p": "Al-Waliyy", "f": "Le Protecteur Allié", "m": "L'Ami intime et le Secoureur des croyants."}, {"n": 56, "a": "الْحَمِيدُ", "p": "Al-Hamid", "f": "Le Digne de louanges", "m": "Celui qui est loué pour Son essence, Ses noms et Ses actes parfaits."}, {"n": 57, "a": "الْمُحْصِي", "p": "Al-Muhsi", "f": "Celui qui dénombre tout", "m": "Celui dont la science compte précisément chaque souffle et poussière."}, {"n": 58, "a": "الْمُبْدِئُ", "p": "Al-Mubdi'", "f": "L'Auteur de la création", "m": "Celui qui crée le premier sans modèle préexistant."}, {"n": 59, "a": "الْمُعِيدُ", "p": "Al-Mu'id", "f": "Celui qui réintègre", "m": "Celui qui redonnera vie à la création après son anéantissement."}, {"n": 60, "a": "الْمُحْيِي", "p": "Al-Muhyi", "f": "Celui qui fait vivre", "m": "Celui qui insuffle la vie dans les corps et vivifie les cœurs."}, {"n": 61, "a": "الْمُمِيتُ", "p": "Al-Mumit", "f": "Celui qui donne la mort", "m": "Celui qui décrète le terme de chaque être vivant."}, {"n": 62, "a": "الْحَيُّ", "p": "Al-Hayy", "f": "Le Vivant Éternel", "m": "Celui qui possède une vie parfaite sans commencement ni fin."}, {"n": 63, "a": "الْقَيُّومُ", "p": "Al-Qayyum", "f": "L'Immuable / L'Autonome", "m": "Celui qui subsiste par Lui-même et par qui subsiste toute la création."}, {"n": 64, "a": "الْوَاجِدُ", "p": "Al-Wajid", "f": "L'Opulent", "m": "Celui qui ne manque de rien et trouve tout ce qu'Il veut."}, {"n": 65, "a": "الْمَاجِدُ", "p": "Al-Majid", "f": "Le Noble", "m": "Le Magnifique en bienfaits et en générosité."}, {"n": 66, "a": "الْوَاحِدُ", "p": "Al-Wahid", "f": "L'Unique", "m": "L'Un sans second, sans égal et sans associé."}, {"n": 67, "a": "الْأَحَدُ", "p": "Al-Ahad", "f": "L'Un Absolu", "m": "L'Unique dans Son essence et Ses attributs, indivisible."}, {"n": 68, "a": "الصَّمَدُ", "p": "As-Samad", "f": "Le Soutien Universel", "m": "Celui dont toute la création a besoin et qui n'a besoin de rien."}, {"n": 69, "a": "الْقَادِرُ", "p": "Al-Qadir", "f": "Le Puissant", "m": "Celui qui accomplit tout ce qu'Il décrète avec détermination."}, {"n": 70, "a": "الْمُقْتَدِرُ", "p": "Al-Muqtadir", "f": "L'Omnipotent", "m": "Le Dominateur absolu dont la puissance prévaut sur tout."}, {"n": 71, "a": "الْمُقَدِّمُ", "p": "Al-Muqaddim", "f": "Celui qui avance", "m": "Celui qui accorde priorité et avance les rangs selon Sa justice."}, {"n": 72, "a": "الْمُؤَخِّرُ", "p": "Al-Mu'akhkhir", "f": "Celui qui retarde", "m": "Celui qui repousse et retarde les choses en leur temps fixé."}, {"n": 73, "a": "الْأَوَّلُ", "p": "Al-Awwal", "f": "Le Premier", "m": "Celui avant qui rien n'existait, sans commencement."}, {"n": 74, "a": "الْآخِرُ", "p": "Al-Akhir", "f": "Le Dernier", "m": "Celui après qui rien ne subsistera, l'Éternel."}, {"n": 75, "a": "الظَّاهِرُ", "p": "Az-Zahir", "f": "Le Manifeste", "m": "Celui dont l'existence éclate à travers les signes de l'univers."}, {"n": 76, "a": "الْبَاطِنُ", "p": "Al-Batin", "f": "Le Caché", "m": "L'Invisible aux yeux des mortels et le Connaisseur des secrets cachés."}, {"n": 77, "a": "الْوَالِي", "p": "Al-Wali", "f": "Le Gouverneur de l'Univers", "m": "Le Maître qui gère et administre toute chose avec autorité."}, {"n": 78, "a": "الْمُتَعَالِي", "p": "Al-Muta'ali", "f": "Le Sublime", "m": "L'Élevé au-dessus de toute ressemblance avec Sa création."}, {"n": 79, "a": "الْبَرُّ", "p": "Al-Barr", "f": "Le Bienfaisant", "m": "La Source de toute bonté, douce compassion et piété."}, {"n": 80, "a": "التَّوَّابُ", "p": "At-Tawwab", "f": "L'Accueillant au repentir", "m": "Celui qui agrée avec clémence le retour sincère du pécheur."}, {"n": 81, "a": "الْمُنْتَقِمُ", "p": "Al-Muntaqim", "f": "Le Justicier", "m": "Celui qui brise les tyrans et châtie avec justice les rebelles."}, {"n": 82, "a": "الْعَفُوُّ", "p": "Al-'Afuww", "f": "L'Indulgent", "m": "Celui qui efface totalement les fautes sans laisser de trace."}, {"n": 83, "a": "الرَّؤُوفُ", "p": "Ar-Ra'uf", "f": "Le Très-Bienveillant", "m": "Celui dont la tendresse et la compassion sont extrêmes."}, {"n": 84, "a": "مَالِكُ الْمُلْكِ", "p": "Malik-ul-Mulk", "f": "Le Maître de la Royauté", "m": "Le Détenteur souverain de tout le royaume des cieux et de la terre."}, {"n": 85, "a": "ذُو الْجَلَالِ وَالْإِكْرَامِ", "p": "Dhul-Jalali wal-Ikram", "f": "Détenteur de Majesté et Générosité", "m": "Celui qui mérite d'être craint, glorifié et aimé par excellence."}, {"n": 86, "a": "الْمُقْسِطُ", "p": "Al-Muqsit", "f": "L'Équitable", "m": "Celui qui rend justice aux opprimés et juge avec droiture."}, {"n": 87, "a": "الْجَامِعُ", "p": "Al-Jami'", "f": "Le Rassembleur", "m": "Celui qui réunira l'humanité entière le Jour du Jugement."}, {"n": 88, "a": "الْغَنِيُّ", "p": "Al-Ghaniyy", "f": "Le Suffisant à Soi-même", "m": "Le Riche absolu qui ne dépend de rien ni de personne."}, {"n": 89, "a": "الْمُغْنِي", "p": "Al-Mughni", "f": "Celui qui enrichit", "m": "Celui qui accorde la richesse matérielle et la plénitude du cœur."}, {"n": 90, "a": "الْمَانِعُ", "p": "Al-Mani'", "f": "Le Défenseur", "m": "Celui qui protège et empêche ce qui pourrait nuire selon Sa sagesse."}, {"n": 91, "a": "الضَّارُّ", "p": "Ad-Darr", "f": "Celui qui éprouve", "m": "Le Maître de toute épreuve destinée à purifier et éveiller l'âme."}, {"n": 92, "a": "النَّافِعُ", "p": "An-Nafi'", "f": "La Source du bien", "m": "Celui qui procure tout profit, guérison et bénéfice."}, {"n": 93, "a": "النُّورُ", "p": "An-Nur", "f": "La Lumière", "m": "La Lumière des cieux et de la terre qui guide les égarés."}, {"n": 94, "a": "الْهَادِي", "p": "Al-Hadi", "f": "Le Guide Suprême", "m": "Celui qui oriente les cœurs vers le chemin droit de la vérité."}, {"n": 95, "a": "الْبَدِيعُ", "p": "Al-Badi'", "f": "L'Incomparable Créateur", "m": "Celui qui crée avec une beauté incomparable sans précédent."}, {"n": 96, "a": "الْبَاقِي", "p": "Al-Baqi", "f": "L'Éternel", "m": "Celui qui subsistera pour toujours lorsque tout disparaîtra."}, {"n": 97, "a": "الْوَارِثُ", "p": "Al-Warith", "f": "L'Héritier Suprême", "m": "Celui à qui reviendra toute la royauté à la fin des temps."}, {"n": 98, "a": "الرَّشِيدُ", "p": "Ar-Rashid", "f": "Le Guide Parfait", "m": "Celui dont tous les desseins mènent à la rectitude absolue."}, {"n": 99, "a": "الصَّبُورُ", "p": "As-Sabur", "f": "Le Très-Patient", "m": "Celui qui ne précipite rien et agit avec une infinie patience."}];
-
-        function openNamesModal() {
-            renderNamesList(ALLAH_NAMES);
-            document.getElementById('names-search-input').value = '';
-            const modal = document.getElementById('names-modal');
-            const box = document.getElementById('names-box');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if (window.innerWidth < 640) box.classList.remove('translate-y-full');
-                else box.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeNamesModal() {
-            const modal = document.getElementById('names-modal');
-            const box = document.getElementById('names-box');
-            modal.classList.add('opacity-0');
-            if (window.innerWidth < 640) box.classList.add('translate-y-full');
-            else box.classList.add('scale-95');
-            setTimeout(() => modal.classList.add('hidden'), 280);
-        }
-
-        function renderNamesList(list) {
-            const container = document.getElementById('names-list');
-            if (!container) return;
-            container.innerHTML = '';
-
-            if (list.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-xs text-textmuted">
-                        Aucun Nom d'Allah ne correspond à votre recherche.
+                    <div class="bg-surface/60 rounded-2xl p-3 border border-bordercolor/80 text-center">
+                        <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block mb-0.5">Traduction</span>
+                        <p id="focus-translation" class="text-xs text-textmuted leading-relaxed"></p>
                     </div>
-                `;
-                return;
-            }
+                </div>
+            </div>
 
-            list.forEach(item => {
-                const row = document.createElement('div');
-                row.className = "p-3 rounded-2xl bg-surface/60 border border-bordercolor/80 flex items-center justify-between gap-3 hover:border-amber-400/40 transition-all";
-                row.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center font-bold text-xs text-amber-400 shrink-0">
-                            ${item.n}
-                        </span>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-sm text-textmain">${item.p}</span>
-                                <span class="text-xs text-textmuted">(${item.f})</span>
-                            </div>
-                            <p class="text-[11px] text-textmuted leading-relaxed mt-0.5">${item.m}</p>
-                        </div>
+            <!-- Zone tactile principale du Tasbih -->
+            <div id="focus-tap-zone" class="relative w-full pb-10 pt-4 flex flex-col items-center justify-center outline-none tap-effect cursor-pointer">
+                <div class="relative w-56 h-56 mb-4 flex items-center justify-center">
+                    <svg class="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="44" fill="transparent" stroke="var(--color-border)" stroke-width="4"></circle>
+                        <circle id="focus-ring" cx="50" cy="50" r="44" fill="transparent" stroke="var(--color-primary-500)" stroke-width="4" stroke-dasharray="276" stroke-dashoffset="276" class="transition-all duration-200 ease-out drop-shadow-[0_0_12px_var(--color-primary-500-alpha)]" stroke-linecap="round"></circle>
+                        <g id="focus-beads-group"></g>
+                    </svg>
+                    
+                    <div class="flex flex-col items-center justify-center z-10">
+                        <span id="focus-round-badge" class="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-primary-500/20 text-primary-400 mb-1 border border-primary-500/30">Tour 1</span>
+                        <span id="focus-counter" class="text-6xl font-black text-textmain tabular-nums tracking-tighter drop-shadow-lg">0</span>
+                        <span id="focus-progress-text" class="text-textmuted font-semibold text-xs mt-0.5">0 / 100</span>
                     </div>
-                    <div class="flex flex-col items-end gap-1.5 shrink-0">
-                        <span class="font-arabic text-xl text-amber-300 drop-shadow-sm select-text" dir="rtl">${item.a}</span>
-                        <button onclick="meditateName(${item.n})" class="px-2.5 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-black font-bold text-[10px] border border-amber-500/30 tap-effect transition-all flex items-center gap-1">
-                            <i class="ph-bold ph-hand-tap"></i> Tasbih
-                        </button>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-        }
+                </div>
 
-        function filterNames(query) {
-            const q = query.trim().toLowerCase();
-            if (!q) {
-                renderNamesList(ALLAH_NAMES);
-                return;
-            }
-            const filtered = ALLAH_NAMES.filter(item => {
-                return item.p.toLowerCase().includes(q) ||
-                       item.f.toLowerCase().includes(q) ||
-                       item.m.toLowerCase().includes(q) ||
-                       item.a.includes(q) ||
-                       item.n.toString() === q;
-            });
-            renderNamesList(filtered);
-        }
+                <div class="flex items-center gap-1.5 text-textmuted text-xs font-semibold uppercase tracking-widest">
+                    <i class="ph ph-hand-tap text-base animate-pulse text-primary-400"></i>
+                    <span>Touchez l'écran pour compter</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function meditateName(num) {
-            const name = ALLAH_NAMES.find(n => n.n === num);
-            if (!name) return;
-            closeNamesModal();
+    <!-- Notification Toast Flottante -->
+    <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl glass-card bg-surface/95 border border-primary-500/40 text-xs font-bold text-textmain shadow-neon flex items-center gap-2 pointer-events-none hidden transition-all">
+        <i class="ph-fill ph-check-circle text-primary-400 text-base"></i>
+        <span id="toast-msg">Action effectuée</span>
+    </div>
 
-            const nameId = `name_${name.n}`;
-            let dhikr = adhkars.find(d => d.id === nameId);
-            if (!dhikr) {
-                dhikr = {
-                    id: nameId,
-                    category: 'daily',
-                    arabic: `يَا ${name.a.replace(/^ال/, '')}`,
-                    french: `Nom d'Allah : ${name.p}`,
-                    phonetic: `Yā ${name.p}`,
-                    translation: `${name.f} - ${name.m}`,
-                    merit: `« C'est à Allah qu'appartiennent les plus beaux Noms. Invoquez-Le par ces Noms. » (Sourate Al-A'raf, 180)`,
-                    target: 33,
-                    targetLabel: "Boucle de 33"
-                };
-                adhkars.unshift(dhikr);
-                dailyCounts[nameId] = 0;
-                lifetimeCounts[nameId] = 0;
-                saveData();
-                renderCards();
-                updateCategoryBadges();
-            }
-
-            openFocusMode(dhikr.id);
-        }
-
-        // --- MODE MAINS-LIBRES (AUTO-PLAY TASBIH) ---
-        let isAutoPlaying = false;
-        let autoPlayTimer = null;
-        let autoPlayDelayMs = parseInt(localStorage.getItem('dhikrAutoDelay') || '2000');
-
-        function changeAutoDelay(val) {
-            autoPlayDelayMs = parseInt(val);
-            localStorage.setItem('dhikrAutoDelay', autoPlayDelayMs);
-            showToast(`Délai réglé à ${autoPlayDelayMs / 1000}s`);
-        }
-
-        function toggleAutoPlay() {
-            if (isAutoPlaying) {
-                stopAutoPlay();
-            } else {
-                startAutoPlay();
-            }
-        }
-
-        function startAutoPlay() {
-            if (!currentFocusId) return;
-            isAutoPlaying = true;
-            updateAutoPlayUI(true);
-            showToast("Mode Mains-Libres activé ▶️");
-            runAutoPlayStep();
-        }
-
-        function stopAutoPlay() {
-            isAutoPlaying = false;
-            if (autoPlayTimer) clearTimeout(autoPlayTimer);
-            if ('speechSynthesis' in window && speechSynthesis.speaking) speechSynthesis.cancel();
-            updateAutoPlayUI(false);
-        }
-
-        function updateAutoPlayUI(active) {
-            const btn = document.getElementById('focus-autoplay-btn');
-            const icon = document.getElementById('focus-autoplay-icon');
-            const label = document.getElementById('focus-autoplay-label');
-            if (!btn) return;
-            if (active) {
-                btn.className = "px-3 py-2 rounded-2xl bg-amber-500 text-black text-xs font-bold border border-amber-400 tap-effect flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.5)] animate-pulse";
-                icon.className = "ph-bold ph-pause text-sm";
-                label.innerText = "Pause";
-            } else {
-                btn.className = "px-3 py-2 rounded-2xl bg-card text-textmuted hover:text-amber-400 text-xs font-semibold border border-bordercolor tap-effect flex items-center gap-1.5";
-                icon.className = "ph-bold ph-play text-sm";
-                label.innerText = "Auto";
-            }
-        }
-
-        function runAutoPlayStep() {
-            if (!isAutoPlaying || !currentFocusId) return;
-            const dhikr = adhkars.find(d => d.id === currentFocusId);
-            if (!dhikr) return stopAutoPlay();
-
-            if (dhikr.arabic && 'speechSynthesis' in window) {
-                speakArabic(dhikr.arabic, (speaking) => {
-                    if (!speaking && isAutoPlaying) {
-                        incrementFocus();
-                        const count = dailyCounts[currentFocusId] || 0;
-                        const target = dhikr.target || 100;
-                        if (count > 0 && count % target === 0) {
-                            showToast(`Objectif atteint pour ${dhikr.french} ! 🎉`);
-                            stopAutoPlay();
-                            return;
-                        }
-                        autoPlayTimer = setTimeout(() => {
-                            runAutoPlayStep();
-                        }, autoPlayDelayMs);
-                    }
-                });
-            } else {
-                incrementFocus();
-                const count = dailyCounts[currentFocusId] || 0;
-                const target = dhikr.target || 100;
-                if (count > 0 && count % target === 0) {
-                    showToast(`Objectif atteint pour ${dhikr.french} ! 🎉`);
-                    stopAutoPlay();
-                    return;
-                }
-                autoPlayTimer = setTimeout(() => {
-                    runAutoPlayStep();
-                }, autoPlayDelayMs);
-            }
-        }
-
-        // Arrêter auto-play lors de la fermeture du mode focus
-        const originalCloseFocusMode = closeFocusMode;
-        closeFocusMode = function() {
-            stopAutoPlay();
-            originalCloseFocusMode();
-        };
-
-        // --- DATE HÉGIRIENNE & JOURS BLANCS ---
-        function updateHijriDate() {
-            try {
-                const today = new Date();
-                const hijriFormatter = new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-                const parts = hijriFormatter.formatToParts(today);
-                const dayPart = parts.find(p => p.type === 'day');
-                const monthPart = parts.find(p => p.type === 'month');
-                const yearPart = parts.find(p => p.type === 'year');
-
-                const hijriDay = dayPart ? parseInt(dayPart.value) : 1;
-                const hijriMonth = monthPart ? monthPart.value : '';
-                const hijriYear = yearPart ? yearPart.value : '';
-
-                const dateEl = document.getElementById('hijri-date');
-                if (dateEl) dateEl.innerText = `${hijriDay} ${hijriMonth} ${hijriYear}`;
-
-                const dayOfWeek = today.getDay(); // 1 = Lundi, 4 = Jeudi
-                const badgeEl = document.getElementById('fasting-badge');
-                if (badgeEl) {
-                    if ([13, 14, 15].includes(hijriDay)) {
-                        badgeEl.innerText = "🌕 Jours Blancs";
-                        badgeEl.classList.remove('hidden');
-                    } else if (dayOfWeek === 1) {
-                        badgeEl.innerText = "🌿 Jeûne Lundi";
-                        badgeEl.classList.remove('hidden');
-                    } else if (dayOfWeek === 4) {
-                        badgeEl.innerText = "🌿 Jeûne Jeudi";
-                        badgeEl.classList.remove('hidden');
-                    } else {
-                        badgeEl.classList.add('hidden');
-                    }
-                }
-            } catch (e) {
-                console.warn("Date hégirienne non calculée :", e);
-            }
-        }
-
-        // Démarrage de l'application
-        window.addEventListener('focus', checkDailyReset);
-        initApp();
-        updateHijriDate();
-        initPWA();
-    </script>
+    <!-- Script Principal Modulaire TypeScript -->
+    <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
