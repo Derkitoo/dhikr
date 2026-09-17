@@ -517,7 +517,7 @@ function p(i, e) {
   });
   i.common.issues.push(a);
 }
-class H {
+class Z {
   constructor() {
     this.value = "valid";
   }
@@ -545,7 +545,7 @@ class H {
         value: l
       });
     }
-    return H.mergeObjectSync(e, a);
+    return Z.mergeObjectSync(e, a);
   }
   static mergeObjectSync(e, t) {
     const a = {};
@@ -560,12 +560,12 @@ class H {
 }
 const S = Object.freeze({
   status: "aborted"
-}), Se = (i) => ({ status: "dirty", value: i }), Q = (i) => ({ status: "valid", value: i }), ot = (i) => i.status === "aborted", ut = (i) => i.status === "dirty", fe = (i) => i.status === "valid", Ce = (i) => typeof Promise < "u" && i instanceof Promise;
+}), Se = (i) => ({ status: "dirty", value: i }), U = (i) => ({ status: "valid", value: i }), ot = (i) => i.status === "aborted", ut = (i) => i.status === "dirty", fe = (i) => i.status === "valid", we = (i) => typeof Promise < "u" && i instanceof Promise;
 var g;
 (function(i) {
   i.errToObj = (e) => typeof e == "string" ? { message: e } : e || {}, i.toString = (e) => typeof e == "string" ? e : e?.message;
 })(g || (g = {}));
-class re {
+class ae {
   constructor(e, t, a, r) {
     this._cachedPath = [], this.parent = e, this.data = t, this._path = a, this._key = r;
   }
@@ -618,7 +618,7 @@ class w {
   }
   _processInputParams(e) {
     return {
-      status: new H(),
+      status: new Z(),
       ctx: {
         common: e.parent.common,
         data: e.data,
@@ -631,7 +631,7 @@ class w {
   }
   _parseSync(e) {
     const t = this._parse(e);
-    if (Ce(t))
+    if (we(t))
       throw new Error("Synchronous parse encountered promise.");
     return t;
   }
@@ -710,7 +710,7 @@ class w {
       parent: null,
       data: e,
       parsedType: le(e)
-    }, r = this._parse({ data: e, path: a.path, parent: a }), s = await (Ce(r) ? r : Promise.resolve(r));
+    }, r = this._parse({ data: e, path: a.path, parent: a }), s = await (we(r) ? r : Promise.resolve(r));
     return dt(a, s);
   }
   refine(e, t) {
@@ -753,16 +753,16 @@ class w {
     return this.nullable().optional();
   }
   array() {
-    return ae.create(this);
+    return te.create(this);
   }
   promise() {
-    return Ee.create(this, this._def);
+    return Pe.create(this, this._def);
   }
   or(e) {
-    return Me.create([this, e], this._def);
+    return Te.create([this, e], this._def);
   }
   and(e) {
-    return Te.create(this, e, this._def);
+    return Ie.create(this, e, this._def);
   }
   transform(e) {
     return new be({
@@ -863,7 +863,7 @@ class se extends w {
         received: s.parsedType
       }), S;
     }
-    const a = new H();
+    const a = new Z();
     let r;
     for (const s of this._def.checks)
       if (s.kind === "min")
@@ -1254,7 +1254,7 @@ class ge extends w {
       }), S;
     }
     let a;
-    const r = new H();
+    const r = new Z();
     for (const s of this._def.checks)
       s.kind === "int" ? I.isInteger(e.data) || (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.invalid_type,
@@ -1426,7 +1426,7 @@ class ke extends w {
     if (this._getType(e) !== f.bigint)
       return this._getInvalidInput(e);
     let a;
-    const r = new H();
+    const r = new Z();
     for (const s of this._def.checks)
       s.kind === "min" ? (s.inclusive ? e.data < s.value : e.data <= s.value) && (a = this._getOrReturnCtx(e, a), p(a, {
         code: h.too_small,
@@ -1555,7 +1555,7 @@ class ct extends w {
         received: a.parsedType
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
 }
 ct.create = (i) => new ct({
@@ -1563,7 +1563,7 @@ ct.create = (i) => new ct({
   coerce: i?.coerce || !1,
   ...q(i)
 });
-class we extends w {
+class Me extends w {
   _parse(e) {
     if (this._def.coerce && (e.data = new Date(e.data)), this._getType(e) !== f.date) {
       const s = this._getOrReturnCtx(e);
@@ -1579,7 +1579,7 @@ class we extends w {
         code: h.invalid_date
       }), S;
     }
-    const a = new H();
+    const a = new Z();
     let r;
     for (const s of this._def.checks)
       s.kind === "min" ? e.data.getTime() < s.value && (r = this._getOrReturnCtx(e, r), p(r, {
@@ -1603,7 +1603,7 @@ class we extends w {
     };
   }
   _addCheck(e) {
-    return new we({
+    return new Me({
       ...this._def,
       checks: [...this._def.checks, e]
     });
@@ -1635,7 +1635,7 @@ class we extends w {
     return e != null ? new Date(e) : null;
   }
 }
-we.create = (i) => new we({
+Me.create = (i) => new Me({
   checks: [],
   coerce: i?.coerce || !1,
   typeName: x.ZodDate,
@@ -1651,7 +1651,7 @@ class ht extends w {
         received: a.parsedType
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
 }
 ht.create = (i) => new ht({
@@ -1668,7 +1668,7 @@ class mt extends w {
         received: a.parsedType
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
 }
 mt.create = (i) => new mt({
@@ -1685,7 +1685,7 @@ class pt extends w {
         received: a.parsedType
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
 }
 pt.create = (i) => new pt({
@@ -1697,7 +1697,7 @@ class ft extends w {
     super(...arguments), this._any = !0;
   }
   _parse(e) {
-    return Q(e.data);
+    return U(e.data);
   }
 }
 ft.create = (i) => new ft({
@@ -1709,7 +1709,7 @@ class gt extends w {
     super(...arguments), this._unknown = !0;
   }
   _parse(e) {
-    return Q(e.data);
+    return U(e.data);
   }
 }
 gt.create = (i) => new gt({
@@ -1740,14 +1740,14 @@ class vt extends w {
         received: a.parsedType
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
 }
 vt.create = (i) => new vt({
   typeName: x.ZodVoid,
   ...q(i)
 });
-class ae extends w {
+class te extends w {
   _parse(e) {
     const { ctx: t, status: a } = this._processInputParams(e), r = this._def;
     if (t.parsedType !== f.array)
@@ -1783,27 +1783,27 @@ class ae extends w {
       exact: !1,
       message: r.maxLength.message
     }), a.dirty()), t.common.async)
-      return Promise.all([...t.data].map((l, o) => r.type._parseAsync(new re(t, l, t.path, o)))).then((l) => H.mergeArray(a, l));
-    const s = [...t.data].map((l, o) => r.type._parseSync(new re(t, l, t.path, o)));
-    return H.mergeArray(a, s);
+      return Promise.all([...t.data].map((l, o) => r.type._parseAsync(new ae(t, l, t.path, o)))).then((l) => Z.mergeArray(a, l));
+    const s = [...t.data].map((l, o) => r.type._parseSync(new ae(t, l, t.path, o)));
+    return Z.mergeArray(a, s);
   }
   get element() {
     return this._def.type;
   }
   min(e, t) {
-    return new ae({
+    return new te({
       ...this._def,
       minLength: { value: e, message: g.toString(t) }
     });
   }
   max(e, t) {
-    return new ae({
+    return new te({
       ...this._def,
       maxLength: { value: e, message: g.toString(t) }
     });
   }
   length(e, t) {
-    return new ae({
+    return new te({
       ...this._def,
       exactLength: { value: e, message: g.toString(t) }
     });
@@ -1812,7 +1812,7 @@ class ae extends w {
     return this.min(1, e);
   }
 }
-ae.create = (i, e) => new ae({
+te.create = (i, e) => new te({
   type: i,
   minLength: null,
   maxLength: null,
@@ -1831,7 +1831,7 @@ function he(i) {
       ...i._def,
       shape: () => e
     });
-  } else return i instanceof ae ? new ae({
+  } else return i instanceof te ? new te({
     ...i._def,
     type: he(i.element)
   }) : i instanceof oe ? oe.create(he(i.unwrap())) : i instanceof ye ? ye.create(he(i.unwrap())) : i instanceof ce ? ce.create(i.items.map((e) => he(e))) : i;
@@ -1864,7 +1864,7 @@ class B extends w {
       const v = s[c], M = r.data[c];
       d.push({
         key: { status: "valid", value: c },
-        value: v._parse(new re(r, M, r.path, c)),
+        value: v._parse(new ae(r, M, r.path, c)),
         alwaysSet: c in r.data
       });
     }
@@ -1889,7 +1889,7 @@ class B extends w {
         d.push({
           key: { status: "valid", value: v },
           value: c._parse(
-            new re(r, M, r.path, v)
+            new ae(r, M, r.path, v)
             //, ctx.child(key), value, getParsedType(value)
           ),
           alwaysSet: v in r.data
@@ -1907,7 +1907,7 @@ class B extends w {
         });
       }
       return c;
-    }).then((c) => H.mergeObjectSync(a, c)) : H.mergeObjectSync(a, d);
+    }).then((c) => Z.mergeObjectSync(a, c)) : Z.mergeObjectSync(a, d);
   }
   get shape() {
     return this._def.shape();
@@ -2123,7 +2123,7 @@ B.lazycreate = (i, e) => new B({
   typeName: x.ZodObject,
   ...q(e)
 });
-class Me extends w {
+class Te extends w {
   _parse(e) {
     const { ctx: t } = this._processInputParams(e), a = this._def.options;
     function r(s) {
@@ -2191,7 +2191,7 @@ class Me extends w {
     return this._def.options;
   }
 }
-Me.create = (i, e) => new Me({
+Te.create = (i, e) => new Te({
   options: i,
   typeName: x.ZodUnion,
   ...q(e)
@@ -2222,7 +2222,7 @@ function Fe(i, e) {
     return { valid: !0, data: r };
   } else return t === f.date && a === f.date && +i == +e ? { valid: !0, data: i } : { valid: !1 };
 }
-class Te extends w {
+class Ie extends w {
   _parse(e) {
     const { status: t, ctx: a } = this._processInputParams(e), r = (s, l) => {
       if (ot(s) || ot(l))
@@ -2254,7 +2254,7 @@ class Te extends w {
     }));
   }
 }
-Te.create = (i, e, t) => new Te({
+Ie.create = (i, e, t) => new Ie({
   left: i,
   right: e,
   typeName: x.ZodIntersection,
@@ -2286,9 +2286,9 @@ class ce extends w {
     }), t.dirty());
     const s = [...a.data].map((l, o) => {
       const d = this._def.items[o] || this._def.rest;
-      return d ? d._parse(new re(a, l, a.path, o)) : null;
+      return d ? d._parse(new ae(a, l, a.path, o)) : null;
     }).filter((l) => !!l);
-    return a.common.async ? Promise.all(s).then((l) => H.mergeArray(t, l)) : H.mergeArray(t, s);
+    return a.common.async ? Promise.all(s).then((l) => Z.mergeArray(t, l)) : Z.mergeArray(t, s);
   }
   get items() {
     return this._def.items;
@@ -2310,7 +2310,7 @@ ce.create = (i, e) => {
     ...q(e)
   });
 };
-class Ie extends w {
+class Ee extends w {
   get keySchema() {
     return this._def.keyType;
   }
@@ -2328,22 +2328,22 @@ class Ie extends w {
     const r = [], s = this._def.keyType, l = this._def.valueType;
     for (const o in a.data)
       r.push({
-        key: s._parse(new re(a, o, a.path, o)),
-        value: l._parse(new re(a, a.data[o], a.path, o)),
+        key: s._parse(new ae(a, o, a.path, o)),
+        value: l._parse(new ae(a, a.data[o], a.path, o)),
         alwaysSet: o in a.data
       });
-    return a.common.async ? H.mergeObjectAsync(t, r) : H.mergeObjectSync(t, r);
+    return a.common.async ? Z.mergeObjectAsync(t, r) : Z.mergeObjectSync(t, r);
   }
   get element() {
     return this._def.valueType;
   }
   static create(e, t, a) {
-    return t instanceof w ? new Ie({
+    return t instanceof w ? new Ee({
       keyType: e,
       valueType: t,
       typeName: x.ZodRecord,
       ...q(a)
-    }) : new Ie({
+    }) : new Ee({
       keyType: se.create(),
       valueType: e,
       typeName: x.ZodRecord,
@@ -2367,8 +2367,8 @@ class bt extends w {
         received: a.parsedType
       }), S;
     const r = this._def.keyType, s = this._def.valueType, l = [...a.data.entries()].map(([o, d], c) => ({
-      key: r._parse(new re(a, o, a.path, [c, "key"])),
-      value: s._parse(new re(a, d, a.path, [c, "value"]))
+      key: r._parse(new ae(a, o, a.path, [c, "key"])),
+      value: s._parse(new ae(a, d, a.path, [c, "value"]))
     }));
     if (a.common.async) {
       const o = /* @__PURE__ */ new Map();
@@ -2434,7 +2434,7 @@ class _e extends w {
       }
       return { status: t.value, value: c };
     }
-    const o = [...a.data.values()].map((d, c) => s._parse(new re(a, d, a.path, c)));
+    const o = [...a.data.values()].map((d, c) => s._parse(new ae(a, d, a.path, c)));
     return a.common.async ? Promise.all(o).then((d) => l(d)) : l(o);
   }
   min(e, t) {
@@ -2523,7 +2523,7 @@ class ve extends w {
         options: a
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
   get options() {
     return this._def.values;
@@ -2579,7 +2579,7 @@ class xt extends w {
         options: r
       }), S;
     }
-    return Q(e.data);
+    return U(e.data);
   }
   get enum() {
     return this._def.values;
@@ -2590,7 +2590,7 @@ xt.create = (i, e) => new xt({
   typeName: x.ZodNativeEnum,
   ...q(e)
 });
-class Ee extends w {
+class Pe extends w {
   unwrap() {
     return this._def.type;
   }
@@ -2603,13 +2603,13 @@ class Ee extends w {
         received: t.parsedType
       }), S;
     const a = t.parsedType === f.promise ? t.data : Promise.resolve(t.data);
-    return Q(a.then((r) => this._def.type.parseAsync(r, {
+    return U(a.then((r) => this._def.type.parseAsync(r, {
       path: t.path,
       errorMap: t.common.contextualErrorMap
     })));
   }
 }
-Ee.create = (i, e) => new Ee({
+Pe.create = (i, e) => new Pe({
   type: i,
   typeName: x.ZodPromise,
   ...q(e)
@@ -2708,7 +2708,7 @@ be.createWithPreprocess = (i, e, t) => new be({
 });
 class oe extends w {
   _parse(e) {
-    return this._getType(e) === f.undefined ? Q(void 0) : this._def.innerType._parse(e);
+    return this._getType(e) === f.undefined ? U(void 0) : this._def.innerType._parse(e);
   }
   unwrap() {
     return this._def.innerType;
@@ -2721,7 +2721,7 @@ oe.create = (i, e) => new oe({
 });
 class ye extends w {
   _parse(e) {
-    return this._getType(e) === f.null ? Q(null) : this._def.innerType._parse(e);
+    return this._getType(e) === f.null ? U(null) : this._def.innerType._parse(e);
   }
   unwrap() {
     return this._def.innerType;
@@ -2767,7 +2767,7 @@ class Je extends w {
         ...a
       }
     });
-    return Ce(r) ? r.then((s) => ({
+    return we(r) ? r.then((s) => ({
       status: "valid",
       value: s.status === "valid" ? s.value : this._def.catchValue({
         get error() {
@@ -2868,7 +2868,7 @@ class Qe extends w {
 class Ve extends w {
   _parse(e) {
     const t = this._def.innerType._parse(e), a = (r) => (fe(r) && (r.value = Object.freeze(r.value)), r);
-    return Ce(t) ? t.then((r) => a(r)) : a(t);
+    return we(t) ? t.then((r) => a(r)) : a(t);
   }
   unwrap() {
     return this._def.innerType;
@@ -2883,34 +2883,34 @@ var x;
 (function(i) {
   i.ZodString = "ZodString", i.ZodNumber = "ZodNumber", i.ZodNaN = "ZodNaN", i.ZodBigInt = "ZodBigInt", i.ZodBoolean = "ZodBoolean", i.ZodDate = "ZodDate", i.ZodSymbol = "ZodSymbol", i.ZodUndefined = "ZodUndefined", i.ZodNull = "ZodNull", i.ZodAny = "ZodAny", i.ZodUnknown = "ZodUnknown", i.ZodNever = "ZodNever", i.ZodVoid = "ZodVoid", i.ZodArray = "ZodArray", i.ZodObject = "ZodObject", i.ZodUnion = "ZodUnion", i.ZodDiscriminatedUnion = "ZodDiscriminatedUnion", i.ZodIntersection = "ZodIntersection", i.ZodTuple = "ZodTuple", i.ZodRecord = "ZodRecord", i.ZodMap = "ZodMap", i.ZodSet = "ZodSet", i.ZodFunction = "ZodFunction", i.ZodLazy = "ZodLazy", i.ZodLiteral = "ZodLiteral", i.ZodEnum = "ZodEnum", i.ZodEffects = "ZodEffects", i.ZodNativeEnum = "ZodNativeEnum", i.ZodOptional = "ZodOptional", i.ZodNullable = "ZodNullable", i.ZodDefault = "ZodDefault", i.ZodCatch = "ZodCatch", i.ZodPromise = "ZodPromise", i.ZodBranded = "ZodBranded", i.ZodPipeline = "ZodPipeline", i.ZodReadonly = "ZodReadonly";
 })(x || (x = {}));
-const z = se.create, me = ge.create;
+const F = se.create, me = ge.create;
 ue.create;
-const St = ae.create, Ke = B.create;
-Me.create;
+const St = te.create, Ke = B.create;
 Te.create;
+Ie.create;
 ce.create;
-const Oe = Ie.create, Be = He.create, Ye = ve.create;
-Ee.create;
+const Oe = Ee.create, Be = He.create, Ye = ve.create;
+Pe.create;
 oe.create;
 ye.create;
 const Aa = Ke({
-  id: z().min(1),
-  french: z().min(1),
-  arabic: z().optional(),
-  phonetic: z().optional(),
-  translation: z().optional(),
-  merit: z().optional(),
+  id: F().min(1),
+  french: F().min(1),
+  arabic: F().optional(),
+  phonetic: F().optional(),
+  translation: F().optional(),
+  merit: F().optional(),
   target: me().int().positive(),
-  targetLabel: z().optional(),
+  targetLabel: F().optional(),
   category: Ye(["daily", "morning_evening", "prayer", "sleep", "custom"]),
-  audioUrl: z().optional()
+  audioUrl: F().optional()
 }), Sa = Ke({
-  version: z().optional(),
-  exportedAt: z().optional(),
-  dailyCounts: Oe(z(), me().int().nonnegative()),
-  lifetimeCounts: Oe(z(), me().int().nonnegative()),
-  favorites: St(z()),
-  historyDays: Oe(z(), me().int().nonnegative()).optional().default({}),
+  version: F().optional(),
+  exportedAt: F().optional(),
+  dailyCounts: Oe(F(), me().int().nonnegative()),
+  lifetimeCounts: Oe(F(), me().int().nonnegative()),
+  favorites: St(F()),
+  historyDays: Oe(F(), me().int().nonnegative()).optional().default({}),
   streak: me().int().nonnegative().optional().default(1),
   theme: Ye(["emerald", "medina", "kaaba", "oled"]).optional().default("emerald"),
   customDhikrs: St(Aa).optional().default([])
@@ -3139,7 +3139,7 @@ function Ge(i = null) {
 function wt(i) {
   return { status: "success", data: i, error: null };
 }
-function Le(i, e = null) {
+function Ce(i, e = null) {
   return { status: "error", data: e, error: i };
 }
 class qe {
@@ -3182,7 +3182,7 @@ class qe {
     return new Promise((t) => {
       if (typeof window > "u" || !("speechSynthesis" in window)) {
         const r = new Error("La synthèse vocale n’est pas supportée par ce navigateur.");
-        this.updateSpeechState(Le(r)), t();
+        this.updateSpeechState(Ce(r)), t();
         return;
       }
       this.updateSpeechState(Ge(e)), window.speechSynthesis.cancel();
@@ -3193,13 +3193,13 @@ class qe {
         this.updateSpeechState(wt(e)), t();
       }, a.onerror = (r) => {
         const s = new Error(`Erreur de synthèse vocale : ${r.error}`);
-        this.updateSpeechState(Le(s)), t();
+        this.updateSpeechState(Ce(s)), t();
       };
       try {
         window.speechSynthesis.speak(a);
       } catch (r) {
         const s = r instanceof Error ? r : new Error("Erreur de synthèse vocale");
-        this.updateSpeechState(Le(s)), t();
+        this.updateSpeechState(Ce(s)), t();
       }
     });
   }
@@ -3293,8 +3293,8 @@ var Xe = {};
           return _(y, null), n;
         var R = Math.random().toString(36).slice(2);
         return n = c(function(D) {
-          function O(F) {
-            F.data.callback === R && (delete b[R], k.removeEventListener("message", O), n = null, v.clear(), j(), D());
+          function O(H) {
+            H.data.callback === R && (delete b[R], k.removeEventListener("message", O), n = null, v.clear(), j(), D());
           }
           k.addEventListener("message", O), _(y, R), b[R] = O.bind(null, { data: { callback: R } });
         }), n;
@@ -3366,36 +3366,36 @@ var Xe = {};
     disableForReducedMotion: !1,
     scalar: 1
   };
-  function K(u, n) {
+  function Q(u, n) {
     return n ? n(u) : u;
   }
-  function J(u) {
+  function V(u) {
     return u != null;
   }
   function N(u, n, b) {
-    return K(
-      u && J(u[n]) ? u[n] : $[n],
+    return Q(
+      u && V(u[n]) ? u[n] : $[n],
       b
     );
   }
   function G(u) {
     return u < 0 ? 0 : Math.floor(u);
   }
-  function V(u, n) {
+  function Le(u, n) {
     return Math.floor(Math.random() * (n - u)) + u;
   }
-  function U(u) {
+  function z(u) {
     return parseInt(u, 16);
   }
-  function Pe(u) {
+  function re(u) {
     return u.map(je);
   }
   function je(u) {
     var n = String(u).replace(/[^0-9a-f]/gi, "");
     return n.length < 6 && (n = n[0] + n[0] + n[1] + n[1] + n[2] + n[2]), {
-      r: U(n.substring(0, 2)),
-      g: U(n.substring(2, 4)),
-      b: U(n.substring(4, 6))
+      r: z(n.substring(0, 2)),
+      g: z(n.substring(2, 4)),
+      b: z(n.substring(4, 6))
     };
   }
   function Mt(u) {
@@ -3466,8 +3466,8 @@ var Xe = {};
         n.y
       ]);
       O.multiplySelf(new DOMMatrix(n.shape.matrix));
-      var F = u.createPattern(v.transform(n.shape.bitmap), "no-repeat");
-      F.setTransform(O), u.globalAlpha = 1 - b, u.fillStyle = F, u.fillRect(
+      var H = u.createPattern(v.transform(n.shape.bitmap), "no-repeat");
+      H.setTransform(O), u.globalAlpha = 1 - b, u.fillStyle = H, u.fillRect(
         n.x - R / 2,
         n.y - D / 2,
         R,
@@ -3476,8 +3476,8 @@ var Xe = {};
     } else if (n.shape === "circle")
       u.ellipse ? u.ellipse(n.x, n.y, Math.abs(_ - A) * n.ovalScalar, Math.abs(L - k) * n.ovalScalar, Math.PI / 10 * n.wobble, 0, 2 * Math.PI) : Pt(u, n.x, n.y, Math.abs(_ - A) * n.ovalScalar, Math.abs(L - k) * n.ovalScalar, Math.PI / 10 * n.wobble, 0, 2 * Math.PI);
     else if (n.shape === "star")
-      for (var T = Math.PI / 2 * 3, Z = 4 * n.scalar, Y = 8 * n.scalar, X = n.x, ie = n.y, de = 5, ee = Math.PI / de; de--; )
-        X = n.x + Math.cos(T) * Y, ie = n.y + Math.sin(T) * Y, u.lineTo(X, ie), T += ee, X = n.x + Math.cos(T) * Z, ie = n.y + Math.sin(T) * Z, u.lineTo(X, ie), T += ee;
+      for (var T = Math.PI / 2 * 3, J = 4 * n.scalar, K = 8 * n.scalar, Y = n.x, ie = n.y, de = 5, X = Math.PI / de; de--; )
+        Y = n.x + Math.cos(T) * K, ie = n.y + Math.sin(T) * K, u.lineTo(Y, ie), T += X, Y = n.x + Math.cos(T) * J, ie = n.y + Math.sin(T) * J, u.lineTo(Y, ie), T += X;
     else
       u.moveTo(Math.floor(n.x), Math.floor(n.y)), u.lineTo(Math.floor(n.wobbleX), Math.floor(k)), u.lineTo(Math.floor(_), Math.floor(L)), u.lineTo(Math.floor(A), Math.floor(n.wobbleY));
     return u.closePath(), u.fill(), n.tick < n.totalTicks;
@@ -3488,8 +3488,8 @@ var Xe = {};
         y = C = null, L.clearRect(0, 0, A.width, A.height), v.clear(), k(), R();
       }
       function O() {
-        a && !(A.width === r.width && A.height === r.height) && (A.width = u.width = r.width, A.height = u.height = r.height), !A.width && !A.height && (b(u), A.width = u.width, A.height = u.height), L.clearRect(0, 0, A.width, A.height), _ = _.filter(function(F) {
-          return Nt(L, F);
+        a && !(A.width === r.width && A.height === r.height) && (A.width = u.width = r.width, A.height = u.height = r.height), !A.width && !A.height && (b(u), A.width = u.width, A.height = u.height), L.clearRect(0, 0, A.width, A.height), _ = _.filter(function(H) {
+          return Nt(L, H);
         }), _.length ? y = M.frame(O) : D();
       }
       y = M.frame(O), C = D;
@@ -3507,17 +3507,17 @@ var Xe = {};
   }
   function et(u, n) {
     var b = !u, A = !!N(n || {}, "resize"), k = !1, _ = N(n, "disableForReducedMotion", Boolean), L = s && !!N(n || {}, "useWorker"), y = L ? E() : null, C = b ? Tt : It, j = u && y ? !!u.__confetti_initialized : !1, R = typeof matchMedia == "function" && matchMedia("(prefers-reduced-motion)").matches, D;
-    function O(T, Z, Y) {
-      for (var X = N(T, "particleCount", G), ie = N(T, "angle", Number), de = N(T, "spread", Number), ee = N(T, "startVelocity", Number), $t = N(T, "decay", Number), zt = N(T, "gravity", Number), Ft = N(T, "drift", Number), at = N(T, "colors", Pe), Ht = N(T, "ticks", Number), rt = N(T, "shapes"), Zt = N(T, "scalar"), Jt = !!N(T, "flat"), it = Mt(T), st = X, De = [], Vt = u.width * it.x, Wt = u.height * it.y; st--; )
+    function O(T, J, K) {
+      for (var Y = N(T, "particleCount", G), ie = N(T, "angle", Number), de = N(T, "spread", Number), X = N(T, "startVelocity", Number), $t = N(T, "decay", Number), zt = N(T, "gravity", Number), Ft = N(T, "drift", Number), at = N(T, "colors", re), Ht = N(T, "ticks", Number), rt = N(T, "shapes"), Zt = N(T, "scalar"), Jt = !!N(T, "flat"), it = Mt(T), st = Y, De = [], Vt = u.width * it.x, Wt = u.height * it.y; st--; )
         De.push(
           jt({
             x: Vt,
             y: Wt,
             angle: ie,
             spread: de,
-            startVelocity: ee,
+            startVelocity: X,
             color: at[st % at.length],
-            shape: rt[V(0, rt.length)],
+            shape: rt[Le(0, rt.length)],
             ticks: Ht,
             decay: $t,
             gravity: zt,
@@ -3526,46 +3526,46 @@ var Xe = {};
             flat: Jt
           })
         );
-      return D ? D.addFettis(De) : (D = Dt(u, De, C, Z, Y), D.promise);
+      return D ? D.addFettis(De) : (D = Dt(u, De, C, J, K), D.promise);
     }
-    function F(T) {
-      var Z = _ || N(T, "disableForReducedMotion", Boolean), Y = N(T, "zIndex", Number);
-      if (Z && R)
-        return c(function(ee) {
-          ee();
+    function H(T) {
+      var J = _ || N(T, "disableForReducedMotion", Boolean), K = N(T, "zIndex", Number);
+      if (J && R)
+        return c(function(X) {
+          X();
         });
-      b && D ? u = D.canvas : b && !u && (u = Et(Y), document.body.appendChild(u)), A && !j && C(u);
-      var X = {
+      b && D ? u = D.canvas : b && !u && (u = Et(K), document.body.appendChild(u)), A && !j && C(u);
+      var Y = {
         width: u.width,
         height: u.height
       };
       y && !j && y.init(u), j = !0, y && (u.__confetti_initialized = !0);
       function ie() {
         if (y) {
-          var ee = {
+          var X = {
             getBoundingClientRect: function() {
               if (!b)
                 return u.getBoundingClientRect();
             }
           };
-          C(ee), y.postMessage({
+          C(X), y.postMessage({
             resize: {
-              width: ee.width,
-              height: ee.height
+              width: X.width,
+              height: X.height
             }
           });
           return;
         }
-        X.width = X.height = null;
+        Y.width = Y.height = null;
       }
       function de() {
         D = null, A && (k = !1, e.removeEventListener("resize", ie)), b && u && (document.body.contains(u) && document.body.removeChild(u), u = null, j = !1);
       }
-      return A && !k && (k = !0, e.addEventListener("resize", ie, !1)), y ? y.fire(T, X, de) : O(T, X, de);
+      return A && !k && (k = !0, e.addEventListener("resize", ie, !1)), y ? y.fire(T, Y, de) : O(T, Y, de);
     }
-    return F.reset = function() {
+    return H.reset = function() {
       y && y.reset(), D && D.reset();
-    }, F;
+    }, H;
   }
   var Ne;
   function tt() {
@@ -3591,18 +3591,18 @@ var Xe = {};
     typeof u == "string" ? n = u : (n = u.path, b = u.matrix);
     var A = new Path2D(n), k = document.createElement("canvas"), _ = k.getContext("2d");
     if (!b) {
-      for (var L = 1e3, y = L, C = L, j = 0, R = 0, D, O, F = 0; F < L; F += 2)
+      for (var L = 1e3, y = L, C = L, j = 0, R = 0, D, O, H = 0; H < L; H += 2)
         for (var T = 0; T < L; T += 2)
-          _.isPointInPath(A, F, T, "nonzero") && (y = Math.min(y, F), C = Math.min(C, T), j = Math.max(j, F), R = Math.max(R, T));
+          _.isPointInPath(A, H, T, "nonzero") && (y = Math.min(y, H), C = Math.min(C, T), j = Math.max(j, H), R = Math.max(R, T));
       D = j - y, O = R - C;
-      var Z = 10, Y = Math.min(Z / D, Z / O);
+      var J = 10, K = Math.min(J / D, J / O);
       b = [
-        Y,
+        K,
         0,
         0,
-        Y,
-        -Math.round(D / 2 + y) * Y,
-        -Math.round(O / 2 + C) * Y
+        K,
+        -Math.round(D / 2 + y) * K,
+        -Math.round(O / 2 + C) * K
       ];
     }
     return {
@@ -3616,14 +3616,14 @@ var Xe = {};
     typeof u == "string" ? n = u : (n = u.text, b = "scalar" in u ? u.scalar : b, k = "fontFamily" in u ? u.fontFamily : k, A = "color" in u ? u.color : A);
     var _ = 10 * b, L = "" + _ + "px " + k, y = new OffscreenCanvas(_, _), C = y.getContext("2d");
     C.font = L;
-    var j = C.measureText(n), R = Math.ceil(j.actualBoundingBoxRight + j.actualBoundingBoxLeft), D = Math.ceil(j.actualBoundingBoxAscent + j.actualBoundingBoxDescent), O = 2, F = j.actualBoundingBoxLeft + O, T = j.actualBoundingBoxAscent + O;
-    R += O + O, D += O + O, y = new OffscreenCanvas(R, D), C = y.getContext("2d"), C.font = L, C.fillStyle = A, C.fillText(n, F, T);
-    var Z = 1 / b;
+    var j = C.measureText(n), R = Math.ceil(j.actualBoundingBoxRight + j.actualBoundingBoxLeft), D = Math.ceil(j.actualBoundingBoxAscent + j.actualBoundingBoxDescent), O = 2, H = j.actualBoundingBoxLeft + O, T = j.actualBoundingBoxAscent + O;
+    R += O + O, D += O + O, y = new OffscreenCanvas(R, D), C = y.getContext("2d"), C.font = L, C.fillStyle = A, C.fillText(n, H, T);
+    var J = 1 / b;
     return {
       type: "bitmap",
       // TODO these probably need to be transfered for workers
       bitmap: y.transferToImageBitmap(),
-      matrix: [Z, 0, 0, Z, -R * Z / 2, -D * Z / 2]
+      matrix: [J, 0, 0, J, -R * J / 2, -D * J / 2]
     };
   }
   t.exports = function() {
@@ -3815,7 +3815,7 @@ class Ue {
         this.swState = wt(e), console.log("[PwaService] Service Worker actif:", e.scope);
       }).catch((e) => {
         const t = e instanceof Error ? e : new Error("Erreur Service Worker");
-        this.swState = Le(t), console.warn("[PwaService] Service Worker non disponible :", t);
+        this.swState = Ce(t), console.warn("[PwaService] Service Worker non disponible :", t);
       });
     })), window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault(), this.deferredPrompt = e, this.notifyInstallable(!0);
@@ -3868,22 +3868,22 @@ class La {
     const e = /* @__PURE__ */ new Date(), t = e.getDay(), a = e.getDate(), r = e.getMonth(), s = e.getFullYear();
     let l = r + 1, o = s;
     l < 3 && (o -= 1, l += 12);
-    const d = Math.floor(o / 100), c = 2 - d + Math.floor(d / 4), E = Math.floor(365.25 * (o + 4716)) + Math.floor(30.6001 * (l + 1)) + a + c - 1524 - 19484395e-1, $ = Math.floor((30 * E + 10646) / 10631), K = E - Math.floor((10631 * $ - 10646) / 30), J = Math.min(12, Math.max(1, Math.ceil(K / 29.5))), N = Math.floor((J - 1) * 29.5);
-    let G = Math.floor(K - N) + 1;
+    const d = Math.floor(o / 100), c = 2 - d + Math.floor(d / 4), E = Math.floor(365.25 * (o + 4716)) + Math.floor(30.6001 * (l + 1)) + a + c - 1524 - 19484395e-1, $ = Math.floor((30 * E + 10646) / 10631), Q = E - Math.floor((10631 * $ - 10646) / 30), V = Math.min(12, Math.max(1, Math.ceil(Q / 29.5))), N = Math.floor((V - 1) * 29.5);
+    let G = Math.floor(Q - N) + 1;
     G < 1 && (G = 1), G > 30 && (G = 30);
-    const V = Math.min(11, Math.max(0, J - 1)), U = _a[V] || "Mois Hégirien", Pe = G === 13 || G === 14 || G === 15, je = t === 1 || t === 4;
+    const Le = Math.min(11, Math.max(0, V - 1)), z = _a[Le] || "Mois Hégirien", re = G === 13 || G === 14 || G === 15, je = t === 1 || t === 4;
     return {
       day: G,
-      month: J,
+      month: V,
       year: $,
-      monthNameFr: U,
-      formattedString: `${G} ${U} ${$}`,
-      isWhiteDay: Pe,
+      monthNameFr: z,
+      formattedString: `${G} ${z} ${$}`,
+      isWhiteDay: re,
       isSunnahFastDay: je
     };
   }
 }
-function te(i) {
+function ee(i) {
   return i.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 function m(i) {
@@ -3894,14 +3894,14 @@ function m(i) {
 }
 function xe(i, e) {
   const t = m(i), a = m(e);
-  t.classList.remove("hidden"), setTimeout(() => {
-    t.classList.remove("opacity-0"), window.innerWidth < 640 ? a.classList.remove("translate-y-full") : a.classList.remove("scale-95");
+  t.classList.remove("hidden"), i === "focus-modal" && t.classList.add("flex"), setTimeout(() => {
+    t.classList.remove("opacity-0"), t.classList.remove("translate-y-full"), a.classList.remove("translate-y-full", "scale-95");
   }, 10);
 }
 function Ae(i, e) {
   const t = m(i), a = m(e);
-  t.classList.add("opacity-0"), window.innerWidth < 640 ? a.classList.add("translate-y-full") : a.classList.add("scale-95"), setTimeout(() => {
-    t.classList.add("hidden");
+  t.classList.add("opacity-0"), i === "focus-modal" ? t.classList.add("translate-y-full") : window.innerWidth < 640 ? a.classList.add("translate-y-full") : a.classList.add("scale-95"), setTimeout(() => {
+    t.classList.add("hidden"), i === "focus-modal" && t.classList.remove("flex");
   }, 280);
 }
 class Ca {
@@ -4003,13 +4003,13 @@ class Ea {
         <div class="flex-1">
           <div class="flex items-center gap-2 mb-1 flex-wrap">
             <span class="px-2 py-0.5 rounded-full bg-surface text-[10px] font-bold text-primary-400 border border-bordercolor">
-              ${te(e.targetLabel || `Objectif : ${s}`)}
+              ${ee(e.targetLabel || `Objectif : ${s}`)}
             </span>
             ${l > 0 ? `<span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-[10px] font-bold text-amber-400 border border-amber-500/30 flex items-center gap-1 animate-pulse">
                      <i class="ph-fill ph-check-circle"></i> ${l} accompli${l > 1 ? "s" : ""}
                    </span>` : ""}
           </div>
-          <h3 class="text-base font-extrabold text-textmain leading-tight">${te(e.french)}</h3>
+          <h3 class="text-base font-extrabold text-textmain leading-tight">${ee(e.french)}</h3>
         </div>
 
         <div class="flex items-center gap-1.5 shrink-0">
@@ -4028,21 +4028,21 @@ class Ea {
         </div>
       </div>
 
-      <!-- Corps : Calligraphie Arabe -->
-      ${e.arabic ? `<div class="px-5 py-3 text-center">
-               <p class="font-arabic text-2xl sm:text-3xl text-primary-400 leading-loose select-none" dir="rtl">${te(e.arabic)}</p>
+      <!-- Corps : Calligraphie Arabe (cliquable vers mode focus) -->
+      ${e.arabic ? `<div class="px-5 py-3 text-center cursor-pointer card-open-focus tap-effect" title="Ouvrir en plein écran (Tasbih)">
+               <p class="font-arabic text-2xl sm:text-3xl text-primary-400 leading-loose select-none" dir="rtl">${ee(e.arabic)}</p>
              </div>` : '<div class="py-2"></div>'}
 
-      <!-- Translittération phonétique & sens -->
-      ${e.phonetic || e.translation ? `<div class="px-5 pb-3 flex flex-col gap-1 text-center">
-               ${e.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${te(e.phonetic)}</p>` : ""}
-               ${e.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${te(e.translation)}</p>` : ""}
+      <!-- Translittération phonétique & sens (cliquable vers mode focus) -->
+      ${e.phonetic || e.translation ? `<div class="px-5 pb-3 flex flex-col gap-1 text-center cursor-pointer card-open-focus tap-effect" title="Ouvrir en plein écran (Tasbih)">
+               ${e.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${ee(e.phonetic)}</p>` : ""}
+               ${e.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${ee(e.translation)}</p>` : ""}
              </div>` : ""}
 
       <!-- Mérite / Source -->
       ${e.merit ? `<div class="mx-5 mb-3 p-2 rounded-xl bg-surface/40 border border-bordercolor/60 text-[10px] text-textmuted flex items-start gap-1.5 leading-normal">
                <i class="ph-fill ph-info text-primary-400 text-xs mt-0.5 shrink-0"></i>
-               <span>${te(e.merit)}</span>
+               <span>${ee(e.merit)}</span>
              </div>` : ""}
 
       <!-- Bas de carte : Progression & Actions -->
@@ -4064,14 +4064,14 @@ class Ea {
             </div>
           </div>
 
-          <!-- Bouton Tactile d'Égrenage Moderne (Remplaçant l'ancien + COMPTER lourd) -->
-          <button class="btn-increment group relative overflow-hidden flex-1 h-[52px] rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-emerald-500 hover:from-primary-500 hover:to-emerald-400 active:scale-[0.96] text-white shadow-[0_4px_20px_-2px_var(--color-primary-500-alpha)] flex items-center justify-center gap-2 px-3 tap-effect transition-all select-none border border-white/10 cursor-pointer" title="Égrener (+1)">
+          <!-- Bouton Tactile Moderne Tasbih (+1) -->
+          <button class="btn-increment group relative overflow-hidden flex-1 h-[52px] rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-emerald-500 hover:from-primary-500 hover:to-emerald-400 active:scale-[0.96] text-white shadow-[0_4px_20px_-2px_var(--color-primary-500-alpha)] flex items-center justify-center gap-2 px-3 tap-effect transition-all select-none border border-white/10 cursor-pointer" title="Faire le Tasbih (+1)">
             <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             <div class="w-7 h-7 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner group-active:scale-115 transition-transform">
               <i class="ph-bold ph-plus text-sm text-white"></i>
             </div>
-            <span class="font-bold text-sm tracking-wide">Égrener</span>
-            <span class="text-[10px] font-extrabold bg-black/20 text-white/95 px-2 py-0.5 rounded-full border border-white/15 font-mono shadow-sm">+1</span>
+            <span class="font-bold text-sm tracking-wide">Tasbih</span>
+            <span class="text-[10px] font-extrabold bg-black/25 text-white/95 px-2 py-0.5 rounded-full border border-white/15 font-mono shadow-sm">+1</span>
           </button>
 
           <!-- Bouton Mode Focus Plein Écran -->
@@ -4081,24 +4081,28 @@ class Ea {
         </div>
       </div>
     `, M.querySelector(".btn-increment")?.addEventListener("click", () => {
-      const V = t.increment(e.id), U = M.querySelector(".count-num-val");
-      U && (U.classList.add("scale-125", "text-primary-400"), setTimeout(() => {
-        U.classList.remove("scale-125", "text-primary-400");
-      }, 150)), V.isMilestone && W.show(`Objectif atteint pour "${e.french}" ! 🎉`);
+      const z = t.increment(e.id), re = M.querySelector(".count-num-val");
+      re && (re.classList.add("scale-125", "text-primary-400"), setTimeout(() => {
+        re.classList.remove("scale-125", "text-primary-400");
+      }, 150)), z.isMilestone && W.show(`Objectif atteint pour "${e.french}" ! 🎉`);
     }), M.querySelector(".btn-focus")?.addEventListener("click", () => {
       a.onOpenFocus(e.id);
-    }), M.querySelector(".btn-fav")?.addEventListener("click", (V) => {
-      V.stopPropagation();
-      const U = t.toggleFavorite(e.id);
-      W.show(U ? "Ajouté aux favoris ⭐" : "Retiré des favoris");
-    }), M.querySelector(".btn-reset-dhikr")?.addEventListener("click", (V) => {
-      V.stopPropagation(), confirm(
+    }), M.querySelectorAll(".card-open-focus").forEach((z) => {
+      z.addEventListener("click", () => {
+        a.onOpenFocus(e.id);
+      });
+    }), M.querySelector(".btn-fav")?.addEventListener("click", (z) => {
+      z.stopPropagation();
+      const re = t.toggleFavorite(e.id);
+      W.show(re ? "Ajouté aux favoris ⭐" : "Retiré des favoris");
+    }), M.querySelector(".btn-reset-dhikr")?.addEventListener("click", (z) => {
+      z.stopPropagation(), confirm(
         `Remettre à zéro le compteur d'aujourd'hui pour "${e.french}" ? L'historique global est conservé.`
       ) && (t.resetDhikr(e.id), W.show("Compteur réinitialisé"));
-    }), M.querySelector(".btn-edit-custom")?.addEventListener("click", (V) => {
-      V.stopPropagation(), a.onEditCustom(e.id);
-    }), M.querySelector(".btn-delete-custom")?.addEventListener("click", (V) => {
-      V.stopPropagation(), confirm(`Supprimer définitivement l'invocation "${e.french}" ?`) && (t.deleteCustomDhikr(e.id), W.show("Invocation supprimée"));
+    }), M.querySelector(".btn-edit-custom")?.addEventListener("click", (z) => {
+      z.stopPropagation(), a.onEditCustom(e.id);
+    }), M.querySelector(".btn-delete-custom")?.addEventListener("click", (z) => {
+      z.stopPropagation(), confirm(`Supprimer définitivement l'invocation "${e.french}" ?`) && (t.deleteCustomDhikr(e.id), W.show("Invocation supprimée"));
     }), M;
   }
 }
@@ -4169,12 +4173,12 @@ class ja {
   }
   renderCurrentFocus() {
     if (!this.currentId) return;
-    const e = this.store.adhkars.find((J) => J.id === this.currentId);
+    const e = this.store.adhkars.find((V) => V.id === this.currentId);
     if (!e) return;
-    const t = this.store.dailyCounts[e.id] || 0, a = e.target || 100, r = Math.floor(t / a) + 1, s = t % a, l = t > 0 && s === 0 ? 1 : s / a, o = m("focus-title"), d = m("focus-arabic"), c = m("focus-phonetic"), v = m("focus-translation"), M = m("focus-counter"), E = m("focus-progress-text"), $ = m("focus-round-badge"), K = document.getElementById("focus-ring");
-    if (o.textContent = e.french, d.textContent = e.arabic || "", d.style.fontSize = `${this.arabicFontSize}px`, c.textContent = e.phonetic || "", v.textContent = e.translation || "", M.textContent = t.toString(), E.textContent = `${s} / ${a}`, $.textContent = `Tour ${r}`, K) {
+    const t = this.store.dailyCounts[e.id] || 0, a = e.target || 100, r = Math.floor(t / a) + 1, s = t % a, l = t > 0 && s === 0 ? 1 : s / a, o = m("focus-title"), d = m("focus-arabic"), c = m("focus-phonetic"), v = m("focus-translation"), M = m("focus-counter"), E = m("focus-progress-text"), $ = m("focus-round-badge"), Q = document.getElementById("focus-ring");
+    if (o.textContent = e.french, d.textContent = e.arabic || "", d.style.fontSize = `${this.arabicFontSize}px`, c.textContent = e.phonetic || "", v.textContent = e.translation || "", M.textContent = t.toString(), E.textContent = `${s} / ${a}`, $.textContent = `Tour ${r}`, Q) {
       const N = 276.46 - l * 276.46;
-      K.style.strokeDashoffset = N.toFixed(1);
+      Q.style.strokeDashoffset = N.toFixed(1);
     }
     this.updateFocusBeads(t);
   }
@@ -5990,16 +5994,16 @@ class Na {
           </div>
           <div class="min-w-0">
             <div class="flex items-baseline gap-1.5 flex-wrap">
-              <span class="font-bold text-sm text-textmain group-hover:text-amber-400 transition-colors">${te(a.p)}</span>
-              <span class="text-xs text-textmuted font-medium">· ${te(a.f)}</span>
+              <span class="font-bold text-sm text-textmain group-hover:text-amber-400 transition-colors">${ee(a.p)}</span>
+              <span class="text-xs text-textmuted font-medium">· ${ee(a.f)}</span>
             </div>
-            <p class="text-[11px] text-textmuted mt-0.5 leading-relaxed line-clamp-2">${te(a.m)}</p>
+            <p class="text-[11px] text-textmuted mt-0.5 leading-relaxed line-clamp-2">${ee(a.m)}</p>
           </div>
         </div>
 
         <!-- Partie Droite : Calligraphie Arabe & Lien Détails -->
         <div class="text-right shrink-0 pl-2">
-          <span class="font-arabic text-2xl sm:text-3xl text-amber-400 font-bold leading-none select-none block drop-shadow-sm" dir="rtl">${te(a.a)}</span>
+          <span class="font-arabic text-2xl sm:text-3xl text-amber-400 font-bold leading-none select-none block drop-shadow-sm" dir="rtl">${ee(a.a)}</span>
           <span class="text-[10px] text-amber-400 font-semibold group-hover:text-amber-300 transition-colors flex items-center justify-end gap-0.5 mt-1">
             <span>Détails & Coran</span>
             <i class="ph ph-caret-right text-[10px]"></i>
@@ -6059,10 +6063,10 @@ class Da {
   }
 }
 const Ra = Ke({
-  french: z().trim().min(2, "Le nom de l'invocation doit comporter au moins 2 caractères.").max(120, "Le nom de l'invocation ne doit pas dépasser 120 caractères."),
-  arabic: z().trim().max(1e3, "Le texte arabe ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
-  phonetic: z().trim().max(1e3, "La phonétique ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
-  translation: z().trim().max(1e3, "La traduction ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
+  french: F().trim().min(2, "Le nom de l'invocation doit comporter au moins 2 caractères.").max(120, "Le nom de l'invocation ne doit pas dépasser 120 caractères."),
+  arabic: F().trim().max(1e3, "Le texte arabe ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
+  phonetic: F().trim().max(1e3, "La phonétique ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
+  translation: F().trim().max(1e3, "La traduction ne doit pas dépasser 1000 caractères.").optional().or(Be("")),
   target: me({ invalid_type_error: "L'objectif de répétition doit être un nombre." }).int("L'objectif doit être un entier.").min(1, "L'objectif doit être d'au moins 1 répétition.").max(1e4, "L'objectif ne peut pas dépasser 10 000 répétitions."),
   category: Ye(["daily", "morning_evening", "prayer", "sleep", "custom"], {
     errorMap: () => ({ message: "Catégorie sélectionnée invalide." })
@@ -6151,12 +6155,12 @@ class Ba {
     }
     const s = r.map((d) => d === (/* @__PURE__ */ new Date()).toISOString().slice(0, 10) ? this.store.getTodayTotal() : this.store.historyDays[d] || 0), l = Math.max(...s, 10), o = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
     r.forEach((d, c) => {
-      const v = s[c] || 0, M = Math.min(100, Math.max(8, v / l * 100)), E = new Date(d), $ = o[E.getDay()] || "", K = c === 6, J = document.createElement("div");
-      J.className = "flex-1 flex flex-col items-center gap-1.5 h-full justify-end", J.innerHTML = `
+      const v = s[c] || 0, M = Math.min(100, Math.max(8, v / l * 100)), E = new Date(d), $ = o[E.getDay()] || "", Q = c === 6, V = document.createElement("div");
+      V.className = "flex-1 flex flex-col items-center gap-1.5 h-full justify-end", V.innerHTML = `
         <span class="text-[9px] font-bold text-textmuted tabular-nums">${v > 0 ? v > 999 ? (v / 1e3).toFixed(1) + "k" : v : ""}</span>
-        <div class="w-full max-w-[28px] rounded-t-lg transition-all duration-500 ${K ? "bg-primary-500 shadow-neon" : "bg-surface border border-bordercolor"}" style="height: ${M}%;"></div>
-        <span class="text-[10px] font-bold ${K ? "text-primary-400" : "text-textmuted"} uppercase">${$}</span>
-      `, a.appendChild(J);
+        <div class="w-full max-w-[28px] rounded-t-lg transition-all duration-500 ${Q ? "bg-primary-500 shadow-neon" : "bg-surface border border-bordercolor"}" style="height: ${M}%;"></div>
+        <span class="text-[10px] font-bold ${Q ? "text-primary-400" : "text-textmuted"} uppercase">${$}</span>
+      `, a.appendChild(V);
     });
   }
 }

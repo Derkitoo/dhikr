@@ -24,13 +24,14 @@ export function openModal(modalId: string, boxId: string): void {
   const box = getRequiredElement(boxId);
 
   modal.classList.remove('hidden');
+  if (modalId === 'focus-modal') {
+    modal.classList.add('flex');
+  }
+
   setTimeout(() => {
     modal.classList.remove('opacity-0');
-    if (window.innerWidth < 640) {
-      box.classList.remove('translate-y-full');
-    } else {
-      box.classList.remove('scale-95');
-    }
+    modal.classList.remove('translate-y-full');
+    box.classList.remove('translate-y-full', 'scale-95');
   }, 10);
 }
 
@@ -39,13 +40,20 @@ export function closeModal(modalId: string, boxId: string): void {
   const box = getRequiredElement(boxId);
 
   modal.classList.add('opacity-0');
-  if (window.innerWidth < 640) {
-    box.classList.add('translate-y-full');
+  if (modalId === 'focus-modal') {
+    modal.classList.add('translate-y-full');
   } else {
-    box.classList.add('scale-95');
+    if (window.innerWidth < 640) {
+      box.classList.add('translate-y-full');
+    } else {
+      box.classList.add('scale-95');
+    }
   }
 
   setTimeout(() => {
     modal.classList.add('hidden');
+    if (modalId === 'focus-modal') {
+      modal.classList.remove('flex');
+    }
   }, 280);
 }

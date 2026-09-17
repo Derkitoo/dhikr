@@ -67,19 +67,19 @@ export class DhikrCard {
         </div>
       </div>
 
-      <!-- Corps : Calligraphie Arabe -->
+      <!-- Corps : Calligraphie Arabe (cliquable vers mode focus) -->
       ${
         dhikr.arabic
-          ? `<div class="px-5 py-3 text-center">
+          ? `<div class="px-5 py-3 text-center cursor-pointer card-open-focus tap-effect" title="Ouvrir en plein écran (Tasbih)">
                <p class="font-arabic text-2xl sm:text-3xl text-primary-400 leading-loose select-none" dir="rtl">${escapeHtml(dhikr.arabic)}</p>
              </div>`
           : '<div class="py-2"></div>'
       }
 
-      <!-- Translittération phonétique & sens -->
+      <!-- Translittération phonétique & sens (cliquable vers mode focus) -->
       ${
         dhikr.phonetic || dhikr.translation
-          ? `<div class="px-5 pb-3 flex flex-col gap-1 text-center">
+          ? `<div class="px-5 pb-3 flex flex-col gap-1 text-center cursor-pointer card-open-focus tap-effect" title="Ouvrir en plein écran (Tasbih)">
                ${dhikr.phonetic ? `<p class="text-[11px] text-textmain italic leading-relaxed opacity-90">${escapeHtml(dhikr.phonetic)}</p>` : ''}
                ${dhikr.translation ? `<p class="text-[11px] text-textmuted leading-relaxed">${escapeHtml(dhikr.translation)}</p>` : ''}
              </div>`
@@ -115,14 +115,14 @@ export class DhikrCard {
             </div>
           </div>
 
-          <!-- Bouton Tactile d'Égrenage Moderne (Remplaçant l'ancien + COMPTER lourd) -->
-          <button class="btn-increment group relative overflow-hidden flex-1 h-[52px] rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-emerald-500 hover:from-primary-500 hover:to-emerald-400 active:scale-[0.96] text-white shadow-[0_4px_20px_-2px_var(--color-primary-500-alpha)] flex items-center justify-center gap-2 px-3 tap-effect transition-all select-none border border-white/10 cursor-pointer" title="Égrener (+1)">
+          <!-- Bouton Tactile Moderne Tasbih (+1) -->
+          <button class="btn-increment group relative overflow-hidden flex-1 h-[52px] rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-emerald-500 hover:from-primary-500 hover:to-emerald-400 active:scale-[0.96] text-white shadow-[0_4px_20px_-2px_var(--color-primary-500-alpha)] flex items-center justify-center gap-2 px-3 tap-effect transition-all select-none border border-white/10 cursor-pointer" title="Faire le Tasbih (+1)">
             <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             <div class="w-7 h-7 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner group-active:scale-115 transition-transform">
               <i class="ph-bold ph-plus text-sm text-white"></i>
             </div>
-            <span class="font-bold text-sm tracking-wide">Égrener</span>
-            <span class="text-[10px] font-extrabold bg-black/20 text-white/95 px-2 py-0.5 rounded-full border border-white/15 font-mono shadow-sm">+1</span>
+            <span class="font-bold text-sm tracking-wide">Tasbih</span>
+            <span class="text-[10px] font-extrabold bg-black/25 text-white/95 px-2 py-0.5 rounded-full border border-white/15 font-mono shadow-sm">+1</span>
           </button>
 
           <!-- Bouton Mode Focus Plein Écran -->
@@ -155,6 +155,13 @@ export class DhikrCard {
     const btnFocus = card.querySelector<HTMLButtonElement>('.btn-focus');
     btnFocus?.addEventListener('click', () => {
       callbacks.onOpenFocus(dhikr.id);
+    });
+
+    const focusTriggers = card.querySelectorAll('.card-open-focus');
+    focusTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        callbacks.onOpenFocus(dhikr.id);
+      });
     });
 
     const btnFav = card.querySelector<HTMLButtonElement>('.btn-fav');
