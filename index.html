@@ -163,50 +163,42 @@
 </head>
 <body class="min-h-screen pb-24 relative selection:bg-primary-500/30 selection:text-primary-400">
 
-    <!-- En-tête Principal -->
+    <!-- En-tête Principal Épuré & Moderne -->
     <header class="sticky top-0 z-30 backdrop-blur-xl bg-background/85 border-b border-bordercolor/80 transition-colors duration-200">
-        <div class="max-w-lg mx-auto px-4 h-16 flex items-center justify-between gap-2">
-            
+        <div class="max-w-lg mx-auto px-4 h-14 flex items-center justify-between gap-2">
+            <!-- Logo & Marque -->
             <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white shadow-neon">
-                    <i class="ph-bold ph-hands-praying text-xl"></i>
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white shadow-neon shrink-0">
+                    <i class="ph-bold ph-hands-praying text-lg"></i>
                 </div>
                 <div>
                     <h1 class="text-base font-extrabold tracking-tight text-textmain flex items-center gap-1.5 leading-none">
                         Dhikr Pro
-                        <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-primary-500/15 text-primary-400 border border-primary-500/30">v2.0</span>
+                        <span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded-full bg-primary-500/15 text-primary-400 border border-primary-500/30">v2.0</span>
                     </h1>
-                    
-                    <!-- Date Hégirienne & Badges de jeûne -->
-                    <div class="flex items-center gap-1.5 mt-1 flex-wrap">
-                        <span id="hijri-date-badge" class="text-[11px] text-textmuted font-semibold flex items-center gap-1">
-                            Calcul en cours...
-                        </span>
-                        <span id="hijri-fast-badge" class="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-amber-500/15 text-amber-400 border border-amber-500/30 hidden"></span>
-                    </div>
                 </div>
             </div>
 
-            <!-- Actions Rapides En-tête -->
-            <div class="flex items-center gap-1 sm:gap-1.5">
+            <!-- Toolbar Boutons Groupés (Segmented Glass Island) -->
+            <div class="flex items-center bg-surface/80 border border-bordercolor/80 p-1 rounded-2xl gap-0.5 shadow-sm">
                 <!-- Bouton Recherche -->
-                <button id="btn-toggle-search" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Rechercher">
-                    <i class="ph ph-magnifying-glass text-lg"></i>
+                <button id="btn-toggle-search" class="w-8 h-8 rounded-xl flex items-center justify-center text-textmuted hover:text-textmain hover:bg-surface tap-effect transition-colors" title="Rechercher">
+                    <i class="ph ph-magnifying-glass text-base"></i>
                 </button>
 
                 <!-- Bouton Son -->
-                <button id="btn-toggle-sound" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Son activé">
-                    <i class="ph ph-speaker-high text-lg"></i>
+                <button id="btn-toggle-sound" class="w-8 h-8 rounded-xl flex items-center justify-center text-textmuted hover:text-textmain hover:bg-surface tap-effect transition-colors" title="Son activé">
+                    <i class="ph ph-speaker-high text-base"></i>
                 </button>
 
                 <!-- Bouton Statistiques -->
-                <button id="btn-open-stats" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Statistiques">
-                    <i class="ph ph-chart-bar text-lg"></i>
+                <button id="btn-open-stats" class="w-8 h-8 rounded-xl flex items-center justify-center text-textmuted hover:text-textmain hover:bg-surface tap-effect transition-colors" title="Statistiques">
+                    <i class="ph ph-chart-bar text-base"></i>
                 </button>
 
                 <!-- Bouton Paramètres -->
-                <button id="btn-open-settings" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-surface text-textmuted hover:text-textmain tap-effect border border-bordercolor" title="Paramètres">
-                    <i class="ph ph-gear text-lg"></i>
+                <button id="btn-open-settings" class="w-8 h-8 rounded-xl flex items-center justify-center text-textmuted hover:text-textmain hover:bg-surface tap-effect transition-colors" title="Paramètres">
+                    <i class="ph ph-gear text-base"></i>
                 </button>
             </div>
         </div>
@@ -223,21 +215,73 @@
         </div>
     </div>
 
-    <!-- Accès Direct : Les 99 Noms d'Allah -->
-    <div class="w-full max-w-lg mx-auto px-4 pt-3.5">
-        <button id="btn-open-names-banner" class="w-full py-2.5 px-3.5 rounded-2xl glass-card border border-amber-500/30 hover:border-amber-400/60 bg-gradient-to-r from-amber-500/10 via-surface to-amber-500/5 flex items-center justify-between tap-effect transition-all group shadow-sm">
-            <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold text-sm border border-amber-500/30 group-hover:scale-105 transition-transform">
+    <!-- Tableau de Bord Spirituel Principal (Hero Dashboard) -->
+    <section class="w-full max-w-lg mx-auto px-4 pt-3.5">
+        <div class="glass-card rounded-[28px] p-4 sm:p-5 border border-bordercolor/80 relative overflow-hidden bg-gradient-to-b from-surface/90 via-surface to-surface/95 shadow-card">
+            
+            <!-- Ligne supérieure : Date Hégirienne & Badge Jeûne prophétique -->
+            <div class="flex items-center justify-between gap-2 pb-3 mb-3.5 border-b border-bordercolor/60">
+                <div class="flex items-center gap-1.5 text-xs text-textmuted font-semibold">
+                    <i class="ph-fill ph-moon text-primary-400 text-sm"></i>
+                    <span id="hijri-date-badge">Calcul en cours...</span>
+                </div>
+                <div id="hijri-fast-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center gap-1 hidden"></div>
+            </div>
+
+            <!-- Métriques Principales du Dashboard -->
+            <div class="flex items-center justify-between gap-3">
+                <!-- Bloc Compteur Quotidien Principal -->
+                <div class="flex items-center gap-3.5 flex-1 min-w-0">
+                    <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-primary-500/25 to-primary-500/5 border border-primary-500/30 flex items-center justify-center text-primary-400 shadow-neon shrink-0">
+                        <i class="ph-fill ph-check-circle text-2xl"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Aujourd'hui</span>
+                        <div class="flex items-baseline gap-1">
+                            <span id="daily-total-counter" class="text-2xl sm:text-3xl font-black text-textmain tabular-nums leading-tight">0</span>
+                            <span class="text-xs text-textmuted font-medium">dhikrs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métriques Secondaires : Série & Cumul -->
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <!-- Série -->
+                    <div class="bg-surface/90 rounded-2xl px-3 py-2 border border-bordercolor/80 text-center min-w-[72px] shadow-sm">
+                        <span class="text-[9px] text-textmuted font-bold uppercase tracking-wider block">Série</span>
+                        <div class="flex items-center justify-center gap-1 mt-0.5">
+                            <i class="ph-fill ph-fire text-amber-400 text-xs"></i>
+                            <span id="streak-counter" class="text-sm font-black text-amber-400 tabular-nums">1</span>
+                            <span class="text-[10px] text-textmuted font-normal">j</span>
+                        </div>
+                    </div>
+
+                    <!-- Total à vie -->
+                    <div class="bg-surface/90 rounded-2xl px-3 py-2 border border-bordercolor/80 text-center min-w-[75px] shadow-sm">
+                        <span class="text-[9px] text-textmuted font-bold uppercase tracking-wider block">Total à vie</span>
+                        <span id="lifetime-counter-banner" class="text-sm font-black text-primary-400 tabular-nums block mt-0.5">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Passerelle Asma'ul Husna (99 Noms d'Allah) -->
+    <div class="w-full max-w-lg mx-auto px-4 pt-2.5">
+        <button id="btn-open-names-banner" class="w-full py-2.5 px-4 rounded-2xl glass-card border border-amber-500/30 hover:border-amber-400/60 bg-gradient-to-r from-amber-500/10 via-surface to-amber-500/5 flex items-center justify-between tap-effect transition-all group shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold text-base border border-amber-500/30 group-hover:scale-105 transition-transform">
                     <i class="ph-fill ph-sparkle text-amber-400"></i>
                 </div>
                 <div class="text-left">
-                    <span class="text-[10px] text-amber-400/90 font-bold uppercase tracking-wider block">Module Spécial</span>
-                    <span class="text-xs font-bold text-textmain flex items-center gap-1.5">
-                        Asma'ul Husna <span class="text-[11px] font-normal text-textmuted">· Les 99 Noms d'Allah</span>
-                    </span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-textmain">Les 99 Noms d'Allah</span>
+                        <span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded-md bg-amber-500/15 text-amber-400 border border-amber-500/30">Asma'ul Husna</span>
+                    </div>
+                    <span class="text-[11px] text-textmuted font-normal block mt-0.5">Significations profondes & méditation spirituelle</span>
                 </div>
             </div>
-            <div class="flex items-center gap-1 text-xs font-semibold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
+            <div class="flex items-center gap-1 text-xs font-semibold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20 group-hover:bg-amber-500/20 transition-all shrink-0">
                 <span>Explorer</span>
                 <i class="ph ph-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
             </div>
@@ -291,34 +335,6 @@
         </div>
     </nav>
 
-    <!-- Bannière récapitulative du jour -->
-    <div class="w-full max-w-lg mx-auto px-4 pt-3">
-        <div class="glass-card rounded-2xl p-3 px-4 flex justify-between items-center border border-bordercolor/60">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center font-bold text-sm">
-                    <i class="ph-fill ph-check-circle text-lg"></i>
-                </div>
-                <div>
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Complétés aujourd'hui</span>
-                    <span id="daily-total-counter" class="text-base font-extrabold text-textmain tabular-nums">0 invocations</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-4 text-right">
-                <div>
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Série (Jours)</span>
-                    <span class="text-sm font-extrabold text-amber-400 flex items-center justify-end gap-1">
-                        <i class="ph-fill ph-fire text-amber-400"></i>
-                        <span id="streak-counter" class="tabular-nums">1</span>
-                    </span>
-                </div>
-                <div>
-                    <span class="text-[10px] text-textmuted font-bold uppercase tracking-wider block">Total global</span>
-                    <span id="lifetime-counter-banner" class="text-sm font-extrabold text-primary-400 tabular-nums">0</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Grille Principale des Cartes d'Invocations -->
     <main class="w-full max-w-lg mx-auto px-4 pt-4 flex flex-col gap-4" id="app-container">
         <!-- Rendu dynamique via DhikrGrid -->
@@ -340,6 +356,7 @@
                     <h2 class="text-base font-extrabold text-textmain flex items-center gap-1.5">
                         <i class="ph-fill ph-sparkle text-amber-400"></i> Les 99 Noms d'Allah
                     </h2>
+                    <span class="text-[11px] text-textmuted font-normal block mt-0.5">Touchez un Nom pour méditer en chapelet</span>
                 </div>
                 <button id="names-close-btn" class="w-8 h-8 rounded-xl bg-surface text-textmuted hover:text-textmain flex items-center justify-center tap-effect border border-bordercolor">
                     <i class="ph ph-x text-sm"></i>

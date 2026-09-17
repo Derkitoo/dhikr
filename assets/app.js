@@ -818,7 +818,7 @@ class M {
   }
 }
 const Yt = /^c[^\s-]{8,}$/i, Xt = /^[0-9a-z]+$/, ea = /^[0-9A-HJKMNP-TV-Z]{26}$/i, ta = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i, aa = /^[a-z0-9_-]{21}$/i, ra = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$/, sa = /^[-+]?P(?!$)(?:(?:[-+]?\d+Y)|(?:[-+]?\d+[.,]\d+Y$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:(?:[-+]?\d+W)|(?:[-+]?\d+[.,]\d+W$))?(?:(?:[-+]?\d+D)|(?:[-+]?\d+[.,]\d+D$))?(?:T(?=[\d+-])(?:(?:[-+]?\d+H)|(?:[-+]?\d+[.,]\d+H$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:[-+]?\d+(?:[.,]\d+)?S)?)??$/, ia = /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i, na = "^(\\p{Extended_Pictographic}|\\p{Emoji_Component})+$";
-let Re;
+let Pe;
 const oa = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/, la = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\/(3[0-2]|[12]?[0-9])$/, ca = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/, ua = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\/(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/, da = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/, ha = /^([0-9a-zA-Z-_]{4})*(([0-9a-zA-Z-_]{2}(==)?)|([0-9a-zA-Z-_]{3}(=)?))?$/, Ct = "((\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-((0[13578]|1[02])-(0[1-9]|[12]\\d|3[01])|(0[469]|11)-(0[1-9]|[12]\\d|30)|(02)-(0[1-9]|1\\d|2[0-8])))", fa = new RegExp(`^${Ct}$`);
 function At(s) {
   let e = "[0-5]\\d";
@@ -908,7 +908,7 @@ class se extends M {
           message: i.message
         }), a.dirty());
       else if (i.kind === "emoji")
-        Re || (Re = new RegExp(na, "u")), Re.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
+        Pe || (Pe = new RegExp(na, "u")), Pe.test(e.data) || (r = this._getOrReturnCtx(e, r), m(r, {
           validation: "emoji",
           code: h.invalid_string,
           message: i.message
@@ -2889,7 +2889,7 @@ const kt = te.create, Qe = $.create;
 Me.create;
 Ee.create;
 de.create;
-const Pe = Ie.create, $e = ze.create, Ye = ve.create;
+const Re = Ie.create, $e = ze.create, Ye = ve.create;
 qe.create;
 le.create;
 be.create;
@@ -2907,10 +2907,10 @@ const _a = Qe({
 }), ka = Qe({
   version: Z().optional(),
   exportedAt: Z().optional(),
-  dailyCounts: Pe(Z(), fe().int().nonnegative()),
-  lifetimeCounts: Pe(Z(), fe().int().nonnegative()),
+  dailyCounts: Re(Z(), fe().int().nonnegative()),
+  lifetimeCounts: Re(Z(), fe().int().nonnegative()),
   favorites: kt(Z()),
-  historyDays: Pe(Z(), fe().int().nonnegative()).optional().default({}),
+  historyDays: Re(Z(), fe().int().nonnegative()).optional().default({}),
   streak: fe().int().nonnegative().optional().default(1),
   theme: Ye(["emerald", "medina", "kaaba", "oled"]).optional().default("emerald"),
   customDhikrs: kt(_a).optional().default([])
@@ -3291,12 +3291,12 @@ var Xe = {};
       }, S.fire = function(b, L, D) {
         if (n)
           return C(b, null), n;
-        var R = Math.random().toString(36).slice(2);
+        var P = Math.random().toString(36).slice(2);
         return n = d(function(j) {
-          function P(F) {
-            F.data.callback === R && (delete y[R], S.removeEventListener("message", P), n = null, v.clear(), D(), j());
+          function R(F) {
+            F.data.callback === P && (delete y[P], S.removeEventListener("message", R), n = null, v.clear(), D(), j());
           }
-          S.addEventListener("message", P), C(b, R), y[R] = P.bind(null, { data: { callback: R } });
+          S.addEventListener("message", R), C(b, P), y[P] = R.bind(null, { data: { callback: P } });
         }), n;
       }, S.reset = function() {
         S.postMessage({ reset: !0 });
@@ -3447,7 +3447,7 @@ var Xe = {};
     n.x += Math.cos(n.angle2D) * n.velocity + n.drift, n.y += Math.sin(n.angle2D) * n.velocity + n.gravity, n.velocity *= n.decay, n.flat ? (n.wobble = 0, n.wobbleX = n.x + 10 * n.scalar, n.wobbleY = n.y + 10 * n.scalar, n.tiltSin = 0, n.tiltCos = 0, n.random = 1) : (n.wobble += n.wobbleSpeed, n.wobbleX = n.x + 10 * n.scalar * Math.cos(n.wobble), n.wobbleY = n.y + 10 * n.scalar * Math.sin(n.wobble), n.tiltAngle += 0.1, n.tiltSin = Math.sin(n.tiltAngle), n.tiltCos = Math.cos(n.tiltAngle), n.random = Math.random() + 2);
     var y = n.tick++ / n.totalTicks, _ = n.x + n.random * n.tiltCos, S = n.y + n.random * n.tiltSin, C = n.wobbleX + n.random * n.tiltCos, A = n.wobbleY + n.random * n.tiltSin;
     if (c.fillStyle = "rgba(" + n.color.r + ", " + n.color.g + ", " + n.color.b + ", " + (1 - y) + ")", c.beginPath(), o && n.shape.type === "path" && typeof n.shape.path == "string" && Array.isArray(n.shape.matrix))
-      c.fill(Rt(
+      c.fill(Pt(
         n.shape.path,
         n.shape.matrix,
         n.x,
@@ -3457,7 +3457,7 @@ var Xe = {};
         Math.PI / 10 * n.wobble
       ));
     else if (n.shape.type === "bitmap") {
-      var b = Math.PI / 10 * n.wobble, L = Math.abs(C - _) * 0.1, D = Math.abs(A - S) * 0.1, R = n.shape.bitmap.width * n.scalar, j = n.shape.bitmap.height * n.scalar, P = new DOMMatrix([
+      var b = Math.PI / 10 * n.wobble, L = Math.abs(C - _) * 0.1, D = Math.abs(A - S) * 0.1, P = n.shape.bitmap.width * n.scalar, j = n.shape.bitmap.height * n.scalar, R = new DOMMatrix([
         Math.cos(b) * L,
         Math.sin(b) * L,
         -Math.sin(b) * D,
@@ -3465,12 +3465,12 @@ var Xe = {};
         n.x,
         n.y
       ]);
-      P.multiplySelf(new DOMMatrix(n.shape.matrix));
+      R.multiplySelf(new DOMMatrix(n.shape.matrix));
       var F = c.createPattern(v.transform(n.shape.bitmap), "no-repeat");
-      F.setTransform(P), c.globalAlpha = 1 - y, c.fillStyle = F, c.fillRect(
-        n.x - R / 2,
+      F.setTransform(R), c.globalAlpha = 1 - y, c.fillStyle = F, c.fillRect(
+        n.x - P / 2,
         n.y - j / 2,
-        R,
+        P,
         j
       ), c.globalAlpha = 1;
     } else if (n.shape === "circle")
@@ -3483,20 +3483,20 @@ var Xe = {};
     return c.closePath(), c.fill(), n.tick < n.totalTicks;
   }
   function Nt(c, n, y, _, S) {
-    var C = n.slice(), A = c.getContext("2d"), b, L, D = d(function(R) {
+    var C = n.slice(), A = c.getContext("2d"), b, L, D = d(function(P) {
       function j() {
-        b = L = null, A.clearRect(0, 0, _.width, _.height), v.clear(), S(), R();
+        b = L = null, A.clearRect(0, 0, _.width, _.height), v.clear(), S(), P();
       }
-      function P() {
+      function R() {
         a && !(_.width === r.width && _.height === r.height) && (_.width = c.width = r.width, _.height = c.height = r.height), !_.width && !_.height && (y(c), _.width = c.width, _.height = c.height), A.clearRect(0, 0, _.width, _.height), C = C.filter(function(F) {
           return jt(A, F);
-        }), C.length ? b = T.frame(P) : j();
+        }), C.length ? b = T.frame(R) : j();
       }
-      b = T.frame(P), L = j;
+      b = T.frame(R), L = j;
     });
     return {
-      addFettis: function(R) {
-        return C = C.concat(R), D;
+      addFettis: function(P) {
+        return C = C.concat(P), D;
       },
       canvas: c,
       promise: D,
@@ -3506,8 +3506,8 @@ var Xe = {};
     };
   }
   function et(c, n) {
-    var y = !c, _ = !!O(n || {}, "resize"), S = !1, C = O(n, "disableForReducedMotion", Boolean), A = i && !!O(n || {}, "useWorker"), b = A ? N() : null, L = y ? Et : It, D = c && b ? !!c.__confetti_initialized : !1, R = typeof matchMedia == "function" && matchMedia("(prefers-reduced-motion)").matches, j;
-    function P(E, V, Q) {
+    var y = !c, _ = !!O(n || {}, "resize"), S = !1, C = O(n, "disableForReducedMotion", Boolean), A = i && !!O(n || {}, "useWorker"), b = A ? N() : null, L = y ? Et : It, D = c && b ? !!c.__confetti_initialized : !1, P = typeof matchMedia == "function" && matchMedia("(prefers-reduced-motion)").matches, j;
+    function R(E, V, Q) {
       for (var Y = O(E, "particleCount", W), re = O(E, "angle", Number), ue = O(E, "spread", Number), X = O(E, "startVelocity", Number), Bt = O(E, "decay", Number), Zt = O(E, "gravity", Number), Ft = O(E, "drift", Number), at = O(E, "colors", De), zt = O(E, "ticks", Number), rt = O(E, "shapes"), Vt = O(E, "scalar"), Ht = !!O(E, "flat"), st = Mt(E), it = Y, Ne = [], Ut = c.width * st.x, Wt = c.height * st.y; it--; )
         Ne.push(
           Ot({
@@ -3530,7 +3530,7 @@ var Xe = {};
     }
     function F(E) {
       var V = C || O(E, "disableForReducedMotion", Boolean), Q = O(E, "zIndex", Number);
-      if (V && R)
+      if (V && P)
         return d(function(X) {
           X();
         });
@@ -3561,7 +3561,7 @@ var Xe = {};
       function ue() {
         j = null, _ && (S = !1, e.removeEventListener("resize", re)), y && c && (document.body.contains(c) && document.body.removeChild(c), c = null, D = !1);
       }
-      return _ && !S && (S = !0, e.addEventListener("resize", re, !1)), b ? b.fire(E, Y, ue) : P(E, Y, ue);
+      return _ && !S && (S = !0, e.addEventListener("resize", re, !1)), b ? b.fire(E, Y, ue) : R(E, Y, ue);
     }
     return F.reset = function() {
       b && b.reset(), j && j.reset();
@@ -3571,7 +3571,7 @@ var Xe = {};
   function tt() {
     return je || (je = et(null, { useWorker: !0, resize: !0 })), je;
   }
-  function Rt(c, n, y, _, S, C, A) {
+  function Pt(c, n, y, _, S, C, A) {
     var b = new Path2D(c), L = new Path2D();
     L.addPath(b, new DOMMatrix(n));
     var D = new Path2D();
@@ -3584,25 +3584,25 @@ var Xe = {};
       _
     ])), D;
   }
-  function Pt(c) {
+  function Rt(c) {
     if (!o)
       throw new Error("path confetti are not supported in this browser");
     var n, y;
     typeof c == "string" ? n = c : (n = c.path, y = c.matrix);
     var _ = new Path2D(n), S = document.createElement("canvas"), C = S.getContext("2d");
     if (!y) {
-      for (var A = 1e3, b = A, L = A, D = 0, R = 0, j, P, F = 0; F < A; F += 2)
+      for (var A = 1e3, b = A, L = A, D = 0, P = 0, j, R, F = 0; F < A; F += 2)
         for (var E = 0; E < A; E += 2)
-          C.isPointInPath(_, F, E, "nonzero") && (b = Math.min(b, F), L = Math.min(L, E), D = Math.max(D, F), R = Math.max(R, E));
-      j = D - b, P = R - L;
-      var V = 10, Q = Math.min(V / j, V / P);
+          C.isPointInPath(_, F, E, "nonzero") && (b = Math.min(b, F), L = Math.min(L, E), D = Math.max(D, F), P = Math.max(P, E));
+      j = D - b, R = P - L;
+      var V = 10, Q = Math.min(V / j, V / R);
       y = [
         Q,
         0,
         0,
         Q,
         -Math.round(j / 2 + b) * Q,
-        -Math.round(P / 2 + L) * Q
+        -Math.round(R / 2 + L) * Q
       ];
     }
     return {
@@ -3616,21 +3616,21 @@ var Xe = {};
     typeof c == "string" ? n = c : (n = c.text, y = "scalar" in c ? c.scalar : y, S = "fontFamily" in c ? c.fontFamily : S, _ = "color" in c ? c.color : _);
     var C = 10 * y, A = "" + C + "px " + S, b = new OffscreenCanvas(C, C), L = b.getContext("2d");
     L.font = A;
-    var D = L.measureText(n), R = Math.ceil(D.actualBoundingBoxRight + D.actualBoundingBoxLeft), j = Math.ceil(D.actualBoundingBoxAscent + D.actualBoundingBoxDescent), P = 2, F = D.actualBoundingBoxLeft + P, E = D.actualBoundingBoxAscent + P;
-    R += P + P, j += P + P, b = new OffscreenCanvas(R, j), L = b.getContext("2d"), L.font = A, L.fillStyle = _, L.fillText(n, F, E);
+    var D = L.measureText(n), P = Math.ceil(D.actualBoundingBoxRight + D.actualBoundingBoxLeft), j = Math.ceil(D.actualBoundingBoxAscent + D.actualBoundingBoxDescent), R = 2, F = D.actualBoundingBoxLeft + R, E = D.actualBoundingBoxAscent + R;
+    P += R + R, j += R + R, b = new OffscreenCanvas(P, j), L = b.getContext("2d"), L.font = A, L.fillStyle = _, L.fillText(n, F, E);
     var V = 1 / y;
     return {
       type: "bitmap",
       // TODO these probably need to be transfered for workers
       bitmap: b.transferToImageBitmap(),
-      matrix: [V, 0, 0, V, -R * V / 2, -j * V / 2]
+      matrix: [V, 0, 0, V, -P * V / 2, -j * V / 2]
     };
   }
   t.exports = function() {
     return tt().apply(this, arguments);
   }, t.exports.reset = function() {
     tt().reset();
-  }, t.exports.create = et, t.exports.shapeFromPath = Pt, t.exports.shapeFromText = $t;
+  }, t.exports.create = et, t.exports.shapeFromPath = Rt, t.exports.shapeFromText = $t;
 })(/* @__PURE__ */ (function() {
   return typeof window < "u" ? window : typeof self < "u" ? self : this || {};
 })(), Xe, !1);
@@ -4274,7 +4274,7 @@ class ja {
     if (t.innerHTML = "", e.length === 0) {
       t.innerHTML = `
         <div class="text-center py-8 text-textmuted text-xs">
-          <i class="ph ph-magnifying-glass text-3xl mb-2 block"></i>
+          <i class="ph ph-magnifying-glass text-3xl mb-2 block text-textmuted/60"></i>
           Aucun Nom d'Allah ne correspond à votre recherche.
         </div>
       `;
@@ -4282,28 +4282,30 @@ class ja {
     }
     for (const a of e) {
       const r = document.createElement("div");
-      r.className = "p-3.5 rounded-2xl bg-surface/40 border border-bordercolor/60 flex items-center justify-between gap-3 hover:border-amber-500/30 transition-all", r.innerHTML = `
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/20 shrink-0">
+      r.className = "name-card p-3.5 rounded-2xl bg-surface/50 border border-bordercolor/70 hover:border-amber-500/50 hover:bg-surface/80 flex items-center justify-between gap-3 tap-effect transition-all cursor-pointer group shadow-sm", r.setAttribute("data-name-num", a.n.toString()), r.innerHTML = `
+        <!-- Partie Gauche : Numéro, Translittération & Signification -->
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 group-hover:bg-amber-500/20 group-hover:border-amber-500/40 flex items-center justify-center font-bold text-xs border border-amber-500/20 shrink-0 transition-colors">
             ${a.n}
           </div>
-          <div>
-            <div class="flex items-baseline gap-2">
-              <span class="font-bold text-sm text-textmain">${ee(a.p)}</span>
-              <span class="text-xs text-textmuted">· ${ee(a.f)}</span>
+          <div class="min-w-0">
+            <div class="flex items-baseline gap-1.5 flex-wrap">
+              <span class="font-bold text-sm text-textmain group-hover:text-amber-400 transition-colors">${ee(a.p)}</span>
+              <span class="text-xs text-textmuted font-medium">· ${ee(a.f)}</span>
             </div>
-            <p class="text-[11px] text-textmuted mt-0.5 leading-relaxed">${ee(a.m)}</p>
+            <p class="text-[11px] text-textmuted mt-0.5 leading-relaxed line-clamp-2">${ee(a.m)}</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-2 shrink-0">
-          <span class="font-arabic text-xl text-amber-400 font-bold px-1">${ee(a.a)}</span>
-          <button class="btn-meditate-name px-2.5 py-1.5 rounded-xl bg-amber-500/15 text-amber-400 hover:bg-amber-500/25 border border-amber-500/30 text-xs font-semibold flex items-center gap-1 tap-effect" title="Méditer et répéter en Tasbih">
-            <i class="ph-fill ph-hands-praying text-xs"></i>
-            <span>Tasbih</span>
-          </button>
+        <!-- Partie Droite : Calligraphie Arabe Pure & Aérée (Sans bouton répétitif) -->
+        <div class="text-right shrink-0 pl-2">
+          <span class="font-arabic text-2xl sm:text-3xl text-amber-400 font-bold leading-none select-none block drop-shadow-sm" dir="rtl">${ee(a.a)}</span>
+          <span class="text-[10px] text-textmuted/70 group-hover:text-amber-400/80 transition-colors flex items-center justify-end gap-0.5 mt-1">
+            <span>Méditer</span>
+            <i class="ph ph-caret-right text-[10px]"></i>
+          </span>
         </div>
-      `, r.querySelector(".btn-meditate-name")?.addEventListener("click", () => {
+      `, r.addEventListener("click", () => {
         this.meditateName(a);
       }), t.appendChild(r);
     }
@@ -4335,7 +4337,7 @@ const Na = Qe({
     errorMap: () => ({ message: "Catégorie sélectionnée invalide." })
   })
 });
-class Ra {
+class Pa {
   store;
   editingId = null;
   constructor(e) {
@@ -4390,7 +4392,7 @@ class Ra {
     this.store.addOrUpdateCustomDhikr(T), this.close(), U.show(this.editingId ? "Invocation mise à jour !" : "Nouvelle invocation ajoutée !");
   }
 }
-class Pa {
+class Ra {
   store;
   constructor(e) {
     this.store = e;
@@ -4512,8 +4514,8 @@ function St() {
       e.open(T);
     });
     t.init();
-    const a = new Ra(s);
-    a.init(), new Pa(s).init(), new $a(s).init(), new La(s).init(), new Ta(() => {
+    const a = new Pa(s);
+    a.init(), new Ra(s).init(), new $a(s).init(), new La(s).init(), new Ta(() => {
       t.open();
     }).init();
     const u = new Ea(s);
